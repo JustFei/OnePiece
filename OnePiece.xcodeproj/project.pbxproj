@@ -18,6 +18,8 @@
 		9C7029141DD31A6100E37939 /* Shunpu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290C1DD31A2300E37939 /* Shunpu.ttf */; };
 		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
 		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
+		9CFE00981DDB0C7A00D38904 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE00971DDB0C7A00D38904 /* MenuViewController.m */; };
+		9CFE009B1DDB0C9300D38904 /* MenuContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE009A1DDB0C9300D38904 /* MenuContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,10 @@
 		9C70290C1DD31A2300E37939 /* Shunpu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Shunpu.ttf; path = Font/Shunpu.ttf; sourceTree = "<group>"; };
 		9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BernardMTCondensed.ttf; path = Font/BernardMTCondensed.ttf; sourceTree = "<group>"; };
 		9CFE00931DDADC9B00D38904 /* Hakuu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Hakuu.ttf; path = Font/Hakuu.ttf; sourceTree = "<group>"; };
+		9CFE00961DDB0C7A00D38904 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = Menu/MenuViewController.h; sourceTree = "<group>"; };
+		9CFE00971DDB0C7A00D38904 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = Menu/MenuViewController.m; sourceTree = "<group>"; };
+		9CFE00991DDB0C9300D38904 /* MenuContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuContentView.h; path = Menu/MenuContentView.h; sourceTree = "<group>"; };
+		9CFE009A1DDB0C9300D38904 /* MenuContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuContentView.m; path = Menu/MenuContentView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,7 @@
 			children = (
 				9C7029071DD3136900E37939 /* Inherit(继承类) */,
 				9C7029061DD312A400E37939 /* Category */,
+				9CFE00951DDB0C2800D38904 /* Menu */,
 				9C2295FB1DD2BC7300B3ACA4 /* OPMain */,
 				9C2295D21DD2B3BC00B3ACA4 /* Supporting Files */,
 				9C22960A1DD2F9D200B3ACA4 /* Font */,
@@ -139,6 +146,17 @@
 				9C7029091DD313CB00E37939 /* GradientLabel.m */,
 			);
 			name = "Inherit(继承类)";
+			sourceTree = "<group>";
+		};
+		9CFE00951DDB0C2800D38904 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				9CFE00961DDB0C7A00D38904 /* MenuViewController.h */,
+				9CFE00971DDB0C7A00D38904 /* MenuViewController.m */,
+				9CFE00991DDB0C9300D38904 /* MenuContentView.h */,
+				9CFE009A1DDB0C9300D38904 /* MenuContentView.m */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,8 +235,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */,
+				9CFE00981DDB0C7A00D38904 /* MenuViewController.m in Sources */,
 				9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */,
 				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
+				9CFE009B1DDB0C9300D38904 /* MenuContentView.m in Sources */,
 				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
 				9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */,
 			);
@@ -278,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -319,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

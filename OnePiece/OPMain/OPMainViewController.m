@@ -8,10 +8,11 @@
 
 #import "OPMainViewController.h"
 #import "OPMainContentView.h"
+#import "MenuViewController.h"
 
 @interface OPMainViewController ()
 
-@property (nonatomic ,weak) OPMainContentView *contentView;
+@property (nonatomic ,strong) OPMainContentView *contentView;
 
 @end
 
@@ -22,6 +23,18 @@
     [super viewDidLoad];
     
     [self createUI];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.navigationController.navigationBar.barTintColor = kClearColor;
+    [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     
 }
 
@@ -48,16 +61,39 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    [self.navigationController.navigationBar setTintColor:kBlackColor];
 }
 
 #pragma makr - Action
 - (void)pushMenuList
 {
-    
+    MenuViewController *vc = [[MenuViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)pushHistoryView
+{
+    
+}
+
+- (void)musicAction:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
+
+- (void)cameraAction:(UIButton *)sender
+{
+    
+}
+
+- (void)syncAction:(UIButton *)sender
+{
+    
+}
+
+- (void)PKAction:(UIButton *)sender
 {
     
 }
@@ -66,9 +102,14 @@
 - (OPMainContentView *)contentView
 {
     if (!_contentView) {
-        OPMainContentView *view = [[OPMainContentView alloc] initWithFrame:self.view.bounds];
-        [self.view addSubview:view];
-        _contentView = view;
+        _contentView = [[OPMainContentView alloc] initWithFrame:self.view.bounds];
+        _contentView.backGroundImageView.backgroundColor = [UIColor whiteColor];
+        [_contentView.musicButton addTarget:self action:@selector(musicAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_contentView.photoButton addTarget:self action:@selector(cameraAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_contentView.syncButton addTarget:self action:@selector(syncAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_contentView.PKButton addTarget:self action:@selector(PKAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:_contentView];
     }
     
     return _contentView;

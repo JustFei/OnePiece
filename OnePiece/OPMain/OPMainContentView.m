@@ -7,38 +7,21 @@
 //
 
 #import "OPMainContentView.h"
-#import "GradientLabel.h"
-#import "AppDelegate.h"
-
-CG_INLINE CGRect
-TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
-{
-    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    CGRect rect;
-    rect.origin.x = x * myDelegate.autoSizeScaleX;
-    rect.origin.y = y * myDelegate.autoSizeScaleY;
-    rect.size.width = width * myDelegate.autoSizeScaleX;
-    rect.size.height = height * myDelegate.autoSizeScaleY;
-    return rect;
-}
+//#import "AppDelegate.h"
+//
+//CG_INLINE CGRect
+//XXF_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
+//{
+//    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    CGRect rect;
+//    rect.origin.x = x * myDelegate.autoSizeScaleX;
+//    rect.origin.y = y * myDelegate.autoSizeScaleY;
+//    rect.size.width = width * myDelegate.autoSizeScaleX;
+//    rect.size.height = height * myDelegate.autoSizeScaleY;
+//    return rect;
+//}
 
 @interface OPMainContentView ()
-
-@property (nonatomic ,weak) UIImageView *backGroundImageView;
-
-@property (nonatomic ,weak) GradientLabel *moneyLabel;
-@property (nonatomic ,weak) GradientLabel *stepLabel;
-@property (nonatomic ,weak) GradientLabel *sleepLabel;
-@property (nonatomic ,weak) GradientLabel *aggressivenessLbael;
-@property (nonatomic ,weak) UILabel *failCountLabel;
-@property (nonatomic ,weak) UILabel *successCountLabel;
-@property (nonatomic ,weak) UILabel *drawCountLabel;
-@property (nonatomic ,weak) UILabel *PKCountLabel;
-
-@property (nonatomic ,weak) UIButton *musicButton;
-@property (nonatomic ,weak) UIButton *photoButton;
-@property (nonatomic ,weak) UIButton *syncButton;
-@property (nonatomic ,weak) UIButton *PKButton;
 
 @end
 
@@ -58,16 +41,16 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
     self.frame = [UIScreen mainScreen].bounds;
 //    [self layoutIfNeeded];
     self.backGroundImageView.frame = kViewFrame;
-    self.moneyLabel.frame = TS_CGRectMake(kViewCenter.x - 100, 81.5, 200, 35);
+    self.moneyLabel.frame = XXF_CGRectMake(kViewCenter.x - 100, 81.5, 200, 35);
     self.moneyLabel.backgroundColor = kClearColor;
-    self.stepLabel.frame = TS_CGRectMake(10, 75, 100, 22);
-    self.sleepLabel.frame = TS_CGRectMake(kViewWidth - 116, 75, 100, 22);
+    self.stepLabel.frame = XXF_CGRectMake(10, 75, 100, 22);
+    self.sleepLabel.frame = XXF_CGRectMake(kViewWidth - 116, 75, 100, 22);
     
-    UIImageView *stepImageView = [[UIImageView alloc] initWithFrame:TS_CGRectMake(16, self.stepLabel.frame.origin.y + 23.5, 25, 34)];
+    UIImageView *stepImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(16, self.stepLabel.frame.origin.y + 23.5, 25, 34)];
     stepImageView.image = [UIImage imageNamed:@"Step"];
     [self addSubview:stepImageView];
     
-    UIImageView *sleepImageView = [[UIImageView alloc] initWithFrame:TS_CGRectMake(kViewWidth - 47, self.sleepLabel.frame.origin.y + 26.5, 28, 28)];
+    UIImageView *sleepImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(kViewWidth - 47, self.sleepLabel.frame.origin.y + 26.5, 28, 28)];
     sleepImageView.image = [UIImage imageNamed:@"Sleep"];
     [self addSubview:sleepImageView];
     
@@ -79,11 +62,11 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
     
     self.PKButton.frame = CGRectMake(kViewWidth - 117 * kViewHeight / 667, self.syncButton.frame.origin.y, self.syncButton.frame.size.width, self.syncButton.frame.size.height);
     
-    UIImageView *stepEmptySlot = [[UIImageView alloc] initWithFrame:TS_CGRectMake(10.5, stepImageView.frame.origin.y + 35, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
+    UIImageView *stepEmptySlot = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(10.5, stepImageView.frame.origin.y + 35, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
     stepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:stepEmptySlot];
     
-    UIImageView *sleepEmptySlot = [[UIImageView alloc] initWithFrame:TS_CGRectMake(kViewWidth - 50.5, stepEmptySlot.frame.origin.y, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
+    UIImageView *sleepEmptySlot = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(kViewWidth - 50.5, stepEmptySlot.frame.origin.y, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
     sleepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:sleepEmptySlot];
     
@@ -122,27 +105,6 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
     self.drawCountLabel.frame = CGRectMake(drawLabel.center.x - 22.5, failCountLabelY, failCountLabelW, failCountLbaelH);
     
     self.PKCountLabel.frame = CGRectMake(kViewCenter.x - 55 * kViewHeight / 667, failLabelY + failLabelH + 10, 110 * kViewHeight / 667, 20 * kViewHeight / 667);
-}
-
-#pragma mark - Action
-- (void)musicSwitch:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-}
-
-- (void)photoSwitch:(UIButton *)sender
-{
-    
-}
-
-- (void)syncAction:(UIButton *)sender
-{
-    
-}
-
-- (void)PKAction:(UIButton *)sender
-{
-    
 }
 
 #pragma mark - 懒加载
@@ -238,7 +200,6 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
         [button setImage:[UIImage imageNamed:@"Music"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"Music_select"] forState:UIControlStateSelected];
         [button setTitle:@"" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(musicSwitch:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:button];
         _musicButton = button;
     }
@@ -254,7 +215,6 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
         [button setImage:[UIImage imageNamed:@"Camera"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"Camera_select"] forState:UIControlStateSelected];
         [button setTitle:@"" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(photoSwitch:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         _photoButton = button;
     }
@@ -269,7 +229,6 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
         [button setImage:[UIImage imageNamed:@"Sync"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"Sync_select"] forState:UIControlStateSelected];
         [button setTitle:@"" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(syncAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         _syncButton = button;
     }
@@ -284,7 +243,6 @@ TS_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
         [button setImage:[UIImage imageNamed:@"PK"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"PK_select"] forState:UIControlStateSelected];
         [button setTitle:@"" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(PKAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         _PKButton = button;
     }
