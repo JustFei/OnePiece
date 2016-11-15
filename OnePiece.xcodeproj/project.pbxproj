@@ -7,25 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C2295D41DD2B3BC00B3ACA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295D31DD2B3BC00B3ACA4 /* main.m */; };
-		9C2295D71DD2B3BC00B3ACA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295D61DD2B3BC00B3ACA4 /* AppDelegate.m */; };
-		9C2295DA1DD2B3BC00B3ACA4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295D91DD2B3BC00B3ACA4 /* ViewController.m */; };
-		9C2295DD1DD2B3BC00B3ACA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295DB1DD2B3BC00B3ACA4 /* Main.storyboard */; };
 		9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */; };
 		9C2295E21DD2B3BC00B3ACA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */; };
+		9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */; };
+		9C2295F91DD2BC5900B3ACA4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295F61DD2BC5900B3ACA4 /* Info.plist */; };
+		9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F71DD2BC5900B3ACA4 /* main.m */; };
+		9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */; };
+		9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */; };
+		9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7029091DD313CB00E37939 /* GradientLabel.m */; };
+		9C7029141DD31A6100E37939 /* Shunpu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290C1DD31A2300E37939 /* Shunpu.ttf */; };
+		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
+		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9C2295CF1DD2B3BC00B3ACA4 /* OnePiece.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePiece.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C2295D31DD2B3BC00B3ACA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9C2295D51DD2B3BC00B3ACA4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		9C2295D61DD2B3BC00B3ACA4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9C2295D81DD2B3BC00B3ACA4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9C2295D91DD2B3BC00B3ACA4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9C2295DC1DD2B3BC00B3ACA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C2295E11DD2B3BC00B3ACA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9C2295E31DD2B3BC00B3ACA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SupportingFiles/AppDelegate.h; sourceTree = "<group>"; };
+		9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SupportingFiles/AppDelegate.m; sourceTree = "<group>"; };
+		9C2295F61DD2BC5900B3ACA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
+		9C2295F71DD2BC5900B3ACA4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SupportingFiles/main.m; sourceTree = "<group>"; };
+		9C2295FC1DD2BCB200B3ACA4 /* OPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPMainViewController.h; path = OPMain/OPMainViewController.h; sourceTree = "<group>"; };
+		9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPMainViewController.m; path = OPMain/OPMainViewController.m; sourceTree = "<group>"; };
+		9C2296021DD2C46C00B3ACA4 /* OPMainContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPMainContentView.h; path = OPMain/OPMainContentView.h; sourceTree = "<group>"; };
+		9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPMainContentView.m; path = OPMain/OPMainContentView.m; sourceTree = "<group>"; };
+		9C2296051DD2C72600B3ACA4 /* OPHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OPHeader.pch; path = SupportingFiles/OPHeader.pch; sourceTree = "<group>"; };
+		9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorConstants.h; path = SupportingFiles/Constants/ColorConstants.h; sourceTree = "<group>"; };
+		9C7029081DD313CB00E37939 /* GradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientLabel.h; path = "Inherit(继承类)/GradientLabel.h"; sourceTree = "<group>"; };
+		9C7029091DD313CB00E37939 /* GradientLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientLabel.m; path = "Inherit(继承类)/GradientLabel.m"; sourceTree = "<group>"; };
+		9C70290C1DD31A2300E37939 /* Shunpu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Shunpu.ttf; path = Font/Shunpu.ttf; sourceTree = "<group>"; };
+		9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BernardMTCondensed.ttf; path = Font/BernardMTCondensed.ttf; sourceTree = "<group>"; };
+		9CFE00931DDADC9B00D38904 /* Hakuu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Hakuu.ttf; path = Font/Hakuu.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,15 +71,11 @@
 		9C2295D11DD2B3BC00B3ACA4 /* OnePiece */ = {
 			isa = PBXGroup;
 			children = (
-				9C2295D51DD2B3BC00B3ACA4 /* AppDelegate.h */,
-				9C2295D61DD2B3BC00B3ACA4 /* AppDelegate.m */,
-				9C2295D81DD2B3BC00B3ACA4 /* ViewController.h */,
-				9C2295D91DD2B3BC00B3ACA4 /* ViewController.m */,
-				9C2295DB1DD2B3BC00B3ACA4 /* Main.storyboard */,
-				9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */,
-				9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */,
-				9C2295E31DD2B3BC00B3ACA4 /* Info.plist */,
+				9C7029071DD3136900E37939 /* Inherit(继承类) */,
+				9C7029061DD312A400E37939 /* Category */,
+				9C2295FB1DD2BC7300B3ACA4 /* OPMain */,
 				9C2295D21DD2B3BC00B3ACA4 /* Supporting Files */,
+				9C22960A1DD2F9D200B3ACA4 /* Font */,
 			);
 			path = OnePiece;
 			sourceTree = "<group>";
@@ -74,9 +83,62 @@
 		9C2295D21DD2B3BC00B3ACA4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9C2295D31DD2B3BC00B3ACA4 /* main.m */,
+				9C22960E1DD3014E00B3ACA4 /* Constants */,
+				9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */,
+				9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */,
+				9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */,
+				9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */,
+				9C2295F61DD2BC5900B3ACA4 /* Info.plist */,
+				9C2295F71DD2BC5900B3ACA4 /* main.m */,
+				9C2296051DD2C72600B3ACA4 /* OPHeader.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C2295FB1DD2BC7300B3ACA4 /* OPMain */ = {
+			isa = PBXGroup;
+			children = (
+				9C2295FC1DD2BCB200B3ACA4 /* OPMainViewController.h */,
+				9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */,
+				9C2296021DD2C46C00B3ACA4 /* OPMainContentView.h */,
+				9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */,
+			);
+			name = OPMain;
+			sourceTree = "<group>";
+		};
+		9C22960A1DD2F9D200B3ACA4 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				9CFE00931DDADC9B00D38904 /* Hakuu.ttf */,
+				9C70290C1DD31A2300E37939 /* Shunpu.ttf */,
+				9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		9C22960E1DD3014E00B3ACA4 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		9C7029061DD312A400E37939 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Category;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		9C7029071DD3136900E37939 /* Inherit(继承类) */ = {
+			isa = PBXGroup;
+			children = (
+				9C7029081DD313CB00E37939 /* GradientLabel.h */,
+				9C7029091DD313CB00E37939 /* GradientLabel.m */,
+			);
+			name = "Inherit(继承类)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +200,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C7029141DD31A6100E37939 /* Shunpu.ttf in Resources */,
+				9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */,
 				9C2295E21DD2B3BC00B3ACA4 /* LaunchScreen.storyboard in Resources */,
+				9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */,
 				9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */,
-				9C2295DD1DD2B3BC00B3ACA4 /* Main.storyboard in Resources */,
+				9C2295F91DD2BC5900B3ACA4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,23 +216,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C2295DA1DD2B3BC00B3ACA4 /* ViewController.m in Sources */,
-				9C2295D71DD2B3BC00B3ACA4 /* AppDelegate.m in Sources */,
-				9C2295D41DD2B3BC00B3ACA4 /* main.m in Sources */,
+				9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */,
+				9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */,
+				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
+				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
+				9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9C2295DB1DD2B3BC00B3ACA4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9C2295DC1DD2B3BC00B3ACA4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -272,7 +331,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
-				INFOPLIST_FILE = OnePiece/Info.plist;
+				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
+				INFOPLIST_FILE = OnePiece/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -284,7 +344,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
-				INFOPLIST_FILE = OnePiece/Info.plist;
+				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
+				INFOPLIST_FILE = OnePiece/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -310,6 +371,7 @@
 				9C2295E81DD2B3BC00B3ACA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

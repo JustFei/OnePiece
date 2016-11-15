@@ -1,0 +1,29 @@
+//
+//  OPHeader.pch
+//  OnePiece
+//
+//  Created by JustFei on 2016/11/9.
+//  Copyright © 2016年 manridy. All rights reserved.
+//
+
+#import "ColorConstants.h"
+
+#ifndef OPHeader_pch
+#define OPHeader_pch
+
+#define kViewFrame self.frame
+#define kViewWidth self.frame.size.width
+#define kViewHeight self.frame.size.height
+
+#define kViewCenter self.center
+
+#define kControllerFrame self.view.frame
+#define kControllerWidth self.view.frame.size.width
+#define kControllerHeight self.view.frame.size.height
+
+#define kControllerCenter self.view.center
+
+
+#endif /* OPHeader_pch */
+
+
