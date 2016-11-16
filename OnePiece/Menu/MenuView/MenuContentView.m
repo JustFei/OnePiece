@@ -7,6 +7,7 @@
 //
 
 #import "MenuContentView.h"
+#import "UserViewController.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
@@ -48,7 +49,7 @@
     
     self.tableView.frame = XXF_CGRectMake(0, cutView.frame.origin.y + 21, kViewWidth, 159);
     
-    self.logOutButton.frame = XXF_CGRectMake(kViewCenter.x - 50, self.tableView.frame.origin.y + 259, 100, 40);
+    self.logOutButton.frame = XXF_CGRectMake(kViewCenter.x - 50, self.tableView.frame.origin.y + 259 * kViewWidth / 375, 100, 40);
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
@@ -82,6 +83,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 53;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            UserViewController *vc = [[UserViewController alloc] init];
+            [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - 懒加载
@@ -142,6 +159,19 @@
     }
     
     return _logOutButton;
+}
+
+#pragma mark - 获取当前View的控制器的方法
+- (UIViewController *)findViewController:(UIView *)sourceView
+{
+    id target=sourceView;
+    while (target) {
+        target = ((UIResponder *)target).nextResponder;
+        if ([target isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+    return target;
 }
 
 @end

@@ -20,7 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
     [self createUI];
 }
 
@@ -33,10 +39,8 @@
 {
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:1];
     self.navigationController.navigationBar.barTintColor = kUIColorFromHEX(0xfabe00, 1);
-    
-    self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
-    
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark - 懒加载

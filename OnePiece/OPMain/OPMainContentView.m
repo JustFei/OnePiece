@@ -41,7 +41,7 @@
     self.frame = [UIScreen mainScreen].bounds;
 //    [self layoutIfNeeded];
     self.backGroundImageView.frame = kViewFrame;
-    self.moneyLabel.frame = XXF_CGRectMake(kViewCenter.x - 100, 81.5, 200, 35);
+    self.moneyLabel.frame = XXF_CGRectMake(kViewCenter.x - 100, 81.5 * kViewWidth / 375, 200, 35 * kViewWidth / 375);
     self.moneyLabel.backgroundColor = kClearColor;
     self.stepLabel.frame = XXF_CGRectMake(10, 75, 100, 22);
     self.sleepLabel.frame = XXF_CGRectMake(kViewWidth - 116, 75, 100, 22);
@@ -125,7 +125,7 @@
     if (!_moneyLabel) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
         label.text = @"$16,000,000~";
-        label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30];
+        label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30 * kViewWidth / 375];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = kUIColorFromHEX(0x884227,1);
         label.outlineColor = kUIColorFromHEX(0xc68107, 1);

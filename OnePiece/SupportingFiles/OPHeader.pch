@@ -37,7 +37,6 @@ XXF_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 
 #define kControllerCenter self.view.center
 
-
 #endif /* OPHeader_pch */
 
 
