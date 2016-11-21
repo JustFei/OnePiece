@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C0EC06B1DE2CC8E001A11D9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C0EC06A1DE2CC8E001A11D9 /* Info.plist */; };
 		9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */; };
 		9C2295E21DD2B3BC00B3ACA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */; };
 		9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */; };
-		9C2295F91DD2BC5900B3ACA4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295F61DD2BC5900B3ACA4 /* Info.plist */; };
 		9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F71DD2BC5900B3ACA4 /* main.m */; };
 		9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */; };
 		9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */; };
+		9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */; };
+		9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */; };
+		9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */; };
+		9C4663DA1DE2DEDD00DBCC6B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D91DE2DEDD00DBCC6B /* SettingViewController.m */; };
+		9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663DC1DE2DF7A00DBCC6B /* SettingContentView.m */; };
+		9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663DF1DE2E37900DBCC6B /* SettingTableViewCell.m */; };
+		9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C4663E01DE2E37900DBCC6B /* SettingTableViewCell.xib */; };
+		9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663E51DE2FBBE00DBCC6B /* HeadImageViewController.m */; };
+		9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663E91DE3111F00DBCC6B /* ShareViewController.m */; };
 		9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7029091DD313CB00E37939 /* GradientLabel.m */; };
 		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
 		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
@@ -33,12 +42,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C0EC06A1DE2CC8E001A11D9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C2295CF1DD2B3BC00B3ACA4 /* OnePiece.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePiece.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C2295E11DD2B3BC00B3ACA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SupportingFiles/AppDelegate.h; sourceTree = "<group>"; };
 		9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SupportingFiles/AppDelegate.m; sourceTree = "<group>"; };
-		9C2295F61DD2BC5900B3ACA4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
 		9C2295F71DD2BC5900B3ACA4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SupportingFiles/main.m; sourceTree = "<group>"; };
 		9C2295FC1DD2BCB200B3ACA4 /* OPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPMainViewController.h; path = OPMain/OPMainViewController.h; sourceTree = "<group>"; };
 		9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPMainViewController.m; path = OPMain/OPMainViewController.m; sourceTree = "<group>"; };
@@ -46,6 +55,29 @@
 		9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPMainContentView.m; path = OPMain/OPMainContentView.m; sourceTree = "<group>"; };
 		9C2296051DD2C72600B3ACA4 /* OPHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OPHeader.pch; path = SupportingFiles/OPHeader.pch; sourceTree = "<group>"; };
 		9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorConstants.h; path = SupportingFiles/Constants/ColorConstants.h; sourceTree = "<group>"; };
+		9C4663CE1DE2CF6000DBCC6B /* AboutContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutContentView.h; path = Menu/About/AboutView/AboutContentView.h; sourceTree = "<group>"; };
+		9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutContentView.m; path = Menu/About/AboutView/AboutContentView.m; sourceTree = "<group>"; };
+		9C4663D01DE2CF6000DBCC6B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Menu/About/AboutView/AboutViewController.h; sourceTree = "<group>"; };
+		9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Menu/About/AboutView/AboutViewController.m; sourceTree = "<group>"; };
+		9C4663D51DE2CFB700DBCC6B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBackViewController.h; path = Menu/About/FeedBack/FeedBackViewController.h; sourceTree = "<group>"; };
+		9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBackViewController.m; path = Menu/About/FeedBack/FeedBackViewController.m; sourceTree = "<group>"; };
+		9C4663D81DE2DEDD00DBCC6B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Menu/Setting/SettingViewController.h; sourceTree = "<group>"; };
+		9C4663D91DE2DEDD00DBCC6B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Menu/Setting/SettingViewController.m; sourceTree = "<group>"; };
+		9C4663DB1DE2DF7A00DBCC6B /* SettingContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingContentView.h; path = Menu/Setting/SettingContentView.h; sourceTree = "<group>"; };
+		9C4663DC1DE2DF7A00DBCC6B /* SettingContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingContentView.m; path = Menu/Setting/SettingContentView.m; sourceTree = "<group>"; };
+		9C4663DE1DE2E37900DBCC6B /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingTableViewCell.h; path = Menu/Setting/SettingTableViewCell.h; sourceTree = "<group>"; };
+		9C4663DF1DE2E37900DBCC6B /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingTableViewCell.m; path = Menu/Setting/SettingTableViewCell.m; sourceTree = "<group>"; };
+		9C4663E01DE2E37900DBCC6B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingTableViewCell.xib; path = Menu/Setting/SettingTableViewCell.xib; sourceTree = "<group>"; };
+		9C4663E41DE2FBBE00DBCC6B /* HeadImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeadImageViewController.h; path = Menu/User/HeadView/HeadImageViewController.h; sourceTree = "<group>"; };
+		9C4663E51DE2FBBE00DBCC6B /* HeadImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeadImageViewController.m; path = Menu/User/HeadView/HeadImageViewController.m; sourceTree = "<group>"; };
+		9C4663E81DE3111F00DBCC6B /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareViewController.h; path = Share/ShareViewController.h; sourceTree = "<group>"; };
+		9C4663E91DE3111F00DBCC6B /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareViewController.m; path = Share/ShareViewController.m; sourceTree = "<group>"; };
+		9C46646B1DE319B500DBCC6B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9C46646D1DE319F100DBCC6B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9C46646F1DE319F900DBCC6B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9C4664711DE31A0F00DBCC6B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9C4664731DE31A1800DBCC6B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		9C4664751DE31A4A00DBCC6B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9C7029081DD313CB00E37939 /* GradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientLabel.h; path = "Inherit(继承类)/GradientLabel.h"; sourceTree = "<group>"; };
 		9C7029091DD313CB00E37939 /* GradientLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientLabel.m; path = "Inherit(继承类)/GradientLabel.m"; sourceTree = "<group>"; };
 		9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BernardMTCondensed.ttf; path = Font/BernardMTCondensed.ttf; sourceTree = "<group>"; };
@@ -86,11 +118,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C0EC0691DE2CBCC001A11D9 /* AboutView */ = {
+			isa = PBXGroup;
+			children = (
+				9C4663CE1DE2CF6000DBCC6B /* AboutContentView.h */,
+				9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */,
+				9C4663D01DE2CF6000DBCC6B /* AboutViewController.h */,
+				9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */,
+			);
+			name = AboutView;
+			sourceTree = "<group>";
+		};
 		9C2295C61DD2B3BC00B3ACA4 = {
 			isa = PBXGroup;
 			children = (
 				9C2295D11DD2B3BC00B3ACA4 /* OnePiece */,
 				9C2295D01DD2B3BC00B3ACA4 /* Products */,
+				9C46646A1DE319B500DBCC6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +153,7 @@
 				9C7029061DD312A400E37939 /* Category */,
 				9CFE00951DDB0C2800D38904 /* Menu */,
 				9C2295FB1DD2BC7300B3ACA4 /* OPMain */,
+				9C4663E71DE310FA00DBCC6B /* Share */,
 				9C2295D21DD2B3BC00B3ACA4 /* Supporting Files */,
 				9C22960A1DD2F9D200B3ACA4 /* Font */,
 			);
@@ -123,7 +168,7 @@
 				9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */,
 				9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */,
 				9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */,
-				9C2295F61DD2BC5900B3ACA4 /* Info.plist */,
+				9C0EC06A1DE2CC8E001A11D9 /* Info.plist */,
 				9C2295F71DD2BC5900B3ACA4 /* main.m */,
 				9C2296051DD2C72600B3ACA4 /* OPHeader.pch */,
 			);
@@ -157,6 +202,46 @@
 				9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */,
 			);
 			name = Constants;
+			sourceTree = "<group>";
+		};
+		9C4663D41DE2CF6600DBCC6B /* FeedBackView */ = {
+			isa = PBXGroup;
+			children = (
+				9C4663D51DE2CFB700DBCC6B /* FeedBackViewController.h */,
+				9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */,
+			);
+			name = FeedBackView;
+			sourceTree = "<group>";
+		};
+		9C4663E31DE2FB8C00DBCC6B /* HeadView */ = {
+			isa = PBXGroup;
+			children = (
+				9C4663E41DE2FBBE00DBCC6B /* HeadImageViewController.h */,
+				9C4663E51DE2FBBE00DBCC6B /* HeadImageViewController.m */,
+			);
+			name = HeadView;
+			sourceTree = "<group>";
+		};
+		9C4663E71DE310FA00DBCC6B /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				9C4663E81DE3111F00DBCC6B /* ShareViewController.h */,
+				9C4663E91DE3111F00DBCC6B /* ShareViewController.m */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
+		9C46646A1DE319B500DBCC6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C4664751DE31A4A00DBCC6B /* ImageIO.framework */,
+				9C4664731DE31A1800DBCC6B /* libz.tbd */,
+				9C4664711DE31A0F00DBCC6B /* libc++.tbd */,
+				9C46646F1DE319F900DBCC6B /* CoreTelephony.framework */,
+				9C46646D1DE319F100DBCC6B /* SystemConfiguration.framework */,
+				9C46646B1DE319B500DBCC6B /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9C7029061DD312A400E37939 /* Category */ = {
@@ -204,6 +289,7 @@
 				9CFE00B11DDC2FAE00D38904 /* UserView */,
 				9CFE00B21DDC2FCC00D38904 /* ChangeUserView */,
 				9CFE00C91DDC4A4B00D38904 /* ChangePwd */,
+				9C4663E31DE2FB8C00DBCC6B /* HeadView */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -211,6 +297,13 @@
 		9CFE00A41DDBEBA400D38904 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				9C4663D81DE2DEDD00DBCC6B /* SettingViewController.h */,
+				9C4663D91DE2DEDD00DBCC6B /* SettingViewController.m */,
+				9C4663DB1DE2DF7A00DBCC6B /* SettingContentView.h */,
+				9C4663DC1DE2DF7A00DBCC6B /* SettingContentView.m */,
+				9C4663DE1DE2E37900DBCC6B /* SettingTableViewCell.h */,
+				9C4663DF1DE2E37900DBCC6B /* SettingTableViewCell.m */,
+				9C4663E01DE2E37900DBCC6B /* SettingTableViewCell.xib */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -218,6 +311,8 @@
 		9CFE00A51DDBEBAD00D38904 /* About */ = {
 			isa = PBXGroup;
 			children = (
+				9C0EC0691DE2CBCC001A11D9 /* AboutView */,
+				9C4663D41DE2CF6600DBCC6B /* FeedBackView */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -320,14 +415,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C0EC06B1DE2CC8E001A11D9 /* Info.plist in Resources */,
 				9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */,
 				9CFE00D11DDC718600D38904 /* Shunpu.ttf in Resources */,
 				9C2295E21DD2B3BC00B3ACA4 /* LaunchScreen.storyboard in Resources */,
 				9CFE00BC1DDC316A00D38904 /* UserTableViewCell.xib in Resources */,
+				9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */,
 				9CFE00C81DDC37C000D38904 /* ChangeUserTableViewCell.xib in Resources */,
 				9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */,
 				9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */,
-				9C2295F91DD2BC5900B3ACA4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,13 +442,21 @@
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
 				9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
+				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
+				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,
+				9C4663DA1DE2DEDD00DBCC6B /* SettingViewController.m in Sources */,
 				9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */,
+				9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */,
 				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
 				9CFE00C71DDC37C000D38904 /* ChangeUserTableViewCell.m in Sources */,
 				9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */,
 				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
+				9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */,
 				9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */,
+				9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */,
+				9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */,
 				9CFE00C01DDC319500D38904 /* ChangeUserViewController.m in Sources */,
+				9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,9 +567,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/UMSocialSDK",
+				);
 				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
-				INFOPLIST_FILE = OnePiece/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/OnePiece/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/WeChat",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -476,9 +597,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/UMSocialSDK",
+				);
 				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
-				INFOPLIST_FILE = OnePiece/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/OnePiece/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/OnePiece/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/OnePiece/Third/UMSocial/SocialLibraries/WeChat",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -7,19 +7,6 @@
 //
 
 #import "OPMainContentView.h"
-//#import "AppDelegate.h"
-//
-//CG_INLINE CGRect
-//XXF_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
-//{
-//    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    CGRect rect;
-//    rect.origin.x = x * myDelegate.autoSizeScaleX;
-//    rect.origin.y = y * myDelegate.autoSizeScaleY;
-//    rect.size.width = width * myDelegate.autoSizeScaleX;
-//    rect.size.height = height * myDelegate.autoSizeScaleY;
-//    return rect;
-//}
 
 @interface OPMainContentView ()
 

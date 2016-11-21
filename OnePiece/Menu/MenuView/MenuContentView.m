@@ -8,6 +8,8 @@
 
 #import "MenuContentView.h"
 #import "UserViewController.h"
+#import "AboutViewController.h"
+#import "SettingViewController.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
@@ -92,6 +94,18 @@
         case 0:
         {
             UserViewController *vc = [[UserViewController alloc] init];
+            [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            SettingViewController *vc = [[SettingViewController alloc] init];
+            [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            AboutViewController *vc = [[AboutViewController alloc] init];
             [[self findViewController:self].navigationController pushViewController:vc animated:YES];
         }
             break;

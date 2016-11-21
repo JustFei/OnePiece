@@ -10,7 +10,7 @@
 #import "OPMainContentView.h"
 #import "MenuViewController.h"
 
-@interface OPMainViewController ()
+@interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate >
 
 @property (nonatomic ,strong) OPMainContentView *contentView;
 
@@ -66,6 +66,15 @@
     [self.navigationController.navigationBar setTintColor:kBlackColor];
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    //定义一个newPhoto，用来存放我们选择的图片。
+    UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    //跳转到分享界面
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
 #pragma makr - Action
 - (void)pushMenuList
 {
@@ -85,7 +94,39 @@
 
 - (void)cameraAction:(UIButton *)sender
 {
-    
+    /**
+     *  弹出提示框
+     */
+    //初始化提示框
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    //按钮：从相册选择，类型：UIAlertActionStyleDefault
+    [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//方式1
+        //允许编辑，即放大裁剪
+        PickerImage.allowsEditing = YES;
+        //自代理
+        PickerImage.delegate = self;
+        //页面跳转
+        [self presentViewController:PickerImage animated:YES completion:nil];
+    }]];
+    //按钮：拍照，类型：UIAlertActionStyleDefault
+    [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+        //获取方式1：通过相册（呈现全部相册），UIImagePickerControllerSourceTypePhotoLibrary
+        //获取方式2，通过相机，UIImagePickerControllerSourceTypeCamera
+        //获取方方式3，通过相册（呈现全部图片），UIImagePickerControllerSourceTypeSavedPhotosAlbum
+        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//方式1
+        //允许编辑，即放大裁剪
+        PickerImage.allowsEditing = YES;
+        //自代理
+        PickerImage.delegate = self;
+        //页面跳转
+        [self presentViewController:PickerImage animated:YES completion:nil];
+    }]];
+    //按钮：取消，类型：UIAlertActionStyleCancel
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)syncAction:(UIButton *)sender

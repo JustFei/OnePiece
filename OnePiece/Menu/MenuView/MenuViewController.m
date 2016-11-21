@@ -22,6 +22,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
     self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
