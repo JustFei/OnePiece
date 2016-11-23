@@ -19,15 +19,10 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UMengUShare.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1FEC7C548576E0A0CA128F786E57A078</key>
+		<key>5CE3900877896E1CE65975B65E43AAB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -38,11 +33,6 @@
 			<true/>
 		</dict>
 		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F50655B29AE4B144D608CF1A32794E5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -12,14 +12,6 @@
 #import "ChangePwdViewController.h"
 #import "HeadImageViewController.h"
 
-typedef enum : NSUInteger {
-    PickerTypeGender = 0,
-    PickerTypeBirthday,
-    PickerTypeHeight,
-    PickerTypeWeight,
-    PickerTypeMotionTarget
-} PickerType;
-
 @interface UserContentView () < UITableViewDelegate , UITableViewDataSource , UIPickerViewDelegate , UIPickerViewDataSource , UIActionSheetDelegate >
 
 @property (nonatomic ,strong) NSArray *titleArr;

@@ -8,6 +8,7 @@
 
 #import "HistoryViewController.h"
 #import "DayContentView.h"
+#import "MonthContentView.h"
 
 @interface HistoryViewController ()
 
@@ -15,6 +16,7 @@
 @property (nonatomic ,strong) UIButton *monthButton;
 
 @property (nonatomic ,weak) DayContentView *dayContentView;
+@property (nonatomic ,weak) MonthContentView *monthContentView;
 
 @end
 
@@ -59,17 +61,45 @@
     [self.view addSubview:self.monthButton];
     
     self.dayContentView.backgroundColor = kClearColor;
+    self.monthContentView.backgroundColor = kClearColor;
 }
 
 #pragma mark - Action
 - (void)dayAction:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    if (!sender.selected) {
+        sender.selected = !sender.selected;
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.dayContentView.hidden = NO;
+            self.dayContentView.frame = XXF_CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height);
+            self.monthContentView.frame = XXF_CGRectMake(kControllerWidth, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height);
+            
+        } completion:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.monthContentView.hidden = YES;
+            self.monthButton.selected = NO;
+        });
+    }
 }
 
 - (void)monthAction:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    if (!sender.selected) {
+        sender.selected = !sender.selected;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.monthContentView.hidden = NO;
+            self.dayContentView.frame = CGRectMake(- kControllerWidth, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height);
+            self.monthContentView.frame = CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height);
+            
+        } completion:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.dayContentView.hidden = YES;
+            self.dayButton.selected = NO;
+        });
+    }
 }
 
 #pragma mark - 懒加载
@@ -83,6 +113,19 @@
     }
     
     return _dayContentView;
+}
+
+- (MonthContentView *)monthContentView
+{
+    if (!_monthContentView) {
+        MonthContentView *view = [[MonthContentView alloc] initWithFrame:XXF_CGRectMake(kControllerWidth, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height)];
+        view.hidden = YES;
+        
+        [self.view addSubview:view];
+        _monthContentView = view;
+    }
+    
+    return _monthContentView;
 }
 
 @end

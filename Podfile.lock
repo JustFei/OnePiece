@@ -3,31 +3,15 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - MBProgressHUD (1.0.0)
-  - UMengUShare/Core (6.0.3):
-    - UMengUShare/Network
-  - UMengUShare/Network (6.0.3)
-  - UMengUShare/Social/QQ (6.0.3):
-    - UMengUShare/Core
-  - UMengUShare/Social/Sina (6.0.3):
-    - UMengUShare/Core
-  - UMengUShare/Social/WeChat (6.0.3):
-    - UMengUShare/Core
-  - UMengUShare/UI (6.0.3):
-    - UMengUShare/Core
 
 DEPENDENCIES:
   - FMDB (~> 2.6.2)
   - MBProgressHUD (~> 1.0.0)
-  - UMengUShare/Social/QQ
-  - UMengUShare/Social/Sina
-  - UMengUShare/Social/WeChat
-  - UMengUShare/UI
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  UMengUShare: f231fc086d789d4e560a5090dcc13a2db15c686d
 
-PODFILE CHECKSUM: e6977ddc231c895184abc67fb955a7e479f59fb6
+PODFILE CHECKSUM: 79849e01cadde4cbe320d7c184c2057b760ce5a0
 
 COCOAPODS: 1.0.1

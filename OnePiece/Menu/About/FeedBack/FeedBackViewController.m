@@ -126,7 +126,7 @@
     }
     
     //不让显示负数 口口日
-    self.wordCountLabel.text = [NSString stringWithFormat:@"%ld/%d",MAX(0,200 - existTextNum),200];
+    self.wordCountLabel.text = [NSString stringWithFormat:@"%d/%d",MAX(0,200 - existTextNum),200];
 }
 
 - (void)didReceiveMemoryWarning {

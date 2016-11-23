@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    PickerTypeGender = 0,
+    PickerTypeBirthday,
+    PickerTypeHeight,
+    PickerTypeWeight,
+    PickerTypeMotionTarget
+} PickerType;
+
 @interface UserContentView : UIView
 
 @end

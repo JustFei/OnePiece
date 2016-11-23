@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "OPMainViewController.h"
+#import "LoginViewController.h"
 
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -48,9 +49,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    OPMainViewController *mainVC = [[OPMainViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+//    OPMainViewController *mainVC = [[OPMainViewController alloc] init];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
     
     
     return YES;

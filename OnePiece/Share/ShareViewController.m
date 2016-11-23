@@ -7,7 +7,6 @@
 //
 
 #import "ShareViewController.h"
-#import "UMSocialUIManager.h"
 
 @interface ShareViewController ()
 
@@ -58,16 +57,7 @@
 
 - (void)shareAction:(UIButton *)sender
 {
-    __weak typeof(self) weakSelf = self;
-    //显示分享面板
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMShareMenuSelectionView *shareSelectionView, UMSocialPlatformType platformType) {
-        [shareSelectionView show];
-//        shareSelectionView.selectionPlatform = UMSocialPlatformType_Sina,UMSocialPlatformType_WechatSession
-//        UMSocialPlatformType_WechatTimeLine
-//        UMSocialPlatformType_WechatFavorite
-//        UMSocialPlatformType_QQ
-//        UMSocialPlatformType_Qzone
-    }];
+    
 }
 
 #pragma mark - 懒加载

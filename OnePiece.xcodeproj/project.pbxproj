@@ -25,6 +25,16 @@
 		9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C4663E01DE2E37900DBCC6B /* SettingTableViewCell.xib */; };
 		9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663E51DE2FBBE00DBCC6B /* HeadImageViewController.m */; };
 		9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663E91DE3111F00DBCC6B /* ShareViewController.m */; };
+		9C54CDBB1DE534A600183049 /* MonthContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C54CDBA1DE534A600183049 /* MonthContentView.m */; };
+		9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C54CDBD1DE534BD00183049 /* MonthDataView.m */; };
+		9C54CDC01DE534D300183049 /* MonthDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C54CDBF1DE534D300183049 /* MonthDataView.xib */; };
+		9C54CDC81DE54CAC00183049 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C54CDC61DE54CAC00183049 /* LoginViewController.m */; };
+		9C54CDC91DE54CAC00183049 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C54CDC71DE54CAC00183049 /* LoginViewController.xib */; };
+		9C5AF6111DE568E700B1075C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF6101DE568E700B1075C /* RegisterViewController.m */; };
+		9C5AF6151DE56A3E00B1075C /* RegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF6131DE56A3E00B1075C /* RegisterTableViewCell.m */; };
+		9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5AF6141DE56A3E00B1075C /* RegisterTableViewCell.xib */; };
+		9C5AF61A1DE596E800B1075C /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF6191DE596E800B1075C /* UserInfoViewController.m */; };
+		9C5AF61D1DE5986000B1075C /* UserInfoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */; };
 		9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7029091DD313CB00E37939 /* GradientLabel.m */; };
 		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
 		9C728B4A1DE425A9002F5EAB /* DayDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C728B491DE425A9002F5EAB /* DayDataView.m */; };
@@ -92,6 +102,23 @@
 		9C4664711DE31A0F00DBCC6B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		9C4664731DE31A1800DBCC6B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9C4664751DE31A4A00DBCC6B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		9C54CDB91DE534A600183049 /* MonthContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonthContentView.h; path = History/MonthView/MonthContentView.h; sourceTree = "<group>"; };
+		9C54CDBA1DE534A600183049 /* MonthContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonthContentView.m; path = History/MonthView/MonthContentView.m; sourceTree = "<group>"; };
+		9C54CDBC1DE534BD00183049 /* MonthDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonthDataView.h; path = History/MonthView/MonthDataView.h; sourceTree = "<group>"; };
+		9C54CDBD1DE534BD00183049 /* MonthDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonthDataView.m; path = History/MonthView/MonthDataView.m; sourceTree = "<group>"; };
+		9C54CDBF1DE534D300183049 /* MonthDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MonthDataView.xib; path = History/MonthView/MonthDataView.xib; sourceTree = "<group>"; };
+		9C54CDC51DE54CAC00183049 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = UserLogin/Login/LoginViewController.h; sourceTree = "<group>"; };
+		9C54CDC61DE54CAC00183049 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = UserLogin/Login/LoginViewController.m; sourceTree = "<group>"; };
+		9C54CDC71DE54CAC00183049 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = UserLogin/Login/LoginViewController.xib; sourceTree = "<group>"; };
+		9C5AF60F1DE568E700B1075C /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = UserLogin/Register/RegisterViewController.h; sourceTree = "<group>"; };
+		9C5AF6101DE568E700B1075C /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = UserLogin/Register/RegisterViewController.m; sourceTree = "<group>"; };
+		9C5AF6121DE56A3E00B1075C /* RegisterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterTableViewCell.h; path = UserLogin/Register/RegisterTableViewCell.h; sourceTree = "<group>"; };
+		9C5AF6131DE56A3E00B1075C /* RegisterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterTableViewCell.m; path = UserLogin/Register/RegisterTableViewCell.m; sourceTree = "<group>"; };
+		9C5AF6141DE56A3E00B1075C /* RegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RegisterTableViewCell.xib; path = UserLogin/Register/RegisterTableViewCell.xib; sourceTree = "<group>"; };
+		9C5AF6181DE596E800B1075C /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewController.h; path = UserLogin/UserInfo/UserInfoViewController.h; sourceTree = "<group>"; };
+		9C5AF6191DE596E800B1075C /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = UserLogin/UserInfo/UserInfoViewController.m; sourceTree = "<group>"; };
+		9C5AF61B1DE5986000B1075C /* UserInfoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoContentView.h; path = UserLogin/UserInfo/UserInfoContentView.h; sourceTree = "<group>"; };
+		9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoContentView.m; path = UserLogin/UserInfo/UserInfoContentView.m; sourceTree = "<group>"; };
 		9C7029081DD313CB00E37939 /* GradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientLabel.h; path = "Inherit(继承类)/GradientLabel.h"; sourceTree = "<group>"; };
 		9C7029091DD313CB00E37939 /* GradientLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientLabel.m; path = "Inherit(继承类)/GradientLabel.m"; sourceTree = "<group>"; };
 		9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BernardMTCondensed.ttf; path = Font/BernardMTCondensed.ttf; sourceTree = "<group>"; };
@@ -187,6 +214,11 @@
 		9C0F49311DE3E579002AB4B0 /* MonthView */ = {
 			isa = PBXGroup;
 			children = (
+				9C54CDB91DE534A600183049 /* MonthContentView.h */,
+				9C54CDBA1DE534A600183049 /* MonthContentView.m */,
+				9C54CDBC1DE534BD00183049 /* MonthDataView.h */,
+				9C54CDBD1DE534BD00183049 /* MonthDataView.m */,
+				9C54CDBF1DE534D300183049 /* MonthDataView.xib */,
 			);
 			name = MonthView;
 			sourceTree = "<group>";
@@ -212,6 +244,7 @@
 		9C2295D11DD2B3BC00B3ACA4 /* OnePiece */ = {
 			isa = PBXGroup;
 			children = (
+				9C54CDC11DE5488C00183049 /* UserLogin */,
 				9C0F492C1DE3E378002AB4B0 /* History */,
 				9C7029071DD3136900E37939 /* Inherit(继承类) */,
 				9C7029061DD312A400E37939 /* Category */,
@@ -310,6 +343,49 @@
 				09E0B537C3357DC48B313D2C /* libPods-OnePiece.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C54CDC11DE5488C00183049 /* UserLogin */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AF6171DE594A200B1075C /* UserInfo */,
+				9C54CDC31DE548A300183049 /* Register */,
+				9C54CDC21DE5489A00183049 /* Login */,
+			);
+			name = UserLogin;
+			sourceTree = "<group>";
+		};
+		9C54CDC21DE5489A00183049 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9C54CDC51DE54CAC00183049 /* LoginViewController.h */,
+				9C54CDC61DE54CAC00183049 /* LoginViewController.m */,
+				9C54CDC71DE54CAC00183049 /* LoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		9C54CDC31DE548A300183049 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AF60F1DE568E700B1075C /* RegisterViewController.h */,
+				9C5AF6101DE568E700B1075C /* RegisterViewController.m */,
+				9C5AF6121DE56A3E00B1075C /* RegisterTableViewCell.h */,
+				9C5AF6131DE56A3E00B1075C /* RegisterTableViewCell.m */,
+				9C5AF6141DE56A3E00B1075C /* RegisterTableViewCell.xib */,
+			);
+			name = Register;
+			sourceTree = "<group>";
+		};
+		9C5AF6171DE594A200B1075C /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AF6181DE596E800B1075C /* UserInfoViewController.h */,
+				9C5AF6191DE596E800B1075C /* UserInfoViewController.m */,
+				9C5AF61B1DE5986000B1075C /* UserInfoContentView.h */,
+				9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */,
+			);
+			name = UserInfo;
 			sourceTree = "<group>";
 		};
 		9C7029061DD312A400E37939 /* Category */ = {
@@ -494,7 +570,10 @@
 				9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */,
 				9CFE00C81DDC37C000D38904 /* ChangeUserTableViewCell.xib in Resources */,
 				9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */,
+				9C54CDC91DE54CAC00183049 /* LoginViewController.xib in Resources */,
+				9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */,
 				9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */,
+				9C54CDC01DE534D300183049 /* MonthDataView.xib in Resources */,
 				9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,20 +633,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C54CDC81DE54CAC00183049 /* LoginViewController.m in Sources */,
+				9C5AF61D1DE5986000B1075C /* UserInfoContentView.m in Sources */,
 				9CFE00CF1DDC4AA100D38904 /* ChangePwdContentView.m in Sources */,
 				9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */,
 				9CFE00C31DDC323F00D38904 /* ChangeUserContentView.m in Sources */,
 				9CFE00BD1DDC316A00D38904 /* UserViewController.m in Sources */,
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
+				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
 				9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */,
 				9C728B4A1DE425A9002F5EAB /* DayDataView.m in Sources */,
+				9C5AF6151DE56A3E00B1075C /* RegisterTableViewCell.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
 				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
 				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,
 				9C4663DA1DE2DEDD00DBCC6B /* SettingViewController.m in Sources */,
 				9C0F492F1DE3E3F7002AB4B0 /* HistoryViewController.m in Sources */,
 				9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */,
+				9C54CDBB1DE534A600183049 /* MonthContentView.m in Sources */,
 				9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */,
 				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
 				9CFE00C71DDC37C000D38904 /* ChangeUserTableViewCell.m in Sources */,
@@ -576,8 +660,10 @@
 				9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */,
 				9C0F49341DE3E59D002AB4B0 /* DayContentView.m in Sources */,
 				9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */,
+				9C5AF6111DE568E700B1075C /* RegisterViewController.m in Sources */,
 				9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */,
 				9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */,
+				9C5AF61A1DE596E800B1075C /* UserInfoViewController.m in Sources */,
 				9CFE00C01DDC319500D38904 /* ChangeUserViewController.m in Sources */,
 				9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */,
 			);
@@ -713,7 +799,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -742,7 +828,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manridy.OnePiece;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
