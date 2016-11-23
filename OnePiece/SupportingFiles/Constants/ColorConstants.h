@@ -28,4 +28,9 @@
 #define kBlueColor [UIColor blueColor]
 #define kGreenColor [UIColor greenColor]
 
+//通用的背景颜色
+#define kBackGroundColor kUIColorFromHEX(0xf2f2f2, 1)
+
+#define kNavigationBarColor kUIColorFromHEX(0xfabe00, 1)
+
 #endif /* ColorConstants_h */

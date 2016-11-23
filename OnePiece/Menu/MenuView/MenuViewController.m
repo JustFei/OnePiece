@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.view.backgroundColor = kBackGroundColor;
+    self.contentView.backgroundColor = kBackGroundColor;
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
 }
@@ -40,7 +40,7 @@
 - (void)createUI
 {
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:1];
-    self.navigationController.navigationBar.barTintColor = kUIColorFromHEX(0xfabe00, 1);
+    self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
 }

@@ -21,8 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.view.backgroundColor = kBackGroundColor;
+    self.contentView.backgroundColor = kBackGroundColor;
 }
 
 - (void)didReceiveMemoryWarning {

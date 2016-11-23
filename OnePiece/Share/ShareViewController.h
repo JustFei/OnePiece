@@ -10,4 +10,6 @@
 
 @interface ShareViewController : UIViewController
 
+@property (nonatomic ,weak) UIImageView *shareImageView;
+
 @end

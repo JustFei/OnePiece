@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kWhiteColor;
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.contentView.backgroundColor = kBackGroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"用户信息";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];

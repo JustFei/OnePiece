@@ -9,6 +9,8 @@
 #import "OPMainViewController.h"
 #import "OPMainContentView.h"
 #import "MenuViewController.h"
+#import "HistoryViewController.h"
+#import "ShareViewController.h"
 
 @interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate >
 
@@ -70,9 +72,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     //定义一个newPhoto，用来存放我们选择的图片。
     UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    //跳转到分享界面
-//    [self.navigationController pushViewController:vc animated:YES];
     
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //跳转到分享界面
+    ShareViewController *vc = [[ShareViewController alloc] init];
+    vc.shareImageView.image = newPhoto;
+    vc.shareImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma makr - Action
@@ -84,7 +90,8 @@
 
 - (void)pushHistoryView
 {
-    
+    HistoryViewController *vc = [[HistoryViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)musicAction:(UIButton *)sender

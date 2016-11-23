@@ -32,7 +32,7 @@
     [self.view addSubview:self.textView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.view.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.view.backgroundColor = kBackGroundColor;
     self.wordCountLabel.backgroundColor = kClearColor;
     
     self.navigationItem.title = @"反馈";

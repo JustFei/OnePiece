@@ -7,6 +7,7 @@
 //
 
 #import "ShareViewController.h"
+#import "UMSocialUIManager.h"
 
 @interface ShareViewController ()
 
@@ -17,6 +18,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = XXF_CGRectMake(0, 0, 44, 44);
+    [leftButton setTitle:@"取消" forState:UIControlStateNormal];
+    [leftButton setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(dismissVCAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightButton.frame = XXF_CGRectMake(0, 0, 44, 44);
+    [rightButton setTitle:@"分享" forState:UIControlStateNormal];
+    [rightButton setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [[self.navigationController.navigationBar subviews].firstObject setAlpha:1];
+    self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
+    
+    self.view.backgroundColor = kBackGroundColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +50,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Action
+- (void)dismissVCAction:(UIButton *)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+- (void)shareAction:(UIButton *)sender
+{
+    __weak typeof(self) weakSelf = self;
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMShareMenuSelectionView *shareSelectionView, UMSocialPlatformType platformType) {
+        [shareSelectionView show];
+//        shareSelectionView.selectionPlatform = UMSocialPlatformType_Sina,UMSocialPlatformType_WechatSession
+//        UMSocialPlatformType_WechatTimeLine
+//        UMSocialPlatformType_WechatFavorite
+//        UMSocialPlatformType_QQ
+//        UMSocialPlatformType_Qzone
+    }];
+}
+
+#pragma mark - 懒加载
+- (UIImageView *)shareImageView
+{
+    if (!_shareImageView) {
+        UIImageView *view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:view];
+        _shareImageView = view;
+    }
+    
+    return _shareImageView;
+}
 
 @end

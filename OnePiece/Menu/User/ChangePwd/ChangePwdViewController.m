@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = kWhiteColor;
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf2f2f2, 1);
+    self.contentView.backgroundColor = kBackGroundColor;
     self.navigationItem.title = @"更改密码";
 }
 
