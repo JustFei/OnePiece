@@ -48,7 +48,7 @@
     cell.countryNumberLabel.hidden = YES;
     cell.phoneNumberTextField.hidden = YES;
     cell.getSecurityCodeButton.hidden = YES;
-    cell.selectionStyle = UIAccessibilityTraitNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     switch (indexPath.row) {
         case 0:

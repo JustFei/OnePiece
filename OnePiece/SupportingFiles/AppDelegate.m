@@ -10,6 +10,13 @@
 #import "OPMainViewController.h"
 #import "LoginViewController.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
 
@@ -55,8 +62,62 @@
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
     
+    [self registSocialApp];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.textAlignment = NSTextAlignmentLeft;
+    
     
     return YES;
+}
+
+
+- (void)registSocialApp
+{
+    [ShareSDK registerApp:@"194fa5d1d46cc"
+         activePlatforms:@[@(SSDKPlatformTypeSinaWeibo),
+                           @(SSDKPlatformTypeWechat),
+                           @(SSDKPlatformTypeQQ),]
+                onImport:^(SSDKPlatformType platformType) {
+                    switch (platformType)
+                    {
+                        case SSDKPlatformTypeWechat:
+                            [ShareSDKConnector connectWeChat:[WXApi class]];
+                            break;
+                        case SSDKPlatformTypeQQ:
+                            [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                            break;
+                        case SSDKPlatformTypeSinaWeibo:
+                            [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+         onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+             switch (platformType)
+             {
+                 case SSDKPlatformTypeSinaWeibo:
+                     //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                     [appInfo SSDKSetupSinaWeiboByAppKey:@"3203517801"
+                                               appSecret:@"27a4d610927c6940137bdf7deb728841"
+                                             redirectUri:@"http://www.sharesdk.cn"
+                                                authType:SSDKAuthTypeBoth];
+                     break;
+                 case SSDKPlatformTypeWechat:
+                     [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
+                                           appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                     break;
+                 case SSDKPlatformTypeQQ:
+                     [appInfo SSDKSetupQQByAppId:@"1105769829"
+                                          appKey:@"E4QToqdgaxg9huTa"
+                                        authType:SSDKAuthTypeBoth];
+                     break;
+                     
+                 default:
+                     break;
+             }
+         }];
 }
 
 

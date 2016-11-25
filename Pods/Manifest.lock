@@ -3,15 +3,33 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - MBProgressHUD (1.0.0)
+  - MOBFoundation (2.2.3)
+  - ShareSDK3 (3.5.2):
+    - ShareSDK3/ShareSDK (= 3.5.2)
+  - ShareSDK3/ShareSDK (3.5.2)
+  - ShareSDK3/ShareSDKExtension (3.5.2)
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.5.2)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.5.2)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.5.2)
+  - ShareSDK3/ShareSDKUI (3.5.2)
 
 DEPENDENCIES:
   - FMDB (~> 2.6.2)
   - MBProgressHUD (~> 1.0.0)
+  - MOBFoundation
+  - ShareSDK3
+  - ShareSDK3/ShareSDKExtension
+  - ShareSDK3/ShareSDKPlatforms/QQ
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo
+  - ShareSDK3/ShareSDKPlatforms/WeChat
+  - ShareSDK3/ShareSDKUI
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MOBFoundation: 2bc5cd7011a2db75cf2b3ceacb7f4227eec88f3e
+  ShareSDK3: 08ed714e2bbdcd97ab60f58cb398227341dfc20a
 
-PODFILE CHECKSUM: 79849e01cadde4cbe320d7c184c2057b760ce5a0
+PODFILE CHECKSUM: 07fc1ea3d492222e7a1956fc161459f3d0694785
 
 COCOAPODS: 1.0.1

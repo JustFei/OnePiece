@@ -68,13 +68,13 @@
         }
     }
     
-    if (userLength && pwdLength) {
+    if (userLength && pwdLength >= 8) {
         self.loginButton.enabled = YES;
     }else {
         self.loginButton.enabled = NO;
     }
     
-    NSLog(@"%ld === %ld",userLength , pwdLength);
+    NSLog(@"%ld === %ld",(long)userLength , (long)pwdLength);
     
     return YES;
 }
@@ -86,7 +86,14 @@
 }
 - (IBAction)showPwdNumber:(UIButton *)sender
 {
-    
+    if (self.pwdTF.text.length != 0) {
+        sender.selected = !sender.selected;
+        if (sender.selected) {
+            self.pwdTF.secureTextEntry = NO;
+        }else {
+            self.pwdTF.secureTextEntry = YES;
+        }
+    }
 }
 - (IBAction)loginAction:(UIButton *)sender
 {

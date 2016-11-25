@@ -7,6 +7,7 @@
 //
 
 #import "ColorConstants.h"
+#import "Log.h"
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
