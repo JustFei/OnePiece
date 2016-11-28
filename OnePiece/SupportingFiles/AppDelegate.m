@@ -101,16 +101,16 @@
                      //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
                      [appInfo SSDKSetupSinaWeiboByAppKey:@"3203517801"
                                                appSecret:@"27a4d610927c6940137bdf7deb728841"
-                                             redirectUri:@"http://www.sharesdk.cn"
+                                             redirectUri:@"http://www.manridy.com"
                                                 authType:SSDKAuthTypeBoth];
                      break;
                  case SSDKPlatformTypeWechat:
-                     [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
-                                           appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                     [appInfo SSDKSetupWeChatByAppId:@"wxe88cfb783805f143"
+                                           appSecret:@"12a6a9a23d1cf2294ef14623d70935bb"];
                      break;
                  case SSDKPlatformTypeQQ:
-                     [appInfo SSDKSetupQQByAppId:@"1105769829"
-                                          appKey:@"E4QToqdgaxg9huTa"
+                     [appInfo SSDKSetupQQByAppId:@"1105847010"
+                                          appKey:@"WA0QLptQWILMzJ7T"
                                         authType:SSDKAuthTypeBoth];
                      break;
                      
