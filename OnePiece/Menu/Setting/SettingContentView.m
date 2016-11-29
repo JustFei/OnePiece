@@ -8,16 +8,41 @@
 
 #import "SettingContentView.h"
 #import "SettingTableViewCell.h"
+#import "BLETool.h"
+#import "FMDBTool.h"
 
-@interface SettingContentView () < UITableViewDelegate , UITableViewDataSource>
+@interface SettingContentView () < UITableViewDelegate , UITableViewDataSource , BleReceiveDelegate >
 
 @property (nonatomic ,strong) UILabel *timeLabel;
 @property (nonatomic ,strong) NSString *title;
 @property (nonatomic ,strong) UIDatePicker *datePickerView;
+@property (nonatomic ,strong) BLETool *myBleTool;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) NSMutableArray *timeArr;
 
 @end
 
 @implementation SettingContentView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.timeArr = [self.myFmdbTool queryClockData];
+        if (self.timeArr.count == 0) {
+            for (int i = 0; i < 3; i ++) {
+                ClockModel *model = [[ClockModel alloc] init];
+                model.time = @"08:00";
+                model.isOpen = NO;
+                [self.timeArr addObject:model];
+            }
+        }
+        if (self.myBleTool.connectState == kBLEstateDidConnected) {
+            [self.myBleTool writeClockToPeripheral:ClockDataGetClock withClockArr:nil];
+        }
+    }
+    return self;
+}
 
 - (void)layoutSubviews
 {
@@ -25,14 +50,26 @@
 }
 
 #pragma mark - Action
-- (void)showInfoDateView:(UITapGestureRecognizer *)tap
+- (void)showInfoDateView:(UIButton *)sender
 {
-    self.timeLabel = (UILabel *)tap.view;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //获取到该cell的label对象，修改text
-        self.timeLabel.text = self.title;
+        [sender setTitle:self.title forState:UIControlStateNormal];
+        
+        //替换掉原来数组中的闹钟数据
+        ClockModel *model = self.timeArr[sender.tag - 100];
+        model.time = self.title;
+        model.isOpen = sender.enabled;
+        [self.timeArr replaceObjectAtIndex:sender.tag - 100 withObject:model];
+        
+        //将闹钟数据写入设备和数据库
+        [self.myBleTool writeClockToPeripheral:ClockDataSetClock withClockArr:self.timeArr];
+        [self.myFmdbTool deleteClockData:4];        //因为是三条数据整体写入，所以写入前需要删除之前数据库里面的数据
+        for (ClockModel *model in self.timeArr) {
+            [self.myFmdbTool insertClockModel:model];
+        }
     }];
     [alert addAction:cancelAction];
     [alert addAction:okAction];
@@ -56,7 +93,6 @@
     
     [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
 }
-
 
 - (void)datePickerValueChanged:(UIDatePicker *)datePicker
 {
@@ -125,12 +161,18 @@
         {
             cell.nameLabel.hidden = NO;
             cell.timeSwitch.hidden = NO;
-            cell.timeLabel.hidden = NO;
-            cell.timeLabel.text = @"00:00";
-            cell.timeLabel.userInteractionEnabled = YES;
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showInfoDateView:)];
-            [cell.timeLabel addGestureRecognizer:tap];
-            cell.tag = 100 + indexPath.row;
+            cell.timeButton.hidden = NO;
+            
+            ClockModel *model = self.timeArr[indexPath.row];
+            [cell.timeButton setTitle:model.time forState:UIControlStateNormal];
+            [cell.timeSwitch setOn:model.isOpen];
+            
+            [cell.timeButton addTarget:self action:@selector(showInfoDateView:) forControlEvents:UIControlEventTouchUpInside];
+            cell.timeArr = self.timeArr;
+            
+            cell.timeButton.tag = 100 + indexPath.row;
+            cell.tag = 10 + indexPath.row;
+            
             switch (indexPath.row) {
                 case 0:
                 {
@@ -191,6 +233,12 @@
     return 53;
 }
 
+#pragma mark - BleReceiveDelegate
+- (void)receiveSetClockDataWithModel:(manridyModel *)manridyModel
+{
+    //暂时不用做什么操作
+}
+
 #pragma mark - 懒加载
 - (UITableView *)tableView
 {
@@ -208,6 +256,34 @@
     }
     
     return _tableView;
+}
+
+- (BLETool *)myBleTool
+{
+    if (!_myBleTool) {
+        _myBleTool = [BLETool shareInstance];
+        _myBleTool.receiveDelegate = self;
+        
+    }
+    return _myBleTool;
+}
+
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:@"UserList"];
+    }
+    
+    return _myFmdbTool;
+}
+
+- (NSMutableArray *)timeArr
+{
+    if (!_timeArr) {
+        _timeArr = [NSMutableArray array];
+    }
+    
+    return _timeArr;
 }
 
 #pragma mark - 获取当前View的控制器的方法

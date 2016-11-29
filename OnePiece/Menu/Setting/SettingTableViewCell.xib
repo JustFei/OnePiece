@@ -29,16 +29,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23:59" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfz-WJ-VOV">
-                        <rect key="frame" x="98" y="16" width="50" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="UOM-RT-G80"/>
-                            <constraint firstAttribute="width" constant="50" id="VZX-7P-zyz"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vo7-0R-8JL">
                         <rect key="frame" x="280" y="3" width="80" height="46"/>
                         <constraints>
@@ -54,23 +44,40 @@
                     </button>
                     <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EWN-EE-35j">
                         <rect key="frame" x="311" y="11" width="51" height="31"/>
+                        <connections>
+                            <action selector="changeTimeSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="JlO-g4-Maq"/>
+                        </connections>
                     </switch>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXE-AB-R3L">
+                        <rect key="frame" x="98" y="16" width="50" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="5wb-m6-upL"/>
+                            <constraint firstAttribute="height" constant="21" id="st9-Ji-eAw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="23:59">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <state key="disabled">
+                            <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="EWN-EE-35j" secondAttribute="trailing" constant="15" id="02N-yS-9ev"/>
                     <constraint firstItem="gNW-iE-ige" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4dJ-NO-xL6"/>
+                    <constraint firstItem="MXE-AB-R3L" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="80A-Td-qUa"/>
                     <constraint firstAttribute="trailing" secondItem="Vo7-0R-8JL" secondAttribute="trailing" constant="15" id="N4Y-rC-E34"/>
                     <constraint firstItem="gNW-iE-ige" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OPP-fR-ImW"/>
                     <constraint firstItem="EWN-EE-35j" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YsC-eC-zhf"/>
                     <constraint firstItem="Vo7-0R-8JL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g3d-wc-FC5"/>
-                    <constraint firstItem="Tfz-WJ-VOV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="m9D-WH-i8T"/>
-                    <constraint firstItem="Tfz-WJ-VOV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="90" id="xSq-aA-Cap"/>
+                    <constraint firstItem="MXE-AB-R3L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="90" id="maX-Vb-L0M"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="disbindButton" destination="Vo7-0R-8JL" id="dPG-nJ-kE5"/>
                 <outlet property="nameLabel" destination="gNW-iE-ige" id="5yL-1g-w01"/>
-                <outlet property="timeLabel" destination="Tfz-WJ-VOV" id="G0S-kC-AOI"/>
+                <outlet property="timeButton" destination="MXE-AB-R3L" id="zyq-Uz-bS1"/>
                 <outlet property="timeSwitch" destination="EWN-EE-35j" id="5bS-YN-pfw"/>
             </connections>
             <point key="canvasLocation" x="-116.5" y="45.5"/>
