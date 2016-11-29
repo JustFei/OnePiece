@@ -23,6 +23,15 @@
     
     self.view.backgroundColor = kBackGroundColor;
     self.contentView.backgroundColor = kBackGroundColor;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.contentView.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

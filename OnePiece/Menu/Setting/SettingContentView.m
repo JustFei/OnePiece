@@ -11,7 +11,6 @@
 
 @interface SettingContentView () < UITableViewDelegate , UITableViewDataSource>
 
-@property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,strong) UILabel *timeLabel;
 @property (nonatomic ,strong) NSString *title;
 @property (nonatomic ,strong) UIDatePicker *datePickerView;
@@ -102,9 +101,17 @@
     switch (indexPath.section) {
         case 0:
         {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"bindPeripheralName"]) {
+                NSString *peripheralName = [[NSUserDefaults standardUserDefaults] objectForKey:@"bindPeripheralName"];
+                cell.nameLabel.text = peripheralName;
+                cell.nameLabel.hidden = NO;
+                [cell.disbindButton setTitle:@"解除绑定" forState:UIControlStateNormal];
+                cell.disbindButton.hidden = NO;
+            }else {
             cell.nameLabel.hidden = YES;
             [cell.disbindButton setTitle:@"绑定手环" forState:UIControlStateNormal];
             cell.disbindButton.hidden = NO;
+            }
         }
             break;
         case 1:

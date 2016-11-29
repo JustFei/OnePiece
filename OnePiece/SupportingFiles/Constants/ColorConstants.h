@@ -32,6 +32,10 @@
 //通用的背景颜色
 #define kBackGroundColor kUIColorFromHEX(0xf2f2f2, 1)
 
+//navigationBar 的颜色
 #define kNavigationBarColor kUIColorFromHEX(0xfabe00, 1)
+
+//tableView 线的颜色
+#define kLineColor kUIColorFromHEX(0xcccccc,1)
 
 #endif /* ColorConstants_h */

@@ -10,4 +10,6 @@
 
 @interface SettingContentView : UIView
 
+@property (nonatomic ,weak) UITableView *tableView;
+
 @end

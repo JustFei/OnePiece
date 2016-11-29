@@ -51,6 +51,22 @@
 		9CA5F5B41DE82A3000E15340 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B31DE82A3000E15340 /* TencentOpenAPI.framework */; };
 		9CA5F5B61DE82A4B00E15340 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B51DE82A4B00E15340 /* libWeiboSDK.a */; };
 		9CA5F5B81DE82A6200E15340 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B71DE82A6200E15340 /* libWeChatSDK.a */; };
+		9CED32951DED248300C7E098 /* BloodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32841DED248300C7E098 /* BloodModel.m */; };
+		9CED32961DED248300C7E098 /* BloodO2Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32861DED248300C7E098 /* BloodO2Model.m */; };
+		9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32881DED248300C7E098 /* HeartRateModel.m */; };
+		9CED32981DED248300C7E098 /* manridyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED328A1DED248300C7E098 /* manridyModel.m */; };
+		9CED32991DED248300C7E098 /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED328C1DED248300C7E098 /* Remind.m */; };
+		9CED329A1DED248300C7E098 /* SetTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED328E1DED248300C7E098 /* SetTimeModel.m */; };
+		9CED329B1DED248300C7E098 /* SleepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32901DED248300C7E098 /* SleepModel.m */; };
+		9CED329C1DED248300C7E098 /* SportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32921DED248300C7E098 /* SportModel.m */; };
+		9CED329D1DED248300C7E098 /* SportTargetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32941DED248300C7E098 /* SportTargetModel.m */; };
+		9CED32A61DED248D00C7E098 /* AnalysisProcotolTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED329F1DED248D00C7E098 /* AnalysisProcotolTool.m */; };
+		9CED32A71DED248D00C7E098 /* BLETool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32A11DED248D00C7E098 /* BLETool.m */; };
+		9CED32A81DED248D00C7E098 /* manridyBleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32A31DED248D00C7E098 /* manridyBleDevice.m */; };
+		9CED32A91DED248D00C7E098 /* NSStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32A51DED248D00C7E098 /* NSStringTool.m */; };
+		9CED32AC1DED24CD00C7E098 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32AB1DED24CD00C7E098 /* UserInfoModel.m */; };
+		9CED32AF1DED250700C7E098 /* ClockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32AE1DED250700C7E098 /* ClockModel.m */; };
+		9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32B21DED2A0400C7E098 /* BindPerViewController.m */; };
 		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
 		9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE009D1DDBEB8500D38904 /* MenuContentView.m */; };
 		9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE009F1DDBEB8500D38904 /* MenuViewController.m */; };
@@ -148,6 +164,38 @@
 		9CA5F5B51DE82A4B00E15340 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		9CA5F5B71DE82A6200E15340 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a; sourceTree = "<group>"; };
 		9CA749E01DEC1FF2007F8BBE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		9CED32831DED248300C7E098 /* BloodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodModel.h; path = BLETool/Model/BloodModel.h; sourceTree = "<group>"; };
+		9CED32841DED248300C7E098 /* BloodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BloodModel.m; path = BLETool/Model/BloodModel.m; sourceTree = "<group>"; };
+		9CED32851DED248300C7E098 /* BloodO2Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodO2Model.h; path = BLETool/Model/BloodO2Model.h; sourceTree = "<group>"; };
+		9CED32861DED248300C7E098 /* BloodO2Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BloodO2Model.m; path = BLETool/Model/BloodO2Model.m; sourceTree = "<group>"; };
+		9CED32871DED248300C7E098 /* HeartRateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeartRateModel.h; path = BLETool/Model/HeartRateModel.h; sourceTree = "<group>"; };
+		9CED32881DED248300C7E098 /* HeartRateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeartRateModel.m; path = BLETool/Model/HeartRateModel.m; sourceTree = "<group>"; };
+		9CED32891DED248300C7E098 /* manridyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = manridyModel.h; path = BLETool/Model/manridyModel.h; sourceTree = "<group>"; };
+		9CED328A1DED248300C7E098 /* manridyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = manridyModel.m; path = BLETool/Model/manridyModel.m; sourceTree = "<group>"; };
+		9CED328B1DED248300C7E098 /* Remind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Remind.h; path = BLETool/Model/Remind.h; sourceTree = "<group>"; };
+		9CED328C1DED248300C7E098 /* Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Remind.m; path = BLETool/Model/Remind.m; sourceTree = "<group>"; };
+		9CED328D1DED248300C7E098 /* SetTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTimeModel.h; path = BLETool/Model/SetTimeModel.h; sourceTree = "<group>"; };
+		9CED328E1DED248300C7E098 /* SetTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetTimeModel.m; path = BLETool/Model/SetTimeModel.m; sourceTree = "<group>"; };
+		9CED328F1DED248300C7E098 /* SleepModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SleepModel.h; path = BLETool/Model/SleepModel.h; sourceTree = "<group>"; };
+		9CED32901DED248300C7E098 /* SleepModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SleepModel.m; path = BLETool/Model/SleepModel.m; sourceTree = "<group>"; };
+		9CED32911DED248300C7E098 /* SportModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SportModel.h; path = BLETool/Model/SportModel.h; sourceTree = "<group>"; };
+		9CED32921DED248300C7E098 /* SportModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SportModel.m; path = BLETool/Model/SportModel.m; sourceTree = "<group>"; };
+		9CED32931DED248300C7E098 /* SportTargetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SportTargetModel.h; path = BLETool/Model/SportTargetModel.h; sourceTree = "<group>"; };
+		9CED32941DED248300C7E098 /* SportTargetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SportTargetModel.m; path = BLETool/Model/SportTargetModel.m; sourceTree = "<group>"; };
+		9CED329E1DED248D00C7E098 /* AnalysisProcotolTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisProcotolTool.h; path = BLETool/Tool/AnalysisProcotolTool.h; sourceTree = "<group>"; };
+		9CED329F1DED248D00C7E098 /* AnalysisProcotolTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisProcotolTool.m; path = BLETool/Tool/AnalysisProcotolTool.m; sourceTree = "<group>"; };
+		9CED32A01DED248D00C7E098 /* BLETool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLETool.h; path = BLETool/Tool/BLETool.h; sourceTree = "<group>"; };
+		9CED32A11DED248D00C7E098 /* BLETool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLETool.m; path = BLETool/Tool/BLETool.m; sourceTree = "<group>"; };
+		9CED32A21DED248D00C7E098 /* manridyBleDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = manridyBleDevice.h; path = BLETool/Tool/manridyBleDevice.h; sourceTree = "<group>"; };
+		9CED32A31DED248D00C7E098 /* manridyBleDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = manridyBleDevice.m; path = BLETool/Tool/manridyBleDevice.m; sourceTree = "<group>"; };
+		9CED32A41DED248D00C7E098 /* NSStringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSStringTool.h; path = BLETool/Tool/NSStringTool.h; sourceTree = "<group>"; };
+		9CED32A51DED248D00C7E098 /* NSStringTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringTool.m; path = BLETool/Tool/NSStringTool.m; sourceTree = "<group>"; };
+		9CED32AA1DED24CD00C7E098 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoModel.h; path = BLETool/Model/UserInfoModel.h; sourceTree = "<group>"; };
+		9CED32AB1DED24CD00C7E098 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoModel.m; path = BLETool/Model/UserInfoModel.m; sourceTree = "<group>"; };
+		9CED32AD1DED250700C7E098 /* ClockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClockModel.h; path = BLETool/Model/ClockModel.h; sourceTree = "<group>"; };
+		9CED32AE1DED250700C7E098 /* ClockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClockModel.m; path = BLETool/Model/ClockModel.m; sourceTree = "<group>"; };
+		9CED32B11DED2A0400C7E098 /* BindPerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BindPerViewController.h; path = Menu/BindPerView/BindPerViewController.h; sourceTree = "<group>"; };
+		9CED32B21DED2A0400C7E098 /* BindPerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindPerViewController.m; path = Menu/BindPerView/BindPerViewController.m; sourceTree = "<group>"; };
 		9CFE00931DDADC9B00D38904 /* Hakuu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Hakuu.ttf; path = Font/Hakuu.ttf; sourceTree = "<group>"; };
 		9CFE009C1DDBEB8500D38904 /* MenuContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuContentView.h; path = Menu/MenuView/MenuContentView.h; sourceTree = "<group>"; };
 		9CFE009D1DDBEB8500D38904 /* MenuContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuContentView.m; path = Menu/MenuView/MenuContentView.m; sourceTree = "<group>"; };
@@ -274,6 +322,7 @@
 		9C2295D11DD2B3BC00B3ACA4 /* OnePiece */ = {
 			isa = PBXGroup;
 			children = (
+				9CED32801DED243B00C7E098 /* BLETool */,
 				9C54CDC11DE5488C00183049 /* UserLogin */,
 				9C0F492C1DE3E378002AB4B0 /* History */,
 				9C7029071DD3136900E37939 /* Inherit(继承类) */,
@@ -443,6 +492,68 @@
 			name = "Inherit(继承类)";
 			sourceTree = "<group>";
 		};
+		9CED32801DED243B00C7E098 /* BLETool */ = {
+			isa = PBXGroup;
+			children = (
+				9CED32821DED244B00C7E098 /* Model */,
+				9CED32811DED244300C7E098 /* Tool */,
+			);
+			name = BLETool;
+			sourceTree = "<group>";
+		};
+		9CED32811DED244300C7E098 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				9CED329E1DED248D00C7E098 /* AnalysisProcotolTool.h */,
+				9CED329F1DED248D00C7E098 /* AnalysisProcotolTool.m */,
+				9CED32A01DED248D00C7E098 /* BLETool.h */,
+				9CED32A11DED248D00C7E098 /* BLETool.m */,
+				9CED32A21DED248D00C7E098 /* manridyBleDevice.h */,
+				9CED32A31DED248D00C7E098 /* manridyBleDevice.m */,
+				9CED32A41DED248D00C7E098 /* NSStringTool.h */,
+				9CED32A51DED248D00C7E098 /* NSStringTool.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		9CED32821DED244B00C7E098 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CED32AD1DED250700C7E098 /* ClockModel.h */,
+				9CED32AE1DED250700C7E098 /* ClockModel.m */,
+				9CED32831DED248300C7E098 /* BloodModel.h */,
+				9CED32841DED248300C7E098 /* BloodModel.m */,
+				9CED32851DED248300C7E098 /* BloodO2Model.h */,
+				9CED32861DED248300C7E098 /* BloodO2Model.m */,
+				9CED32871DED248300C7E098 /* HeartRateModel.h */,
+				9CED32881DED248300C7E098 /* HeartRateModel.m */,
+				9CED32891DED248300C7E098 /* manridyModel.h */,
+				9CED328A1DED248300C7E098 /* manridyModel.m */,
+				9CED328B1DED248300C7E098 /* Remind.h */,
+				9CED328C1DED248300C7E098 /* Remind.m */,
+				9CED328D1DED248300C7E098 /* SetTimeModel.h */,
+				9CED328E1DED248300C7E098 /* SetTimeModel.m */,
+				9CED328F1DED248300C7E098 /* SleepModel.h */,
+				9CED32901DED248300C7E098 /* SleepModel.m */,
+				9CED32911DED248300C7E098 /* SportModel.h */,
+				9CED32921DED248300C7E098 /* SportModel.m */,
+				9CED32931DED248300C7E098 /* SportTargetModel.h */,
+				9CED32941DED248300C7E098 /* SportTargetModel.m */,
+				9CED32AA1DED24CD00C7E098 /* UserInfoModel.h */,
+				9CED32AB1DED24CD00C7E098 /* UserInfoModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		9CED32B01DED29CE00C7E098 /* BindPer */ = {
+			isa = PBXGroup;
+			children = (
+				9CED32B11DED2A0400C7E098 /* BindPerViewController.h */,
+				9CED32B21DED2A0400C7E098 /* BindPerViewController.m */,
+			);
+			name = BindPer;
+			sourceTree = "<group>";
+		};
 		9CFE00951DDB0C2800D38904 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +561,7 @@
 				9CFE00A31DDBEB9B00D38904 /* User */,
 				9CFE00A41DDBEBA400D38904 /* Setting */,
 				9CFE00A51DDBEBAD00D38904 /* About */,
+				9CED32B01DED29CE00C7E098 /* BindPer */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -672,6 +784,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CED32A61DED248D00C7E098 /* AnalysisProcotolTool.m in Sources */,
 				9C54CDC81DE54CAC00183049 /* LoginViewController.m in Sources */,
 				9C5AF61D1DE5986000B1075C /* UserInfoContentView.m in Sources */,
 				9CFE00CF1DDC4AA100D38904 /* ChangePwdContentView.m in Sources */,
@@ -681,9 +794,15 @@
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
 				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
+				9CED329B1DED248300C7E098 /* SleepModel.m in Sources */,
+				9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */,
 				9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */,
 				9C728B4A1DE425A9002F5EAB /* DayDataView.m in Sources */,
 				9C5AF6151DE56A3E00B1075C /* RegisterTableViewCell.m in Sources */,
+				9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */,
+				9CED32951DED248300C7E098 /* BloodModel.m in Sources */,
+				9CED329A1DED248300C7E098 /* SetTimeModel.m in Sources */,
+				9CED32981DED248300C7E098 /* manridyModel.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
 				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
 				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,
@@ -694,16 +813,25 @@
 				9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */,
 				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
 				9CFE00C71DDC37C000D38904 /* ChangeUserTableViewCell.m in Sources */,
+				9CED329C1DED248300C7E098 /* SportModel.m in Sources */,
 				9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */,
+				9CED32AC1DED24CD00C7E098 /* UserInfoModel.m in Sources */,
 				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
 				9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */,
+				9CED32991DED248300C7E098 /* Remind.m in Sources */,
+				9CED32A71DED248D00C7E098 /* BLETool.m in Sources */,
 				9C0F49341DE3E59D002AB4B0 /* DayContentView.m in Sources */,
+				9CED32AF1DED250700C7E098 /* ClockModel.m in Sources */,
 				9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */,
 				9C5AF6111DE568E700B1075C /* RegisterViewController.m in Sources */,
+				9CED32A91DED248D00C7E098 /* NSStringTool.m in Sources */,
+				9CED329D1DED248300C7E098 /* SportTargetModel.m in Sources */,
 				9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */,
 				9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */,
 				9C5AF61A1DE596E800B1075C /* UserInfoViewController.m in Sources */,
+				9CED32961DED248300C7E098 /* BloodO2Model.m in Sources */,
 				9CFE00C01DDC319500D38904 /* ChangeUserViewController.m in Sources */,
+				9CED32A81DED248D00C7E098 /* manridyBleDevice.m in Sources */,
 				9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
