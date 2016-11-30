@@ -10,10 +10,15 @@
 #import "ClockModel.h"
 #import "SportModel.h"
 #import "HeartRateModel.h"
-#import "UserInfoModel.h"
 #import "SleepModel.h"
 #import "BloodModel.h"
 #import "BloodO2Model.h"
+
+@interface FMDBTool ()
+
+@property (nonatomic ,strong) NSArray *userInfoTypeArr;
+
+@end
 
 @implementation FMDBTool
 
@@ -41,7 +46,7 @@ static FMDatabase *_fmdb;
         }
         
         //UserInfoData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, username text, gender text, age integer, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender text, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text);"]];
         
         //ClockData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists ClockData(id integer primary key, time text, isopen bool);"]];
@@ -50,13 +55,13 @@ static FMDatabase *_fmdb;
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists MotionData(id integer primary key, date text, step text, kCal text, mileage text, currentDataCount integer, sumDataCount integer);"]];
         
         //HeartRateData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists HeartRateData(id integer primary key,date text, time text, heartRate text);"]];
+//        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists HeartRateData(id integer primary key,date text, time text, heartRate text);"]];
         
         //BloodData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodData(id integer primary key, day text, time text, highBlood text, lowBlood text, currentCount text, sumCount text, bpm text);"]];
+//        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodData(id integer primary key, day text, time text, highBlood text, lowBlood text, currentCount text, sumCount text, bpm text);"]];
         
         //BloodO2Data
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodO2Data(id integer primary key, day text, time text, bloodO2integer text, bloodO2float text, currentCount text, sumCount text);"]];
+//        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodO2Data(id integer primary key, day text, time text, bloodO2integer text, bloodO2float text, currentCount text, sumCount text);"]];
         
         //SleepData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists SleepData(id integer primary key,date text, startTime text, endTime text, deepSleep text, lowSleep text, sumSleep text, currentDataCount integer, sumDataCount integer);"]];
@@ -514,11 +519,11 @@ static FMDatabase *_fmdb;
     NSLog(@"BloodO2查询成功");
     return arrM;
 }
-
+//account text, username text, gender text, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text
 #pragma mark - UserInfoData
 - (BOOL)insertUserInfoModel:(UserInfoModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(username, gender, age, height, weight, steplength) VALUES ('%@', '%@', '%ld', '%ld', '%ld', '%ld');", model.userName, model.gender, (long)model.age, (long)model.height, (long)model.weight, (long)model.stepLength];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, peripheralUUID) VALUES ('%@', '%@', '%@', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@');", model.account, model.userName, model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.peripheralUUID];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -540,18 +545,21 @@ static FMDatabase *_fmdb;
     
     while ([set next]) {
         
+        NSString *account = [set stringForColumn:@"account"];
         NSString *userName = [set stringForColumn:@"username"];
         NSString *gender = [set stringForColumn:@"gender"];
-        NSInteger age = [set intForColumn:@"age"];
+        NSString *birthday = [set stringForColumn:@"birthday"];
         NSInteger height = [set intForColumn:@"height"];
         NSInteger weight = [set intForColumn:@"weight"];
         NSInteger steplength = [set intForColumn:@"steplength"];
         NSInteger stepTarget = [set intForColumn:@"steptarget"];
         NSInteger sleepTarget = [set intForColumn:@"sleeptarget"];
+        NSString *peripheralName = [set stringForColumn:@"peripheralName"];
+        NSString *peripheralUUID = [set stringForColumn:@"peripheralUUID"];
         
-        UserInfoModel *model = [UserInfoModel userInfoModelWithUserName:userName andGender:gender andAge:age andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget];
+        UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andPeripheralUUID:peripheralUUID];
         
-        NSLog(@"%@,%@,%ld,%ld,%ld,%ld",model.userName ,model.gender ,(long)model.age ,(long)model.height ,(long)model.weight ,(long)model.stepLength);
+        NSLog(@"%@,%@,%@,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.peripheralUUID);
         
         [arrM addObject:model];
     }
@@ -560,51 +568,88 @@ static FMDatabase *_fmdb;
     return arrM;
 }
 
-- (BOOL)modifyUserInfoWithID:(NSInteger)ID model:(UserInfoModel *)model
+- (BOOL)modifyUserInfoModel:(UserInfoModel *)model withModityType:(UserInfoModifyType)modifyType
 {
+    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set %@ = ? where id = ?",self.userInfoTypeArr[modifyType]];
+    BOOL modifyResult;
     
-    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set username = ?, gender = ?, age = ?, height = ?, weight = ?, steplength = ? where id = ?" ];
-    
-    BOOL modifyResult = [_fmdb executeUpdate:modifySql, model.userName, model.gender, @(model.age), @(model.height), @(model.weight), @(model.stepLength), @(ID)];
+    switch (modifyType) {
+        case UserInfoModifyTypeAccount:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.account, @(1)];
+            break;
+        case UserInfoModifyTypeUserName:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.userName, @(1)];
+            break;
+        case UserInfoModifyTypeGender:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.gender, @(1)];
+            break;
+        case UserInfoModifyTypeBirthday:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.birthday, @(1)];
+            break;
+        case UserInfoModifyTypeHeight:
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.height), @(1)];
+            break;
+        case UserInfoModifyTypeWeight:
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.weight), @(1)];
+            break;
+        case UserInfoModifyTypeStepLength:
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.stepLength), @(1)];
+            break;
+        case UserInfoModifyTypeStepTarget:
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.stepTarget), @(1)];
+            break;
+        case UserInfoModifyTypeSleepTarget:
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.sleepTarget), @(1)];
+            break;
+        case UserInfoModifyTypePeripheralName:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralName, @(1)];
+            break;
+        case UserInfoModifyTypePeripheralUUID:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralUUID, @(1)];
+            break;
+            
+        default:
+            break;
+    }
     
     if (modifyResult) {
-        NSLog(@"UserInfoData数据修改成功");
+        NSLog(@"UserInfoData:%@ 数据修改成功",self.userInfoTypeArr[modifyType]);
     }else {
-        NSLog(@"UserInfoData数据修改失败");
+        NSLog(@"UserInfoData:%@ 数据修改失败",self.userInfoTypeArr[modifyType]);
     }
     
     return modifyResult;
 }
 
-- (BOOL)modifyStepTargetWithID:(NSInteger)ID model:(NSInteger)stepTarget
-{
-    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set steptarget = ? where id = ?"];
-    
-    BOOL modifyResult = [_fmdb executeUpdate:modifySql, @(stepTarget), @(ID)];
-    
-    if (modifyResult) {
-        NSLog(@"添加运动目标成功");
-    }else {
-        NSLog(@"添加运动目标失败");
-    }
-    
-    return modifyResult;
-}
-
-- (BOOL)modifySleepTargetWithID:(NSInteger)ID model:(NSInteger)sleepTarget
-{
-    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set sleeptarget = ? where id = ?"];
-    
-    BOOL modifyResult = [_fmdb executeUpdate:modifySql, @(sleepTarget), @(ID)];
-    
-    if (modifyResult) {
-        NSLog(@"修改睡眠目标成功");
-    }else {
-        NSLog(@"修改睡眠目标失败");
-    }
-    
-    return modifyResult;
-}
+//- (BOOL)modifyStepTargetWithID:(NSInteger)ID model:(NSInteger)stepTarget
+//{
+//    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set steptarget = ? where id = ?"];
+//    
+//    BOOL modifyResult = [_fmdb executeUpdate:modifySql, @(stepTarget), @(ID)];
+//    
+//    if (modifyResult) {
+//        NSLog(@"添加运动目标成功");
+//    }else {
+//        NSLog(@"添加运动目标失败");
+//    }
+//    
+//    return modifyResult;
+//}
+//
+//- (BOOL)modifySleepTargetWithID:(NSInteger)ID model:(NSInteger)sleepTarget
+//{
+//    NSString *modifySql = [NSString stringWithFormat:@"update UserInfoData set sleeptarget = ? where id = ?"];
+//    
+//    BOOL modifyResult = [_fmdb executeUpdate:modifySql, @(sleepTarget), @(ID)];
+//    
+//    if (modifyResult) {
+//        NSLog(@"修改睡眠目标成功");
+//    }else {
+//        NSLog(@"修改睡眠目标失败");
+//    }
+//    
+//    return modifyResult;
+//}
 
 - (BOOL)deleteUserInfoData:(NSString *)deleteSql
 {
@@ -624,5 +669,16 @@ static FMDatabase *_fmdb;
 {
     [_fmdb close];
 }
+
+#pragma mark - 懒加载
+- (NSArray *)userInfoTypeArr
+{
+    if (!_userInfoTypeArr) {
+        _userInfoTypeArr = @[@"account",@"username",@"gender",@"birthday",@"height",@"weight",@"steplength",@"steptarget",@"sleeptarget",@"peripheralName",@"peripheralUUID"];
+    }
+    
+    return _userInfoTypeArr;
+}
+
 
 @end

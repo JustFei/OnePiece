@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "OPMainViewController.h"
 #import "RegisterViewController.h"
+#import "FMDBTool.h"
+#import "MBProgressHUD.h"
+#import "UserInfoModel.h"
 
 @interface LoginViewController () < UITextFieldDelegate >
 {
@@ -22,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
 @property (weak, nonatomic) IBOutlet UIButton *resetPwdButton;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) MBProgressHUD *myHud;
 
 @end
 
@@ -97,6 +102,17 @@
 }
 - (IBAction)loginAction:(UIButton *)sender
 {
+    self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.myHud.mode = MBProgressHUDModeIndeterminate;
+    [self.myHud.label setText:@"Loading..."];
+    [[NSUserDefaults standardUserDefaults] setObject:self.userNameTF.text forKey:@"account"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
+    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:self.userNameTF.text andUserName:@"用户名" andGender:@"未选择" andBirthday:@"2000/01/01" andHeight:180 andWeight:75 andStepLength:75 andStepTarget:8000 andSleepTarget:8 andPeripheralName:@"" andPeripheralUUID:@""];
+    NSArray *userArr = [self.myFmdbTool queryAllUserInfo];
+    if (userArr.count == 0) {
+        [self.myFmdbTool insertUserInfoModel:model];
+    }
+    [self.myHud hideAnimated:YES];
     OPMainViewController *vc = [[OPMainViewController alloc] init];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc]  animated:YES completion:nil];
 }
@@ -116,6 +132,17 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+#pragma mark - 懒加载
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
+    }
+    
+    return _myFmdbTool;
 }
 
 @end

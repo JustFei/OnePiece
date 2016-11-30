@@ -22,8 +22,8 @@
     self.view.backgroundColor = kBlackColor;
     self.bigHeadImageView.backgroundColor = kRedColor;
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"]) {
-        NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
+        NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
         [self.bigHeadImageView setImage:[UIImage imageWithData:imageData]];
     }
     
@@ -50,7 +50,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     NSData *imageData = UIImagePNGRepresentation(self.bigHeadImageView.image);
-    [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userheadimage"];
+    [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
 }
 
 #pragma mark - Action

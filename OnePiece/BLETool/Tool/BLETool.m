@@ -356,18 +356,16 @@ static BLETool *bleTool = nil;
         case SleepDataLastData:
             //last data of sleep
             sleepStr = [NSStringTool protocolAddInfo:@"00" head:@"0C"];
-            NSLog(@"sleep success");
-            
             break;
         case SleepDataHistoryData:
             //history data of sleep
             sleepStr = [NSStringTool protocolAddInfo:@"01" head:@"0C"];
-            
             break;
             
         default:
             break;
     }
+    NSLog(@"sleep success");
     
     //写入操作
     if (self.currentDev.peripheral) {

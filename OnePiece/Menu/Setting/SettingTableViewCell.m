@@ -45,6 +45,7 @@
 }
 - (IBAction)changeTimeSwitch:(UISwitch *)sender
 {
+    //判断下当前蓝牙状态是否连接
     if (self.myBleTool.connectState == kBLEstateDidConnected) {
         if (sender.isOn) {
             self.timeButton.enabled = sender.isOn;
@@ -64,8 +65,12 @@
             [self.myFmdbTool insertClockModel:model];
         }
     }else {
-        sender.on = !sender.on;
-        [[self findViewController:self] presentViewController:self.alertController animated:YES completion:nil];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请连接上设备后再操作" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ac = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            sender.on = !sender.isOn;
+        }];
+        [alertController addAction:ac];
+        [[self findViewController:self] presentViewController:alertController animated:YES completion:nil];
     }
     
 }
@@ -96,20 +101,10 @@
 - (FMDBTool *)myFmdbTool
 {
     if (!_myFmdbTool) {
-        _myFmdbTool = [[FMDBTool alloc] initWithPath:@"UserList"];
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
     }
     return _myFmdbTool;
-}
-
-- (UIAlertController *)alertController
-{
-    if (!_alertController) {
-        _alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请连接上设备后再操作" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ac = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-        [_alertController addAction:ac];
-    }
-    
-    return _alertController;
 }
 
 @end

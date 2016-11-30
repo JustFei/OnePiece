@@ -10,11 +10,11 @@
 #import "UserViewController.h"
 #import "AboutViewController.h"
 #import "SettingViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
-@property (nonatomic ,weak) UIImageView *headImageView;
-@property (nonatomic ,weak) UILabel *nameLabel;
 @property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,weak) UIButton *logOutButton;
 @property (nonatomic ,strong) NSArray *cellImageArr;
@@ -115,6 +115,16 @@
     }
 }
 
+#pragma mark - Action
+- (void)logout:(UIButton *)sender
+{
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Login"];
+    [[self findViewController:self] presentViewController:vc animated:YES completion:nil];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.window.rootViewController = vc;
+}
+
 #pragma mark - 懒加载
 - (UIImageView *)headImageView
 {
@@ -167,6 +177,7 @@
         [button.titleLabel setFont:[UIFont systemFontOfSize:18]];
         [button setTitleColor:kUIColorFromHEX(0x0076ff, 1) forState:UIControlStateNormal];
         [button setTitleColor:kUIColorFromHEX(0x00a0e9, 1) forState:UIControlStateHighlighted];
+        [button addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:button];
         _logOutButton = button;

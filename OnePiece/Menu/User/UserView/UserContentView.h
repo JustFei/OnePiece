@@ -18,4 +18,6 @@ typedef enum : NSUInteger {
 
 @interface UserContentView : UIView
 
+@property (nonatomic ,weak) UITableView *tableView;
+
 @end

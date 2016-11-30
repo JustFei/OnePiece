@@ -43,6 +43,15 @@
     self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
+        NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
+        [self.contentView.headImageView setImage:[UIImage imageWithData:imageData]];
+    }
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
+        NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+        self.contentView.nameLabel.text = userName;
+    }
 }
 
 #pragma mark - 懒加载

@@ -111,7 +111,7 @@
 {
     if (!_moneyLabel) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
-        label.text = @"$16,000,000~";
+        label.text = @"$0~";
         label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30 * kViewWidth / 375];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = kUIColorFromHEX(0x884227,1);
@@ -129,7 +129,7 @@
 {
     if (!_stepLabel) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
-        label.text = @"4980";
+        label.text = @"0";
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment = NSTextAlignmentLeft;
         label.textColor = kUIColorFromHEX(0xe06800, 1);
@@ -149,7 +149,7 @@
     if (!_sleepLabel) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
         //这里7.5的间距很大，需要设置字间距来调整
-        label.text = @"7.5";
+        label.text = @"0";
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment= NSTextAlignmentRight;
         label.textColor = kUIColorFromHEX(0xe06800, 1);
@@ -168,7 +168,7 @@
 {
     if (!_aggressivenessLbael) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
-        label.text = @"2989";
+        label.text = @"0";
         label.font = [UIFont fontWithName:@"Hakuu" size:80];
         label.textAlignment= NSTextAlignmentCenter;
         label.textColor = kUIColorFromHEX(0xe06800, 1);

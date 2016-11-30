@@ -11,12 +11,12 @@
 #import "ChangeUserViewController.h"
 #import "ChangePwdViewController.h"
 #import "HeadImageViewController.h"
+#import "FMDBTool.h"
 
 @interface UserContentView () < UITableViewDelegate , UITableViewDataSource , UIPickerViewDelegate , UIPickerViewDataSource , UIActionSheetDelegate >
 
 @property (nonatomic ,strong) NSArray *titleArr;
 @property (nonatomic ,strong) NSMutableArray *infoArr;
-@property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,strong) UILabel *nickName;
 @property (nonatomic ,strong) UIPickerView *infoPickerView;
 @property (nonatomic ,strong) UIDatePicker *datePickerView;
@@ -27,6 +27,8 @@
 @property (nonatomic ,strong) NSString *title;
 @property (nonatomic ,assign) PickerType pickerType;
 @property (nonatomic ,strong) UILabel *infoLabel;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) NSArray *userArr;
 
 @end
 
@@ -38,7 +40,8 @@
     if (self) {
         self.frame = frame;
         self.titleArr = @[@[@"更改账号",@"更改密码",@"二维码"],@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
-        NSArray *arr = @[@[@"+86 18812341234",@"********",@""],@[@"",@"+86 18812341234"],@[@"未选择",@"1980/01/01",@"150cm",@"80kg"],@[@"10000"]];
+        UserInfoModel *model = self.userArr.lastObject;
+        NSArray *arr = @[@[model.account,@"********",@""],@[@"",model.userName],@[model.gender,model.birthday,[NSString stringWithFormat:@"%ldcm",(long)model.height],[NSString stringWithFormat:@"%ldkg",(long)model.weight]],@[[NSString stringWithFormat:@"%ld",(long)model.stepTarget]]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
     }
     return self;
@@ -63,6 +66,11 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *nickTextField = vc.textFields.firstObject;
         self.nickName.text = nickTextField.text;
+        UserInfoModel *model = [[UserInfoModel alloc] init];
+        model.userName = nickTextField.text;
+        if (self.userArr.count) {
+            [self.myFmdbTool modifyUserInfoModel: model withModityType:UserInfoModifyTypeUserName];
+        }
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     }];
@@ -88,8 +96,46 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //获取到该cell的label对象，修改text
-        NSLog(@"%@",self.title);
-        self.infoLabel.text = self.title;
+        if (self.title) {
+            self.infoLabel.text = self.title;
+            self.title = nil;
+            UserInfoModel *model = [[UserInfoModel alloc] init];
+            switch (self.pickerType) {
+                case PickerTypeGender:
+                {
+                    model.gender = self.infoLabel.text;
+                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
+                }
+                    break;
+                case PickerTypeBirthday:
+                {
+                    model.birthday = self.infoLabel.text;
+                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeBirthday];
+                }
+                    break;
+                case PickerTypeHeight:
+                {
+                    model.height = self.infoLabel.text.integerValue;
+                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeHeight];
+                }
+                    break;
+                case PickerTypeWeight:
+                {
+                    model.weight = self.infoLabel.text.integerValue;
+                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeWeight];
+                }
+                    break;
+                case PickerTypeMotionTarget:
+                {
+                    model.stepTarget = self.infoLabel.text.integerValue;
+                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeStepTarget];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
     }];
     [alert addAction:cancelAction];
     [alert addAction:okAction];
@@ -145,7 +191,6 @@
 // UIPickerViewDataSource中定义的方法，该方法的返回值决定该控件指定列包含多少哥列表项
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-
 {
     switch (self.pickerType) {
         case PickerTypeGender:
@@ -267,8 +312,8 @@
         {
             if (indexPath.row == 0) {
                 cell.headImageView.hidden = NO;
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"]) {
-                    NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"];
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
+                    NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
                     [cell.headImageView setImage:[UIImage imageWithData:imageData]];
                 }else {
                     cell.headImageView.image = [UIImage imageNamed:@"HeadImage_default"];
@@ -279,6 +324,16 @@
                 cell.headImageView.clipsToBounds = YES;
             }
             if (indexPath.row == 1) {
+//                if (!self.userArr.count) {
+//                    UserInfoModel *model = self.userArr.lastObject;
+//                    if (model.userName) {
+//                        cell.infoLabel.text = model.userName;
+//                    }else {
+//                        cell.infoLabel.text = @"用户名";
+//                    }
+//                }else {
+//                    cell.infoLabel.text = @"用户名";
+//                }
                 self.nickName = cell.infoLabel;
             }
         }
@@ -472,6 +527,25 @@
     }
     
     return _targetArr;
+}
+
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
+    }
+    
+    return _myFmdbTool;
+}
+
+- (NSArray *)userArr
+{
+    if (!_userArr) {
+        _userArr = [self.myFmdbTool queryAllUserInfo];
+    }
+    
+    return _userArr;
 }
 
 #pragma mark - 获取当前View的控制器的方法

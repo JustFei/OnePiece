@@ -37,9 +37,9 @@
                 [self.timeArr addObject:model];
             }
         }
-        if (self.myBleTool.connectState == kBLEstateDidConnected) {
-            [self.myBleTool writeClockToPeripheral:ClockDataGetClock withClockArr:nil];
-        }
+//        if (self.myBleTool.connectState == kBLEstateDidConnected) {
+//            [self.myBleTool writeClockToPeripheral:ClockDataGetClock withClockArr:nil];
+//        }
     }
     return self;
 }
@@ -165,6 +165,7 @@
             
             ClockModel *model = self.timeArr[indexPath.row];
             [cell.timeButton setTitle:model.time forState:UIControlStateNormal];
+            cell.timeButton.enabled = model.isOpen;
             [cell.timeSwitch setOn:model.isOpen];
             
             [cell.timeButton addTarget:self action:@selector(showInfoDateView:) forControlEvents:UIControlEventTouchUpInside];
@@ -233,11 +234,11 @@
     return 53;
 }
 
-#pragma mark - BleReceiveDelegate
-- (void)receiveSetClockDataWithModel:(manridyModel *)manridyModel
-{
-    //暂时不用做什么操作
-}
+//#pragma mark - BleReceiveDelegate
+//- (void)receiveSetClockDataWithModel:(manridyModel *)manridyModel
+//{
+//    //暂时不用做什么操作
+//}
 
 #pragma mark - 懒加载
 - (UITableView *)tableView
@@ -262,7 +263,7 @@
 {
     if (!_myBleTool) {
         _myBleTool = [BLETool shareInstance];
-        _myBleTool.receiveDelegate = self;
+//        _myBleTool.receiveDelegate = self;
         
     }
     return _myBleTool;
@@ -271,7 +272,8 @@
 - (FMDBTool *)myFmdbTool
 {
     if (!_myFmdbTool) {
-        _myFmdbTool = [[FMDBTool alloc] initWithPath:@"UserList"];
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
     }
     
     return _myFmdbTool;

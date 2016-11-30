@@ -10,4 +10,8 @@
 
 @interface MenuContentView : UIView
 
+@property (nonatomic ,weak) UIImageView *headImageView;
+
+@property (nonatomic ,weak) UILabel *nameLabel;
+
 @end

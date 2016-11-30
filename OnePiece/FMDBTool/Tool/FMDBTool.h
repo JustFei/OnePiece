@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
+#import "UserInfoModel.h"
 
 @class SportModel;
 @class HeartRateModel;
-@class UserInfoModel;
 @class SleepModel;
 @class ClockModel;
 @class BloodModel;
@@ -91,11 +91,11 @@ typedef enum : NSUInteger {
 
 - (NSArray *)queryAllUserInfo;
 
-- (BOOL)modifyUserInfoWithID:(NSInteger)ID model:(UserInfoModel *)model;
+- (BOOL)modifyUserInfoModel:(UserInfoModel *)model withModityType:(UserInfoModifyType)modifyType;
 
-- (BOOL)modifyStepTargetWithID:(NSInteger)ID model:(NSInteger)stepTarget;
-
-- (BOOL)modifySleepTargetWithID:(NSInteger)ID model:(NSInteger)sleepTarget;
+//- (BOOL)modifyStepTargetWithID:(NSInteger)ID model:(NSInteger)stepTarget;
+//
+//- (BOOL)modifySleepTargetWithID:(NSInteger)ID model:(NSInteger)sleepTarget;
 
 - (BOOL)deleteUserInfoData:(NSString *)deleteSql;
 

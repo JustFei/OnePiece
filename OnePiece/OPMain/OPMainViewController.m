@@ -11,10 +11,20 @@
 #import "MenuViewController.h"
 #import "HistoryViewController.h"
 #import "ShareViewController.h"
+#import "BLETool.h"
+#import "FMDBTool.h"
+#import "NSStringTool.h"
 
-@interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate >
+@interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleReceiveDelegate , BleConnectDelegate >
+{
+    BOOL _isBind;
+    NSString *_currentDateString;
+}
 
 @property (nonatomic ,strong) OPMainContentView *contentView;
+@property (nonatomic ,strong) BLETool *myBleTool;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) NSArray *userArr;
 
 @end
 
@@ -24,8 +34,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    NSDate *currentDate = [NSDate date];
+    _currentDateString = [formatter stringFromDate:currentDate];
+    
+    _isBind = [[NSUserDefaults standardUserDefaults] boolForKey:@"isBind"];
+    DLog(@"有没有绑定设备 == %d",_isBind);
+    
     [self createUI];
     
+    [self getDataFromDB];
+    
+    [self bleConnect];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -33,11 +54,6 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBar.barTintColor = kClearColor;
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,6 +84,75 @@
     [self.navigationController.navigationBar setTintColor:kBlackColor];
 }
 
+- (void)getDataFromDB
+{
+    //先展示数据库里的数据
+    //步数
+    NSArray *stepArr = [self.myFmdbTool queryStepWithDate:_currentDateString];
+    if (stepArr.count) {
+        SportModel *sporyModel = stepArr.lastObject;
+        self.contentView.stepLabel.text = sporyModel.stepNumber;
+    }
+    
+    //睡眠
+    NSArray *sleepArr = [self.myFmdbTool querySleepWithDate:_currentDateString];
+    if (sleepArr.count) {
+        double sum = 0;
+        for (SleepModel *sleepModel in sleepArr) {
+            sum += sleepModel.sumSleep.doubleValue / 60;
+        }
+        self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+    }
+}
+
+- (void)bleConnect
+{
+    //监听state变化的状态
+    [self.myBleTool addObserver:self forKeyPath:@"systemBLEstate" options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    DLog(@"监听到%@对象的%@属性发生了改变， %@", object, keyPath, change[@"new"]);
+    if ([keyPath isEqualToString:@"systemBLEstate"]) {
+        NSString *new = change[@"new"];
+        switch (new.integerValue) {
+            case 4:
+                
+                break;
+            case 5:
+            {
+                if (_isBind) {
+                    if (self.myBleTool.connectState == kBLEstateDisConnected) {
+                        [self connectBLE];
+                    }
+                }
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)connectBLE
+{
+    BOOL systemConnect = [self.myBleTool retrievePeripherals];
+    if (!systemConnect) {
+        [self.myBleTool scanDevice];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.myBleTool stopScan];
+            
+            if (self.myBleTool.connectState == kBLEstateDisConnected) {
+//                [self.mainVc.stepView.stepLabel setText:@"未连接上设备，点击重试"];
+            }
+        });
+    }
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     //定义一个newPhoto，用来存放我们选择的图片。
@@ -81,7 +166,145 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma makr - Action
+#pragma mark - BleConnectDelegate
+- (void)manridyBLEDidConnectDevice:(manridyBleDevice *)device
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self syncAction:nil];
+    });
+    
+}
+
+#pragma mark - BleReceiveDelegate
+//motion data
+- (void)receiveMotionDataWithModel:(manridyModel *)manridyModel
+{
+    if (manridyModel.isReciveDataRight) {
+        if (manridyModel.receiveDataType == ReturnModelTypeSportModel) {
+            //保存motion数据到数据库
+            NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+            [dateformatter setDateFormat:@"yyyy/MM/dd"];
+            NSDate *currentDate = [NSDate date];
+            NSString *currentDateString = [dateformatter stringFromDate:currentDate];
+            
+            switch (manridyModel.sportModel.motionType) {
+                case MotionTypeStep:
+                    //对获取的步数信息做操作
+                    break;
+                case MotionTypeStepAndkCal:
+                {
+                    [self.contentView.stepLabel setText:manridyModel.sportModel.stepNumber];
+                    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        NSArray *stepArr = [self.myFmdbTool queryStepWithDate:manridyModel.sportModel.date];
+                        if (stepArr.count == 0) {
+                            [self.myFmdbTool insertStepModel:manridyModel.sportModel];
+                        }else {
+                            [self.myFmdbTool modifyStepWithDate:manridyModel.sportModel.date model:manridyModel.sportModel];
+                        }
+                    });
+                }
+                    break;
+                case MotionTypeCountOfData:
+                    //对历史数据个数进行操作
+                    break;
+                case MotionTypeDataInPeripheral:
+                {
+                    if (manridyModel.sportModel.sumDataCount != 0 && manridyModel.sportModel.sumDataCount) {
+                        //对具体的历史数据进行保存操作
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            NSArray *stepArr = [self.myFmdbTool queryStepWithDate:manridyModel.sportModel.date];
+                            float height;float weight;
+                            _userArr = [self.myFmdbTool queryAllUserInfo];
+                            if (_userArr.count == 0) {
+                                weight = 75.0;
+                                height = 180.0;
+                            }else {
+                                //这里由于是单用户，所以取第一个值
+                                UserInfoModel *model = _userArr.firstObject;
+                                weight = model.weight;
+                                height = model.height;
+                            }
+                            manridyModel.sportModel.kCalNumber = [NSString stringWithFormat:@"%f",[NSStringTool getKcal:manridyModel.sportModel.stepNumber.integerValue withHeight:height andWeitght:weight]];
+                            manridyModel.sportModel.mileageNumber = [NSString stringWithFormat:@"%f",[NSStringTool getMileage:manridyModel.sportModel.stepNumber.integerValue withHeight:height]];
+                            
+                            if (stepArr.count == 0) {
+                                [self.myFmdbTool insertStepModel:manridyModel.sportModel];
+                            }else {
+                                [self.myFmdbTool modifyStepWithDate:currentDateString model:manridyModel.sportModel];
+                            }
+                            
+                            if (manridyModel.sportModel.sumDataCount == manridyModel.sportModel.currentDataCount + 1) {
+                                [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeStepAndkCal];
+                            }
+                            
+                        });
+                    }else {
+                        [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeStepAndkCal];
+                    }
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+//get sleepInfo
+- (void)receiveSleepInfoWithModel:(manridyModel *)manridyModel
+{
+    @autoreleasepool {
+        if (manridyModel.isReciveDataRight) {
+            if (manridyModel.receiveDataType == ReturnModelTypeSleepModel) {
+                
+                //如果历史数据，插入数据库
+                if (manridyModel.sleepModel.sleepState == SleepDataHistoryData) {
+                    NSDate *currentDate = [NSDate date];
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyy/MM/dd";
+                    NSString *currentDateString = [formatter stringFromDate:currentDate];
+                    
+                    //如果历史数据总数不为空
+                    if (manridyModel.sleepModel.sumDataCount) {
+                        
+                        //插入历史睡眠数据，如果sumCount为0的话，就不做保存
+                        [self.myFmdbTool insertSleepModel:manridyModel.sleepModel];
+                        
+                        //如果历史数据全部载入完成
+                        if (manridyModel.sleepModel.currentDataCount + 1 == manridyModel.sleepModel.sumDataCount) {
+                            [self querySleepDataBaseWithDateString:currentDateString];
+                        }
+                    }else {
+                        //这里不查询历史，直接查询数据库展示即可
+                        [self querySleepDataBaseWithDateString:currentDateString];
+                    }
+                }else {
+                    [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+                }
+            }
+        }
+    }
+}
+
+#pragma mark - DataBase
+- (void)querySleepDataBaseWithDateString:(NSString *)currentDateString
+{
+    @autoreleasepool {
+        //当历史数据查完并存储到数据库后，查询数据库当天的睡眠数据，并加入数据源
+        NSArray *sleepDataArr = [self.myFmdbTool querySleepWithDate:currentDateString];
+        if (sleepDataArr.count != 0) {
+            double sum = 0;
+            
+            for (SleepModel *model in sleepDataArr) {
+                sum += model.sumSleep.doubleValue / 60;
+            }
+            self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+        }
+    }
+}
+
+#pragma mark - Action
 - (void)pushMenuList
 {
     MenuViewController *vc = [[MenuViewController alloc] init];
@@ -138,7 +361,12 @@
 
 - (void)syncAction:(UIButton *)sender
 {
-    
+    //1.同步时间
+    [self.myBleTool writeTimeToPeripheral:[NSDate date]];
+    //2.同步运动历史
+    [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
+    //3.同步睡眠历史
+    [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
 }
 
 - (void)PKAction:(UIButton *)sender
@@ -163,14 +391,34 @@
     return _contentView;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BLETool *)myBleTool
+{
+    if (!_myBleTool) {
+        _myBleTool = [BLETool shareInstance];
+        _myBleTool.connectDelegate = self;
+        _myBleTool.receiveDelegate = self;
+    }
+    
+    return _myBleTool;
 }
-*/
+
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
+    }
+    
+    return _myFmdbTool;
+}
+
+- (NSArray *)userArr
+{
+    if (!_userArr) {
+        _userArr = [self.myFmdbTool queryAllUserInfo];
+    }
+    
+    return _userArr;
+}
 
 @end

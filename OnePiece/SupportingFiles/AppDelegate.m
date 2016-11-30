@@ -56,11 +56,21 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-//    OPMainViewController *mainVC = [[OPMainViewController alloc] init];
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Login"]) {
+        BOOL login = [[NSUserDefaults standardUserDefaults] boolForKey:@"Login"];
+        if (login) {
+            OPMainViewController *mainVC = [[OPMainViewController alloc] init];
+            self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+        }else {
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        }
+    }else {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    }
     
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
     
     [self registSocialApp];
     

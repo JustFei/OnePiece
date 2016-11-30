@@ -277,8 +277,8 @@
         {
             if (indexPath.row == 0) {
                 cell.headImageView.hidden = NO;
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"]) {
-                    NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userheadimage"];
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
+                    NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
                     [cell.headImageView setImage:[UIImage imageWithData:imageData]];
                 }else {
                     cell.headImageView.image = [UIImage imageNamed:@"HeadImage_default"];

@@ -8,6 +8,7 @@
 
 #import "BindPerViewController.h"
 #import "BLETool.h"
+#import "FMDBTool.h"
 #import "manridyBleDevice.h"
 #import "MBProgressHUD.h"
 
@@ -17,6 +18,7 @@
 @property (nonatomic ,weak) UIButton *bindButton;
 @property (nonatomic ,strong) NSMutableArray *perMutArr;
 @property (nonatomic ,strong) BLETool *myBleTool;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
 @property (nonatomic ,strong) manridyBleDevice *currentDevice;
 @property (nonatomic ,strong) MBProgressHUD *hud;
 
@@ -30,6 +32,9 @@
         self.myBleTool = [BLETool shareInstance];
         self.myBleTool.discoverDelegate = self;
         self.myBleTool.connectDelegate = self;
+        
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        self.myFmdbTool = [[FMDBTool alloc] initWithPath:account];
     }
     return self;
 }
@@ -117,7 +122,11 @@
     
     [self.hud.label setText:[NSString stringWithFormat:@"已绑定设备：%@",device.deviceName]];
     [self.hud hideAnimated:YES afterDelay:1];
-    
+    UserInfoModel *model = [[UserInfoModel alloc] init];
+    model.peripheralName = device.deviceName;
+    model.peripheralUUID = device.peripheral.identifier.UUIDString;
+    [self.myFmdbTool modifyUserInfoModel:model  withModityType:UserInfoModifyTypePeripheralName];
+    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypePeripheralUUID];
     
     [[NSUserDefaults standardUserDefaults] setObject:device.peripheral.identifier.UUIDString forKey:@"bindPeripheralID"];
     [[NSUserDefaults standardUserDefaults] setObject:device.deviceName forKey:@"bindPeripheralName"];
