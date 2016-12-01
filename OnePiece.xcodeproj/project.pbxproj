@@ -67,6 +67,8 @@
 		9CED32AF1DED250700C7E098 /* ClockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32AE1DED250700C7E098 /* ClockModel.m */; };
 		9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32B21DED2A0400C7E098 /* BindPerViewController.m */; };
 		9CED32B81DED772B00C7E098 /* FMDBTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32B71DED772B00C7E098 /* FMDBTool.m */; };
+		9CF758991DEFD64D00EF9326 /* MAThermometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF758961DEFD64D00EF9326 /* MAThermometer.m */; };
+		9CF7589A1DEFD64D00EF9326 /* MAThermometerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF758981DEFD64D00EF9326 /* MAThermometerBorder.m */; };
 		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
 		9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE009D1DDBEB8500D38904 /* MenuContentView.m */; };
 		9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE009F1DDBEB8500D38904 /* MenuViewController.m */; };
@@ -198,6 +200,10 @@
 		9CED32B21DED2A0400C7E098 /* BindPerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindPerViewController.m; path = Menu/BindPerView/BindPerViewController.m; sourceTree = "<group>"; };
 		9CED32B61DED772B00C7E098 /* FMDBTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDBTool.h; path = FMDBTool/Tool/FMDBTool.h; sourceTree = "<group>"; };
 		9CED32B71DED772B00C7E098 /* FMDBTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDBTool.m; path = FMDBTool/Tool/FMDBTool.m; sourceTree = "<group>"; };
+		9CF758951DEFD64D00EF9326 /* MAThermometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAThermometer.h; path = Third/CustomProgress/MAThermometer.h; sourceTree = "<group>"; };
+		9CF758961DEFD64D00EF9326 /* MAThermometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAThermometer.m; path = Third/CustomProgress/MAThermometer.m; sourceTree = "<group>"; };
+		9CF758971DEFD64D00EF9326 /* MAThermometerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAThermometerBorder.h; path = Third/CustomProgress/MAThermometerBorder.h; sourceTree = "<group>"; };
+		9CF758981DEFD64D00EF9326 /* MAThermometerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAThermometerBorder.m; path = Third/CustomProgress/MAThermometerBorder.m; sourceTree = "<group>"; };
 		9CFE00931DDADC9B00D38904 /* Hakuu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Hakuu.ttf; path = Font/Hakuu.ttf; sourceTree = "<group>"; };
 		9CFE009C1DDBEB8500D38904 /* MenuContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuContentView.h; path = Menu/MenuView/MenuContentView.h; sourceTree = "<group>"; };
 		9CFE009D1DDBEB8500D38904 /* MenuContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuContentView.m; path = Menu/MenuView/MenuContentView.m; sourceTree = "<group>"; };
@@ -324,6 +330,7 @@
 		9C2295D11DD2B3BC00B3ACA4 /* OnePiece */ = {
 			isa = PBXGroup;
 			children = (
+				9CF758931DEFD60D00EF9326 /* Third */,
 				9CED32B41DED76FF00C7E098 /* FMDBTool */,
 				9CED32801DED243B00C7E098 /* BLETool */,
 				9C54CDC11DE5488C00183049 /* UserLogin */,
@@ -572,6 +579,25 @@
 				9CED32B71DED772B00C7E098 /* FMDBTool.m */,
 			);
 			name = Tool;
+			sourceTree = "<group>";
+		};
+		9CF758931DEFD60D00EF9326 /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				9CF758941DEFD62C00EF9326 /* CustomProgress */,
+			);
+			name = Third;
+			sourceTree = "<group>";
+		};
+		9CF758941DEFD62C00EF9326 /* CustomProgress */ = {
+			isa = PBXGroup;
+			children = (
+				9CF758951DEFD64D00EF9326 /* MAThermometer.h */,
+				9CF758961DEFD64D00EF9326 /* MAThermometer.m */,
+				9CF758971DEFD64D00EF9326 /* MAThermometerBorder.h */,
+				9CF758981DEFD64D00EF9326 /* MAThermometerBorder.m */,
+			);
+			name = CustomProgress;
 			sourceTree = "<group>";
 		};
 		9CFE00951DDB0C2800D38904 /* Menu */ = {
@@ -827,6 +853,7 @@
 				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,
 				9C4663DA1DE2DEDD00DBCC6B /* SettingViewController.m in Sources */,
 				9C0F492F1DE3E3F7002AB4B0 /* HistoryViewController.m in Sources */,
+				9CF7589A1DEFD64D00EF9326 /* MAThermometerBorder.m in Sources */,
 				9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */,
 				9C54CDBB1DE534A600183049 /* MonthContentView.m in Sources */,
 				9CED32B81DED772B00C7E098 /* FMDBTool.m in Sources */,
@@ -837,6 +864,7 @@
 				9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */,
 				9CED32AC1DED24CD00C7E098 /* UserInfoModel.m in Sources */,
 				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
+				9CF758991DEFD64D00EF9326 /* MAThermometer.m in Sources */,
 				9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */,
 				9CED32991DED248300C7E098 /* Remind.m in Sources */,
 				9CED32A71DED248D00C7E098 /* BLETool.m in Sources */,

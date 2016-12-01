@@ -66,6 +66,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *nickTextField = vc.textFields.firstObject;
         self.nickName.text = nickTextField.text;
+        [[NSUserDefaults standardUserDefaults] setObject:nickTextField.text forKey:@"userName"];
         UserInfoModel *model = [[UserInfoModel alloc] init];
         model.userName = nickTextField.text;
         if (self.userArr.count) {
@@ -324,16 +325,6 @@
                 cell.headImageView.clipsToBounds = YES;
             }
             if (indexPath.row == 1) {
-//                if (!self.userArr.count) {
-//                    UserInfoModel *model = self.userArr.lastObject;
-//                    if (model.userName) {
-//                        cell.infoLabel.text = model.userName;
-//                    }else {
-//                        cell.infoLabel.text = @"用户名";
-//                    }
-//                }else {
-//                    cell.infoLabel.text = @"用户名";
-//                }
                 self.nickName = cell.infoLabel;
             }
         }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GradientLabel.h"
+#import "MAThermometer.h"
 
 @interface OPMainContentView : UIView
 
@@ -26,5 +27,8 @@
 @property (nonatomic ,weak) UIButton *photoButton;
 @property (nonatomic ,weak) UIButton *syncButton;
 @property (nonatomic ,weak) UIButton *PKButton;
+
+@property (nonatomic ,strong) MAThermometer *stepProgress;
+@property (nonatomic ,strong) MAThermometer *sleepProgress;
 
 @end

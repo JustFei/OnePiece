@@ -28,6 +28,8 @@
 #define kBlueColor [UIColor blueColor]
 #define kGreenColor [UIColor greenColor]
 #define kGrayColor [UIColor grayColor]
+#define kOrangeColor [UIColor orangeColor]
+#define kPurpleColor [UIColor purpleColor]
 
 //通用的背景颜色
 #define kBackGroundColor kUIColorFromHEX(0xf2f2f2, 1)

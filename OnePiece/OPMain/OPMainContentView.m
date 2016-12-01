@@ -8,6 +8,7 @@
 
 #import "OPMainContentView.h"
 
+
 @interface OPMainContentView ()
 
 @end
@@ -26,33 +27,44 @@
 - (void)layoutSubviews
 {
     self.frame = [UIScreen mainScreen].bounds;
-//    [self layoutIfNeeded];
+    
+    //背景图片
     self.backGroundImageView.frame = kViewFrame;
+    //金币label
     self.moneyLabel.frame = XXF_CGRectMake(kViewCenter.x - 100, 81.5 * kViewWidth / 375, 200, 35 * kViewWidth / 375);
     self.moneyLabel.backgroundColor = kClearColor;
+    //步数label
     self.stepLabel.frame = XXF_CGRectMake(10, 75, 100, 22);
+    //睡眠label
     self.sleepLabel.frame = XXF_CGRectMake(kViewWidth - 116, 75, 100, 22);
-    
+    //步数(脚丫)图片
     UIImageView *stepImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(16, self.stepLabel.frame.origin.y + 23.5, 25, 34)];
     stepImageView.image = [UIImage imageNamed:@"Step"];
     [self addSubview:stepImageView];
-    
+    //睡眠(zzz)图片
     UIImageView *sleepImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(kViewWidth - 47, self.sleepLabel.frame.origin.y + 26.5, 28, 28)];
     sleepImageView.image = [UIImage imageNamed:@"Sleep"];
     [self addSubview:sleepImageView];
-    
+    //音乐按钮
     self.musicButton.frame = CGRectMake(15, kViewHeight * 870 / 1334 - 44, 35, 35);
-    
+    //拍照按钮
     self.photoButton.frame = CGRectMake(kViewWidth - 50, self.musicButton.frame.origin.y, 35, 35);
-    
+    //同步按钮
     self.syncButton.frame = CGRectMake(15, self.musicButton.frame.origin.y + 59 * kViewHeight / 667, 102 * kViewHeight / 667, 18.5 * kViewHeight / 667);
-    
+    //PK按钮
     self.PKButton.frame = CGRectMake(kViewWidth - 117 * kViewHeight / 667, self.syncButton.frame.origin.y, self.syncButton.frame.size.width, self.syncButton.frame.size.height);
-    
+    //步数进度条
+    self.stepProgress = [[MAThermometer alloc] initWithFrame:XXF_CGRectMake(10.5 + 17.5, stepImageView.frame.origin.y + 39 , 7, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 98)];
+    self.stepProgress.arrayColors = @[kRedColor,kOrangeColor];
+    [self addSubview:self.stepProgress];
+    //步数空槽
     UIImageView *stepEmptySlot = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(10.5, stepImageView.frame.origin.y + 35, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
     stepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:stepEmptySlot];
-    
+    //睡眠进度条
+    self.sleepProgress = [[MAThermometer alloc] initWithFrame:XXF_CGRectMake(kViewWidth - 33    , self.stepProgress.frame.origin.y, 7, self.stepProgress.frame.size.height)];
+    self.sleepProgress.arrayColors = @[kBlueColor,kPurpleColor];
+    [self addSubview:self.sleepProgress];
     UIImageView *sleepEmptySlot = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(kViewWidth - 50.5, stepEmptySlot.frame.origin.y, 40, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45)];
     sleepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:sleepEmptySlot];
@@ -296,6 +308,28 @@
     
     return _PKCountLabel;
 }
+
+//- (MAThermometer *)stepProgress
+//{
+//    if (!_stepProgress) {
+//        _stepProgress = [[MAThermometer alloc] init];
+//        _stepProgress.curValue = 100;
+//        [self addSubview:_stepProgress];
+//    }
+//    
+//    return _stepProgress;
+//}
+//
+//- (MAThermometer *)sleepProgress
+//{
+//    if (!_sleepProgress) {
+//        _sleepProgress = [[MAThermometer alloc] init];
+//        _sleepProgress.curValue = 100;
+//        [self addSubview:_sleepProgress];
+//    }
+//    
+//    return _sleepProgress;
+//}
 
 
 @end

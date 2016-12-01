@@ -44,16 +44,22 @@
     
     [self createUI];
     
-    [self getDataFromDB];
-    
     [self bleConnect];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [self getDataFromDB];
+    
     self.navigationController.navigationBar.barTintColor = kClearColor;
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    self.userArr = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,8 +96,9 @@
     //步数
     NSArray *stepArr = [self.myFmdbTool queryStepWithDate:_currentDateString];
     if (stepArr.count) {
-        SportModel *sporyModel = stepArr.lastObject;
-        self.contentView.stepLabel.text = sporyModel.stepNumber;
+        SportModel *sportModel = stepArr.lastObject;
+        self.contentView.stepLabel.text = sportModel.stepNumber;
+        [self drawProgressWithString:sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
     }
     
     //睡眠
@@ -102,6 +109,7 @@
             sum += sleepModel.sumSleep.doubleValue / 60;
         }
         self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+        [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
     }
 }
 
@@ -194,6 +202,8 @@
                 case MotionTypeStepAndkCal:
                 {
                     [self.contentView.stepLabel setText:manridyModel.sportModel.stepNumber];
+                    [self drawProgressWithString:manridyModel.sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
+                    
                     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         NSArray *stepArr = [self.myFmdbTool queryStepWithDate:manridyModel.sportModel.date];
                         if (stepArr.count == 0) {
@@ -300,6 +310,7 @@
                 sum += model.sumSleep.doubleValue / 60;
             }
             self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+            [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
         }
     }
 }
@@ -372,6 +383,27 @@
 - (void)PKAction:(UIButton *)sender
 {
     
+}
+
+- (void)drawProgressWithString:(float)sum withType:(ReturnModelType)type
+{
+    if (type == ReturnModelTypeSportModel) {
+        //TODO:绘制步数进度条
+        UserInfoModel *model = self.userArr.firstObject;
+        float progress = sum / model.stepTarget;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.contentView.stepProgress.curValue = progress * 100;
+        });
+        
+    }else if (type == ReturnModelTypeSleepModel) {
+        //TODO:绘制睡眠进度条
+        float progress = sum / 8.f;
+        NSLog(@"睡眠进度 == %f",progress);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.contentView.sleepProgress.curValue = progress * 100;
+        });
+    }
 }
 
 #pragma mark - 懒加载
