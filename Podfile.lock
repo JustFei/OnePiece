@@ -1,4 +1,5 @@
 PODS:
+  - BmobSDK (1.7.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -14,6 +15,7 @@ PODS:
   - ShareSDK3/ShareSDKUI (3.5.2)
 
 DEPENDENCIES:
+  - BmobSDK
   - FMDB (~> 2.6.2)
   - MBProgressHUD (~> 1.0.0)
   - MOBFoundation
@@ -25,11 +27,12 @@ DEPENDENCIES:
   - ShareSDK3/ShareSDKUI
 
 SPEC CHECKSUMS:
+  BmobSDK: e188cb31d6a8417ab668aee821da227d7512b865
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MOBFoundation: 2bc5cd7011a2db75cf2b3ceacb7f4227eec88f3e
   ShareSDK3: 08ed714e2bbdcd97ab60f58cb398227341dfc20a
 
-PODFILE CHECKSUM: 07fc1ea3d492222e7a1956fc161459f3d0694785
+PODFILE CHECKSUM: 52ba30ea1a6faa0a8af368be7009c22622afc1da
 
 COCOAPODS: 1.0.1

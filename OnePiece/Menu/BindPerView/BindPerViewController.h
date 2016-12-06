@@ -10,6 +10,7 @@
 
 @interface BindPerViewController : UIViewController
 
+@property (nonatomic ,assign) BOOL returnMain;
 - (void)disBindPeripheral;
 
 @end

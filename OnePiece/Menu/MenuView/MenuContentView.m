@@ -12,6 +12,7 @@
 #import "SettingViewController.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
+#import "BLETool.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
@@ -19,6 +20,7 @@
 @property (nonatomic ,weak) UIButton *logOutButton;
 @property (nonatomic ,strong) NSArray *cellImageArr;
 @property (nonatomic ,strong) NSArray *cellNameArr;
+@property (nonatomic ,strong) BLETool *myBleTool;
 
 @end
 
@@ -118,6 +120,13 @@
 #pragma mark - Action
 - (void)logout:(UIButton *)sender
 {
+    //清空蓝牙连接信息等状态
+    self.myBleTool.isReconnect = NO;
+    [self.myBleTool unConnectDevice];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralID"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
+    
     LoginViewController *vc = [[LoginViewController alloc] init];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Login"];
     [[self findViewController:self] presentViewController:vc animated:YES completion:nil];
@@ -184,6 +193,15 @@
     }
     
     return _logOutButton;
+}
+
+- (BLETool *)myBleTool
+{
+    if (!_myBleTool) {
+        _myBleTool = [BLETool shareInstance];
+    }
+    
+    return _myBleTool;
 }
 
 #pragma mark - 获取当前View的控制器的方法

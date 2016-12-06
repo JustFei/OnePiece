@@ -16,6 +16,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import <BmobSDK/Bmob.h>
 
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -73,6 +74,7 @@
     
     
     [self registSocialApp];
+    [self registBmob];
     
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentLeft;
@@ -128,6 +130,11 @@
                      break;
              }
          }];
+}
+
+- (void)registBmob
+{
+    [Bmob registerWithAppKey:@"396cb5d4f043900116500b8ad9fa2af3"];
 }
 
 

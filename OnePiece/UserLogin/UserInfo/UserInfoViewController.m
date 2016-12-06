@@ -23,7 +23,8 @@
     
     self.navigationItem.title = @"用户信息";
     self.view.backgroundColor = kWhiteColor;
-    self.contentView.backgroundColor = kUIColorFromHEX(0xf3f3f3, 1);;
+    self.contentView.backgroundColor = kUIColorFromHEX(0xf3f3f3, 1);
+    self.contentView.userModel = self.userModel;
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 

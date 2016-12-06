@@ -17,6 +17,7 @@
     per.peripheral = cbPeripheral;
     per.deviceName = cbPeripheral.name;
     per.uuidString = [advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
+    per.macAddress = [advertisementData objectForKey:@"kCVMacAddress"];
     per.RSSI = RSSI;
     
     return per;

@@ -41,7 +41,22 @@
         self.frame = frame;
         self.titleArr = @[@[@"更改账号",@"更改密码",@"二维码"],@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
         UserInfoModel *model = self.userArr.lastObject;
-        NSArray *arr = @[@[model.account,@"********",@""],@[@"",model.userName],@[model.gender,model.birthday,[NSString stringWithFormat:@"%ldcm",(long)model.height],[NSString stringWithFormat:@"%ldkg",(long)model.weight]],@[[NSString stringWithFormat:@"%ld",(long)model.stepTarget]]];
+        NSString *genderStr;
+        switch (model.gender) {
+            case -1:
+                genderStr = @"未选择";
+                break;
+            case 0:
+                genderStr = @"男";
+                break;
+            case 1:
+                genderStr = @"女";
+                break;
+                
+            default:
+                break;
+        }
+        NSArray *arr = @[@[model.account,@"********",@""],@[@"",model.userName],@[genderStr,model.birthday,[NSString stringWithFormat:@"%ldcm",(long)model.height],[NSString stringWithFormat:@"%ldkg",(long)model.weight]],@[[NSString stringWithFormat:@"%ld",(long)model.stepTarget]]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
     }
     return self;
@@ -104,7 +119,13 @@
             switch (self.pickerType) {
                 case PickerTypeGender:
                 {
-                    model.gender = self.infoLabel.text;
+                    if ([self.infoLabel.text isEqualToString:@"男"]) {
+                        model.gender = 0;
+                    }else if ([self.infoLabel.text isEqualToString:@"女"]) {
+                        model.gender = 1;
+                    }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
+                        model.gender = -1;
+                    }
                     [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
                 }
                     break;

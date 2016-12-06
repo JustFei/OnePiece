@@ -10,6 +10,9 @@
 #import "UserContentView.h"
 #import "UserTableViewCell.h"
 #import "HeadImageViewController.h"
+#import "MBProgressHUD.h"
+#import "FMDBTool.h"
+#import "BindPerViewController.h"
 
 @interface UserInfoContentView () < UITableViewDelegate , UITableViewDataSource , UIPickerViewDelegate , UIPickerViewDataSource , UIActionSheetDelegate >
 
@@ -27,6 +30,7 @@
 @property (nonatomic ,assign) PickerType pickerType;
 @property (nonatomic ,strong) UILabel *infoLabel;
 @property (nonatomic ,weak) UIButton *nextStepButton;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
 
 @end
 
@@ -48,7 +52,7 @@
 {
     self.tableView.frame = XXF_CGRectMake(0, 0, kViewWidth, kViewHeight);
     self.nextStepButton.frame = XXF_CGRectMake(kViewCenter.x - 30, 465, 60, 30);
-    NSLog(@"%@",self.title);
+    DLog(@"%@",self.title);
 }
 
 #pragma mark - Action
@@ -65,6 +69,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *nickTextField = vc.textFields.firstObject;
         self.nickName.text = nickTextField.text;
+        self.userModel.userName = nickTextField.text;
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     }];
@@ -93,6 +98,43 @@
         //获取到该cell的label对象，修改text
         if (self.title) {
             self.infoLabel.text = self.title;
+            self.title = nil;
+            switch (self.pickerType) {
+                case PickerTypeGender:
+                {
+                    if ([self.infoLabel.text isEqualToString:@"男"]) {
+                        self.userModel.gender = 0;
+                    }else if ([self.infoLabel.text isEqualToString:@"女"]) {
+                        self.userModel.gender = 1;
+                    }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
+                        self.userModel.gender = -1;
+                    }
+                }
+                    break;
+                case PickerTypeBirthday:
+                {
+                    self.userModel.birthday = self.infoLabel.text;
+                }
+                    break;
+                case PickerTypeHeight:
+                {
+                    self.userModel.height = self.infoLabel.text.integerValue;
+                }
+                    break;
+                case PickerTypeWeight:
+                {
+                    self.userModel.weight   = self.infoLabel.text.integerValue;
+                }
+                    break;
+                case PickerTypeMotionTarget:
+                {
+                    self.userModel.stepTarget = self.infoLabel.text.integerValue;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         }
         
     }];
@@ -134,9 +176,43 @@
     self.title = [formatter stringFromDate:datePicker.date];
 }
 
+//下一步按钮
 - (void)nextStepAction:(UIButton *)sender
 {
-    
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请完善用户信息" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+    if (self.userModel.account && self.userModel.pwd && self.userModel.userName && self.userModel.gender != -1 && self.userModel.birthday && self.userModel.height != 0 && self.userModel.weight != 0 && self.userModel.stepTarget != 0) {
+        
+        //显示等待菊花
+        [MBProgressHUD showHUDAddedTo:self animated:YES];
+        //这里上传所有的用户数据
+        //往UserModel表添加一条playerName为小明，分数为78的数据
+        BmobObject *UserModel = [BmobObject objectWithClassName:@"UserModel"];
+        [UserModel setObject:self.userModel.account forKey:@"account"];
+        [UserModel setObject:self.userModel.pwd forKey:@"pwd"];
+        [UserModel setObject:self.userModel.userName forKey:@"userName"];
+        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.gender] forKey:@"gender"];
+        [UserModel setObject:self.userModel.birthday forKey:@"birthday"];
+        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.height] forKey:@"height"];
+        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.weight] forKey:@"weight"];
+        [UserModel setObject:[NSNumber numberWithInteger:70] forKey:@"stepLength"];
+        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.stepTarget] forKey:@"stepTarget"];
+        [UserModel setObject:[NSNumber numberWithInteger:8] forKey:@"sleepTarget"];
+        [UserModel saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+            if (isSuccessful) {
+                DLog(@"数据上传成功");
+                [MBProgressHUD hideHUDForView:self animated:YES];
+                [self.myFmdbTool insertUserInfoModel:self.userModel];
+            }
+        }];
+        [[NSUserDefaults standardUserDefaults] setObject:self.userModel.account forKey:@"account"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
+        BindPerViewController *vc = [[BindPerViewController alloc] init];
+        vc.returnMain = YES;
+        [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+    }else {
+        [view show];
+    }
 }
 
 #pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
@@ -470,6 +546,15 @@
     }
     
     return _targetArr;
+}
+
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:self.userModel.account];
+    }
+    
+    return _myFmdbTool;
 }
 
 #pragma mark - 获取当前View的控制器的方法

@@ -36,6 +36,7 @@
 {
     BindPerViewController *vc = [[BindPerViewController alloc] init];
     if ([sender.titleLabel.text isEqualToString:@"绑定手环"]) {
+        vc.returnMain = NO;
         [[self findViewController:self].navigationController pushViewController:vc animated:YES];
     }else {
         [vc disBindPeripheral];

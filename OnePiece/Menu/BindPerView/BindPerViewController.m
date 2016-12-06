@@ -11,6 +11,8 @@
 #import "FMDBTool.h"
 #import "manridyBleDevice.h"
 #import "MBProgressHUD.h"
+#import "OPMainViewController.h"
+#import <BmobSDK/Bmob.h>
 
 @interface BindPerViewController () < UITableViewDelegate , UITableViewDataSource , BleDiscoverDelegate , BleConnectDelegate >
 
@@ -120,6 +122,27 @@
     self.myBleTool.isReconnect = YES;
     [self.myBleTool writeTimeToPeripheral:[NSDate date]];
     
+    //查找GameScore表
+    BmobQuery   *bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    //查找GameScore表里面id为0c6db13c的数据
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    [bquery whereKey:@"account" equalTo:account];
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        //没有返回错误
+        if (!error) {
+            //对象存在
+            if (array) {
+                for (BmobObject *obj in array) {
+                    [obj setObject:device.peripheral.name forKey:@"peripheralName"];
+                    [obj setObject:device.peripheral.identifier.UUIDString forKey:@"peripheralUUID"];
+                    [obj updateInBackground];
+                }
+            }
+        }else{
+            //进行错误处理
+        }
+    }];
+    
     [self.hud.label setText:[NSString stringWithFormat:@"已绑定设备：%@",device.deviceName]];
     [self.hud hideAnimated:YES afterDelay:1];
     UserInfoModel *model = [[UserInfoModel alloc] init];
@@ -134,6 +157,10 @@
     
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.returnMain) {
+            OPMainViewController *vc = [[OPMainViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     });
 }

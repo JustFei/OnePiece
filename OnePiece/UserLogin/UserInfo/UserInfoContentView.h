@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfoModel.h"
 
 @interface UserInfoContentView : UIView
+
+@property (nonatomic ,strong) UserInfoModel *userModel;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BmobSDK/Bmob.h>
 
 typedef enum : NSUInteger {
     UserInfoModifyTypeAccount = 0,
@@ -22,10 +23,11 @@ typedef enum : NSUInteger {
     UserInfoModifyTypePeripheralUUID
 } UserInfoModifyType;
 
-@interface UserInfoModel : NSObject
+@interface UserInfoModel : BmobObject
 @property (nonatomic ,copy) NSString *account;
+@property (nonatomic ,copy) NSString *pwd;
 @property (nonatomic ,copy) NSString *userName;
-@property (nonatomic ,copy) NSString *gender;
+@property (nonatomic ,assign) NSInteger gender;
 @property (nonatomic ,copy) NSString *birthday;
 @property (nonatomic ,assign) NSInteger height;
 @property (nonatomic ,assign) NSInteger weight;
@@ -35,6 +37,13 @@ typedef enum : NSUInteger {
 @property (nonatomic ,copy) NSString *peripheralName;
 @property (nonatomic ,copy) NSString *peripheralUUID;
 
-+ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSString *)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID;
++ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID;
+
+/**
+ *	后台注册,返回注册结果
+ *
+ *	@param	block	返回成功还是失败
+ */
+-(void)signUpInBackgroundWithBlock:(BmobBooleanResultBlock)block;
 
 @end

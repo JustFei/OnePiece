@@ -46,7 +46,7 @@ static FMDatabase *_fmdb;
         }
         
         //UserInfoData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender text, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text);"]];
         
         //ClockData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists ClockData(id integer primary key, time text, isopen bool);"]];
@@ -519,11 +519,11 @@ static FMDatabase *_fmdb;
     NSLog(@"BloodO2查询成功");
     return arrM;
 }
-//account text, username text, gender text, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text
+
 #pragma mark - UserInfoData
 - (BOOL)insertUserInfoModel:(UserInfoModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, peripheralUUID) VALUES ('%@', '%@', '%@', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@');", model.account, model.userName, model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.peripheralUUID];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, peripheralUUID) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.peripheralUUID];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -547,7 +547,7 @@ static FMDatabase *_fmdb;
         
         NSString *account = [set stringForColumn:@"account"];
         NSString *userName = [set stringForColumn:@"username"];
-        NSString *gender = [set stringForColumn:@"gender"];
+        NSInteger gender = [set intForColumn:@"gender"];
         NSString *birthday = [set stringForColumn:@"birthday"];
         NSInteger height = [set intForColumn:@"height"];
         NSInteger weight = [set intForColumn:@"weight"];
@@ -559,7 +559,7 @@ static FMDatabase *_fmdb;
         
         UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andPeripheralUUID:peripheralUUID];
         
-        NSLog(@"%@,%@,%@,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.peripheralUUID);
+        NSLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.peripheralUUID);
         
         [arrM addObject:model];
     }

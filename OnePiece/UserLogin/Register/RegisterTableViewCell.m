@@ -24,7 +24,5 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)geiVerificationCodeAction:(UIButton *)sender {
-}
 
 @end

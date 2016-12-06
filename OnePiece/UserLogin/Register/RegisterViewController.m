@@ -9,11 +9,20 @@
 #import "RegisterViewController.h"
 #import "RegisterTableViewCell.h"
 #import "UserInfoViewController.h"
+#import <BmobSDK/Bmob.h>
+#import "MBProgressHUD.h"
 
 @interface RegisterViewController () < UITableViewDelegate , UITableViewDataSource >
-
+{
+    int seconds;
+    NSTimer *countDown;
+}
 @property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,weak) UIButton *signupButton;
+@property (nonatomic ,weak) UITextField *phoneNumberTextField;
+@property (nonatomic ,weak) UITextField *safeCodeTextField;
+@property (nonatomic ,weak) UITextField *pwdTextField;
+@property (nonatomic ,weak) UIButton *getSafeCodeButton;
 
 @end
 
@@ -66,21 +75,140 @@
     
 }
 
+- (void)geiVerificationCodeAction:(UIButton *)sender
+{
+    if (self.phoneNumberTextField.text && self.phoneNumberTextField.text.length == 11) {
+        //验证次号码是否已经存在
+        //查找UserModel表
+        BmobQuery   *bquery = [BmobQuery queryWithClassName:@"UserModel"];
+        //添加playerName不是小明的约束条件
+        [bquery whereKey:@"account" equalTo:self.phoneNumberTextField.text];
+        [bquery countObjectsInBackgroundWithBlock:^(int number,NSError  *error){
+            DLog(@"%d",number);
+            
+            //如果存在，提示换号码
+            if (number > 0) {
+                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该号码已被注册，请换个号码试试！" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                [view show];
+            }else {
+                //不存在，就请求验证码
+                
+                //改变获取验证码按钮为60秒倒计时
+                //显示等待菊花
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                //请求验证码
+                [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
+                    if (error) {
+                        DLog(@"%@",error);
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [view show];
+                        
+                        //隐藏等待菊花
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    } else {
+                        //获得smsID
+                        DLog(@"sms ID：%d",number);
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码已发送，请注意查收" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                        [view show];
+                        
+                        //隐藏等待菊花
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    }
+                }];
+            }
+        }];
+    }else {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入正确的手机号" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+        [view show];
+    }
+}
+
 - (void)signupAction:(UIButton *)sender
 {
-    if (self.loginType == LoginTypeRegister) {
-        //注册 跳转到用户信息录入
-        UserInfoViewController *vc = [[UserInfoViewController alloc] init];
-        [self.navigationController pushViewController:vc  animated:YES];
-    }else {
-        //重设密码 跳转到登陆界面
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    //显示等待菊花
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //验证
+    DLog(@"phone == %@,safeCode == %@",self.phoneNumberTextField.text ,self.safeCodeTextField.text);
+    [BmobSMS verifySMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andSMSCode:self.safeCodeTextField.text resultBlock:^(BOOL isSuccessful, NSError *error) {
+        if (isSuccessful) {
+            DLog(@"%@",@"验证成功，可执行用户请求的操作");
+            //验证码验证成功后，停止定时器
+            [self releaseTImer];
+            
+            //隐藏等待菊花
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            //传递model给下一个控制器
+            UserInfoModel *model = [[UserInfoModel alloc] init];
+            model.account = self.phoneNumberTextField.text;
+            model.pwd = self.pwdTextField.text;
+            if (self.loginType == LoginTypeRegister) {
+                //注册 跳转到用户信息录入
+                UserInfoViewController *vc = [[UserInfoViewController alloc] init];
+                vc.userModel = model;
+                [self.navigationController pushViewController:vc  animated:YES];
+            }else {
+                //重设密码 跳转到登陆界面
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        } else {
+            DLog(@"%@",error);
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+            [view show];
+            //隐藏等待菊花
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    }];
+//    
+//    
+//    if (self.loginType == LoginTypeRegister) {
+//        //注册 跳转到用户信息录入
+//        UserInfoViewController *vc = [[UserInfoViewController alloc] init];
+//        [self.navigationController pushViewController:vc  animated:YES];
+//    }else {
+//        //重设密码 跳转到登陆界面
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+- (void)changeGetSafeCodeButtonState
+{
+    self.getSafeCodeButton.enabled = NO;
+    
+    countDown = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+}
+
+-(void)timerFireMethod:(NSTimer *)theTimer {
+    if (seconds == 1) {
+        [theTimer invalidate];
+        seconds = 60;
+        [self.getSafeCodeButton setTitle:@"获取验证码" forState: UIControlStateNormal];
+        [self.getSafeCodeButton setTitleColor:kUIColorFromHEX(0x2c91F4, 1) forState:UIControlStateNormal];
+        [self.getSafeCodeButton setEnabled:YES];
+    }else{
+        seconds--;
+        NSString *title = [NSString stringWithFormat:@"%d秒后尝试",seconds];
+        [self.getSafeCodeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [self.getSafeCodeButton setEnabled:NO];
+        [self.getSafeCodeButton setTitle:title forState:UIControlStateNormal];
+    }
+}
+
+//如果登陆成功，停止验证码的倒数，
+- (void)releaseTImer {
+    if (countDown) {
+        if ([countDown respondsToSelector:@selector(isValid)]) {
+            if ([countDown isValid]) {
+                [countDown invalidate];
+                seconds = 60;
+            }
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
@@ -112,6 +240,7 @@
             cell.countryNumberLabel.hidden = NO;
             cell.phoneNumberTF.hidden = NO;
             cell.countryNumberLabel.text = @"+86";
+            self.phoneNumberTextField = cell.phoneNumberTF;
         }
             break;
         case 2:
@@ -119,12 +248,15 @@
             cell.PwdNumberTF.hidden = NO;
             cell.getVerificationCodeButton.hidden = NO;
             cell.PwdNumberTF.placeholder = @"验证码";
+            [cell.getVerificationCodeButton addTarget:self action:@selector(geiVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+            self.safeCodeTextField = cell.PwdNumberTF;
         }
             break;
         case 3:
         {
             cell.PwdNumberTF.hidden = NO;
             cell.PwdNumberTF.placeholder = @"密码（6-16位，数字、大小写字母和特殊符号）";
+            self.pwdTextField = cell.PwdNumberTF;
         }
             
         default:

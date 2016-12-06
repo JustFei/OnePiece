@@ -10,7 +10,7 @@
 
 @implementation UserInfoModel
 
-+ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSString *)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID
++ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID
 {
     UserInfoModel *model = [[UserInfoModel alloc] init];
     
@@ -27,6 +27,11 @@
     model.peripheralUUID = peripheralUUID;
     
     return model;
+}
+
+-(void)signUpInBackgroundWithBlock:(BmobBooleanResultBlock)block
+{
+    
 }
 
 @end

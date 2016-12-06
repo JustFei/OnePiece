@@ -10,62 +10,20 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>00123CDAD24757BC2435A5237C801404</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
-			<key>name</key>
-			<string>libWeChatSDK.a</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>02183D53FB39E88993C5D2759A72726A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBHttpRequest+WeiboToken.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboToken.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>03CE3CF8E3521D3B7B1686C8D854CD78</key>
+		<key>0382F7524CAF77F2BBCC3411707D182E</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>4F635227FBCFCA68E3749E3506E870BC</string>
+				<string>2362CD2B2E2B30F515C221BAD001B7F3</string>
+				<string>857AAB7F1FA8DEF92B5ECC89E7F1654E</string>
+				<string>7A7861572519A46C55D1A35DA1D5ABC0</string>
+				<string>5C87E2FC7E79E7DA96E4EE964424CD9B</string>
+				<string>39C1EFFFA27C6FFA6C3A731A32EDD586</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>ShareSDKExtension</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>043D36EED66306DF4EB1801D3A86BAB1</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>329A1993AD3BB7B9A3A30FFDE0D177AE</string>
-				<string>CD3574BFD9EBBFB3C826936FF14344D6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>FMDB</string>
-			<key>path</key>
-			<string>FMDB</string>
+			<string>Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -87,20 +45,6 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>064759C7DB348EBEE24DDE32509FFA23</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>ED6AF01AF82F91F48DB253923DC1A285</string>
-				<string>E6FB94DCEC67E50E01264557CC451D88</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>ShareSDK</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>0827BAE921A69715BA5D43430BF85A9F</key>
 		<dict>
 			<key>isa</key>
@@ -121,6 +65,19 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>0B0C04BA90E82BC66BA173261BA25A91</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>69877CB0CCE80B8581147C995360ABD4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>0B773CB89711902D049A5E4034DCA596</key>
 		<dict>
 			<key>children</key>
@@ -136,155 +93,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0EF8E9AA652DBE2745A7D5C8CD2E3BDE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>114969388BE614F057C9045618198226</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>0F8A8E0D6FAEBF758E0B4D620335F094</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E96609D6E3707BCF30B48A11972F58A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>10BD7ABDD3DFE264E7C918FADEA6DE8C</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>9F12FB4A63E20F601CFB2E64A65B57C1</string>
-			<key>remoteInfo</key>
-			<string>FMDB</string>
-		</dict>
-		<key>113049B3F5B334FB1B6709EDA5EFACEC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBHttpRequest.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>114969388BE614F057C9045618198226</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>FMDatabasePool.m</string>
-			<key>path</key>
-			<string>src/fmdb/FMDatabasePool.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11FCBAFE8B3B429A8C8D5C72FD32C6AC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-OnePiece-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>122DA2E5084A4393C29BE363C764795C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>0B773CB89711902D049A5E4034DCA596</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>129AAF7E9FD06338BA4BB6255A207B9C</key>
+		<key>0BC8ACAA1BBCD83153EF57E2B89FB594</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BA92F0C8E3B2CC176BC680F161F23CF4</string>
+			<string>8E76EA39367A26E2EB63955D68AAC677</string>
 			<key>buildSettings</key>
 			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/FMDB/FMDB-prefix.pch</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>4.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>13BAFDFE27FF0927227A2B248C0274DE</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BA92F0C8E3B2CC176BC680F161F23CF4</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
 				<string>iPhone Developer</string>
 				<key>DEBUG_INFORMATION_FORMAT</key>
@@ -319,6 +133,100 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
+		<key>0BF8D35530402FA42A03687E5101CD4F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBSDKBasicButton.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKBasicButton.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0C32AFCF1B4EEE48D612C918A5B7B440</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>551EA1378BF84AA73F6246533A581805</string>
+				<string>B55256FACDAA6D378CB88136ED02E858</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>QQ</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0EF8E9AA652DBE2745A7D5C8CD2E3BDE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>53781DD6F838272BE4339401036FD809</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>0F8A8E0D6FAEBF758E0B4D620335F094</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E70F734184F2B5E67399484CBF1A7F71</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>10BD7ABDD3DFE264E7C918FADEA6DE8C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>9F12FB4A63E20F601CFB2E64A65B57C1</string>
+			<key>remoteInfo</key>
+			<string>FMDB</string>
+		</dict>
+		<key>11FCBAFE8B3B429A8C8D5C72FD32C6AC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-OnePiece-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>122DA2E5084A4393C29BE363C764795C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0B773CB89711902D049A5E4034DCA596</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>13FA8104D69E4B6550EFF77E38670F3E</key>
 		<dict>
 			<key>isa</key>
@@ -332,16 +240,292 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>1606AF36C67BD6A23EFD0D9E3C08A30F</key>
+		<key>1453A0693E76363C6496DD49079B9E4E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>MBProgressHUD.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>175B612C47B6E254136BA48C4ADD1C25</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libWeiboSDK.a</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>176F16E9561AE9F321D9EFD079C86592</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libFMDB.a</string>
+			<key>path</key>
+			<string>libFMDB.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>1AFA89153325A09AD73AD0F15FE4EC4E</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>371F1C67012BEBFAA6A0AFDDA21891BD</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>6.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>1C289876A4849D6798FC7F154214C5F8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>13FA8104D69E4B6550EFF77E38670F3E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1CB9935F57C6C811E82C82950EDDD53A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>FB786D7F2640D769D97DFB3F61A0CD16</string>
+				<string>5C19EAB23E4978AE7D1FC1D7F1E49DBE</string>
+				<string>D43221D543AC90F3D4A5C129FE1BE8CD</string>
+				<string>4A20B3C2602FBD24D6DCA85F39CA2EF2</string>
+				<string>E70F734184F2B5E67399484CBF1A7F71</string>
+				<string>53781DD6F838272BE4339401036FD809</string>
+				<string>B3668955136B7184C5BA4425519F656E</string>
+				<string>AFE31B314C0D3AEE1CAE2A5F5BED96E0</string>
+				<string>6F56577EBE9AD4B3E1620C79DF357C55</string>
+				<string>7B8D4CF744E34B176661C40B8A20F84E</string>
+				<string>DE8253857944A36EC808657D552D01AC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>standard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1CD27E595837C1105C5FECD13A61EBC2</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0B0C04BA90E82BC66BA173261BA25A91</string>
+				<string>C084E327358F7DE5F876DBD83D36C3B6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>ShareSDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1CDC590612E45C4FA518ACCAA567CC31</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBHttpRequest.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1D2BC4F042E5E95CE9B6DCEA2CA221B4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WXApi.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/WXApi.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1E4D0AEC6FBCC3FF775CD0E9549FE289</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libPods-OnePiece.a</string>
+			<key>path</key>
+			<string>libPods-OnePiece.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>1F97048AF18C3EFEDE731BDEECCD58A8</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>9413B669A6203AD71A048A8F824ECDD9</string>
+				<string>1AFA89153325A09AD73AD0F15FE4EC4E</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2159E49E8C40440AEB2AE60766304E23</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>21DC356B516808E4D6808A69CCBB2FAC</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>org.cocoapods.${PRODUCT_NAME:rfc1034identifier}</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>21DC356B516808E4D6808A69CCBB2FAC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-OnePiece.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>225CD91713F749B89A9E6A744FA0A0CF</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F01F0341793860D312FF7F03891749F4</string>
+				<string>3893DD88E51C817B5374095D939CBFC7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2362CD2B2E2B30F515C221BAD001B7F3</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>96FDF75AD38544869495AA2B50BB9672</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>BmobSDK</string>
+			<key>path</key>
+			<string>BmobSDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282081E035E7A843068E8BCC2E07C217</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AFE31B314C0D3AEE1CAE2A5F5BED96E0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>288701E86095CC213AE2CB0A175601CB</key>
 		<dict>
 			<key>baseConfigurationReference</key>
 			<string>38B109CA27A99FA51596AA01F5C1A447</string>
 			<key>buildSettings</key>
 			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
 				<string>iPhone Developer</string>
 				<key>DEBUG_INFORMATION_FORMAT</key>
@@ -376,87 +560,22 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>176F16E9561AE9F321D9EFD079C86592</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libFMDB.a</string>
-			<key>path</key>
-			<string>libFMDB.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>17F7D4DDC63CDBED972EAEA3DE6AAD7B</key>
+		<key>28E53CFBF0E4EAC88E2432F0FCC00C53</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>D9F88579C1110E3244167DD585529810</string>
-				<string>CAD85147B53EBD778657E211663BB0C7</string>
+				<string>0C32AFCF1B4EEE48D612C918A5B7B440</string>
+				<string>B61E6BCFF8E0D53965DDB6ED7815492A</string>
+				<string>7E47300FB0D8320E176D65141724DC8D</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>QQ</string>
+			<string>ShareSDKPlatforms</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1C289876A4849D6798FC7F154214C5F8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>13FA8104D69E4B6550EFF77E38670F3E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1C555264DEFDD8DDD2FE0A5581884F6C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBHttpRequest+WeiboGame.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboGame.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1E4D0AEC6FBCC3FF775CD0E9549FE289</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-OnePiece.a</string>
-			<key>path</key>
-			<string>libPods-OnePiece.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1F97048AF18C3EFEDE731BDEECCD58A8</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>F8D4FF838F88CCCEAF0C7466FD9C179B</string>
-				<string>73BCEDD2A4F50C337B0113BECB788303</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>207457A4574558AB69BB9F914A2090AD</key>
+		<key>29C9F379B398846257FB9275364518C3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -468,74 +587,6 @@
 			<string>WBHttpRequest+WeiboShare.h</string>
 			<key>path</key>
 			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboShare.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>21DC356B516808E4D6808A69CCBB2FAC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-OnePiece.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2404B037DCAD5B0CF6E294D0C8C5D4C6</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>ShareSDKExtension.framework</string>
-			<key>path</key>
-			<string>ShareSDK/Support/Optional/ShareSDKExtension.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>278063C427A71CE9A50892F2A5C8E242</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WeiboUser.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboUser.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>282081E035E7A843068E8BCC2E07C217</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B4633D88AA3E712C0CE8E18E33D17049</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>2AE2CCAA0F96AADFD72DDD21C8A4B2A5</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>17F7D4DDC63CDBED972EAEA3DE6AAD7B</string>
-				<string>99A9C214BC01F964A1E6A8D81E4E677B</string>
-				<string>765F7109FC0C01C1FF65F2E46835AEB4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>ShareSDKPlatforms</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -563,7 +614,7 @@
 		<key>313531CEDA0294311D87B4F4C3F073F4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>44E29A4815FEEDBFAB76C4FE8A123FC4</string>
+			<string>6F56577EBE9AD4B3E1620C79DF357C55</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -574,35 +625,49 @@
 				</array>
 			</dict>
 		</dict>
-		<key>329A1993AD3BB7B9A3A30FFDE0D177AE</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>47EAEF2B26251FB6C24AB0318C0CC73D</string>
-				<string>5CAD1F0BD0075C515B86AC728E1A0F72</string>
-				<string>EC03ACDE63C8C14F986E36FD9C18B109</string>
-				<string>7CF960DD1B3D3BD0EEF15B0637981228</string>
-				<string>E96609D6E3707BCF30B48A11972F58A0</string>
-				<string>114969388BE614F057C9045618198226</string>
-				<string>D859456A92C8F222E9B9C03F4C7435D2</string>
-				<string>B4633D88AA3E712C0CE8E18E33D17049</string>
-				<string>44E29A4815FEEDBFAB76C4FE8A123FC4</string>
-				<string>3BFBC3F92FEA81225219C2BC2ECF3134</string>
-				<string>7525378E310C33EA98F99885B26F43F3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>standard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>32B6C52F581E14B6EEEF39E5FFE9D881</key>
 		<dict>
 			<key>fileRef</key>
 			<string>13FA8104D69E4B6550EFF77E38670F3E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>371F1C67012BEBFAA6A0AFDDA21891BD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>MBProgressHUD.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>374460133D63AF4C0B2D596C79E0C3EA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>FMDB-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3893DD88E51C817B5374095D939CBFC7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>path</key>
+			<string>MOBFoundationEx.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>38B109CA27A99FA51596AA01F5C1A447</key>
 		<dict>
@@ -617,12 +682,44 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>39C1EFFFA27C6FFA6C3A731A32EDD586</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>ADEA59D26B09863F093D8536482FAAD2</string>
+				<string>1CD27E595837C1105C5FECD13A61EBC2</string>
+				<string>98132D806E35B3BA97262EC91A31A106</string>
+				<string>28E53CFBF0E4EAC88E2432F0FCC00C53</string>
+				<string>A31DC2184F9B3AF36A7836CA7EA6CE8A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>ShareSDK3</string>
+			<key>path</key>
+			<string>ShareSDK3</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>39FF7EEC6227C0780342BB11D153C48F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MBProgressHUD-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>3AC899FD215914230EB9D8B57AD910D0</key>
 		<dict>
 			<key>buildConfigurations</key>
 			<array>
-				<string>13BAFDFE27FF0927227A2B248C0274DE</string>
-				<string>129AAF7E9FD06338BA4BB6255A207B9C</string>
+				<string>0BC8ACAA1BBCD83153EF57E2B89FB594</string>
+				<string>C7BA904A87CCDF175A63DBF60D6810A9</string>
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
@@ -631,53 +728,12 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>3BFBC3F92FEA81225219C2BC2ECF3134</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>FMResultSet.h</string>
-			<key>path</key>
-			<string>src/fmdb/FMResultSet.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>3D0F69C4CA35EB6A1F686BA88B19B4F6</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B3DDA6B4161EFD2E14A01B4CD38C21D6</string>
+			<string>374460133D63AF4C0B2D596C79E0C3EA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>3D23954B5F03A747013D5B58F935C181</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>ShareSDKUI.framework</string>
-			<key>path</key>
-			<string>ShareSDK/Support/Optional/ShareSDKUI.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3DD93B8DCDBC68A5C855593D95C850DC</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7DF3CA7E08140283EA4DFFE57AF14DC8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>3FA2475660FFC880302AD18E29B2E5FC</key>
 		<dict>
@@ -757,85 +813,70 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>4132EF36E534C0A9EE43E52B4178D0CF</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>21DC356B516808E4D6808A69CCBB2FAC</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.cocoapods.${PRODUCT_NAME:rfc1034identifier}</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>44E29A4815FEEDBFAB76C4FE8A123FC4</key>
+		<key>48346FD190F3EC4C18563CFE7FBB1833</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>wrapper.plug-in</string>
 			<key>name</key>
-			<string>FMDB.h</string>
+			<string>ShareSDK.bundle</string>
 			<key>path</key>
-			<string>src/fmdb/FMDB.h</string>
+			<string>ShareSDK/Support/Required/ShareSDK.bundle</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>47EAEF2B26251FB6C24AB0318C0CC73D</key>
+		<key>4A20B3C2602FBD24D6DCA85F39CA2EF2</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>FMDatabase.h</string>
+			<string>FMDatabaseAdditions.m</string>
 			<key>path</key>
-			<string>src/fmdb/FMDatabase.h</string>
+			<string>src/fmdb/FMDatabaseAdditions.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4F635227FBCFCA68E3749E3506E870BC</key>
+		<key>520FDBA0E11402105BB644ACBCD88762</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>TencentOpenAPI.framework</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenAPI.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>53781DD6F838272BE4339401036FD809</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>FMDatabasePool.m</string>
+			<key>path</key>
+			<string>src/fmdb/FMDatabasePool.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>551EA1378BF84AA73F6246533A581805</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>2404B037DCAD5B0CF6E294D0C8C5D4C6</string>
+				<string>5EBCDDDCC4D29755C0988F78E5D0EFCA</string>
+				<string>520FDBA0E11402105BB644ACBCD88762</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -844,41 +885,21 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>527DA96B11DAA7BE0C940DA56ADB5FCA</key>
+		<key>555DC89997914EC100164D94F5A1C599</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>3DD93B8DCDBC68A5C855593D95C850DC</string>
-				<string>064759C7DB348EBEE24DDE32509FFA23</string>
-				<string>03CE3CF8E3521D3B7B1686C8D854CD78</string>
-				<string>2AE2CCAA0F96AADFD72DDD21C8A4B2A5</string>
-				<string>E5638E378DFF59C9BD4F748653273F92</string>
+				<string>175B612C47B6E254136BA48C4ADD1C25</string>
+				<string>630C760FB86726C4E9BC02988B25B7BA</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>ShareSDK3</string>
-			<key>path</key>
-			<string>ShareSDK3</string>
+			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>529C258755177596D0936458F2B09171</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WXApi.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/WXApi.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5CAD1F0BD0075C515B86AC728E1A0F72</key>
+		<key>5C19EAB23E4978AE7D1FC1D7F1E49DBE</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -890,6 +911,21 @@
 			<string>FMDatabase.m</string>
 			<key>path</key>
 			<string>src/fmdb/FMDatabase.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C87E2FC7E79E7DA96E4EE964424CD9B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>225CD91713F749B89A9E6A744FA0A0CF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MOBFoundation</string>
+			<key>path</key>
+			<string>MOBFoundation</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -920,6 +956,19 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>5EBCDDDCC4D29755C0988F78E5D0EFCA</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>QQConnector.framework</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformConnector/QQConnector.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>6157F3460B928D9D3C6E44F9F7BB3AB9</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -946,58 +995,7 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>648E7F45D6E4DCE98EED9D4E2F003C1E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BD3AA69DB1AA49D1A0E209D2D3E5F086</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>650A9427A22043810170445A5E17E730</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBSDKBasicButton.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKBasicButton.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>695A3FA15E903AE48EB0B3BE336F2467</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EA581BEFF563900D5923407ECFB69C99</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>6B9415D2AE8C787D474710EDD28BCB89</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBHttpRequest+WeiboUser.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboUser.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>727B8FE618A31CB7E90D31D7CC748D9B</key>
+		<key>630C760FB86726C4E9BC02988B25B7BA</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXFileReference</string>
@@ -1010,7 +1008,99 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>73A45334D0C4C22938F2F4D7E56517BC</key>
+		<key>648E7F45D6E4DCE98EED9D4E2F003C1E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>650A156B280C5544C09879308CE99202</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>650A156B280C5544C09879308CE99202</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>MBProgressHUD-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>67D705F166A162A6E391261EE1DD84D2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WechatAuthSDK.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/WechatAuthSDK.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>695A3FA15E903AE48EB0B3BE336F2467</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F21FD63C18A51078330083A3AE8F47C9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>69877CB0CCE80B8581147C995360ABD4</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>ShareSDKConnector.framework</string>
+			<key>path</key>
+			<string>ShareSDK/Support/Required/ShareSDKConnector.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6B6A15CB9B531E42D829BADB8B7BD5B4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBHttpRequest+WeiboGame.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboGame.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F56577EBE9AD4B3E1620C79DF357C55</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FMDB.h</string>
+			<key>path</key>
+			<string>src/fmdb/FMDB.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>70D95433D247FA369B32AD5F8237F280</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1022,96 +1112,6 @@
 			<string>WXApiObject.h</string>
 			<key>path</key>
 			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/WXApiObject.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>73BCEDD2A4F50C337B0113BECB788303</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>D46114653A9F5EFA2E601BBEA1F4F240</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>7525378E310C33EA98F99885B26F43F3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>FMResultSet.m</string>
-			<key>path</key>
-			<string>src/fmdb/FMResultSet.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>765F7109FC0C01C1FF65F2E46835AEB4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>C6E09AB16B25170705E7F4355751B9CA</string>
-				<string>529C258755177596D0936458F2B09171</string>
-				<string>73A45334D0C4C22938F2F4D7E56517BC</string>
-				<string>9DF0FFB5BD800F215BEE61624A0D3D84</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>WeChat</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>773CF61A9220F21E940A94DBDCFC2CE0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>name</key>
-			<string>ShareSDK.bundle</string>
-			<key>path</key>
-			<string>ShareSDK/Support/Required/ShareSDK.bundle</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1130,52 +1130,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7BA8749D87F27B1482575DAD530A3FE5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WBSDKRelationshipButton.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKRelationshipButton.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7CF960DD1B3D3BD0EEF15B0637981228</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>FMDatabaseAdditions.m</string>
-			<key>path</key>
-			<string>src/fmdb/FMDatabaseAdditions.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7DB346D0F39D3F0E887471402A8071AB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>93A4A3777CF96A4AAC1D13BA6DCCEA73</string>
-				<string>122DA2E5084A4393C29BE363C764795C</string>
-				<string>DE64998B51D8447D18765649A64CCBDF</string>
-				<string>77E1BD75988288DC99BAD52F1A975807</string>
-				<string>DA8069AA2E395666EE17FC7883BE6D2F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7DF3CA7E08140283EA4DFFE57AF14DC8</key>
+		<key>781C511E49BA79B865FEBE942507ADFF</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXFileReference</string>
@@ -1185,6 +1140,113 @@
 			<string>ShareSDK.framework</string>
 			<key>path</key>
 			<string>ShareSDK/ShareSDK.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7A7861572519A46C55D1A35DA1D5ABC0</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F21FD63C18A51078330083A3AE8F47C9</string>
+				<string>1453A0693E76363C6496DD49079B9E4E</string>
+				<string>B4983A98C140CA033370CDD67A2D7AC3</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MBProgressHUD</string>
+			<key>path</key>
+			<string>MBProgressHUD</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7B8D4CF744E34B176661C40B8A20F84E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FMResultSet.h</string>
+			<key>path</key>
+			<string>src/fmdb/FMResultSet.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>93A4A3777CF96A4AAC1D13BA6DCCEA73</string>
+				<string>122DA2E5084A4393C29BE363C764795C</string>
+				<string>0382F7524CAF77F2BBCC3411707D182E</string>
+				<string>77E1BD75988288DC99BAD52F1A975807</string>
+				<string>DA8069AA2E395666EE17FC7883BE6D2F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E47300FB0D8320E176D65141724DC8D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>67D705F166A162A6E391261EE1DD84D2</string>
+				<string>1D2BC4F042E5E95CE9B6DCEA2CA221B4</string>
+				<string>70D95433D247FA369B32AD5F8237F280</string>
+				<string>83E26879E496DF2BCD6129E9AE075E40</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>WeChat</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>801B72F97F7B8DE980CB068C909C3316</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WeiboSDK.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>81F819A0E048412BB44D7BC586BDCA6C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>name</key>
+			<string>TencentOpenApi_IOS_Bundle.bundle</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenApi_IOS_Bundle.bundle</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>83E26879E496DF2BCD6129E9AE075E40</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>DE7F4748F3301DB4FF88AA9DD60496D2</string>
+				<string>F21634E288FCBCF691EA8F2157960D65</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1201,18 +1263,19 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>84F798AC2F81F34EC87D420744B8FE9F</key>
+		<key>857AAB7F1FA8DEF92B5ECC89E7F1654E</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>1CB9935F57C6C811E82C82950EDDD53A</string>
+				<string>A912DA5CFD7721E0876FC3C2AB7A369F</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>WeiboSDK+Statistics.h</string>
+			<string>FMDB</string>
 			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK+Statistics.h</string>
+			<string>FMDB</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1247,6 +1310,19 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>8E76EA39367A26E2EB63955D68AAC677</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>FMDB.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>9120EB812E6A6DE5D2EBE456DE2667FF</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1260,18 +1336,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>92975431FEDA719B753180535AD9C737</key>
+		<key>93427E42188EF719FC69AE53F938D79B</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>CAE4AECFF41A6E46F0575A3C011C688A</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>libWeiboSDK.a</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a</string>
+			<string>Resources</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1294,18 +1368,84 @@
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
 		</dict>
-		<key>93EACA281BEB34CDBF142515A7902CD7</key>
+		<key>9413B669A6203AD71A048A8F824ECDD9</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>371F1C67012BEBFAA6A0AFDDA21891BD</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>6.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>96522996AE7F7C049E94CBB66EB57797</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBHttpRequest+WeiboUser.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboUser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96FDF75AD38544869495AA2B50BB9672</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>BABB82966121E752D0A88D59E5028701</string>
+				<string>E2EDE3479FD7AE4DC4CD32C03F3F38D2</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>MOBFoundation</string>
-			<key>path</key>
-			<string>MOBFoundation</string>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>98132D806E35B3BA97262EC91A31A106</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C410807ACC0EDF89225BB979774EB46F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>ShareSDKExtension</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1323,58 +1463,6 @@
 			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>99A9C214BC01F964A1E6A8D81E4E677B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>113049B3F5B334FB1B6709EDA5EFACEC</string>
-				<string>1C555264DEFDD8DDD2FE0A5581884F6C</string>
-				<string>207457A4574558AB69BB9F914A2090AD</string>
-				<string>02183D53FB39E88993C5D2759A72726A</string>
-				<string>6B9415D2AE8C787D474710EDD28BCB89</string>
-				<string>650A9427A22043810170445A5E17E730</string>
-				<string>AD48A2AA23BB06A2A480280C3D5F9F8C</string>
-				<string>7BA8749D87F27B1482575DAD530A3FE5</string>
-				<string>D2C95B9522CB4BD7B6D756796DA7667D</string>
-				<string>84F798AC2F81F34EC87D420744B8FE9F</string>
-				<string>278063C427A71CE9A50892F2A5C8E242</string>
-				<string>CF32ED32A540AF49B1820AA4C2F9ABA0</string>
-				<string>D3B2A5CA5F6818D867B6461F4DAD007F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SinaWeibo</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9C5149F0CB1542DE4B518E987CF9B358</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>TencentOpenAPI.framework</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenAPI.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9DF0FFB5BD800F215BEE61624A0D3D84</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>00123CDAD24757BC2435A5237C801404</string>
-				<string>E6F0AFD218A1BF5A8AF6DFDBC22A719D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
@@ -1401,10 +1489,39 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>A26E5885DF2905F3E6CCCC7FE9C70198</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBSDKRelationshipButton.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKRelationshipButton.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A31DC2184F9B3AF36A7836CA7EA6CE8A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A3745A46E069125C9659A8ECC8CB8180</string>
+				<string>93427E42188EF719FC69AE53F938D79B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>ShareSDKUI</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>A350C5704A1F233DAD830E081E00F8C1</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7CF960DD1B3D3BD0EEF15B0637981228</string>
+			<string>4A20B3C2602FBD24D6DCA85F39CA2EF2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1412,6 +1529,34 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
+		</dict>
+		<key>A3745A46E069125C9659A8ECC8CB8180</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B0197CC552C0127FD1E488562DFC7120</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A49353D6A420756970ECB4CE2F6453B5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBSDKCommentButton.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKCommentButton.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>A561A67BF274ABC8C70A4FFA23D56C59</key>
 		<dict>
@@ -1446,6 +1591,23 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>A912DA5CFD7721E0876FC3C2AB7A369F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8E76EA39367A26E2EB63955D68AAC677</string>
+				<string>374460133D63AF4C0B2D596C79E0C3EA</string>
+				<string>E4B909D0DF826EC1B621ECC952B045B9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/FMDB</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>A9EA3C5A390896EFB30946CE42489187</key>
 		<dict>
 			<key>fileRef</key>
@@ -1468,62 +1630,20 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>AD48A2AA23BB06A2A480280C3D5F9F8C</key>
+		<key>ADEA59D26B09863F093D8536482FAAD2</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>781C511E49BA79B865FEBE942507ADFF</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>WBSDKCommentButton.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKCommentButton.h</string>
+			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B031531C30D44A10F7BEC26E2299FA3E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>FMDB-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B3DDA6B4161EFD2E14A01B4CD38C21D6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>FMDB-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B418C9BDCF8C6BAC2E3942F157BB6D4C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EC03ACDE63C8C14F986E36FD9C18B109</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B4633D88AA3E712C0CE8E18E33D17049</key>
+		<key>AFE31B314C0D3AEE1CAE2A5F5BED96E0</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1538,71 +1658,126 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B653555EBE3BC504011D598D7A819208</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>name</key>
-			<string>ShareSDKUI.bundle</string>
-			<key>path</key>
-			<string>ShareSDK/Support/Optional/ShareSDKUI.bundle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BA92F0C8E3B2CC176BC680F161F23CF4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>FMDB.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BABB82966121E752D0A88D59E5028701</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E07713A67AA367752C282303A0455B71</string>
-				<string>EBA40594B3E303817A9EFD3BC2BAC17E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BD3AA69DB1AA49D1A0E209D2D3E5F086</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>MBProgressHUD-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BF210CA1E8DA98AD87E09EC78B235B80</key>
+		<key>B0197CC552C0127FD1E488562DFC7120</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>wrapper.framework</string>
 			<key>name</key>
-			<string>ShareSDKConnector.framework</string>
+			<string>ShareSDKUI.framework</string>
 			<key>path</key>
-			<string>ShareSDK/Support/Required/ShareSDKConnector.framework</string>
+			<string>ShareSDK/Support/Optional/ShareSDKUI.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B3668955136B7184C5BA4425519F656E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FMDatabaseQueue.h</string>
+			<key>path</key>
+			<string>src/fmdb/FMDatabaseQueue.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B418C9BDCF8C6BAC2E3942F157BB6D4C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D43221D543AC90F3D4A5C129FE1BE8CD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>B4983A98C140CA033370CDD67A2D7AC3</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>371F1C67012BEBFAA6A0AFDDA21891BD</string>
+				<string>650A156B280C5544C09879308CE99202</string>
+				<string>39FF7EEC6227C0780342BB11D153C48F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/MBProgressHUD</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B55256FACDAA6D378CB88136ED02E858</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>81F819A0E048412BB44D7BC586BDCA6C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B55FCEF4DB4059EEA44FF8B1A9785045</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>ED14B3FE0D3C2FA1D3BA255FC971E74A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B61E6BCFF8E0D53965DDB6ED7815492A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>1CDC590612E45C4FA518ACCAA567CC31</string>
+				<string>6B6A15CB9B531E42D829BADB8B7BD5B4</string>
+				<string>29C9F379B398846257FB9275364518C3</string>
+				<string>FE4666F138B8AC9172E7CF51451B6450</string>
+				<string>96522996AE7F7C049E94CBB66EB57797</string>
+				<string>0BF8D35530402FA42A03687E5101CD4F</string>
+				<string>A49353D6A420756970ECB4CE2F6453B5</string>
+				<string>A26E5885DF2905F3E6CCCC7FE9C70198</string>
+				<string>801B72F97F7B8DE980CB068C909C3316</string>
+				<string>FB4CCD94A84D11C6E190E8694B692E71</string>
+				<string>C58D78A00F7B327B7C307DA489E945DB</string>
+				<string>555DC89997914EC100164D94F5A1C599</string>
+				<string>B55FCEF4DB4059EEA44FF8B1A9785045</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SinaWeibo</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C084E327358F7DE5F876DBD83D36C3B6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>48346FD190F3EC4C18563CFE7FBB1833</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1616,6 +1791,34 @@
 			<string>D058B89EB3B3DF45457A2DCD3971AFFE</string>
 			<key>targetProxy</key>
 			<string>EB836EF4CF1463CC04CC1CE9C6513460</string>
+		</dict>
+		<key>C410807ACC0EDF89225BB979774EB46F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E1DC82FDE6E2310AA8EC75940336FADD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C58D78A00F7B327B7C307DA489E945DB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WeiboUser.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboUser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C66B1B336A23BE2C46658259781F5CC5</key>
 		<dict>
@@ -1638,25 +1841,50 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C6E09AB16B25170705E7F4355751B9CA</key>
+		<key>C7BA904A87CCDF175A63DBF60D6810A9</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>baseConfigurationReference</key>
+			<string>8E76EA39367A26E2EB63955D68AAC677</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/FMDB/FMDB-prefix.pch</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>4.3</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string></string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>WechatAuthSDK.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/WechatAuthSDK.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>Release</string>
 		</dict>
 		<key>CA027706DD6805766F1F4EC548E72440</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5CAD1F0BD0075C515B86AC728E1A0F72</string>
+			<string>5C19EAB23E4978AE7D1FC1D7F1E49DBE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1665,16 +1893,18 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
-		<key>CAD85147B53EBD778657E211663BB0C7</key>
+		<key>CAE4AECFF41A6E46F0575A3C011C688A</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>DB89B123D38A2679CCA1BE9A101AF2A0</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
 			<key>name</key>
-			<string>Resources</string>
+			<string>ShareSDKUI.bundle</string>
+			<key>path</key>
+			<string>ShareSDK/Support/Optional/ShareSDKUI.bundle</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1692,7 +1922,7 @@
 		<key>CCA9C08C9CBDE367B7BB38B6C0547B94</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EA75474BA115661DF0A361065CE74A92</string>
+			<string>1453A0693E76363C6496DD49079B9E4E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1708,50 +1938,6 @@
 			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>CD3574BFD9EBBFB3C826936FF14344D6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BA92F0C8E3B2CC176BC680F161F23CF4</string>
-				<string>B3DDA6B4161EFD2E14A01B4CD38C21D6</string>
-				<string>B031531C30D44A10F7BEC26E2299FA3E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/FMDB</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CF32ED32A540AF49B1820AA4C2F9ABA0</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>92975431FEDA719B753180535AD9C737</string>
-				<string>727B8FE618A31CB7E90D31D7CC748D9B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CF602489401ADC0221DD41C272BC836F</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>QQConnector.framework</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformConnector/QQConnector.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
 		<dict>
@@ -1781,7 +1967,7 @@
 		<key>D0C5FF5485EAA2CDA03E9796B407697A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D859456A92C8F222E9B9C03F4C7435D2</string>
+			<string>B3668955136B7184C5BA4425519F656E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1795,7 +1981,7 @@
 		<key>D0D5FFE53407F16C9CD3D0ECF43ACE93</key>
 		<dict>
 			<key>fileRef</key>
-			<string>47EAEF2B26251FB6C24AB0318C0CC73D</string>
+			<string>FB786D7F2640D769D97DFB3F61A0CD16</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1805,75 +1991,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>D24BA0E3CA7367AA990927681922FD2D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B653555EBE3BC504011D598D7A819208</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D2B393CABC61377159E319BAAECB1289</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MBProgressHUD-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D2C95B9522CB4BD7B6D756796DA7667D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>WeiboSDK.h</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D3B2A5CA5F6818D867B6461F4DAD007F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D3C5503E046AED7CEEC3A0CE4666EE28</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D3C5503E046AED7CEEC3A0CE4666EE28</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>name</key>
-			<string>WeiboSDK.bundle</string>
-			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D41D8CD98F00B204E9800998ECF8427E</key>
 		<dict>
@@ -1915,16 +2032,18 @@
 				<string>5CE3900877896E1CE65975B65E43AAB7</string>
 			</array>
 		</dict>
-		<key>D46114653A9F5EFA2E601BBEA1F4F240</key>
+		<key>D43221D543AC90F3D4A5C129FE1BE8CD</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FMDatabaseAdditions.h</string>
 			<key>path</key>
-			<string>MBProgressHUD.xcconfig</string>
+			<string>src/fmdb/FMDatabaseAdditions.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1941,35 +2060,6 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>D859456A92C8F222E9B9C03F4C7435D2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>FMDatabaseQueue.h</string>
-			<key>path</key>
-			<string>src/fmdb/FMDatabaseQueue.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D9F88579C1110E3244167DD585529810</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CF602489401ADC0221DD41C272BC836F</string>
-				<string>9C5149F0CB1542DE4B518E987CF9B358</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>DA8069AA2E395666EE17FC7883BE6D2F</key>
 		<dict>
 			<key>children</key>
@@ -1983,58 +2073,40 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DB89B123D38A2679CCA1BE9A101AF2A0</key>
+		<key>DE7F4748F3301DB4FF88AA9DD60496D2</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
+			<string>archive.ar</string>
 			<key>name</key>
-			<string>TencentOpenApi_IOS_Bundle.bundle</string>
+			<string>libWeChatSDK.a</string>
 			<key>path</key>
-			<string>ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenApi_IOS_Bundle.bundle</string>
+			<string>ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DE3DF57E55C5DD4160838791BE3B857B</key>
+		<key>DE8253857944A36EC808657D552D01AC</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>D46114653A9F5EFA2E601BBEA1F4F240</string>
-				<string>BD3AA69DB1AA49D1A0E209D2D3E5F086</string>
-				<string>D2B393CABC61377159E319BAAECB1289</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>Support Files</string>
+			<string>FMResultSet.m</string>
 			<key>path</key>
-			<string>../Target Support Files/MBProgressHUD</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DE64998B51D8447D18765649A64CCBDF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>043D36EED66306DF4EB1801D3A86BAB1</string>
-				<string>F1DA42C8A6C95BE7F50C291FC9E30624</string>
-				<string>93EACA281BEB34CDBF142515A7902CD7</string>
-				<string>527DA96B11DAA7BE0C940DA56ADB5FCA</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
+			<string>src/fmdb/FMResultSet.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>DEFA3504695E9DFDE1177DAB22884470</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7525378E310C33EA98F99885B26F43F3</string>
+			<string>DE8253857944A36EC808657D552D01AC</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2043,67 +2115,55 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
-		<key>E07713A67AA367752C282303A0455B71</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>path</key>
-			<string>MOBFoundation.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E40AB77A87A5DA3F2814C39755680DD7</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>3D23954B5F03A747013D5B58F935C181</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E5638E378DFF59C9BD4F748653273F92</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E40AB77A87A5DA3F2814C39755680DD7</string>
-				<string>D24BA0E3CA7367AA990927681922FD2D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>ShareSDKUI</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E6F0AFD218A1BF5A8AF6DFDBC22A719D</key>
+		<key>E1DC82FDE6E2310AA8EC75940336FADD</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>wrapper.framework</string>
 			<key>name</key>
-			<string>WechatConnector.framework</string>
+			<string>ShareSDKExtension.framework</string>
 			<key>path</key>
-			<string>ShareSDK/Support/PlatformConnector/WechatConnector.framework</string>
+			<string>ShareSDK/Support/Optional/ShareSDKExtension.framework</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E6FB94DCEC67E50E01264557CC451D88</key>
+		<key>E2EDE3479FD7AE4DC4CD32C03F3F38D2</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>773CF61A9220F21E940A94DBDCFC2CE0</string>
-			</array>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>path</key>
+			<string>BmobSDK.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E4B909D0DF826EC1B621ECC952B045B9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>FMDB-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E70F734184F2B5E67399484CBF1A7F71</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>Resources</string>
+			<string>FMDatabasePool.h</string>
+			<key>path</key>
+			<string>src/fmdb/FMDatabasePool.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2111,8 +2171,8 @@
 		<dict>
 			<key>buildConfigurations</key>
 			<array>
-				<string>1606AF36C67BD6A23EFD0D9E3C08A30F</string>
-				<string>4132EF36E534C0A9EE43E52B4178D0CF</string>
+				<string>288701E86095CC213AE2CB0A175601CB</string>
+				<string>2159E49E8C40440AEB2AE60766304E23</string>
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
@@ -2135,47 +2195,6 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>E96609D6E3707BCF30B48A11972F58A0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>FMDatabasePool.h</string>
-			<key>path</key>
-			<string>src/fmdb/FMDatabasePool.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EA581BEFF563900D5923407ECFB69C99</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MBProgressHUD.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EA75474BA115661DF0A361065CE74A92</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>MBProgressHUD.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EB836EF4CF1463CC04CC1CE9C6513460</key>
 		<dict>
 			<key>containerPortal</key>
@@ -2189,18 +2208,46 @@
 			<key>remoteInfo</key>
 			<string>MBProgressHUD</string>
 		</dict>
-		<key>EBA40594B3E303817A9EFD3BC2BAC17E</key>
+		<key>ED14B3FE0D3C2FA1D3BA255FC971E74A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>name</key>
+			<string>WeiboSDK.bundle</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F01F0341793860D312FF7F03891749F4</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>wrapper.framework</string>
 			<key>path</key>
-			<string>MOBFoundationEx.framework</string>
+			<string>MOBFoundation.framework</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>EC03ACDE63C8C14F986E36FD9C18B109</key>
+		<key>F21634E288FCBCF691EA8F2157960D65</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>WechatConnector.framework</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformConnector/WechatConnector.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F21FD63C18A51078330083A3AE8F47C9</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2208,40 +2255,8 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>FMDatabaseAdditions.h</string>
 			<key>path</key>
-			<string>src/fmdb/FMDatabaseAdditions.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>ED6AF01AF82F91F48DB253923DC1A285</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BF210CA1E8DA98AD87E09EC78B235B80</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F1DA42C8A6C95BE7F50C291FC9E30624</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>EA581BEFF563900D5923407ECFB69C99</string>
-				<string>EA75474BA115661DF0A361065CE74A92</string>
-				<string>DE3DF57E55C5DD4160838791BE3B857B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>MBProgressHUD</string>
-			<key>path</key>
-			<string>MBProgressHUD</string>
+			<string>MBProgressHUD.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2316,54 +2331,10 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>F8D4FF838F88CCCEAF0C7466FD9C179B</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>D46114653A9F5EFA2E601BBEA1F4F240</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<array>
-					<string>$(ARCHS_STANDARD_32_BIT)</string>
-				</array>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRIVATE_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string></string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
 		<key>F977B243321331B58666E9284634101A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3BFBC3F92FEA81225219C2BC2ECF3134</string>
+			<string>7B8D4CF744E34B176661C40B8A20F84E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2373,6 +2344,51 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>FB4CCD94A84D11C6E190E8694B692E71</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WeiboSDK+Statistics.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK+Statistics.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FB786D7F2640D769D97DFB3F61A0CD16</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FMDatabase.h</string>
+			<key>path</key>
+			<string>src/fmdb/FMDatabase.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FE4666F138B8AC9172E7CF51451B6450</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WBHttpRequest+WeiboToken.h</string>
+			<key>path</key>
+			<string>ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboToken.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

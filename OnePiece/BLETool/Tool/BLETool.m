@@ -576,10 +576,9 @@ static BLETool *bleTool = nil;
     
     peripheral.delegate = self;
     //传入nil会返回所有服务;一般会传入你想要服务的UUID所组成的数组,就会返回指定的服务
-    [peripheral discoverServices:nil];
-    
-//    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [delegate.mainVc showFunctionView];
+//    [peripheral discoverServices:nil];
+    //查找mac地址
+    [peripheral discoverServices:@[[CBUUID UUIDWithString:@"180A"]]];
     
     [self.disConnectView dismissWithClickedButtonIndex:0 animated:NO];
 }
@@ -657,6 +656,8 @@ static BLETool *bleTool = nil;
     }else {
         self.currentDev = nil;
     }
+    
+    
 
 }
 
@@ -668,6 +669,12 @@ static BLETool *bleTool = nil;
         //返回特定的写入，订阅的特征即可
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:kWriteCharacteristicUUID],[CBUUID UUIDWithString:kNotifyCharacteristicUUID]] forService:service];
     }
+
+    CBService *service = peripheral.services.firstObject;
+    
+    [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:@"2A23"]] forService:service];
+    
+    
 }
 
 //获得某服务的特征
@@ -677,7 +684,8 @@ static BLETool *bleTool = nil;
     NSLog(@"服务 %@,", service.UUID);
     for (CBCharacteristic *characteristic in service.characteristics) {
         NSLog(@"特征值： %@",characteristic.UUID);
-        
+        //获取mac地址的
+        [peripheral readValueForCharacteristic:characteristic];
         //保存写入特征
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID]]) {
             
@@ -706,9 +714,9 @@ static BLETool *bleTool = nil;
 //获得某特征值变化的通知
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
     if (error) {
-        NSLog(@"Error changing notification state: %@",[error localizedDescription]);
+        DLog(@"Error changing notification state: %@",[error localizedDescription]);
     }else {
-        NSLog(@"Success cahnging notification state: %d;value = %@",characteristic.isNotifying ,characteristic.value);
+        DLog(@"Success cahnging notification state: %d;value = %@",characteristic.isNotifying ,characteristic.value);
     }
 }
 
@@ -716,6 +724,22 @@ static BLETool *bleTool = nil;
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     NSLog(@"updateValue == %@",characteristic.value);
+    
+    NSString *value = [NSString stringWithFormat:@"%@",characteristic.value];
+    NSMutableString *macString = [[NSMutableString alloc] init];
+    [macString appendString:[[value substringWithRange:NSMakeRange(16, 2)] uppercaseString]];
+    [macString appendString:@":"];
+    [macString appendString:[[value substringWithRange:NSMakeRange(14, 2)] uppercaseString]];
+    [macString appendString:@":"];
+    [macString appendString:[[value substringWithRange:NSMakeRange(12, 2)] uppercaseString]];
+    [macString appendString:@":"];
+    [macString appendString:[[value substringWithRange:NSMakeRange(5, 2)] uppercaseString]];
+    [macString appendString:@":"];
+    [macString appendString:[[value substringWithRange:NSMakeRange(3, 2)] uppercaseString]];
+    [macString appendString:@":"];
+    [macString appendString:[[value substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
+    //00:E0:4C:3F:14:DE
+    DLog(@"mac == %@",macString);
     
     [self analysisDataWithCharacteristic:characteristic.value];
     

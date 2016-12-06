@@ -55,9 +55,6 @@
                         <state key="normal" title="获取验证码">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
-                        <connections>
-                            <action selector="geiVerificationCodeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SE2-Fu-1VB"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -75,7 +72,7 @@
             <connections>
                 <outlet property="PwdNumberTF" destination="dAb-Fg-ho6" id="TA2-bl-2M2"/>
                 <outlet property="countryNumberLabel" destination="bfM-GD-ys0" id="kdD-Hw-D94"/>
-                <outlet property="getVerificationCodeButton" destination="3TM-bB-kDx" id="t7p-4v-708"/>
+                <outlet property="getVerificationCodeButton" destination="3TM-bB-kDx" id="XlW-ji-r3l"/>
                 <outlet property="phoneNumberTF" destination="hLJ-cV-6ej" id="H1E-y9-o2O"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="51.5"/>
