@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "BLETool.h"
+#import "FMDBTool.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
@@ -21,6 +22,7 @@
 @property (nonatomic ,strong) NSArray *cellImageArr;
 @property (nonatomic ,strong) NSArray *cellNameArr;
 @property (nonatomic ,strong) BLETool *myBleTool;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
 
 @end
 
@@ -123,15 +125,16 @@
     //清空蓝牙连接信息等状态
     self.myBleTool.isReconnect = NO;
     [self.myBleTool unConnectDevice];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralID"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralUUID"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
+    [self.myFmdbTool deleteUserInfoData:nil];
     
     LoginViewController *vc = [[LoginViewController alloc] init];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Login"];
-    [[self findViewController:self] presentViewController:vc animated:YES completion:nil];
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.window.rootViewController = vc;
+    [[self findViewController:self] presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+//    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
 }
 
 #pragma mark - 懒加载
@@ -202,6 +205,16 @@
     }
     
     return _myBleTool;
+}
+
+- (FMDBTool *)myFmdbTool
+{
+    if (!_myFmdbTool) {
+        NSString *accountStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        _myFmdbTool = [[FMDBTool alloc] initWithPath:accountStr];
+    }
+    
+    return _myFmdbTool;
 }
 
 #pragma mark - 获取当前View的控制器的方法

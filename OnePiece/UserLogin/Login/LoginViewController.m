@@ -148,14 +148,23 @@
                     NSNumber *stepTarghtNum = [obj objectForKey:@"stepTarget"];
                     NSNumber *sleepTarghtNum = [obj objectForKey:@"sleepTarget"];
                     NSString *PeripheralName = [obj objectForKey:@"peripheralName"];
-                    NSString *PeripheralUUID = [obj objectForKey:@"peripheralUUID"];
-                    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:genderNum.integerValue andBirthday:birthday andHeight:heightNum.integerValue andWeight:weightNum.integerValue andStepLength:stepLengthNum.integerValue andStepTarget:stepTarghtNum.integerValue andSleepTarget:sleepTarghtNum.integerValue andPeripheralName:PeripheralName andPeripheralUUID:PeripheralUUID];
+                    NSString *bindPeripheralUUID = [obj objectForKey:@"bindPeripheralUUID"];
+                    NSString *isBind = [obj objectForKey:@"isBind"];
+                    NSString *PeripheralMac = [obj objectForKey:@"peripheralMac"];
+                    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:genderNum.integerValue andBirthday:birthday andHeight:heightNum.integerValue andWeight:weightNum.integerValue andStepLength:stepLengthNum.integerValue andStepTarget:stepTarghtNum.integerValue andSleepTarget:sleepTarghtNum.integerValue andPeripheralName:PeripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:PeripheralMac];
                     
                     //存储服务器上的用户信息数据
                     [self.myFmdbTool insertUserInfoModel:model];
                     
-                    
+                    [[NSUserDefaults standardUserDefaults] setObject:PeripheralName forKey:@"bindPeripheralName"];
+                    [[NSUserDefaults standardUserDefaults] setObject:bindPeripheralUUID forKey:@"bindPeripheralUUID"];
+                    [[NSUserDefaults standardUserDefaults] setObject:PeripheralMac forKey:@"peripheralMac"];
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
+                    if ([isBind isEqualToString:@"0"]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:0 forKey:@"isBind"];
+                    }else if ([isBind isEqualToString:@"1"]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:1 forKey:@"isBind"];
+                    }
                     OPMainViewController *vc = [[OPMainViewController alloc] init];
                     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated: YES completion:nil];
                 }
@@ -168,15 +177,6 @@
         }
         
     }];
-    
-//    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:self.userNameTF.text andUserName:@"用户名" andGender:-1 andBirthday:@"2000/01/01" andHeight:180 andWeight:75 andStepLength:75 andStepTarget:8000 andSleepTarget:8 andPeripheralName:@"" andPeripheralUUID:@""];
-//    NSArray *userArr = [self.myFmdbTool queryAllUserInfo];
-//    if (userArr.count == 0) {
-//        [self.myFmdbTool insertUserInfoModel:model];
-//    }
-//    [self.myHud hideAnimated:YES];
-//    OPMainViewController *vc = [[OPMainViewController alloc] init];
-//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc]  animated:YES completion:nil];
 }
 
 //注册按钮

@@ -24,6 +24,10 @@
     self.view.backgroundColor = kWhiteColor;
     self.contentView.backgroundColor = kBackGroundColor;
     self.navigationItem.title = @"更改密码";
+    
+    self.contentView.popViewController = ^() {
+        [self.navigationController popViewControllerAnimated:YES];
+    };
 }
 
 - (void)didReceiveMemoryWarning {

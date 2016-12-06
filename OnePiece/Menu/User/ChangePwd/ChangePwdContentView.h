@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^PopViewController)(void);
+
 @interface ChangePwdContentView : UIView
+
+@property (nonatomic ,copy) PopViewController popViewController;
 
 @end

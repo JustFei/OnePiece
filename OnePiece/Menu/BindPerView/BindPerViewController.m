@@ -23,6 +23,7 @@
 @property (nonatomic ,strong) FMDBTool *myFmdbTool;
 @property (nonatomic ,strong) manridyBleDevice *currentDevice;
 @property (nonatomic ,strong) MBProgressHUD *hud;
+@property (nonatomic ,strong) BmobQuery *bquery;
 
 @end
 
@@ -85,8 +86,31 @@
 {
     self.myBleTool.isReconnect = NO;
     [self.myBleTool unConnectDevice];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralID"];
+    
+    //查找GameScore表里面account的数据
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    [self.bquery whereKey:@"account" equalTo:account];
+    [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        //没有返回错误
+        if (!error) {
+            //对象存在
+            if (array) {
+                for (BmobObject *obj in array) {
+                    [obj setObject:@"0" forKey:@"peripheralName"];
+                    [obj setObject:@"0" forKey:@"bindPeripheralUUID"];
+                    [obj setObject:@"0" forKey:@"peripheralMac"];
+                    [obj setObject:@"0" forKey:@"isBind"];
+                    [obj updateInBackground];
+                }
+            }
+        }else{
+            //进行错误处理
+        }
+    }];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralUUID"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralMac"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
 }
 
@@ -122,20 +146,24 @@
     self.myBleTool.isReconnect = YES;
     [self.myBleTool writeTimeToPeripheral:[NSDate date]];
     
-    //查找GameScore表
-    BmobQuery   *bquery = [BmobQuery queryWithClassName:@"UserModel"];
-    //查找GameScore表里面id为0c6db13c的数据
+    //查找GameScore表里面account的数据
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-    [bquery whereKey:@"account" equalTo:account];
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    [self.bquery whereKey:@"account" equalTo:account];
+    [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         //没有返回错误
         if (!error) {
             //对象存在
             if (array) {
                 for (BmobObject *obj in array) {
                     [obj setObject:device.peripheral.name forKey:@"peripheralName"];
-                    [obj setObject:device.peripheral.identifier.UUIDString forKey:@"peripheralUUID"];
-                    [obj updateInBackground];
+                    [obj setObject:device.uuidString forKey:@"bindPeripheralUUID"];
+                    [obj setObject:device.macAddress forKey:@"peripheralMac"];
+                    [obj setObject:@"1" forKey:@"isBind"];
+                    [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }
+                    }];
                 }
             }
         }else{
@@ -147,12 +175,13 @@
     [self.hud hideAnimated:YES afterDelay:1];
     UserInfoModel *model = [[UserInfoModel alloc] init];
     model.peripheralName = device.deviceName;
-    model.peripheralUUID = device.peripheral.identifier.UUIDString;
+    model.peripheralMac = device.macAddress;
     [self.myFmdbTool modifyUserInfoModel:model  withModityType:UserInfoModifyTypePeripheralName];
-    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypePeripheralUUID];
+    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypePeripheralMac];
     
-    [[NSUserDefaults standardUserDefaults] setObject:device.peripheral.identifier.UUIDString forKey:@"bindPeripheralID"];
+    [[NSUserDefaults standardUserDefaults] setObject:device.uuidString forKey:@"bindPeripheralUUID"];
     [[NSUserDefaults standardUserDefaults] setObject:device.deviceName forKey:@"bindPeripheralName"];
+    [[NSUserDefaults standardUserDefaults] setObject:device.macAddress forKey:@"bindPeripheralMac"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBind"];
     
     
@@ -160,8 +189,9 @@
         if (self.returnMain) {
             OPMainViewController *vc = [[OPMainViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            [self.navigationController popViewControllerAnimated:YES];
         }
-        [self.navigationController popViewControllerAnimated:YES];
     });
 }
 
@@ -259,6 +289,15 @@
     }
     
     return _bindButton;
+}
+
+- (BmobQuery *)bquery
+{
+    if (!_bquery) {
+        _bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    }
+    
+    return _bquery;
 }
 
 @end

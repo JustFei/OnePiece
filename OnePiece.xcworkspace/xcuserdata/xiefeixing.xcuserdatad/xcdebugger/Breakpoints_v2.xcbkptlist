@@ -9,125 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/UserLogin/Login/LoginViewController.m"
-            timestampString = "502627675.796985"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-loginAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/UserLogin/Login/LoginViewController.m"
-            timestampString = "502627658.780964"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-loginAction:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LoginViewController loginAction:]"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/UserLogin/Login/LoginViewController.m"
-                  timestampString = "502688096.455258"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "722">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__35-[LoginViewController loginAction:]_block_invoke"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/UserLogin/Login/LoginViewController.m"
-                  timestampString = "502688096.456747"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "34">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/UserView/UserContentView.m"
-            timestampString = "502629165.824114"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-initWithFrame:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/UserView/UserContentView.m"
-            timestampString = "502629181.691349"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "-initWithFrame:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/UserLogin/Login/LoginViewController.m"
-            timestampString = "502629282.642822"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-loginAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "OnePiece/Menu/BindPerView/BindPerViewController.m"
-            timestampString = "502631179.984411"
+            timestampString = "502705661.12486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-manridyBLEDidConnectDevice:"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-disBindPeripheral"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/BindPerView/BindPerViewController.m"
-            timestampString = "502631185.568715"
+            filePath = "OnePiece/Menu/Setting/SettingTableViewCell.m"
+            timestampString = "502709518.143445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-manridyBLEDidConnectDevice:"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-changeTimeSwitch:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/BLETool/Tool/BLETool.m"
-            timestampString = "502685046.299084"
+            filePath = "OnePiece/Menu/Setting/SettingTableViewCell.m"
+            timestampString = "502709519.2751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
-            landmarkName = "-peripheral:didDiscoverServices:"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-changeTimeSwitch:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,61 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/BLETool/Tool/BLETool.m"
-            timestampString = "502685117.937719"
+            filePath = "OnePiece/UserLogin/Register/RegisterViewController.m"
+            timestampString = "502717799.809159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
-            landmarkName = "-peripheral:didDiscoverCharacteristicsForService:error:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BLETool peripheral:didDiscoverCharacteristicsForService:error:]"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/BLETool/Tool/BLETool.m"
-                  timestampString = "502688096.482482"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "685"
-                  endingLineNumber = "685"
-                  offsetFromSymbolStart = "176">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BLETool peripheral:didDiscoverCharacteristicsForService:error:]"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/BLETool/Tool/BLETool.m"
-                  timestampString = "502688096.483803"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "685"
-                  endingLineNumber = "685"
-                  offsetFromSymbolStart = "194">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/BLETool/Tool/BLETool.m"
-            timestampString = "502685217.043647"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
-            landmarkName = "-peripheral:didDiscoverCharacteristicsForService:error:"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-geiVerificationCodeAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +73,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/BLETool/Tool/BLETool.m"
-            timestampString = "502685797.611872"
+            filePath = "OnePiece/Menu/User/ChangePwd/ChangePwdContentView.m"
+            timestampString = "502718764.300966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "673"
-            endingLineNumber = "673"
-            landmarkName = "-peripheral:didDiscoverServices:"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "-showThePwd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OnePiece/Menu/User/ChangePwd/ChangePwdContentView.m"
+            timestampString = "502718764.300966"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "-showThePwd:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

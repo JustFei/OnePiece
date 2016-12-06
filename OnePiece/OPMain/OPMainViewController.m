@@ -14,8 +14,9 @@
 #import "BLETool.h"
 #import "FMDBTool.h"
 #import "NSStringTool.h"
+#import "manridyBleDevice.h"
 
-@interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleReceiveDelegate , BleConnectDelegate >
+@interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleDiscoverDelegate , BleReceiveDelegate , BleConnectDelegate >
 {
     BOOL _isBind;
     NSString *_currentDateString;
@@ -172,6 +173,17 @@
     vc.shareImageView.image = newPhoto;
     vc.shareImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - BleDiscoverDelegate
+- (void)manridyBLEDidDiscoverDeviceWithMAC:(manridyBleDevice *)device
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"peripheralMac"]) {
+        NSString *macAddress = [[NSUserDefaults standardUserDefaults] objectForKey:@"peripheralMac"];
+        if ([device.macAddress isEqualToString:macAddress]) {
+            [self.myBleTool connectDevice:device];
+        }
+    }
 }
 
 #pragma mark - BleConnectDelegate
@@ -427,6 +439,7 @@
 {
     if (!_myBleTool) {
         _myBleTool = [BLETool shareInstance];
+        _myBleTool.discoverDelegate = self;
         _myBleTool.connectDelegate = self;
         _myBleTool.receiveDelegate = self;
     }

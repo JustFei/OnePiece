@@ -7,6 +7,11 @@
 //
 
 #import "manridyBleDevice.h"
+#import "NSStringTool.h"
+
+@interface manridyBleDevice ()
+
+@end
 
 @implementation manridyBleDevice
 
@@ -16,8 +21,11 @@
     
     per.peripheral = cbPeripheral;
     per.deviceName = cbPeripheral.name;
-    per.uuidString = [advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
-    per.macAddress = [advertisementData objectForKey:@"kCVMacAddress"];
+    per.uuidString = cbPeripheral.identifier.UUIDString;
+    NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
+    NSString *mac = [NSStringTool convertToNSStringWithNSData:data];
+    mac = [mac stringByReplacingOccurrencesOfString:@" " withString:@""];
+    per.macAddress = mac;
     per.RSSI = RSSI;
     
     return per;

@@ -20,7 +20,8 @@ typedef enum : NSUInteger {
     UserInfoModifyTypeStepTarget,
     UserInfoModifyTypeSleepTarget,
     UserInfoModifyTypePeripheralName,
-    UserInfoModifyTypePeripheralUUID
+    UserInfoModifyTypePeripheralUUID,
+    UserInfoModifyTypePeripheralMac
 } UserInfoModifyType;
 
 @interface UserInfoModel : BmobObject
@@ -35,9 +36,10 @@ typedef enum : NSUInteger {
 @property (nonatomic ,assign) NSInteger stepTarget;
 @property (nonatomic ,assign) NSInteger sleepTarget;
 @property (nonatomic ,copy) NSString *peripheralName;
-@property (nonatomic ,copy) NSString *peripheralUUID;
+@property (nonatomic ,copy) NSString *bindPeripheralUUID;
+@property (nonatomic ,copy) NSString *peripheralMac;
 
-+ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID;
++ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andbindPeripheralUUID:(NSString *)peripherlUUID andPeripheralMac:(NSString *)peripheralMac;
 
 /**
  *	后台注册,返回注册结果

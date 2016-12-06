@@ -10,7 +10,7 @@
 
 @implementation UserInfoModel
 
-+ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andPeripheralUUID:(NSString *)peripheralUUID
++ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andbindPeripheralUUID:(NSString *)peripherlUUID andPeripheralMac:(NSString *)peripheralMac
 {
     UserInfoModel *model = [[UserInfoModel alloc] init];
     
@@ -24,7 +24,8 @@
     model.stepTarget = stepTarget;
     model.sleepTarget = sleepTarget;
     model.peripheralName = peripheralName;
-    model.peripheralUUID = peripheralUUID;
+    model.bindPeripheralUUID = peripherlUUID;
+    model.peripheralMac = peripheralMac;
     
     return model;
 }

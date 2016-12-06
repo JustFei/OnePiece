@@ -46,7 +46,7 @@ static FMDatabase *_fmdb;
         }
         
         //UserInfoData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, peripheralUUID text);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, bindPeripheralUUID text, peripheralMac text);"]];
         
         //ClockData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists ClockData(id integer primary key, time text, isopen bool);"]];
@@ -523,7 +523,7 @@ static FMDatabase *_fmdb;
 #pragma mark - UserInfoData
 - (BOOL)insertUserInfoModel:(UserInfoModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, peripheralUUID) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.peripheralUUID];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, bindPeripheralUUID, peripheralMac) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.bindPeripheralUUID, model.peripheralMac];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -555,11 +555,12 @@ static FMDatabase *_fmdb;
         NSInteger stepTarget = [set intForColumn:@"steptarget"];
         NSInteger sleepTarget = [set intForColumn:@"sleeptarget"];
         NSString *peripheralName = [set stringForColumn:@"peripheralName"];
-        NSString *peripheralUUID = [set stringForColumn:@"peripheralUUID"];
+        NSString *bindPeripheralUUID = [set stringForColumn:@"bindPeripheralUUID"];
+        NSString *peripheralMac = [set stringForColumn:@"peripheralMac"];
         
-        UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andPeripheralUUID:peripheralUUID];
+        UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac];
         
-        NSLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.peripheralUUID);
+        NSLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID);
         
         [arrM addObject:model];
     }
@@ -605,8 +606,10 @@ static FMDatabase *_fmdb;
             modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralName, @(1)];
             break;
         case UserInfoModifyTypePeripheralUUID:
-            modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralUUID, @(1)];
+            modifyResult = [_fmdb executeUpdate:modifySql, model.bindPeripheralUUID, @(1)];
             break;
+        case  UserInfoModifyTypePeripheralMac:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralMac, @(1)];
             
         default:
             break;
@@ -674,7 +677,7 @@ static FMDatabase *_fmdb;
 - (NSArray *)userInfoTypeArr
 {
     if (!_userInfoTypeArr) {
-        _userInfoTypeArr = @[@"account",@"username",@"gender",@"birthday",@"height",@"weight",@"steplength",@"steptarget",@"sleeptarget",@"peripheralName",@"peripheralUUID"];
+        _userInfoTypeArr = @[@"account",@"username",@"gender",@"birthday",@"height",@"weight",@"steplength",@"steptarget",@"sleeptarget",@"peripheralName",@"bindPeripheralUUID",@"peripheralMac"];
     }
     
     return _userInfoTypeArr;

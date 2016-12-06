@@ -139,14 +139,20 @@
         {
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"bindPeripheralName"]) {
                 NSString *peripheralName = [[NSUserDefaults standardUserDefaults] objectForKey:@"bindPeripheralName"];
-                cell.nameLabel.text = peripheralName;
-                cell.nameLabel.hidden = NO;
-                [cell.disbindButton setTitle:@"解除绑定" forState:UIControlStateNormal];
-                cell.disbindButton.hidden = NO;
+                if (![peripheralName isEqualToString:@"0"]) {
+                    cell.nameLabel.text = peripheralName;
+                    cell.nameLabel.hidden = NO;
+                    [cell.disbindButton setTitle:@"解除绑定" forState:UIControlStateNormal];
+                    cell.disbindButton.hidden = NO;
+                }else {
+                    cell.nameLabel.hidden = YES;
+                    [cell.disbindButton setTitle:@"绑定手环" forState:UIControlStateNormal];
+                    cell.disbindButton.hidden = NO;
+                }
             }else {
-            cell.nameLabel.hidden = YES;
-            [cell.disbindButton setTitle:@"绑定手环" forState:UIControlStateNormal];
-            cell.disbindButton.hidden = NO;
+                cell.nameLabel.hidden = YES;
+                [cell.disbindButton setTitle:@"绑定手环" forState:UIControlStateNormal];
+                cell.disbindButton.hidden = NO;
             }
         }
             break;
@@ -155,6 +161,7 @@
             cell.nameLabel.text = @"来电提醒";
             cell.timeSwitch.hidden = NO;
             cell.nameLabel.hidden = NO;
+            cell.timeSwitch.tag = 1001;
         }
             break;
         case 2:

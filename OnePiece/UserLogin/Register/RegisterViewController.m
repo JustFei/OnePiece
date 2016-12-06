@@ -23,6 +23,7 @@
 @property (nonatomic ,weak) UITextField *safeCodeTextField;
 @property (nonatomic ,weak) UITextField *pwdTextField;
 @property (nonatomic ,weak) UIButton *getSafeCodeButton;
+@property (nonatomic ,strong) MBProgressHUD *hud;
 
 @end
 
@@ -85,38 +86,77 @@
         [bquery whereKey:@"account" equalTo:self.phoneNumberTextField.text];
         [bquery countObjectsInBackgroundWithBlock:^(int number,NSError  *error){
             DLog(@"%d",number);
-            
-            //如果存在，提示换号码
-            if (number > 0) {
-                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该号码已被注册，请换个号码试试！" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
-                [view show];
-            }else {
-                //不存在，就请求验证码
-                
-                //改变获取验证码按钮为60秒倒计时
-                //显示等待菊花
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                //请求验证码
-                [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
-                    if (error) {
-                        DLog(@"%@",error);
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            switch (self.loginType) {
+                case LoginTypeRegister:
+                {
+                    //如果存在，提示换号码
+                    if (number > 0) {
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该号码已被注册，请换个号码试试！" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                         [view show];
-                        
-                        //隐藏等待菊花
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    } else {
-                        //获得smsID
-                        DLog(@"sms ID：%d",number);
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码已发送，请注意查收" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-                        [view show];
-                        
-                        //隐藏等待菊花
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    }else {
+                        //不存在，就请求验证码
+                        //改变获取验证码按钮为60秒倒计时
+                        //显示等待菊花
+                        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        //请求验证码
+                        [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [view show];
+                                
+                                //隐藏等待菊花
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            } else {
+                                //获得smsID
+                                DLog(@"sms ID：%d",number);
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码已发送，请注意查收" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                                [view show];
+                                
+                                //隐藏等待菊花
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            }
+                        }];
                     }
-                }];
+
+                }
+                    break;
+                case LoginTypeResetPwd:
+                {
+                    if (number == 0) {
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该手机尚未注册，请重新输入手机号" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                        [view show];
+                    }else {
+                        //不存在，就请求验证码
+                        //改变获取验证码按钮为60秒倒计时
+                        //显示等待菊花
+                        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        //请求验证码
+                        [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"重置密码" resultBlock:^(int number, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [view show];
+                                
+                                //隐藏等待菊花
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            } else {
+                                //获得smsID
+                                DLog(@"sms ID：%d",number);
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码已发送，请注意查收" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                                [view show];
+                                
+                                //隐藏等待菊花
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            }
+                        }];
+                    }
+                }
+                    
+                default:
+                    break;
             }
-        }];
+                    }];
     }else {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入正确的手机号" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
         [view show];
@@ -148,6 +188,7 @@
                 vc.userModel = model;
                 [self.navigationController pushViewController:vc  animated:YES];
             }else {
+                [self resetPwd];
                 //重设密码 跳转到登陆界面
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -159,16 +200,32 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
-//    
-//    
-//    if (self.loginType == LoginTypeRegister) {
-//        //注册 跳转到用户信息录入
-//        UserInfoViewController *vc = [[UserInfoViewController alloc] init];
-//        [self.navigationController pushViewController:vc  animated:YES];
-//    }else {
-//        //重设密码 跳转到登陆界面
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+}
+
+- (void)resetPwd
+{
+    BmobQuery *bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    //查找UserModel表里面account的数据
+    NSString *account = self.phoneNumberTextField.text;
+    [bquery whereKey:@"account" equalTo:account];
+    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        //没有返回错误
+        if (!error) {
+            //对象存在
+            if (array) {
+                for (BmobObject *obj in array) {
+                    [obj setObject:self.pwdTextField.text forKey:@"pwd"];
+                    [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }
+                    }];
+                }
+            }
+        }else{
+            //进行错误处理
+        }
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -308,6 +365,15 @@
     }
     
     return _signupButton;
+}
+
+- (MBProgressHUD *)hud
+{
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] init];
+    }
+    
+    return _hud;
 }
 
 @end
