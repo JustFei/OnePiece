@@ -20,6 +20,7 @@
 		9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F71DD2BC5900B3ACA4 /* main.m */; };
 		9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */; };
 		9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */; };
+		9C3781301DF80EA700700EAA /* DayHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C37812F1DF80EA700700EAA /* DayHistoryModel.m */; };
 		9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */; };
 		9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */; };
 		9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */; };
@@ -109,6 +110,8 @@
 		9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPMainContentView.m; path = OPMain/OPMainContentView.m; sourceTree = "<group>"; };
 		9C2296051DD2C72600B3ACA4 /* OPHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OPHeader.pch; path = SupportingFiles/OPHeader.pch; sourceTree = "<group>"; };
 		9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorConstants.h; path = SupportingFiles/Constants/ColorConstants.h; sourceTree = "<group>"; };
+		9C37812E1DF80EA700700EAA /* DayHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayHistoryModel.h; path = History/HistoryModel/DayHistoryModel.h; sourceTree = "<group>"; };
+		9C37812F1DF80EA700700EAA /* DayHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayHistoryModel.m; path = History/HistoryModel/DayHistoryModel.m; sourceTree = "<group>"; };
 		9C4663CE1DE2CF6000DBCC6B /* AboutContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutContentView.h; path = Menu/About/AboutView/AboutContentView.h; sourceTree = "<group>"; };
 		9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutContentView.m; path = Menu/About/AboutView/AboutContentView.m; sourceTree = "<group>"; };
 		9C4663D01DE2CF6000DBCC6B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Menu/About/AboutView/AboutViewController.h; sourceTree = "<group>"; };
@@ -280,6 +283,7 @@
 				9C0F492E1DE3E3F7002AB4B0 /* HistoryViewController.m */,
 				9C0F49311DE3E579002AB4B0 /* MonthView */,
 				9C0F49301DE3E569002AB4B0 /* DayView */,
+				9C37812D1DF80DAE00700EAA /* HistoryModel */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -389,6 +393,15 @@
 				9C89351D1DE82D5400379AF7 /* Log.h */,
 			);
 			name = Constants;
+			sourceTree = "<group>";
+		};
+		9C37812D1DF80DAE00700EAA /* HistoryModel */ = {
+			isa = PBXGroup;
+			children = (
+				9C37812E1DF80EA700700EAA /* DayHistoryModel.h */,
+				9C37812F1DF80EA700700EAA /* DayHistoryModel.m */,
+			);
+			name = HistoryModel;
 			sourceTree = "<group>";
 		};
 		9C4663D41DE2CF6600DBCC6B /* FeedBackView */ = {
@@ -860,6 +873,7 @@
 				9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */,
 				9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */,
 				9CFE00C71DDC37C000D38904 /* ChangeUserTableViewCell.m in Sources */,
+				9C3781301DF80EA700700EAA /* DayHistoryModel.m in Sources */,
 				9CED329C1DED248300C7E098 /* SportModel.m in Sources */,
 				9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */,
 				9CED32AC1DED24CD00C7E098 /* UserInfoModel.m in Sources */,

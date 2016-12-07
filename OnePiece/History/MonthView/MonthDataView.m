@@ -10,13 +10,4 @@
 
 @implementation MonthDataView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self = [[NSBundle mainBundle] loadNibNamed:@"MonthDataView" owner:self options:nil].firstObject;
-    }
-    return self;
-}
-
 @end

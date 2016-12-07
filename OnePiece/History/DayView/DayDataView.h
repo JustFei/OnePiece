@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DayDataView : UIView
+@interface DayDataView : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *motionLabel;
 

@@ -265,7 +265,7 @@
                 <outlet property="failLabel" destination="jMq-y6-bPk" id="0qY-uT-Fpf"/>
                 <outlet property="winLabel" destination="Pgb-P0-LS6" id="eyE-gW-uuc"/>
             </connections>
-            <point key="canvasLocation" x="32.5" y="-97.5"/>
+            <point key="canvasLocation" x="-72" y="-156"/>
         </view>
     </objects>
     <resources>

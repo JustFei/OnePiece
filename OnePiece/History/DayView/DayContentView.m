@@ -8,26 +8,40 @@
 
 #import "DayContentView.h"
 #import "DayDataView.h"
+#import "FMDBTool.h"
 
-@interface DayContentView () < UIScrollViewDelegate >
+@interface DayContentView () < UICollectionViewDataSource ,UICollectionViewDelegate >
 
 @property (nonatomic ,weak) UIButton *leftButton;
 @property (nonatomic ,weak) UIButton *centerDateButton;
 @property (nonatomic ,strong) UIImageView *calendarImageView;
 @property (nonatomic ,weak) UIButton *rightButton;
-@property (nonatomic ,weak) UIScrollView *scrollView;
-@property (nonatomic ,weak) DayDataView *leftView;
-@property (nonatomic ,weak) DayDataView *centerView;
-@property (nonatomic ,weak) DayDataView *rightView;
+@property (nonatomic ,strong) UICollectionView *collectionView;
+@property (nonatomic ,copy) NSString *currentDateString;
+@property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) NSMutableArray *dataArr;
 
 @end
 
 @implementation DayContentView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy/MM/dd"];
+        self.currentDateString = [formatter stringFromDate:[NSDate date]];
+        
+        self.dataArr = [NSMutableArray arrayWithArray: [self.myFmdbTool queryStepWithDate:nil]];
+    }
+    return self;
+}
+
 - (void)layoutSubviews
 {
     self.leftButton.frame = XXF_CGRectMake(25, 31, 14, 24);
-    
+    DLog(@"day == %f",kViewCenter.x);
     self.centerDateButton.frame = XXF_CGRectMake(kViewCenter.x - 60, self.leftButton.center.y - 15, 120, 30);
     
     self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.frame.origin.y , 34, 30)];
@@ -36,12 +50,70 @@
     [self addSubview:self.calendarImageView];
     self.rightButton.frame = XXF_CGRectMake(kViewWidth - 32, 31, 14, 24);
     
-    self.scrollView.frame = XXF_CGRectMake(0, 89, kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50);
-    self.scrollView.contentSize = CGSizeMake(3 * kViewWidth, 0);
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //设置collectionView滚动方向
+    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    //该方法也可以设置itemSize
+    layout.itemSize =CGSizeMake(kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50);
     
-    self.leftView.frame = XXF_CGRectMake(0, 0, kViewWidth, self.scrollView.frame.size.height);
-    self.centerView.frame = XXF_CGRectMake(kViewWidth, 0, kViewWidth, self.scrollView.frame.size.height);
-    self.rightView.frame = XXF_CGRectMake(2 * kViewWidth, 0, kViewWidth, self.scrollView.frame.size.height);
+    //2.初始化collectionView
+    self.collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, 89, kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50) collectionViewLayout:layout];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.pagingEnabled = YES;
+    self.collectionView.bounces = NO;
+    [self addSubview:self.collectionView];
+    self.collectionView.backgroundColor = kClearColor;
+    
+    //3.注册collectionViewCell
+    //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
+    [self.collectionView registerNib:[UINib nibWithNibName:@"DayDataView" bundle:nil] forCellWithReuseIdentifier:@"dayCell"];
+    self.collectionView.contentOffset = CGPointMake(9 * kViewWidth, 0);
+
+}
+
+#pragma mark - UICollectionViewDelegate
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 10;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    DayDataView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
+    cell.backgroundColor = kClearColor;
+    return cell;
+}
+
+//设置每个item的UIEdgeInsets
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+//设置每个item水平间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+
+#pragma mark - Action
+- (void)beforeMonth:(UIButton *)sender
+{
+    
+}
+
+- (void)afterMonth:(UIButton *)sender
+{
+    
 }
 
 #pragma mark - 懒加载
@@ -51,6 +123,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"Left"] forState:UIControlStateNormal];
         [button setTitle:@"" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(beforeMonth:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:button];
         _leftButton = button;
@@ -65,6 +138,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"Right"] forState:UIControlStateNormal];
         [button setTitle:@"" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(afterMonth:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:button];
         _rightButton = button;
@@ -85,61 +159,6 @@
     }
     
     return _centerDateButton;
-}
-
-- (UIScrollView *)scrollView
-{
-    if (!_scrollView) {
-        UIScrollView *view = [[UIScrollView alloc] init];
-        view.delegate = self;
-        view.pagingEnabled = YES;
-        view.bounces = NO;
-//        view.showsVerticalScrollIndicator = NO;
-        
-        [self addSubview:view];
-        _scrollView = view;
-    }
-    
-    return _scrollView;
-}
-
-- (DayDataView *)leftView
-{
-    if (!_leftView) {
-        DayDataView *view = [[DayDataView alloc] init];
-        view.backgroundColor = kClearColor;
-        
-        [self.scrollView addSubview:view];
-        _leftView = view;
-    }
-    
-    return _leftView;
-}
-
-- (DayDataView *)centerView
-{
-    if (!_centerView) {
-        DayDataView *view = [[DayDataView alloc] init];
-        view.backgroundColor = kClearColor;
-        
-        [self.scrollView addSubview:view];
-        _centerView = view;
-    }
-    
-    return _centerView;
-}
-
-- (DayDataView *)rightView
-{
-    if (!_rightView) {
-        DayDataView *view = [[DayDataView alloc] init];
-        view.backgroundColor = kClearColor;
-        
-        [self.scrollView addSubview:view];
-        _rightView = view;
-    }
-    
-    return _rightView;
 }
 
 @end
