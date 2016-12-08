@@ -202,6 +202,11 @@
             if (isSuccessful) {
                 DLog(@"数据上传成功");
                 [MBProgressHUD hideHUDForView:self animated:YES];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
+                NSString *registTime = [formatter stringFromDate:[NSDate date]];
+                self.userModel.registTime = registTime; //保存注册的时间
+                
                 [self.myFmdbTool insertUserInfoModel:self.userModel];
             }
         }];

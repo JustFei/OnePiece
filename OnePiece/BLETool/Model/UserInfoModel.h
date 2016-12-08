@@ -38,8 +38,9 @@ typedef enum : NSUInteger {
 @property (nonatomic ,copy) NSString *peripheralName;
 @property (nonatomic ,copy) NSString *bindPeripheralUUID;
 @property (nonatomic ,copy) NSString *peripheralMac;
+@property (nonatomic ,copy) NSString *registTime;
 
-+ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andbindPeripheralUUID:(NSString *)peripherlUUID andPeripheralMac:(NSString *)peripheralMac;
++ (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andbindPeripheralUUID:(NSString *)peripherlUUID andPeripheralMac:(NSString *)peripheralMac andRegistTime:(NSString *)registTime;
 
 /**
  *	后台注册,返回注册结果

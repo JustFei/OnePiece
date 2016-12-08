@@ -40,6 +40,7 @@
 		9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5AF6141DE56A3E00B1075C /* RegisterTableViewCell.xib */; };
 		9C5AF61A1DE596E800B1075C /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF6191DE596E800B1075C /* UserInfoViewController.m */; };
 		9C5AF61D1DE5986000B1075C /* UserInfoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */; };
+		9C60D8C81DF8FA2C00A9C711 /* PKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C60D8C71DF8FA2C00A9C711 /* PKModel.m */; };
 		9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7029091DD313CB00E37939 /* GradientLabel.m */; };
 		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
 		9C728B4A1DE425A9002F5EAB /* DayDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C728B491DE425A9002F5EAB /* DayDataView.m */; };
@@ -152,6 +153,8 @@
 		9C5AF6191DE596E800B1075C /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = UserLogin/UserInfo/UserInfoViewController.m; sourceTree = "<group>"; };
 		9C5AF61B1DE5986000B1075C /* UserInfoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoContentView.h; path = UserLogin/UserInfo/UserInfoContentView.h; sourceTree = "<group>"; };
 		9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UserInfoContentView.m; path = UserLogin/UserInfo/UserInfoContentView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		9C60D8C61DF8FA2C00A9C711 /* PKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKModel.h; path = FMDBTool/Model/PKModel.h; sourceTree = "<group>"; };
+		9C60D8C71DF8FA2C00A9C711 /* PKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKModel.m; path = FMDBTool/Model/PKModel.m; sourceTree = "<group>"; };
 		9C7029081DD313CB00E37939 /* GradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientLabel.h; path = "Inherit(继承类)/GradientLabel.h"; sourceTree = "<group>"; };
 		9C7029091DD313CB00E37939 /* GradientLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientLabel.m; path = "Inherit(继承类)/GradientLabel.m"; sourceTree = "<group>"; };
 		9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BernardMTCondensed.ttf; path = Font/BernardMTCondensed.ttf; sourceTree = "<group>"; };
@@ -498,6 +501,15 @@
 			name = UserInfo;
 			sourceTree = "<group>";
 		};
+		9C60D8C51DF8FA0C00A9C711 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C60D8C61DF8FA2C00A9C711 /* PKModel.h */,
+				9C60D8C71DF8FA2C00A9C711 /* PKModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		9C7029061DD312A400E37939 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				9CED32B51DED770700C7E098 /* Tool */,
+				9C60D8C51DF8FA0C00A9C711 /* Model */,
 			);
 			name = FMDBTool;
 			sourceTree = "<group>";
@@ -852,6 +865,7 @@
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
 				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
+				9C60D8C81DF8FA2C00A9C711 /* PKModel.m in Sources */,
 				9CED329B1DED248300C7E098 /* SleepModel.m in Sources */,
 				9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */,
 				9CFE00A01DDBEB8500D38904 /* MenuContentView.m in Sources */,

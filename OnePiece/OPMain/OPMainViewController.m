@@ -20,6 +20,8 @@
 {
     BOOL _isBind;
     NSString *_currentDateString;
+    float _stepAngry;
+    float _sleepAngry;
 }
 
 @property (nonatomic ,strong) OPMainContentView *contentView;
@@ -35,11 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSDate *currentDate = [NSDate date];
-    _currentDateString = [formatter stringFromDate:currentDate];
-    
     _isBind = [[NSUserDefaults standardUserDefaults] boolForKey:@"isBind"];
     DLog(@"有没有绑定设备 == %d",_isBind);
     
@@ -51,6 +48,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    NSDate *currentDate = [NSDate date];
+    _currentDateString = [formatter stringFromDate:currentDate];
+    
     [self getDataFromDB];
     
     self.navigationController.navigationBar.barTintColor = kClearColor;
@@ -100,6 +102,7 @@
         SportModel *sportModel = stepArr.lastObject;
         self.contentView.stepLabel.text = sportModel.stepNumber;
         [self drawProgressWithString:sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
+        _stepAngry = sportModel.stepNumber.integerValue / 10 * 0.5;
     }
     
     //睡眠
@@ -111,6 +114,22 @@
         }
         self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
         [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
+        _sleepAngry = _stepAngry * (sum / 8.f) * 0.5;
+    }
+    [self.contentView.aggressivenessLbael setText:[NSString stringWithFormat:@"%.f",_sleepAngry + _stepAngry]];
+    //pk数据
+    NSArray *pkDataArr = [self.myFmdbTool queryPKDataWithData:_currentDateString];
+    if (pkDataArr.count != 0) {
+        PKModel *pkModel = pkDataArr.firstObject;
+        self.contentView.winCountLabel.text = pkModel.win;
+        self.contentView.drawCountLabel.text = pkModel.draw;
+        self.contentView.failCountLabel.text = pkModel.fail;
+        self.contentView.PKCountLabel.text = [NSString stringWithFormat:@"比拼%@次",pkModel.PKCount];
+    }else {
+        self.contentView.winCountLabel.text = @"0";
+        self.contentView.drawCountLabel.text = @"0";
+        self.contentView.failCountLabel.text = @"0";
+        self.contentView.PKCountLabel.text = @"比拼0次";
     }
 }
 
@@ -317,7 +336,6 @@
         NSArray *sleepDataArr = [self.myFmdbTool querySleepWithDate:currentDateString];
         if (sleepDataArr.count != 0) {
             double sum = 0;
-            
             for (SleepModel *model in sleepDataArr) {
                 sum += model.sumSleep.doubleValue / 60;
             }

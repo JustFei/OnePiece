@@ -19,4 +19,18 @@
     return self;
 }
 
+- (void)setModel:(DayHistoryModel *)model
+{
+    self.motionLabel.text = model.step;
+    self.aggressivenessLabel.text = model.aggressiveness;
+    self.motionTargetLabel.text = model.stepTarget;
+    self.sumSleepLabel.text = model.sumSleep;
+    self.deepSleepLabel.text = model.deepSleep;
+    self.lowSleepLabel.text = model.lowSleep;
+    self.winLabel.text = model.win;
+    self.drawLabel.text = model.draw;
+    self.failLabel.text = model.fail;
+    self.PKCountLabel.text = model.PKCount;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DayHistoryModel.h"
 
 @interface DayDataView : UICollectionViewCell
 
@@ -21,5 +22,7 @@
 @property (nonatomic ,weak) IBOutlet UILabel *drawLabel;
 @property (nonatomic ,weak) IBOutlet UILabel *failLabel;
 @property (nonatomic ,weak) IBOutlet UILabel *PKCountLabel;
+
+@property (nonatomic ,strong) DayHistoryModel *model;
 
 @end

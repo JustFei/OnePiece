@@ -151,7 +151,12 @@
                     NSString *bindPeripheralUUID = [obj objectForKey:@"bindPeripheralUUID"];
                     NSString *isBind = [obj objectForKey:@"isBind"];
                     NSString *PeripheralMac = [obj objectForKey:@"peripheralMac"];
-                    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:genderNum.integerValue andBirthday:birthday andHeight:heightNum.integerValue andWeight:weightNum.integerValue andStepLength:stepLengthNum.integerValue andStepTarget:stepTarghtNum.integerValue andSleepTarget:sleepTarghtNum.integerValue andPeripheralName:PeripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:PeripheralMac];
+                    NSDate *registTimeDate = obj.createdAt;
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
+                    NSString *registTime = [formatter stringFromDate:registTimeDate];
+                    
+                    UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:genderNum.integerValue andBirthday:birthday andHeight:heightNum.integerValue andWeight:weightNum.integerValue andStepLength:stepLengthNum.integerValue andStepTarget:stepTarghtNum.integerValue andSleepTarget:sleepTarghtNum.integerValue andPeripheralName:PeripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:PeripheralMac andRegistTime:registTime];
                     
                     //存储服务器上的用户信息数据
                     [self.myFmdbTool insertUserInfoModel:model];

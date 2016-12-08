@@ -19,7 +19,7 @@
 @property (nonatomic ,weak) GradientLabel *sleepLabel;
 @property (nonatomic ,weak) GradientLabel *aggressivenessLbael;
 @property (nonatomic ,weak) UILabel *failCountLabel;
-@property (nonatomic ,weak) UILabel *successCountLabel;
+@property (nonatomic ,weak) UILabel *winCountLabel;
 @property (nonatomic ,weak) UILabel *drawCountLabel;
 @property (nonatomic ,weak) UILabel *PKCountLabel;
 

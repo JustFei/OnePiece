@@ -67,7 +67,7 @@
     self.collectionView.pagingEnabled = YES;
     self.collectionView.bounces = NO;
     [self addSubview:self.collectionView];
-    self.collectionView.backgroundColor = kClearColor;
+    self.collectionView.backgroundColor = kWhiteColor;
     
     //3.注册collectionViewCell
     //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
@@ -80,12 +80,12 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    return 10;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 10;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -104,9 +104,8 @@
 //设置每个item水平间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
-
 
 #pragma mark - Action
 - (void)beforeDay:(UIButton *)sender

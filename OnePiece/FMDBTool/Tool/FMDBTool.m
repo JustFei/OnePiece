@@ -7,12 +7,13 @@
 //
 
 #import "FMDBTool.h"
-#import "ClockModel.h"
-#import "SportModel.h"
-#import "HeartRateModel.h"
-#import "SleepModel.h"
-#import "BloodModel.h"
-#import "BloodO2Model.h"
+//#import "ClockModel.h"
+//#import "SportModel.h"
+//#import "HeartRateModel.h"
+//#import "SleepModel.h"
+//#import "BloodModel.h"
+//#import "BloodO2Model.h"
+//#import "PKModel.h"
 
 @interface FMDBTool ()
 
@@ -46,7 +47,7 @@ static FMDatabase *_fmdb;
         }
         
         //UserInfoData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, bindPeripheralUUID text, peripheralMac text);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, bindPeripheralUUID text, peripheralMac text, registTime text);"]];
         
         //ClockData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists ClockData(id integer primary key, time text, isopen bool);"]];
@@ -66,9 +67,81 @@ static FMDatabase *_fmdb;
         //SleepData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists SleepData(id integer primary key,date text, startTime text, endTime text, deepSleep text, lowSleep text, sumSleep text, currentDataCount integer, sumDataCount integer);"]];
         
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists PKData(id integer primary key, date text, win text, draw text, fail text, PKCount text);"]];
     }
     
     return self;
+}
+
+#pragma mark - PKData
+- (BOOL)insertPKData:(PKModel *)model
+{
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO PKData(date, win, draw, fail, PKCount) VALUES ('%@', '%@', '%@', '%@', '%@');",model.date ,model.win ,model.draw ,model.fail ,model.PKCount];
+    BOOL result = [_fmdb executeUpdate:insertSql];
+    if (result) {
+        NSLog(@"插入PKData成功");
+    }else {
+        NSLog(@"插入PKData失败");
+    }
+    return result;
+}
+
+- (NSMutableArray *)queryPKDataWithData:(NSString *)date
+{
+    NSString *queryString;
+    FMResultSet *set;
+    
+    if (date == nil) {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM PKData;"];
+        
+        set = [_fmdb executeQuery:queryString];
+    }else {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM PKData where date = ?;"];
+        
+        set = [_fmdb executeQuery:queryString ,date];
+    }
+    
+    NSMutableArray *arrM = [NSMutableArray array];
+    
+    while ([set next]) {
+        
+        NSString *date = [set stringForColumn:@"date"];
+        NSString *win = [set stringForColumn:@"win"];
+        NSString *draw = [set stringForColumn:@"draw"];
+        NSString *fail = [set stringForColumn:@"fail"];
+        NSString *PKCount = [set stringForColumn:@"PKCount"];
+        
+        PKModel *model = [[PKModel alloc] init];
+        
+        model.date = date;
+        model.win = win;
+        model.draw = draw;
+        model.fail = fail;
+        model.PKCount = PKCount;
+        
+        [arrM addObject:model];
+    }
+    NSLog(@"PK查询成功");
+    return arrM;
+}
+
+- (BOOL)modifyPKDataWithDate:(NSString *)date model:(PKModel *)model
+{
+    if (date == nil) {
+        NSLog(@"传入的日期为空，不能修改");
+        
+        return NO;
+    }
+    NSString *modifySql = [NSString stringWithFormat:@"update PKData set win = ?, draw = ?, fail = ?, PKCount = ?, where date = ?" ];
+    BOOL modifyResult = [_fmdb executeUpdate:modifySql, model.win, model.draw, model.fail, model.PKCount, date];
+    
+    if (modifyResult) {
+        NSLog(@"PK数据修改成功");
+    }else {
+        NSLog(@"PK数据修改失败");
+    }
+    
+    return modifyResult;
 }
 
 #pragma mark - ClockData
@@ -523,7 +596,7 @@ static FMDatabase *_fmdb;
 #pragma mark - UserInfoData
 - (BOOL)insertUserInfoModel:(UserInfoModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, bindPeripheralUUID, peripheralMac) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.bindPeripheralUUID, model.peripheralMac];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, bindPeripheralUUID, peripheralMac, registTime) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.bindPeripheralUUID, model.peripheralMac, model.registTime];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -557,8 +630,9 @@ static FMDatabase *_fmdb;
         NSString *peripheralName = [set stringForColumn:@"peripheralName"];
         NSString *bindPeripheralUUID = [set stringForColumn:@"bindPeripheralUUID"];
         NSString *peripheralMac = [set stringForColumn:@"peripheralMac"];
+        NSString *registTime = [set stringForColumn:@"registTime"];
         
-        UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac];
+        UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac andRegistTime:registTime];
         
         NSLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID);
         

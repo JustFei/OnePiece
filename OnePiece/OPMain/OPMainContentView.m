@@ -100,7 +100,7 @@
     CGFloat failCountLabelY = self.failCountLabel.frame.origin.y;
     CGFloat failCountLabelW = self.failCountLabel.frame.size.width;
     CGFloat failCountLbaelH = self.failCountLabel.frame.size.height;
-    self.successCountLabel.frame = CGRectMake(successLabel.center.x - 22.5, failCountLabelY, failCountLabelW, failCountLbaelH);
+    self.winCountLabel.frame = CGRectMake(successLabel.center.x - 22.5, failCountLabelY, failCountLabelW, failCountLbaelH);
     self.drawCountLabel.frame = CGRectMake(drawLabel.center.x - 22.5, failCountLabelY, failCountLabelW, failCountLbaelH);
     
     self.PKCountLabel.frame = CGRectMake(kViewCenter.x - 55 * kViewHeight / 667, failLabelY + failLabelH + 10, 110 * kViewHeight / 667, 20 * kViewHeight / 667);
@@ -264,19 +264,19 @@
     return _failCountLabel;
 }
 
-- (UILabel *)successCountLabel
+- (UILabel *)winCountLabel
 {
-    if (!_successCountLabel) {
+    if (!_winCountLabel) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [label setTextColor:kWhiteColor];
         [label setFont:[UIFont systemFontOfSize:25]];
         [self addSubview:label];
-        _successCountLabel = label;
+        _winCountLabel = label;
     }
     
-    return _successCountLabel;
+    return _winCountLabel;
 }
 
 - (UILabel *)drawCountLabel

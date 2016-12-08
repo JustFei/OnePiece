@@ -57,22 +57,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/UserLogin/Register/RegisterViewController.m"
-            timestampString = "502717799.809159"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-geiVerificationCodeAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "OnePiece/Menu/User/ChangePwd/ChangePwdContentView.m"
             timestampString = "502718764.300966"
             startingColumnNumber = "9223372036854775807"
@@ -105,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/History/MonthView/MonthContentView.m"
-            timestampString = "502794122.217695"
+            filePath = "OnePiece/UserLogin/Login/LoginViewController.m"
+            timestampString = "502874866.799407"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "-layoutSubviews"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-loginAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

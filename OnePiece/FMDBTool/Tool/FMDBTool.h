@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 #import "UserInfoModel.h"
-
-@class SportModel;
-@class HeartRateModel;
-@class SleepModel;
-@class ClockModel;
-@class BloodModel;
-@class BloodO2Model;
+#import "SportModel.h"
+#import "HeartRateModel.h"
+#import "SleepModel.h"
+#import "ClockModel.h"
+#import "BloodModel.h"
+#import "BloodO2Model.h"
+#import "PKModel.h"
 
 typedef enum : NSUInteger {
     SQLTypeStep = 0,
@@ -29,6 +29,13 @@ typedef enum : NSUInteger {
 @interface FMDBTool : NSObject
 
 - (instancetype)initWithPath:(NSString *)path;
+
+#pragma mark - PKData
+- (BOOL)insertPKData:(PKModel *)model;
+
+- (NSMutableArray *)queryPKDataWithData:(NSString *)date;
+
+- (BOOL)modifyPKDataWithDate:(NSString *)date model:(PKModel *)model;
 
 #pragma mark - ClockData
 - (BOOL)insertClockModel:(ClockModel *)model;
