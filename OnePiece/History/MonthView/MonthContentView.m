@@ -13,17 +13,17 @@
 #import "SportModel.h"
 
 
-@interface MonthContentView () < UICollectionViewDelegate ,UICollectionViewDataSource >
-
+@interface MonthContentView () < UICollectionViewDelegate ,UICollectionViewDataSource , UIPickerViewDataSource , UIPickerViewDelegate >
+{
+    NSInteger _rowCount;
+}
 @property (nonatomic ,weak) UIButton *leftButton;
 @property (nonatomic ,weak) UIButton *centerDateButton;
 @property (nonatomic ,strong) UIImageView *calendarImageView;
 @property (nonatomic ,weak) UIButton *rightButton;
 @property (nonatomic ,strong) UICollectionView *collectionView;
-@property (nonatomic ,copy) NSString *currentDateString;
-@property (nonatomic ,strong) FMDBTool *myFmdbTool;
-@property (nonatomic ,strong) NSMutableArray *dataArr;
-
+@property (nonatomic ,assign) BOOL didEndDecelerating;
+@property (nonatomic ,strong) UIPickerView *infoPickerView;
 
 @end
 
@@ -33,26 +33,26 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy/MM/dd"];
-        self.currentDateString = [formatter stringFromDate:[NSDate date]];
-        
-        self.dataArr = [NSMutableArray arrayWithArray: [self.myFmdbTool queryStepWithDate:nil]];
+
     }
     return self;
 }
 
 - (void)layoutSubviews
 {
-    self.leftButton.frame = XXF_CGRectMake(25, 31, 14, 24);
+    self.leftButton.frame = XXF_CGRectMake(20, 26, 44, 44);
     DLog(@"month == %f",kViewCenter.x);
     self.centerDateButton.frame = XXF_CGRectMake(kViewCenter.x - kViewWidth - 60, self.leftButton.center.y - 15, 120, 30);
     
-    self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.frame.origin.y , 34, 30)];
+    self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.center.y - 6.5 , 15, 13)];
     
     self.calendarImageView.image = [UIImage imageNamed:@"Calendar"];
     [self addSubview:self.calendarImageView];
-    self.rightButton.frame = XXF_CGRectMake(kViewWidth - 32, 31, 14, 24);
+    self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 26, 44, 44);
+    self.rightButton.enabled = NO;
+    if (self.dataArr.count == 1) {
+        self.leftButton.enabled = NO;
+    }
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     //设置collectionView滚动方向
@@ -67,7 +67,7 @@
     self.collectionView.pagingEnabled = YES;
     self.collectionView.bounces = NO;
     [self addSubview:self.collectionView];
-    self.collectionView.backgroundColor = kWhiteColor;
+    self.collectionView.backgroundColor = kClearColor;
     
     //3.注册collectionViewCell
     //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
@@ -80,7 +80,7 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return self.monthArr.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -92,6 +92,9 @@
 {
     MonthDataView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"monthCell" forIndexPath:indexPath];
     cell.backgroundColor = kClearColor;
+    MonthHistoryModel *model = self.dataArr[indexPath.row];
+    
+    cell.model = model;
     return cell;
 }
 
@@ -107,20 +110,126 @@
     return 0;
 }
 
+//cell之间的间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    self.didEndDecelerating = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    @autoreleasepool {
+        self.didEndDecelerating = YES;
+        CGFloat index = scrollView.contentOffset.x/kViewWidth;
+        int i = roundf(index);
+        [self.centerDateButton setTitle:self.monthArr[i] forState:UIControlStateNormal];
+        if (i == self.monthArr.count - 1) {
+            self.rightButton.enabled = NO;
+        }else {
+            self.rightButton.enabled = YES;
+        }
+        
+        if (i == 0) {
+            self.leftButton.enabled = NO;
+        }else {
+            self.leftButton.enabled = YES;
+        }
+    }
+}
+
+// 如果没有，四舍五入手动确定位置。这样就可以解决滑动过快的问题
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (!self.didEndDecelerating) {
+        // 先计算当期的page/index
+        CGFloat index = scrollView.contentOffset.x/kViewWidth;
+        int i = roundf(index);
+        [self.centerDateButton setTitle:self.monthArr[i] forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
+// UIPickerViewDataSource中定义的方法，该方法的返回值决定改控件包含多少列
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+
+{
+    return 1;
+}
+
+// UIPickerViewDataSource中定义的方法，该方法的返回值决定该控件指定列包含多少哥列表项
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.monthArr.count;
+}
+
+// UIPickerViewDelegate中定义的方法，该方法返回NSString将作为UIPickerView中指定列和列表项上显示的标题
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+
+{
+    return self.monthArr[row];
+}
+
+// 当用户选中UIPickerViewDataSource中指定列和列表项时激发该方法
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    _rowCount = row;
+}
+
 #pragma mark - Action
 - (void)beforeDay:(UIButton *)sender
 {
-    
+    CGFloat index = self.collectionView.contentOffset.x/kViewWidth;
+    int i = roundf(index);
+    if (i != 0) {
+        [self.collectionView setContentOffset:CGPointMake((i - 1) * kViewWidth, 0) animated:YES];
+        [self.centerDateButton setTitle:self.monthArr[i - 1] forState:UIControlStateNormal];
+        if (i == 1) {
+            sender.enabled = NO;
+        }
+        self.rightButton.enabled = YES;
+    }
 }
 
 - (void)afterDay:(UIButton *)sender
 {
-    
+    CGFloat index = self.collectionView.contentOffset.x/kViewWidth;
+    int i = roundf(index);
+    if (i != self.dataArr.count - 1) {
+        [self.collectionView setContentOffset:CGPointMake((i + 1) * kViewWidth, 0) animated:YES];
+        [self.centerDateButton setTitle:self.monthArr[i + 1] forState:UIControlStateNormal];
+        if (i == self.monthArr.count - 2) {
+            sender.enabled = NO;
+        }
+        self.leftButton.enabled = YES;
+    }
 }
 
 - (void)showTheCalender:(UIButton *)sender
 {
+    _rowCount = -1;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (_rowCount != -1) {
+            [self.collectionView setContentOffset:CGPointMake(_rowCount * kViewWidth, 0) animated:YES];
+            [self.centerDateButton setTitle:self.monthArr[_rowCount] forState:UIControlStateNormal];
+        }
+    }];
+    [alert addAction:cancelAction];
+    [alert addAction:okAction];
     
+    self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+    self.infoPickerView.dataSource = self;
+    self.infoPickerView.delegate = self;
+    self.infoPickerView.tag = 2000;
+    [alert.view addSubview:self.infoPickerView];
+    
+    [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - 懒加载
@@ -158,7 +267,7 @@
 {
     if (!_centerDateButton) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:@"2016-12-12" forState:UIControlStateNormal];
+        [button setTitle:self.monthArr.lastObject forState:UIControlStateNormal];
         [button setTitleColor:kBlackColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(showTheCalender:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -169,14 +278,35 @@
     return _centerDateButton;
 }
 
-- (FMDBTool *)myFmdbTool
+- (NSMutableArray *)monthArr
 {
-    if (!_myFmdbTool) {
-        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
+    if (!_monthArr) {
+        _monthArr = [NSMutableArray array];
     }
     
-    return _myFmdbTool;
+    return _monthArr;
+}
+
+- (NSMutableArray *)dataArr
+{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    
+    return _dataArr;
+}
+
+#pragma mark - 获取当前View的控制器的方法
+- (UIViewController *)findViewController:(UIView *)sourceView
+{
+    id target=sourceView;
+    while (target) {
+        target = ((UIResponder *)target).nextResponder;
+        if ([target isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+    return target;
 }
 
 @end

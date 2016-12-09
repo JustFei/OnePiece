@@ -8,8 +8,7 @@
 
 #import "DayContentView.h"
 #import "DayDataView.h"
-#import "FMDBTool.h"
-#import "DayHistoryModel.h"
+
 
 @interface DayContentView () < UICollectionViewDataSource ,UICollectionViewDelegate , UIPickerViewDataSource , UIPickerViewDelegate >
 {
@@ -21,9 +20,6 @@
 @property (nonatomic ,weak) UIButton *rightButton;
 @property (nonatomic ,strong) UICollectionView *collectionView;
 @property (nonatomic ,copy) NSString *currentDateString;
-@property (nonatomic ,strong) FMDBTool *myFmdbTool;
-@property (nonatomic ,strong) NSMutableArray *dataArr;
-@property (nonatomic ,strong) NSMutableArray *dateArr;
 @property (nonatomic ,assign) BOOL didEndDecelerating;
 @property (nonatomic ,strong) UIPickerView *infoPickerView;
 
@@ -35,12 +31,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy/MM/dd"];
-        self.currentDateString = [formatter stringFromDate:[NSDate date]];
-        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self getHistoryFromDataBase];
-        });
         
     }
     return self;
@@ -52,11 +42,15 @@
     DLog(@"day == %f",kViewCenter.x);
     self.centerDateButton.frame = XXF_CGRectMake(kViewCenter.x - 60, self.leftButton.center.y - 15, 120, 30);
     
-    self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.frame.origin.y , 34, 30)];
+    self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.center.y - 6.5 , 15, 13)];
     
     self.calendarImageView.image = [UIImage imageNamed:@"Calendar"];
     [self addSubview:self.calendarImageView];
     self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 26, 44, 44);
+    self.rightButton.enabled = NO;
+    if (self.dataArr.count == 1) {
+        self.leftButton.enabled = NO;
+    }
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     //设置collectionView滚动方向
@@ -77,96 +71,6 @@
     //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
     [self.collectionView registerNib:[UINib nibWithNibName:@"DayDataView" bundle:nil] forCellWithReuseIdentifier:@"dayCell"];
     self.collectionView.contentOffset = CGPointMake((self.dataArr.count - 1) * kViewWidth, 0);
-}
-
-#pragma mark - DataBase
-- (void)getHistoryFromDataBase
-{
-    NSArray *userArr = [self.myFmdbTool queryAllUserInfo];
-    [self getDateFromBeginWithUserArr:userArr];
-    
-    for (NSString *date in self.dateArr) {
-        DayHistoryModel *dayModel = [[DayHistoryModel alloc] init];
-        //目标
-        dayModel.stepTarget = [NSString stringWithFormat:@"%ld",(long)((UserInfoModel *)userArr.firstObject).stepTarget];
-        
-        NSArray *stepArr = [self.myFmdbTool queryStepWithDate:date];
-        NSArray *sleepArr = [self.myFmdbTool querySleepWithDate:date];
-        NSArray *pkArr = [self.myFmdbTool queryPKDataWithData:date];
-        float sumSum = 0;
-        float sumDeep = 0;
-        float sumLow = 0;
-        
-        if (stepArr.count != 0) {
-            SportModel *stepModel = stepArr.firstObject;
-            //步数
-            dayModel.step = stepModel.stepNumber;
-        }else {
-            dayModel.step = @"0";
-        }
-        
-        if (sleepArr.count != 0) {
-            for (SleepModel *sleepModel in sleepArr) {
-                sumSum += sleepModel.sumSleep.floatValue;
-                sumDeep += sleepModel.deepSleep.floatValue;
-                sumLow += sleepModel.lowSleep.floatValue;
-            }
-            //总睡眠，深睡眠，浅睡眠
-            dayModel.sumSleep = [NSString stringWithFormat:@"%.1f",sumSum / 60];
-            dayModel.deepSleep = [NSString stringWithFormat:@"%.1f",sumDeep / 60];
-            dayModel.lowSleep = [NSString stringWithFormat:@"%.1f",sumLow / 60];
-        }else {
-            dayModel.sumSleep = @"0";
-            dayModel.deepSleep = @"0";
-            dayModel.lowSleep = @"0";
-        }
-        
-        //霸气值
-        float stepAngry = dayModel.step.floatValue / 10 * 0.5;
-        float sleepAngry = (dayModel.sumSleep.floatValue / 8.f) * stepAngry * 0.5;
-        dayModel.aggressiveness = [NSString stringWithFormat:@"%d",(int)(stepAngry + sleepAngry)];
-        
-        //胜利，平局，失败，总比拼次数
-        if (pkArr.count != 0) {
-            
-            PKModel *pkModel = pkArr.firstObject;
-            dayModel.win = pkModel.win;
-            dayModel.draw = pkModel.draw;
-            dayModel.fail = pkModel.fail;
-            dayModel.PKCount = pkModel.PKCount;
-            
-        }else {
-            dayModel.win = @"0";
-            dayModel.draw = @"0";
-            dayModel.fail = @"0";
-            dayModel.PKCount = @"0";
-        }
-        [self.dataArr addObject:dayModel];
-    }
-}
-
-- (NSMutableArray *)getDateFromBeginWithUserArr:(NSArray *)userArr
-{
-    self.dateArr = [NSMutableArray array];
-    UserInfoModel *userModel = userArr.firstObject;
-    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-    [inputFormatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
-    NSDate *inputDate = [inputFormatter dateFromString:userModel.registTime];
-    long long nowTime = [inputDate timeIntervalSince1970];
-    long long endTime = [[NSDate date] timeIntervalSince1970];
-    
-    long long dayTime = 24*60*60,
-    time = nowTime - nowTime%dayTime;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    
-    while (time < endTime) {
-        NSString *showOldDate = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]];
-        [self.dateArr addObject:showOldDate];
-        time += dayTime;
-    }
-    
-    return self.dateArr;
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -370,16 +274,6 @@
     }
     
     return _centerDateButton;
-}
-
-- (FMDBTool *)myFmdbTool
-{
-    if (!_myFmdbTool) {
-        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-        _myFmdbTool = [[FMDBTool alloc] initWithPath:account];
-    }
-    
-    return _myFmdbTool;
 }
 
 - (NSMutableArray *)dataArr

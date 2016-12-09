@@ -79,7 +79,7 @@
         self.loginButton.enabled = NO;
     }
     
-    NSLog(@"%ld === %ld",(long)userLength , (long)pwdLength);
+    DLog(@"%ld === %ld",(long)userLength , (long)pwdLength);
     
     return YES;
 }

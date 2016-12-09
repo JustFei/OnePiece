@@ -28,6 +28,7 @@
 @property (nonatomic ,weak) UIButton *syncButton;
 @property (nonatomic ,weak) UIButton *PKButton;
 
+//渐变进度条
 @property (nonatomic ,strong) MAThermometer *stepProgress;
 @property (nonatomic ,strong) MAThermometer *sleepProgress;
 

@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-peripheral</string>
+		<string>bluetooth-central</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -120,9 +125,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>是否允许此App使用你的相机</string>
+	<string>是否允许此App使用你的相机?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>是否允许此App访问你的媒体资料库？</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>是否允许此App使用你的蓝牙?</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Hakuu.ttf</string>

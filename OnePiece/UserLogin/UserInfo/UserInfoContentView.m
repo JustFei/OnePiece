@@ -170,7 +170,7 @@
 
 - (void)datePickerValueChanged:(UIDatePicker *)datePicker
 {
-    NSLog(@"%@",datePicker.date);
+    DLog(@"%@",datePicker.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
     self.title = [formatter stringFromDate:datePicker.date];

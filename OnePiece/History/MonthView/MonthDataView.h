@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MonthHistoryModel.h"
 
 @interface MonthDataView : UICollectionViewCell
 
@@ -17,5 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *drawLabel;
 @property (weak, nonatomic) IBOutlet UILabel *failLabel;
 @property (weak, nonatomic) IBOutlet UILabel *PKCountLabel;
+
+@property (nonatomic ,strong) MonthHistoryModel *model;
 
 @end

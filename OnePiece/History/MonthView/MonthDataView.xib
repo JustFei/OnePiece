@@ -100,7 +100,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2J-8o-Yr2">
-                    <rect key="frame" x="157.5" y="247" width="60" height="16"/>
+                    <rect key="frame" x="158" y="247" width="60" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="6i6-kL-mhc"/>
                         <constraint firstAttribute="width" constant="60" id="ZFT-kF-eoT"/>
@@ -161,7 +161,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMq-y6-bPk">
-                    <rect key="frame" x="241.5" y="247" width="60" height="16"/>
+                    <rect key="frame" x="242" y="247" width="60" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="NJP-JX-cDc"/>
                         <constraint firstAttribute="height" constant="16" id="hCc-OK-BRF"/>
@@ -171,7 +171,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgb-P0-LS6">
-                    <rect key="frame" x="73.5" y="247" width="60" height="16"/>
+                    <rect key="frame" x="74" y="247" width="60" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="M2u-Nl-afx"/>
                         <constraint firstAttribute="height" constant="16" id="wbv-Tb-giq"/>
@@ -209,7 +209,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="HMR-nw-Mlq" firstAttribute="centerY" secondItem="jWb-sL-cX8" secondAttribute="centerY" id="0WJ-m2-Fdm"/>
                 <constraint firstItem="q6I-W2-VLx" firstAttribute="centerX" secondItem="jxt-AL-uwl" secondAttribute="centerX" id="1Fj-AX-Jfh"/>
@@ -269,6 +269,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon" width="24" height="24"/>
+        <image name="icon" width="11" height="11"/>
     </resources>
 </document>

@@ -10,4 +10,7 @@
 
 @interface DayContentView : UIView
 
+@property (nonatomic ,strong) NSMutableArray *dataArr;
+@property (nonatomic ,strong) NSMutableArray *dateArr;
+
 @end

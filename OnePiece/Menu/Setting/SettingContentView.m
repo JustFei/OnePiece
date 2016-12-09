@@ -96,7 +96,7 @@
 
 - (void)datePickerValueChanged:(UIDatePicker *)datePicker
 {
-    NSLog(@"%@",datePicker.date);
+    DLog(@"%@",datePicker.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"hh:mm"];
     self.title = [formatter stringFromDate:datePicker.date];

@@ -10,4 +10,7 @@
 
 @interface MonthContentView : UIView
 
+@property (nonatomic ,strong) NSMutableArray *monthArr;
+@property (nonatomic ,strong) NSMutableArray *dataArr;
+
 @end

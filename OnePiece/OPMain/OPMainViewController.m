@@ -429,7 +429,7 @@
     }else if (type == ReturnModelTypeSleepModel) {
         //TODO:绘制睡眠进度条
         float progress = sum / 8.f;
-        NSLog(@"睡眠进度 == %f",progress);
+        DLog(@"睡眠进度 == %f",progress);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.contentView.sleepProgress.curValue = progress * 100;
         });

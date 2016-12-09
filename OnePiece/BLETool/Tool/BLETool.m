@@ -102,7 +102,7 @@ static BLETool *bleTool = nil;
         NSString *uuidStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"bindPeripheralUUID"];
         NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:uuidStr];
         NSArray *arr = [_myCentralManager retrievePeripheralsWithIdentifiers: @[uuid]];
-        NSLog(@"当前已连接的设备%@,有几个%ld",arr ,(unsigned long)arr.count);
+        DLog(@"当前已连接的设备%@,有几个%ld",arr ,(unsigned long)arr.count);
         if (arr.count != 0) {
             CBPeripheral *per = (CBPeripheral *)arr.firstObject;
             per.delegate = self;
@@ -170,7 +170,7 @@ static BLETool *bleTool = nil;
     //写入操作
     if (self.currentDev.peripheral) {
         [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-        NSLog(@"time success");
+        DLog(@"time success");
     }
 }
 
@@ -178,7 +178,7 @@ static BLETool *bleTool = nil;
 - (void)writeClockToPeripheral:(ClockData)state withClockArr:(NSMutableArray *)clockArr
 {
     if (state == ClockDataSetClock) {
-        NSLog(@"设置闹钟");
+        DLog(@"设置闹钟");
         
         NSString *clockStateStr = [[NSString alloc] init];
         NSString *clockDataStr = [[NSString alloc] init];
@@ -206,7 +206,7 @@ static BLETool *bleTool = nil;
         
         clockStateStr = [clockStateStr stringByAppendingString:clockDataStr];
         
-        NSLog(@"设置闹钟的协议文本部分%@, 长度为%ld",clockStateStr ,(unsigned long)clockStateStr.length);
+        DLog(@"设置闹钟的协议文本部分%@, 长度为%ld",clockStateStr ,(unsigned long)clockStateStr.length);
         
         //传入时间和头，返回协议字符串
         NSString *protocolStr = [NSString stringWithFormat:@"FC0100%@0000",clockStateStr];
@@ -224,7 +224,7 @@ static BLETool *bleTool = nil;
         //写入操作
         if (self.currentDev.peripheral) {
             [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            NSLog(@"clock success");
+            DLog(@"clock success");
         }
     }
 }
@@ -237,7 +237,7 @@ static BLETool *bleTool = nil;
     //写入操作
     if (self.currentDev.peripheral) {
         [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type: CBCharacteristicWriteWithResponse];
-        NSLog(@"motion success");
+        DLog(@"motion success");
     }
 }
 
@@ -259,7 +259,7 @@ static BLETool *bleTool = nil;
     //写入操作
     if (self.currentDev.peripheral) {
         [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-        NSLog(@"gps success");
+        DLog(@"gps success");
     }
 }
 
@@ -328,7 +328,7 @@ static BLETool *bleTool = nil;
             
             if (self.currentDev.peripheral) {
                 [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:lastStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-                NSLog(@"heartRate success");
+                DLog(@"heartRate success");
             }
         }
             break;
@@ -365,7 +365,7 @@ static BLETool *bleTool = nil;
         default:
             break;
     }
-    NSLog(@"sleep success");
+    DLog(@"sleep success");
     
     //写入操作
     if (self.currentDev.peripheral) {
@@ -401,7 +401,7 @@ static BLETool *bleTool = nil;
             break;
         }
     }
-    NSLog(@"search == %@",searchStr);
+    DLog(@"search == %@",searchStr);
     //写入操作
     if (self.currentDev.peripheral) {
         [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:searchStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
@@ -433,7 +433,7 @@ static BLETool *bleTool = nil;
         case BloodDataLastData:
             //last data of sleep
             bloodStr = [NSStringTool protocolAddInfo:@"00" head:@"11"];
-            NSLog(@"sleep success");
+            DLog(@"sleep success");
             
             break;
         case BloodDataHistoryData:
@@ -460,7 +460,7 @@ static BLETool *bleTool = nil;
         case BloodO2DataLastData:
             //last data of sleep
             bloodStr = [NSStringTool protocolAddInfo:@"00" head:@"12"];
-            NSLog(@"sleep success");
+            DLog(@"sleep success");
             
             break;
         case BloodO2DataHistoryData:
@@ -528,7 +528,7 @@ static BLETool *bleTool = nil;
         {
             message = @"该设备尚未打开蓝牙，请在设置中打开";
             self.systemBLEstate = 4;
-            NSLog(@"message == %@",message);
+            DLog(@"message == %@",message);
             UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
             [vc addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:nil]];
             
@@ -586,7 +586,7 @@ static BLETool *bleTool = nil;
 //连接失败
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-//    NSLog(@"连接失败");
+//    DLog(@"连接失败");
     
     if ([self.connectDelegate respondsToSelector:@selector(manridyBLEDidFailConnectDevice:)]) {
         [self.connectDelegate manridyBLEDidFailConnectDevice:self.currentDev];
@@ -603,7 +603,7 @@ static BLETool *bleTool = nil;
     }
     
     if (self.isReconnect) {
-        NSLog(@"需要断线重连");
+        DLog(@"需要断线重连");
         [self.myCentralManager connectPeripheral:self.currentDev.peripheral options:nil];
         
         self.disConnectView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备意外断开，等待重连" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
@@ -641,7 +641,7 @@ static BLETool *bleTool = nil;
                     // 4、将请求加入通知中心
                     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:notificationRequest withCompletionHandler:^(NSError * _Nullable error) {
                         if (error == nil) {
-                            NSLog(@"已成功加推送%@",notificationRequest.identifier);
+                            DLog(@"已成功加推送%@",notificationRequest.identifier);
                         }
                     }];
                 }
@@ -677,10 +677,10 @@ static BLETool *bleTool = nil;
 //获得某服务的特征
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
     
-//    NSLog(@"Discovered characteristic %@", service.characteristics);
-    NSLog(@"服务 %@,", service.UUID);
+//    DLog(@"Discovered characteristic %@", service.characteristics);
+    DLog(@"服务 %@,", service.UUID);
     for (CBCharacteristic *characteristic in service.characteristics) {
-        NSLog(@"特征值： %@",characteristic.UUID);
+        DLog(@"特征值： %@",characteristic.UUID);
         //保存写入特征
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID]]) {
             
@@ -718,7 +718,7 @@ static BLETool *bleTool = nil;
 //订阅特征值发送变化的通知，所有获取到的值都将在这里进行处理
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"updateValue == %@",characteristic.value);
+    DLog(@"updateValue == %@",characteristic.value);
     
     [self analysisDataWithCharacteristic:characteristic.value];
     

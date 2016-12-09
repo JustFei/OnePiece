@@ -52,6 +52,7 @@
 		9CA5F5B41DE82A3000E15340 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B31DE82A3000E15340 /* TencentOpenAPI.framework */; };
 		9CA5F5B61DE82A4B00E15340 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B51DE82A4B00E15340 /* libWeiboSDK.a */; };
 		9CA5F5B81DE82A6200E15340 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B71DE82A6200E15340 /* libWeChatSDK.a */; };
+		9CBD38371DFA4E0C0045123C /* MonthHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBD38361DFA4E0C0045123C /* MonthHistoryModel.m */; };
 		9CED32951DED248300C7E098 /* BloodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32841DED248300C7E098 /* BloodModel.m */; };
 		9CED32961DED248300C7E098 /* BloodO2Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32861DED248300C7E098 /* BloodO2Model.m */; };
 		9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32881DED248300C7E098 /* HeartRateModel.m */; };
@@ -172,6 +173,8 @@
 		9CA5F5B51DE82A4B00E15340 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		9CA5F5B71DE82A6200E15340 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a; sourceTree = "<group>"; };
 		9CA749E01DEC1FF2007F8BBE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		9CBD38351DFA4E0C0045123C /* MonthHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonthHistoryModel.h; path = History/HistoryModel/MonthHistoryModel.h; sourceTree = "<group>"; };
+		9CBD38361DFA4E0C0045123C /* MonthHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonthHistoryModel.m; path = History/HistoryModel/MonthHistoryModel.m; sourceTree = "<group>"; };
 		9CED32831DED248300C7E098 /* BloodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodModel.h; path = BLETool/Model/BloodModel.h; sourceTree = "<group>"; };
 		9CED32841DED248300C7E098 /* BloodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BloodModel.m; path = BLETool/Model/BloodModel.m; sourceTree = "<group>"; };
 		9CED32851DED248300C7E098 /* BloodO2Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodO2Model.h; path = BLETool/Model/BloodO2Model.h; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 			children = (
 				9C37812E1DF80EA700700EAA /* DayHistoryModel.h */,
 				9C37812F1DF80EA700700EAA /* DayHistoryModel.m */,
+				9CBD38351DFA4E0C0045123C /* MonthHistoryModel.h */,
+				9CBD38361DFA4E0C0045123C /* MonthHistoryModel.m */,
 			);
 			name = HistoryModel;
 			sourceTree = "<group>";
@@ -874,6 +879,7 @@
 				9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */,
 				9CED32951DED248300C7E098 /* BloodModel.m in Sources */,
 				9CED329A1DED248300C7E098 /* SetTimeModel.m in Sources */,
+				9CBD38371DFA4E0C0045123C /* MonthHistoryModel.m in Sources */,
 				9CED32981DED248300C7E098 /* manridyModel.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
 				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
@@ -1026,6 +1032,8 @@
 			baseConfigurationReference = 4FDB09B6FFC5E9F75E85E267 /* Pods-OnePiece.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = K2G68J7RTF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1057,6 +1065,8 @@
 			baseConfigurationReference = 8A5710975C824ADECAAC1649 /* Pods-OnePiece.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = K2G68J7RTF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
