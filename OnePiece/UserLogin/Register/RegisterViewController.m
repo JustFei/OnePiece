@@ -12,10 +12,11 @@
 #import <BmobSDK/Bmob.h>
 #import "MBProgressHUD.h"
 
-@interface RegisterViewController () < UITableViewDelegate , UITableViewDataSource >
+@interface RegisterViewController () < UITableViewDelegate , UITableViewDataSource , UITextFieldDelegate >
 {
     int seconds;
     NSTimer *countDown;
+    NSInteger pwdLength;
 }
 @property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,weak) UIButton *signupButton;
@@ -31,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    seconds = 60;
     [self createUI];
 }
 
@@ -96,6 +97,7 @@
                     }else {
                         //不存在，就请求验证码
                         //改变获取验证码按钮为60秒倒计时
+                        [self changeGetSafeCodeButtonState];
                         //显示等待菊花
                         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                         //请求验证码
@@ -129,6 +131,7 @@
                     }else {
                         //不存在，就请求验证码
                         //改变获取验证码按钮为60秒倒计时
+                        [self changeGetSafeCodeButtonState];
                         //显示等待菊花
                         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                         //请求验证码
@@ -165,6 +168,7 @@
 
 - (void)signupAction:(UIButton *)sender
 {
+    if ([self validatePassword] == 3) {
     //显示等待菊花
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //验证
@@ -200,6 +204,10 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
+    }else {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+    }
 }
 
 - (void)resetPwd
@@ -236,6 +244,7 @@
 - (void)changeGetSafeCodeButtonState
 {
     self.getSafeCodeButton.enabled = NO;
+    self.getSafeCodeButton.backgroundColor = kGrayColor;
     
     countDown = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 }
@@ -245,12 +254,14 @@
         [theTimer invalidate];
         seconds = 60;
         [self.getSafeCodeButton setTitle:@"获取验证码" forState: UIControlStateNormal];
-        [self.getSafeCodeButton setTitleColor:kUIColorFromHEX(0x2c91F4, 1) forState:UIControlStateNormal];
+//        [self.getSafeCodeButton setTitleColor:kWhiteColor forState:UIControlStateNormal];
+        self.getSafeCodeButton.backgroundColor = kButtonGreenColor;
         [self.getSafeCodeButton setEnabled:YES];
     }else{
         seconds--;
         NSString *title = [NSString stringWithFormat:@"%d秒后尝试",seconds];
-        [self.getSafeCodeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//        [self.getSafeCodeButton setTitleColor:kGrayColor forState:UIControlStateNormal];
+        self.getSafeCodeButton.backgroundColor = kGrayColor;
         [self.getSafeCodeButton setEnabled:NO];
         [self.getSafeCodeButton setTitle:title forState:UIControlStateNormal];
     }
@@ -266,6 +277,71 @@
             }
         }
     }
+}
+
+- (int)validatePassword
+
+{
+    int count = 0;
+    //    NSString * length = @"^\\w{6,18}$";//长度
+    
+    NSString * number = @"^\\w*\\d+\\w*$";//数字
+    
+    NSString * lower = @"^\\w*[a-z]+\\w*$";//小写字母
+    
+    NSString * upper = @"^\\w*[A-Z]+\\w*$";//大写字母
+    
+//    NSString * punct = @"/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])+/";//标点符号
+    
+    
+    NSPredicate *regexnumber = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    NSPredicate *regexlower = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",lower];
+    NSPredicate *regexupper = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",upper];
+//    NSPredicate *regexpunct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",punct];
+    
+    BOOL isHaveNumber = [regexnumber evaluateWithObject: self.pwdTextField.text];
+    BOOL isHaveLower = [regexlower evaluateWithObject:self.pwdTextField.text];
+    BOOL isHaveUpper = [regexupper evaluateWithObject:self.pwdTextField.text];
+//    BOOL isHavePunct = [regexpunct evaluateWithObject:self.pwdTextField.text];
+    
+    //    return [self validateWithRegExp: number] && [self validateWithRegExp: lower] && [self validateWithRegExp: upper];
+    
+    if (isHaveNumber) {
+        count ++;
+    }
+    if (isHaveLower) {
+        count ++;
+    }
+    if (isHaveUpper) {
+        count ++;
+    }
+//    if (isHavePunct) {
+//        count ++;
+//    }
+    
+    return count;
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.tag == 102) {
+        if (string.length == 0) {
+            pwdLength = textField.text.length - range.length;
+        }else {
+            pwdLength = textField.text.length + string.length;
+        }
+    }
+    
+    if (pwdLength >= 6 && pwdLength <= 16) {
+        self.signupButton.enabled = YES;
+    }else {
+        self.signupButton.enabled = NO;
+    }
+    
+    DLog(@"密码长度 == %ld", (long)pwdLength);
+    
+    return YES;
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
@@ -289,7 +365,8 @@
             cell.countryNumberLabel.hidden = NO;
             cell.countryNumberLabel.text = @"中国";
             [cell.countryNumberLabel setTextColor:kUIColorFromHEX(0xcccccc, 1)];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            //暂时不能点击，所以隐藏掉箭头
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
             break;
         case 1:
@@ -305,15 +382,21 @@
             cell.PwdNumberTF.hidden = NO;
             cell.getVerificationCodeButton.hidden = NO;
             cell.PwdNumberTF.placeholder = @"验证码";
+            cell.PwdNumberTF.keyboardType = UIKeyboardTypeNumberPad;
             [cell.getVerificationCodeButton addTarget:self action:@selector(geiVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+            self.getSafeCodeButton = cell.getVerificationCodeButton;
             self.safeCodeTextField = cell.PwdNumberTF;
         }
             break;
         case 3:
         {
             cell.PwdNumberTF.hidden = NO;
-            cell.PwdNumberTF.placeholder = @"密码（6-16位，数字、大小写字母和特殊符号）";
+            cell.PwdNumberTF.placeholder = @"密码（6-16位，数字、大小写字母）";
             self.pwdTextField = cell.PwdNumberTF;
+            cell.PwdNumberTF.delegate = self;
+            cell.PwdNumberTF.tag = 102;
+            cell.PwdNumberTF.keyboardType = UIKeyboardTypeASCIICapable;
+            cell.PwdNumberTF.secureTextEntry = YES;
         }
             
         default:
@@ -357,8 +440,10 @@
             [button setTitle:@"重设" forState:UIControlStateNormal];
         }
         [button setTitleColor:kUIColorFromHEX(0x0076ff, 1) forState:UIControlStateNormal];
+        [button setTitleColor:kGrayColor forState:UIControlStateDisabled];
         [button.titleLabel setFont:[UIFont systemFontOfSize:18]];
         [button addTarget:self action:@selector(signupAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.enabled = NO;
         
         [self.view addSubview:button];
         _signupButton = button;

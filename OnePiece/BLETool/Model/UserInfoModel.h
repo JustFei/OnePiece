@@ -21,7 +21,8 @@ typedef enum : NSUInteger {
     UserInfoModifyTypeSleepTarget,
     UserInfoModifyTypePeripheralName,
     UserInfoModifyTypePeripheralUUID,
-    UserInfoModifyTypePeripheralMac
+    UserInfoModifyTypePeripheralMac,
+    UserInfoModifyTypeMoney
 } UserInfoModifyType;
 
 @interface UserInfoModel : BmobObject
@@ -39,6 +40,7 @@ typedef enum : NSUInteger {
 @property (nonatomic ,copy) NSString *bindPeripheralUUID;
 @property (nonatomic ,copy) NSString *peripheralMac;
 @property (nonatomic ,copy) NSString *registTime;
+@property (nonatomic ,copy) NSString *money;
 
 + (instancetype)userInfoModelWithAccount:(NSString *)account andUserName:(NSString *)userName andGender:(NSInteger)gender andBirthday:(NSString *)birthday andHeight:(NSInteger)height andWeight:(NSInteger)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget andPeripheralName:(NSString *)peripheralName andbindPeripheralUUID:(NSString *)peripherlUUID andPeripheralMac:(NSString *)peripheralMac andRegistTime:(NSString *)registTime;
 

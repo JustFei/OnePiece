@@ -25,7 +25,8 @@
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     
     self.appIcon = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(kViewCenter.x - 60, 50 + 64, 120, 120)];
-    self.appIcon.backgroundColor = kRedColor;
+//    self.appIcon.backgroundColor = kRedColor;
+    self.appIcon.image = [UIImage imageNamed:@"AboutIcon"];
     [self addSubview:self.appIcon];
     
     self.versionLabel = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kViewCenter.x - 60, self.appIcon.frame.origin.y + 140, 120, 15)];

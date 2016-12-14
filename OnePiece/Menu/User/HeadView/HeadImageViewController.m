@@ -7,10 +7,13 @@
 //
 
 #import "HeadImageViewController.h"
+#import <BmobSDK/Bmob.h>
 
 @interface HeadImageViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate >
 
 @property (nonatomic ,weak) UIImageView *bigHeadImageView;
+@property (nonatomic ,strong) BmobQuery *bquery;
+@property (nonatomic ,strong) BmobObject *obj;
 
 @end
 
@@ -33,6 +36,21 @@
     [rightButton addTarget:self action:@selector(changeHeadImage:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
+    
+    //查找GameScore表里面account的数据
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    [self.bquery whereKey:@"account" equalTo:account];
+    [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        //没有返回错误
+        if (!error) {
+            //对象存在
+            if (array) {
+                self.obj = array.firstObject;
+            }
+        }else{
+            //进行错误处理
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,10 +64,26 @@
     UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     //把newPhono设置成头像
     [self.bigHeadImageView setImage:newPhoto];
+    NSData *imageData = UIImagePNGRepresentation(self.bigHeadImageView.image);
+    
+    BmobFile *file = [[BmobFile alloc] initWithFileName:@"image.png" withFileData:imageData];
+    [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
+        //如果文件保存成功，则把文件添加到filetype列
+        if (isSuccessful)
+        {[self.obj setObject:file forKey:@"filetype"];
+        [self.obj saveInBackground];
+        //打印file文件的url地址
+            NSLog(@"file url %@",file.url);
+    } else {
+        //进行处理
+        NSLog(@"%@",error);
+    }
+    }];
+    
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    NSData *imageData = UIImagePNGRepresentation(self.bigHeadImageView.image);
+    
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
 }
 
@@ -101,6 +135,15 @@
     }
     
     return _bigHeadImageView;
+}
+
+- (BmobQuery *)bquery
+{
+    if (!_bquery) {
+        _bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    }
+    
+    return _bquery;
 }
 
 @end

@@ -252,8 +252,7 @@
 /**
  *  利用短信验证码重置帐号密码，只有填写手机号码的用户可用
  *
- *  @param phoneNumber <#phoneNumber description#>
- *  @param smscode     <#smscode description#>
+ *  @param SMSCode     <#smscode description#>
  *  @param block       <#block description#>
  */
 +(void)resetPasswordInbackgroundWithSMSCode:(NSString*)SMSCode

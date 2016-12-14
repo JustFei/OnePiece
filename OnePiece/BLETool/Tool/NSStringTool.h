@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Remind;
+@class UserInfoModel;
 
 @interface NSStringTool : NSObject
 

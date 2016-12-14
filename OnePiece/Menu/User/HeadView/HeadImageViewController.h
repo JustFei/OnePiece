@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HeadImageViewController : UIViewController
+{
+    BOOL isLoatServer;
+}
+
 
 @end

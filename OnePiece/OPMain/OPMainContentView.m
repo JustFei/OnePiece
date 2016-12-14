@@ -309,27 +309,4 @@
     return _PKCountLabel;
 }
 
-//- (MAThermometer *)stepProgress
-//{
-//    if (!_stepProgress) {
-//        _stepProgress = [[MAThermometer alloc] init];
-//        _stepProgress.curValue = 100;
-//        [self addSubview:_stepProgress];
-//    }
-//    
-//    return _stepProgress;
-//}
-//
-//- (MAThermometer *)sleepProgress
-//{
-//    if (!_sleepProgress) {
-//        _sleepProgress = [[MAThermometer alloc] init];
-//        _sleepProgress.curValue = 100;
-//        [self addSubview:_sleepProgress];
-//    }
-//    
-//    return _sleepProgress;
-//}
-
-
 @end

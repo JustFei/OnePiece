@@ -47,7 +47,7 @@ static FMDatabase *_fmdb;
         }
         
         //UserInfoData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, bindPeripheralUUID text, peripheralMac text, registTime text);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists UserInfoData(id integer primary key, account text, username text, gender integer, birthday text, height integer, weight integer, steplength integer, steptarget integer, sleeptarget integer, peripheralName text, bindPeripheralUUID text, peripheralMac text, registTime text, money text);"]];
         
         //ClockData
         [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists ClockData(id integer primary key, time text, isopen bool);"]];
@@ -132,7 +132,7 @@ static FMDatabase *_fmdb;
         
         return NO;
     }
-    NSString *modifySql = [NSString stringWithFormat:@"update PKData set win = ?, draw = ?, fail = ?, PKCount = ?, where date = ?" ];
+    NSString *modifySql = [NSString stringWithFormat:@"update PKData set win = ?, draw = ?, fail = ?, PKCount = ? where date = ?" ];
     BOOL modifyResult = [_fmdb executeUpdate:modifySql, model.win, model.draw, model.fail, model.PKCount, date];
     
     if (modifyResult) {
@@ -142,6 +142,26 @@ static FMDatabase *_fmdb;
     }
     
     return modifyResult;
+}
+
+- (BOOL)deletePkData:(NSInteger)deleteSql
+{
+    BOOL result;
+    
+    if (deleteSql == 4) {
+        result =  [_fmdb executeUpdate:@"DELETE FROM PkData"];
+    }else {
+        NSString *deleteSqlStr = [NSString stringWithFormat:@"DELETE FROM PkData WHERE id = ?"];
+        
+        result = [_fmdb executeUpdate:deleteSqlStr,[NSNumber numberWithInteger:deleteSql]];
+    }
+    if (result) {
+        DLog(@"删除pkData成功");
+    }else {
+        DLog(@"删除pkData失败");
+    }
+    
+    return result;
 }
 
 #pragma mark - ClockData
@@ -596,7 +616,7 @@ static FMDatabase *_fmdb;
 #pragma mark - UserInfoData
 - (BOOL)insertUserInfoModel:(UserInfoModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, bindPeripheralUUID, peripheralMac, registTime) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.bindPeripheralUUID, model.peripheralMac, model.registTime];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO UserInfoData(account, username, gender, birthday, height, weight, steplength, steptarget, sleeptarget, peripheralName, bindPeripheralUUID, peripheralMac, registTime, money) VALUES ('%@', '%@', '%ld', '%@', '%ld', '%ld', '%ld', '%ld', '%ld', '%@', '%@', '%@', '%@', '%@');", model.account, model.userName, (long)model.gender, model.birthday, (long)model.height, (long)model.weight, (long)model.stepLength, (long)model.stepTarget, (long)model.sleepTarget, model.peripheralName, model.bindPeripheralUUID, model.peripheralMac, model.registTime, model.money];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -631,8 +651,10 @@ static FMDatabase *_fmdb;
         NSString *bindPeripheralUUID = [set stringForColumn:@"bindPeripheralUUID"];
         NSString *peripheralMac = [set stringForColumn:@"peripheralMac"];
         NSString *registTime = [set stringForColumn:@"registTime"];
+        NSString *money = [set stringForColumn:@"money"];
         
         UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac andRegistTime:registTime];
+        model.money = money;
         
         DLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID);
         
@@ -656,7 +678,7 @@ static FMDatabase *_fmdb;
             modifyResult = [_fmdb executeUpdate:modifySql, model.userName, @(1)];
             break;
         case UserInfoModifyTypeGender:
-            modifyResult = [_fmdb executeUpdate:modifySql, model.gender, @(1)];
+            modifyResult = [_fmdb executeUpdate:modifySql, @(model.gender), @(1)];
             break;
         case UserInfoModifyTypeBirthday:
             modifyResult = [_fmdb executeUpdate:modifySql, model.birthday, @(1)];
@@ -684,6 +706,10 @@ static FMDatabase *_fmdb;
             break;
         case  UserInfoModifyTypePeripheralMac:
             modifyResult = [_fmdb executeUpdate:modifySql, model.peripheralMac, @(1)];
+            break;
+        case UserInfoModifyTypeMoney:
+            modifyResult = [_fmdb executeUpdate:modifySql, model.money, @(1)];
+            break;
             
         default:
             break;
@@ -751,7 +777,7 @@ static FMDatabase *_fmdb;
 - (NSArray *)userInfoTypeArr
 {
     if (!_userInfoTypeArr) {
-        _userInfoTypeArr = @[@"account",@"username",@"gender",@"birthday",@"height",@"weight",@"steplength",@"steptarget",@"sleeptarget",@"peripheralName",@"bindPeripheralUUID",@"peripheralMac"];
+        _userInfoTypeArr = @[@"account",@"username",@"gender",@"birthday",@"height",@"weight",@"steplength",@"steptarget",@"sleeptarget",@"peripheralName",@"bindPeripheralUUID",@"peripheralMac",@"money"];
     }
     
     return _userInfoTypeArr;

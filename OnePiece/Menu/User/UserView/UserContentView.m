@@ -12,6 +12,7 @@
 #import "ChangePwdViewController.h"
 #import "HeadImageViewController.h"
 #import "FMDBTool.h"
+#import <BmobSDK/Bmob.h>
 
 @interface UserContentView () < UITableViewDelegate , UITableViewDataSource , UIPickerViewDelegate , UIPickerViewDataSource , UIActionSheetDelegate >
 
@@ -29,6 +30,8 @@
 @property (nonatomic ,strong) UILabel *infoLabel;
 @property (nonatomic ,strong) FMDBTool *myFmdbTool;
 @property (nonatomic ,strong) NSArray *userArr;
+@property (nonatomic ,strong) BmobQuery *bquery;
+@property (nonatomic ,strong) BmobObject *obj;
 
 @end
 
@@ -58,6 +61,21 @@
         }
         NSArray *arr = @[@[model.account,@"********",@""],@[@"",model.userName],@[genderStr,model.birthday,[NSString stringWithFormat:@"%ldcm",(long)model.height],[NSString stringWithFormat:@"%ldkg",(long)model.weight]],@[[NSString stringWithFormat:@"%ld",(long)model.stepTarget]]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
+        
+        //查找GameScore表里面account的数据
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        [self.bquery whereKey:@"account" equalTo:account];
+        [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+            //没有返回错误
+            if (!error) {
+                //对象存在
+                if (array) {
+                    self.obj = array.firstObject;
+                }
+            }else{
+                //进行错误处理
+            }
+        }];
     }
     return self;
 }
@@ -85,7 +103,15 @@
         UserInfoModel *model = [[UserInfoModel alloc] init];
         model.userName = nickTextField.text;
         if (self.userArr.count) {
-            [self.myFmdbTool modifyUserInfoModel: model withModityType:UserInfoModifyTypeUserName];
+            
+            [self.obj setObject:model.userName forKey:@"userName"];
+            [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                if (error) {
+                    DLog(@"%@",error);
+                }else {
+                    [self.myFmdbTool modifyUserInfoModel: model withModityType:UserInfoModifyTypeUserName];
+                }
+            }];
         }
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
@@ -126,31 +152,70 @@
                     }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
                         model.gender = -1;
                     }
-                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
+                    [self.obj setObject:[NSNumber numberWithInt:model.gender] forKey:@"gender"];
+                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }else {
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
+                        }
+                    }];
+                    
                 }
                     break;
                 case PickerTypeBirthday:
                 {
                     model.birthday = self.infoLabel.text;
-                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeBirthday];
+                    [self.obj setObject:model.birthday forKey:@"birthday"];
+                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }else {
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeBirthday];
+                        }
+                    }];
+                    
                 }
                     break;
                 case PickerTypeHeight:
                 {
                     model.height = self.infoLabel.text.integerValue;
-                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeHeight];
+                    [self.obj setObject:[NSNumber numberWithInt:model.height] forKey:@"height"];
+                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }else {
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeHeight];
+                        }
+                    }];
                 }
                     break;
                 case PickerTypeWeight:
                 {
                     model.weight = self.infoLabel.text.integerValue;
-                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeWeight];
+                    [self.obj setObject:[NSNumber numberWithInt:model.weight] forKey:@"weight"];
+                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }else {
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeWeight];
+                        }
+                    }];
+                    
                 }
                     break;
                 case PickerTypeMotionTarget:
                 {
                     model.stepTarget = self.infoLabel.text.integerValue;
-                    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeStepTarget];
+                    [self.obj setObject:[NSNumber numberWithInt:model.stepTarget] forKey:@"stepTarget"];
+                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (error) {
+                            DLog(@"%@",error);
+                        }else {
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeStepTarget];
+                        }
+                    }];
+                    
                 }
                     break;
                     
@@ -558,6 +623,15 @@
     }
     
     return _userArr;
+}
+
+- (BmobQuery *)bquery
+{
+    if (!_bquery) {
+        _bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    }
+    
+    return _bquery;
 }
 
 #pragma mark - 获取当前View的控制器的方法

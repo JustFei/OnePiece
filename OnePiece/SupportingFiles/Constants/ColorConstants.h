@@ -40,4 +40,7 @@
 //tableView 线的颜色
 #define kLineColor kUIColorFromHEX(0xcccccc,1)
 
+//按钮的绿色
+#define kButtonGreenColor kUIColorFromHEX(0x18db30,1)
+
 #endif /* ColorConstants_h */

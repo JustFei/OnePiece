@@ -12,5 +12,6 @@
 @interface UserInfoContentView : UIView
 
 @property (nonatomic ,strong) UserInfoModel *userModel;
+@property (nonatomic ,weak) UITableView *tableView;
 
 @end

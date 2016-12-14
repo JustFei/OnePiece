@@ -13,8 +13,12 @@
 #import "ShareViewController.h"
 #import "BLETool.h"
 #import "FMDBTool.h"
+#import "PKTool.h"
 #import "NSStringTool.h"
 #import "manridyBleDevice.h"
+#import <BmobSDK/Bmob.h>
+#import "NetworkTool.h"
+#import "MBProgressHUD.h"
 
 @interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleDiscoverDelegate , BleReceiveDelegate , BleConnectDelegate >
 {
@@ -28,6 +32,10 @@
 @property (nonatomic ,strong) BLETool *myBleTool;
 @property (nonatomic ,strong) FMDBTool *myFmdbTool;
 @property (nonatomic ,strong) NSArray *userArr;
+@property (nonatomic ,strong) NSArray *stepArr;
+@property (nonatomic ,strong) NSArray *sleepArr;
+@property (nonatomic ,strong) NSArray *pkDataArr;
+@property (nonatomic ,strong) BmobQuery *bquery;
 
 @end
 
@@ -36,6 +44,8 @@
 #pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    [self.myFmdbTool deleteUserInfoData:nil];
     
     _isBind = [[NSUserDefaults standardUserDefaults] boolForKey:@"isBind"];
     DLog(@"有没有绑定设备 == %d",_isBind);
@@ -97,19 +107,19 @@
 {
     //先展示数据库里的数据
     //步数
-    NSArray *stepArr = [self.myFmdbTool queryStepWithDate:_currentDateString];
-    if (stepArr.count) {
-        SportModel *sportModel = stepArr.lastObject;
+    self.stepArr = [self.myFmdbTool queryStepWithDate:_currentDateString];
+    if (self.stepArr.count) {
+        SportModel *sportModel = self.stepArr.lastObject;
         self.contentView.stepLabel.text = sportModel.stepNumber;
         [self drawProgressWithString:sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
         _stepAngry = sportModel.stepNumber.integerValue / 10 * 0.5;
     }
     
     //睡眠
-    NSArray *sleepArr = [self.myFmdbTool querySleepWithDate:_currentDateString];
-    if (sleepArr.count) {
+    self.sleepArr = [self.myFmdbTool querySleepWithDate:_currentDateString];
+    if (self.sleepArr.count) {
         double sum = 0;
-        for (SleepModel *sleepModel in sleepArr) {
+        for (SleepModel *sleepModel in self.sleepArr) {
             sum += sleepModel.sumSleep.doubleValue / 60;
         }
         self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
@@ -118,9 +128,9 @@
     }
     [self.contentView.aggressivenessLbael setText:[NSString stringWithFormat:@"%.f",_sleepAngry + _stepAngry]];
     //pk数据
-    NSArray *pkDataArr = [self.myFmdbTool queryPKDataWithData:_currentDateString];
-    if (pkDataArr.count != 0) {
-        PKModel *pkModel = pkDataArr.firstObject;
+    self.pkDataArr = [self.myFmdbTool queryPKDataWithData:_currentDateString];
+    if (self.pkDataArr.count != 0) {
+        PKModel *pkModel = self.pkDataArr.firstObject;
         self.contentView.winCountLabel.text = pkModel.win;
         self.contentView.drawCountLabel.text = pkModel.draw;
         self.contentView.failCountLabel.text = pkModel.fail;
@@ -131,6 +141,10 @@
         self.contentView.failCountLabel.text = @"0";
         self.contentView.PKCountLabel.text = @"比拼0次";
     }
+    
+    //money数据
+    UserInfoModel *userModel = self.userArr.firstObject;
+    self.contentView.moneyLabel.text = [NSString stringWithFormat:@"$%@~",userModel.money];
 }
 
 - (void)bleConnect
@@ -199,7 +213,7 @@
 {
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"peripheralMac"]) {
         NSString *macAddress = [[NSUserDefaults standardUserDefaults] objectForKey:@"peripheralMac"];
-        if ([device.macAddress isEqualToString:macAddress]) {
+        if ([device.macAddress isEqualToString:macAddress] && ![macAddress isEqualToString:@""]) {
             [self.myBleTool connectDevice:device];
         }
     }
@@ -211,7 +225,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self syncAction:nil];
     });
-    
 }
 
 #pragma mark - BleReceiveDelegate
@@ -232,7 +245,11 @@
                     break;
                 case MotionTypeStepAndkCal:
                 {
-                    [self.contentView.stepLabel setText:manridyModel.sportModel.stepNumber];
+                    if (manridyModel.sportModel.stepNumber.integerValue % 100 == 0) {
+                        [self getDataFromDB];
+                    }else {
+                        [self.contentView.stepLabel setText:manridyModel.sportModel.stepNumber];
+                    }
                     [self drawProgressWithString:manridyModel.sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
                     
                     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -339,7 +356,8 @@
             for (SleepModel *model in sleepDataArr) {
                 sum += model.sumSleep.doubleValue / 60;
             }
-            self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+//            self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
+            [self getDataFromDB];
             [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
         }
     }
@@ -402,17 +420,165 @@
 
 - (void)syncAction:(UIButton *)sender
 {
-    //1.同步时间
-    [self.myBleTool writeTimeToPeripheral:[NSDate date]];
-    //2.同步运动历史
-    [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
-    //3.同步睡眠历史
-    [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+    if (self.myBleTool.connectState == kBLEstateDisConnected) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.removeFromSuperViewOnHide =YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"设备尚未连接，无法同步数据";
+        hud.minSize = CGSizeMake(132.f, 108.0f);
+        [hud hideAnimated:YES afterDelay:2];
+    }else {
+        //1.同步时间
+        [self.myBleTool writeTimeToPeripheral:[NSDate date]];
+        //2.同步运动历史
+        [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
+        //3.同步睡眠历史
+        [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+    }
 }
 
+/*关于比拼逻辑，暂定如下：
+ 1：霸气值为0，则胜率为0,平率为0,败率为100%
+ 2：霸气值为0-200，则胜率为10%,平率为10%,败率为80%
+ 3：霸气值为200-700，胜率为30%,平率为30%,败率为40%
+ 4：霸气值为700-1000，胜率为50%,平率为30%,败率为20%
+ 5：霸气值为1000+，胜率为60%,平率为20%,败率为20%
+ 0：平，1：胜，2：负
+ */
 - (void)PKAction:(UIButton *)sender
 {
-    
+    //判断网络状态
+    if (![NetworkTool isExistenceNetwork]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.removeFromSuperViewOnHide =YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"当前网络不可用，请检查网络连接";
+        hud.minSize = CGSizeMake(132.f, 108.0f);
+        [hud hideAnimated:YES afterDelay:2];
+    }else {
+        self.userArr = nil;
+        UserInfoModel *userModel = self.userArr.firstObject;
+        int value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
+        switch (value) {
+            case 1:
+                //胜
+            {
+                int money = userModel.money.integerValue;
+                money += 10000;
+                userModel.money = [NSString stringWithFormat:@"%d",money];
+                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                if (self.pkDataArr.count != 0) {
+                    PKModel *pkModel = self.pkDataArr.firstObject;
+                    int win = pkModel.win.integerValue + 1;
+                    int pkCount = pkModel.PKCount.integerValue + 1;
+                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                    pkModel.win = [NSString stringWithFormat:@"%d", win];
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                }else {
+                    PKModel *pkModel = [[PKModel alloc] init];
+                    pkModel.win = @"1";
+                    pkModel.fail = @"0";
+                    pkModel.draw = @"0";
+                    pkModel.PKCount = @"1";
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool insertPKData:pkModel];
+                }
+            }
+                break;
+            case 2:
+                //负
+            {
+                int money = userModel.money.integerValue;
+                money -= 10000;
+                if (money <= 0) {
+                    money = 50;
+                }
+                userModel.money = [NSString stringWithFormat:@"%d",money];
+                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                
+                if (self.pkDataArr.count != 0) {
+                    PKModel *pkModel = self.pkDataArr.firstObject;
+                    int fail = pkModel.fail.integerValue + 1;
+                    pkModel.fail = [NSString stringWithFormat:@"%d", fail];
+                    int pkCount = pkModel.PKCount.integerValue + 1;
+                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                }else {
+                    PKModel *pkModel = [[PKModel alloc] init];
+                    pkModel.fail = @"1";
+                    pkModel.win = @"0";
+                    pkModel.draw = @"0";
+                    pkModel.PKCount = @"1";
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool insertPKData:pkModel];
+                }
+            }
+                
+                break;
+            case 0:
+                //平
+            {
+                int money = userModel.money.integerValue;
+                money += 5000;
+                userModel.money = [NSString stringWithFormat:@"%d",money];
+                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                
+                if (self.pkDataArr.count != 0) {
+                    PKModel *pkModel = self.pkDataArr.firstObject;
+                    int draw = pkModel.draw.integerValue + 1;
+                    pkModel.draw = [NSString stringWithFormat:@"%d", draw];
+                    int pkCount = pkModel.PKCount.integerValue + 1;
+                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                }else {
+                    PKModel *pkModel = [[PKModel alloc] init];
+                    pkModel.draw = @"1";
+                    pkModel.win = @"0";
+                    pkModel.fail = @"0";
+                    pkModel.PKCount = @"1";
+                    pkModel.date = _currentDateString;
+                    [self.myFmdbTool insertPKData:pkModel];
+                }
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+        //查找GameScore表里面account的数据
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        [self.bquery whereKey:@"account" equalTo:account];
+        [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+            //没有返回错误
+            if (!error) {
+                //对象存在
+                if (array) {
+                    for (BmobObject *obj in array) {
+                        [obj setObject:[NSNumber numberWithInt:userModel.money.intValue] forKey:@"money"];
+                        [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }
+                        }];
+                    }
+                }
+            }else{
+                //进行错误处理
+                DLog(@"%@",error);
+            }
+        }];
+        
+        [self getDataFromDB];
+        sender.enabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            sender.enabled = YES;
+        });
+    }
 }
 
 - (void)drawProgressWithString:(float)sum withType:(ReturnModelType)type
@@ -482,6 +648,15 @@
     }
     
     return _userArr;
+}
+
+- (BmobQuery *)bquery
+{
+    if (!_bquery) {
+        _bquery = [BmobQuery queryWithClassName:@"UserModel"];
+    }
+    
+    return _bquery;
 }
 
 @end

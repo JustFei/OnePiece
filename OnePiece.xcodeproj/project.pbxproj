@@ -14,7 +14,6 @@
 		9C058F8E1DE6BAC800AD0EFF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C46646B1DE319B500DBCC6B /* libsqlite3.tbd */; };
 		9C0F492F1DE3E3F7002AB4B0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0F492E1DE3E3F7002AB4B0 /* HistoryViewController.m */; };
 		9C0F49341DE3E59D002AB4B0 /* DayContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0F49331DE3E59D002AB4B0 /* DayContentView.m */; };
-		9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */; };
 		9C2295E21DD2B3BC00B3ACA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */; };
 		9C2295F81DD2BC5900B3ACA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */; };
 		9C2295FA1DD2BC5900B3ACA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295F71DD2BC5900B3ACA4 /* main.m */; };
@@ -47,6 +46,10 @@
 		9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C728B4B1DE43F5C002F5EAB /* DayDataView.xib */; };
 		9C728B501DE46094002F5EAB /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C728B4F1DE46094002F5EAB /* libstdc++.tbd */; };
 		9C728B521DE4609D002F5EAB /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C728B511DE4609D002F5EAB /* libz.1.1.3.tbd */; };
+		9C8CBD021DFF8CB10010EA21 /* PKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CBD011DFF8CB10010EA21 /* PKTool.m */; };
+		9C8CBD031DFFD2100010EA21 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C46646D1DE319F100DBCC6B /* SystemConfiguration.framework */; };
+		9C8CBD071DFFD2DC0010EA21 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CBD061DFFD2DC0010EA21 /* Reachability.m */; };
+		9C8CBD0A1DFFDBFA0010EA21 /* NetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CBD091DFFDBFA0010EA21 /* NetworkTool.m */; };
 		9CA16E581DE8246E0072A906 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CA16E571DE8246E0072A906 /* Default-568h@2x.png */; };
 		9CA5F5B21DE829F600E15340 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA16E591DE825380072A906 /* ShareSDK.framework */; };
 		9CA5F5B41DE82A3000E15340 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B31DE82A3000E15340 /* TencentOpenAPI.framework */; };
@@ -70,6 +73,7 @@
 		9CED32AF1DED250700C7E098 /* ClockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32AE1DED250700C7E098 /* ClockModel.m */; };
 		9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32B21DED2A0400C7E098 /* BindPerViewController.m */; };
 		9CED32B81DED772B00C7E098 /* FMDBTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32B71DED772B00C7E098 /* FMDBTool.m */; };
+		9CF203F11E00D79A00A1AAEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CF203F01E00D79A00A1AAEE /* Assets.xcassets */; };
 		9CF758991DEFD64D00EF9326 /* MAThermometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF758961DEFD64D00EF9326 /* MAThermometer.m */; };
 		9CF7589A1DEFD64D00EF9326 /* MAThermometerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF758981DEFD64D00EF9326 /* MAThermometerBorder.m */; };
 		9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFE00931DDADC9B00D38904 /* Hakuu.ttf */; };
@@ -101,7 +105,6 @@
 		9C0F49321DE3E59D002AB4B0 /* DayContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayContentView.h; path = History/DayView/DayContentView.h; sourceTree = "<group>"; };
 		9C0F49331DE3E59D002AB4B0 /* DayContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayContentView.m; path = History/DayView/DayContentView.m; sourceTree = "<group>"; };
 		9C2295CF1DD2B3BC00B3ACA4 /* OnePiece.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePiece.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C2295E11DD2B3BC00B3ACA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SupportingFiles/AppDelegate.h; sourceTree = "<group>"; };
 		9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SupportingFiles/AppDelegate.m; sourceTree = "<group>"; };
@@ -166,6 +169,12 @@
 		9C728B4F1DE46094002F5EAB /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		9C728B511DE4609D002F5EAB /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
 		9C89351D1DE82D5400379AF7 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Log.h; path = SupportingFiles/Constants/Log.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		9C8CBD001DFF8CB10010EA21 /* PKTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTool.h; path = OPMain/PKTool.h; sourceTree = "<group>"; };
+		9C8CBD011DFF8CB10010EA21 /* PKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKTool.m; path = OPMain/PKTool.m; sourceTree = "<group>"; };
+		9C8CBD051DFFD2DC0010EA21 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = NetworkTool/Reachability.h; sourceTree = "<group>"; };
+		9C8CBD061DFFD2DC0010EA21 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = NetworkTool/Reachability.m; sourceTree = "<group>"; };
+		9C8CBD081DFFDBFA0010EA21 /* NetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkTool.h; path = NetworkTool/NetworkTool.h; sourceTree = "<group>"; };
+		9C8CBD091DFFDBFA0010EA21 /* NetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkTool.m; path = NetworkTool/NetworkTool.m; sourceTree = "<group>"; };
 		9CA16E571DE8246E0072A906 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9CA16E591DE825380072A906 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDK.framework; path = Pods/ShareSDK3/ShareSDK/ShareSDK.framework; sourceTree = "<group>"; };
 		9CA16E5B1DE827FC0072A906 /* ShareSDK */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = ShareSDK; path = Pods/ShareSDK3/ShareSDK/ShareSDK.framework/ShareSDK; sourceTree = "<group>"; };
@@ -209,6 +218,7 @@
 		9CED32B21DED2A0400C7E098 /* BindPerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindPerViewController.m; path = Menu/BindPerView/BindPerViewController.m; sourceTree = "<group>"; };
 		9CED32B61DED772B00C7E098 /* FMDBTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDBTool.h; path = FMDBTool/Tool/FMDBTool.h; sourceTree = "<group>"; };
 		9CED32B71DED772B00C7E098 /* FMDBTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDBTool.m; path = FMDBTool/Tool/FMDBTool.m; sourceTree = "<group>"; };
+		9CF203F01E00D79A00A1AAEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CF758951DEFD64D00EF9326 /* MAThermometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAThermometer.h; path = Third/CustomProgress/MAThermometer.h; sourceTree = "<group>"; };
 		9CF758961DEFD64D00EF9326 /* MAThermometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAThermometer.m; path = Third/CustomProgress/MAThermometer.m; sourceTree = "<group>"; };
 		9CF758971DEFD64D00EF9326 /* MAThermometerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAThermometerBorder.h; path = Third/CustomProgress/MAThermometerBorder.h; sourceTree = "<group>"; };
@@ -244,6 +254,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8CBD031DFFD2100010EA21 /* SystemConfiguration.framework in Frameworks */,
 				9CA5F5B81DE82A6200E15340 /* libWeChatSDK.a in Frameworks */,
 				9CA5F5B61DE82A4B00E15340 /* libWeiboSDK.a in Frameworks */,
 				9CA5F5B41DE82A3000E15340 /* TencentOpenAPI.framework in Frameworks */,
@@ -340,6 +351,7 @@
 		9C2295D11DD2B3BC00B3ACA4 /* OnePiece */ = {
 			isa = PBXGroup;
 			children = (
+				9C8CBD041DFFD2BA0010EA21 /* NetworkTool */,
 				9CF758931DEFD60D00EF9326 /* Third */,
 				9CED32B41DED76FF00C7E098 /* FMDBTool */,
 				9CED32801DED243B00C7E098 /* BLETool */,
@@ -360,11 +372,11 @@
 			isa = PBXGroup;
 			children = (
 				9C22960E1DD3014E00B3ACA4 /* Constants */,
-				9C2295DE1DD2B3BC00B3ACA4 /* Assets.xcassets */,
 				9C2295E01DD2B3BC00B3ACA4 /* LaunchScreen.storyboard */,
 				9C2295F41DD2BC5900B3ACA4 /* AppDelegate.h */,
 				9C2295F51DD2BC5900B3ACA4 /* AppDelegate.m */,
 				9C0EC06A1DE2CC8E001A11D9 /* Info.plist */,
+				9CF203F01E00D79A00A1AAEE /* Assets.xcassets */,
 				9C2295F71DD2BC5900B3ACA4 /* main.m */,
 				9C2296051DD2C72600B3ACA4 /* OPHeader.pch */,
 			);
@@ -378,6 +390,8 @@
 				9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */,
 				9C2296021DD2C46C00B3ACA4 /* OPMainContentView.h */,
 				9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */,
+				9C8CBD001DFF8CB10010EA21 /* PKTool.h */,
+				9C8CBD011DFF8CB10010EA21 /* PKTool.m */,
 			);
 			name = OPMain;
 			sourceTree = "<group>";
@@ -530,6 +544,17 @@
 				9C7029091DD313CB00E37939 /* GradientLabel.m */,
 			);
 			name = "Inherit(继承类)";
+			sourceTree = "<group>";
+		};
+		9C8CBD041DFFD2BA0010EA21 /* NetworkTool */ = {
+			isa = PBXGroup;
+			children = (
+				9C8CBD051DFFD2DC0010EA21 /* Reachability.h */,
+				9C8CBD061DFFD2DC0010EA21 /* Reachability.m */,
+				9C8CBD081DFFDBFA0010EA21 /* NetworkTool.h */,
+				9C8CBD091DFFDBFA0010EA21 /* NetworkTool.m */,
+			);
+			name = NetworkTool;
 			sourceTree = "<group>";
 		};
 		9CED32801DED243B00C7E098 /* BLETool */ = {
@@ -795,13 +820,13 @@
 				9CFE00BC1DDC316A00D38904 /* UserTableViewCell.xib in Resources */,
 				9CA16E581DE8246E0072A906 /* Default-568h@2x.png in Resources */,
 				9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */,
+				9CF203F11E00D79A00A1AAEE /* Assets.xcassets in Resources */,
 				9CFE00C81DDC37C000D38904 /* ChangeUserTableViewCell.xib in Resources */,
 				9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */,
 				9C54CDC91DE54CAC00183049 /* LoginViewController.xib in Resources */,
 				9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */,
 				9CFE00941DDADC9B00D38904 /* Hakuu.ttf in Resources */,
 				9C54CDC01DE534D300183049 /* MonthDataView.xib in Resources */,
-				9C2295DF1DD2B3BC00B3ACA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +895,7 @@
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
 				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
+				9C8CBD071DFFD2DC0010EA21 /* Reachability.m in Sources */,
 				9C60D8C81DF8FA2C00A9C711 /* PKModel.m in Sources */,
 				9CED329B1DED248300C7E098 /* SleepModel.m in Sources */,
 				9CED32B31DED2A0400C7E098 /* BindPerViewController.m in Sources */,
@@ -896,8 +922,10 @@
 				9C3781301DF80EA700700EAA /* DayHistoryModel.m in Sources */,
 				9CED329C1DED248300C7E098 /* SportModel.m in Sources */,
 				9CFE00A11DDBEB8500D38904 /* MenuViewController.m in Sources */,
+				9C8CBD021DFF8CB10010EA21 /* PKTool.m in Sources */,
 				9CED32AC1DED24CD00C7E098 /* UserInfoModel.m in Sources */,
 				9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */,
+				9C8CBD0A1DFFDBFA0010EA21 /* NetworkTool.m in Sources */,
 				9CF758991DEFD64D00EF9326 /* MAThermometer.m in Sources */,
 				9C4663DD1DE2DF7A00DBCC6B /* SettingContentView.m in Sources */,
 				9CED32991DED248300C7E098 /* Remind.m in Sources */,
@@ -1032,6 +1060,7 @@
 			baseConfigurationReference = 4FDB09B6FFC5E9F75E85E267 /* Pods-OnePiece.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = K2G68J7RTF;
@@ -1065,6 +1094,7 @@
 			baseConfigurationReference = 8A5710975C824ADECAAC1649 /* Pods-OnePiece.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = K2G68J7RTF;

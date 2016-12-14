@@ -18,7 +18,6 @@
 
 @property (nonatomic ,strong) NSArray *titleArr;
 @property (nonatomic ,strong) NSMutableArray *infoArr;
-@property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,strong) UILabel *nickName;
 @property (nonatomic ,strong) UIPickerView *infoPickerView;
 @property (nonatomic ,strong) UIDatePicker *datePickerView;
@@ -185,7 +184,7 @@
         //显示等待菊花
         [MBProgressHUD showHUDAddedTo:self animated:YES];
         //这里上传所有的用户数据
-        //往UserModel表添加一条playerName为小明，分数为78的数据
+        //往UserModel表添
         BmobObject *UserModel = [BmobObject objectWithClassName:@"UserModel"];
         [UserModel setObject:self.userModel.account forKey:@"account"];
         [UserModel setObject:self.userModel.pwd forKey:@"pwd"];
@@ -197,6 +196,7 @@
         [UserModel setObject:[NSNumber numberWithInteger:70] forKey:@"stepLength"];
         [UserModel setObject:[NSNumber numberWithInteger:self.userModel.stepTarget] forKey:@"stepTarget"];
         [UserModel setObject:[NSNumber numberWithInteger:8] forKey:@"sleepTarget"];
+        [UserModel setObject:[NSNumber numberWithInt:50] forKey:@"money"];
         [UserModel saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
             //进行操作
             if (isSuccessful) {

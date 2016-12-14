@@ -37,6 +37,8 @@ typedef enum : NSUInteger {
 
 - (BOOL)modifyPKDataWithDate:(NSString *)date model:(PKModel *)model;
 
+- (BOOL)deletePkData:(NSInteger)deleteSql;
+
 #pragma mark - ClockData
 - (BOOL)insertClockModel:(ClockModel *)model;
 
