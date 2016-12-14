@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/ChangePwd/ChangePwdContentView.m"
-            timestampString = "503311451.96562"
+            filePath = "OnePiece/History/HistoryViewController.m"
+            timestampString = "503397015.028127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-changePwdAction:"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "-creatUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,125 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/UserView/UserContentView.m"
-            timestampString = "503318239.526501"
+            filePath = "OnePiece/History/HistoryViewController.m"
+            timestampString = "503397079.557402"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-showNameAlert"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__32-[UserContentView showNameAlert]_block_invoke.120"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/Menu/User/UserView/UserContentView.m"
-                  timestampString = "503380510.53109"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "884">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__32-[UserContentView showNameAlert]_block_invoke_2"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/Menu/User/UserView/UserContentView.m"
-                  timestampString = "503380510.535878"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "109"
-                  endingLineNumber = "109"
-                  offsetFromSymbolStart = "38">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/HeadView/HeadImageViewController.m"
-            timestampString = "503318578.799058"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HeadImageViewController imagePickerController:didFinishPickingMediaWithInfo:]"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/Menu/User/HeadView/HeadImageViewController.m"
-                  timestampString = "503380510.543701"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
-                  offsetFromSymbolStart = "450">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__79-[HeadImageViewController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke"
-                  moduleName = "OnePiece"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xiefeixing/Desktop/%E6%A1%8C%E9%9D%A2%20-%20%E8%B0%A2%E9%A3%9E%E7%9A%84MacBook%20Pro/Desktop/%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99/ProjectList/%E6%B5%B7%E8%B4%BC%E7%8E%8B/OnePiece/OnePiece/Menu/User/HeadView/HeadImageViewController.m"
-                  timestampString = "503380510.545889"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/HeadView/HeadImageViewController.m"
-            timestampString = "503318603.090316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OnePiece/Menu/User/HeadView/HeadImageViewController.m"
-            timestampString = "503318607.591992"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-creatUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

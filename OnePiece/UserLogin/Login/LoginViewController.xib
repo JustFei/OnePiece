@@ -82,7 +82,7 @@
                         <outlet property="delegate" destination="-1" id="jQt-NB-IMi"/>
                     </connections>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserHead" translatesAutoresizingMaskIntoConstraints="NO" id="j29-HO-cCk">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lock" translatesAutoresizingMaskIntoConstraints="NO" id="j29-HO-cCk">
                     <rect key="frame" x="67" y="294" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="gxE-MC-jTk"/>
@@ -189,11 +189,12 @@
         </view>
     </objects>
     <resources>
-        <image name="Arrows" width="38" height="28"/>
-        <image name="Eye" width="28" height="15"/>
-        <image name="LoginBackground" width="750" height="1334"/>
-        <image name="LoginButton_enable" width="500" height="100"/>
-        <image name="LoginButton_unEnable" width="500" height="100"/>
-        <image name="UserHead" width="50" height="50"/>
+        <image name="Arrows" width="19" height="14"/>
+        <image name="Eye" width="14" height="7"/>
+        <image name="Lock" width="25" height="25"/>
+        <image name="LoginBackground" width="375" height="667"/>
+        <image name="LoginButton_enable" width="250" height="50"/>
+        <image name="LoginButton_unEnable" width="250" height="50"/>
+        <image name="UserHead" width="25" height="25"/>
     </resources>
 </document>

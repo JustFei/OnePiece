@@ -54,7 +54,7 @@
     //PK按钮
     self.PKButton.frame = CGRectMake(kViewWidth - 117 * kViewHeight / 667, self.syncButton.frame.origin.y, self.syncButton.frame.size.width, self.syncButton.frame.size.height);
     //步数进度条
-    self.stepProgress = [[MAThermometer alloc] initWithFrame:XXF_CGRectMake(10.5 + 17.5, stepImageView.frame.origin.y + 39 , 7, self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 98)];
+    self.stepProgress = [[MAThermometer alloc] initWithFrame:XXF_CGRectMake(10.5 + 17.5, stepImageView.frame.origin.y + 39 , 7, (self.musicButton.frame.origin.y - stepImageView.frame.origin.y - 45) * 375 / 460)];
     self.stepProgress.arrayColors = @[kRedColor,kOrangeColor];
     [self addSubview:self.stepProgress];
     //步数空槽
@@ -69,7 +69,7 @@
     sleepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:sleepEmptySlot];
     
-    self.aggressivenessLbael.frame = CGRectMake(kViewCenter.x - 200, kViewHeight - 168, 400, 65);
+    self.aggressivenessLbael.frame = CGRectMake(kViewCenter.x - 200, kViewHeight - 168 * kViewWidth / 375, 400, 65);
     
     UILabel *failLabel = [[UILabel alloc] initWithFrame:CGRectMake(kViewCenter.x - 8.5, kViewHeight - 54 * kViewHeight / 667 , 17, 7)];
     failLabel.text = @"败";

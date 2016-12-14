@@ -222,6 +222,7 @@
 #pragma mark - BleConnectDelegate
 - (void)manridyBLEDidConnectDevice:(manridyBleDevice *)device
 {
+    [self.myBleTool stopScan];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self syncAction:nil];
     });

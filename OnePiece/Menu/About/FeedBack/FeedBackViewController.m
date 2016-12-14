@@ -7,11 +7,14 @@
 //
 
 #import "FeedBackViewController.h"
+#import <BmobSDK/Bmob.h>
+#import "MBProgressHUD.h"
 
 @interface FeedBackViewController () < UITextViewDelegate >
 
 @property (nonatomic ,strong) UITextView *textView;
 @property (nonatomic ,weak) UILabel *wordCountLabel;
+@property (nonatomic ,strong) MBProgressHUD *hud;
 
 @end
 
@@ -50,6 +53,32 @@
 {
     [self.textView resignFirstResponder];
     //提交反馈
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    //往UserModel表添
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    [self.hud.label setText:@"正在连接设备..."];
+    
+    BmobObject *Feed_Back = [BmobObject objectWithClassName:@"Feed_Back"];
+    [Feed_Back setObject:account forKey:@"account"];
+    [Feed_Back setObject:self.textView.text forKey:@"FeedBack"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
+    NSString *time = [formatter stringFromDate:[NSDate date]];
+    [Feed_Back setObject:time forKey:@"time"];
+    
+    [Feed_Back saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        //进行操作
+        if (isSuccessful) {
+            DLog(@"数据上传成功");
+            [self.hud hideAnimated:YES afterDelay:2];
+            [self.hud.label setText:@"反馈成功！感谢您的建议"];
+            self.textView.text = @"";
+        }else{
+            [self.hud hideAnimated:YES afterDelay:2];
+            [self.hud.label setText:@"反馈失败，请检查网络设置"];
+        }
+    }];
 }
 
 #pragma mark - UITextViewDelegate

@@ -656,9 +656,6 @@ static BLETool *bleTool = nil;
     }else {
         self.currentDev = nil;
     }
-    
-    
-
 }
 
 #pragma mark - CBPeripheralDelegate

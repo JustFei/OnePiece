@@ -34,7 +34,6 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
     self.currentDateString = [formatter stringFromDate:[NSDate date]];
-    
     [self getHistoryFromDataBase];
 }
 
@@ -105,7 +104,12 @@
             dayModel.fail = @"0";
             dayModel.PKCount = @"0";
         }
-        [self.dayContentView.dataArr addObject:dayModel];
+        //通知主线程刷新
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            [self.dayContentView.dataArr addObject:dayModel];
+//        });
+        
     }
     
     //遍历迄今为止所有的月份
@@ -143,7 +147,13 @@
         monthModel.monthDraw = [NSString stringWithFormat:@"%.0f",monthSumDraw / days];
         monthModel.monthFail = [NSString stringWithFormat:@"%.0f",monthSumFail / days];
         monthModel.monthPKCount = [NSString stringWithFormat:@"%.0f",monthSumPKCount / days];
-        [self.monthContentView.dataArr addObject:monthModel];
+        
+        //通知主线程刷新
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            [self.monthContentView.dataArr addObject:monthModel];
+//        });
+        
     }
 }
 
@@ -190,7 +200,11 @@
 - (void)creatUI
 {
     self.view.backgroundColor = kBackGroundColor;
-    self.backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    self.backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"History_background"]];
+    [self.backImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:self.backImageView];
+    self.backImageView.frame = self.view.frame;
+    DLog(@"view.frame = %@, backimageView.frame = %@",NSStringFromCGRect(self.view.frame), NSStringFromCGRect(self.backImageView.frame));
     
     self.dayButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.dayButton setImage:[UIImage imageNamed:@"DayButton"] forState:UIControlStateNormal];
@@ -253,8 +267,8 @@
 - (DayContentView *)dayContentView
 {
     if (!_dayContentView) {
-        DayContentView *view = [[DayContentView alloc] initWithFrame:XXF_CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth, kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height)];
-        
+        DayContentView *view = [[DayContentView alloc] initWithFrame:XXF_CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth,  335 * kControllerWidth / 375)];
+        //(kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height)) *
         [self.view addSubview:view];
         _dayContentView = view;
     }

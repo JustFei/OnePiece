@@ -334,10 +334,10 @@
                 <outlet property="sumSleepLabel" destination="Qsw-Eo-nNN" id="bX2-G8-DRF"/>
                 <outlet property="winLabel" destination="UQS-jp-Bj6" id="ejY-uv-cdk"/>
             </connections>
-            <point key="canvasLocation" x="13.5" y="-48.5"/>
+            <point key="canvasLocation" x="-198" y="-104"/>
         </view>
     </objects>
     <resources>
-        <image name="icon" width="24" height="24"/>
+        <image name="icon" width="11" height="11"/>
     </resources>
 </document>

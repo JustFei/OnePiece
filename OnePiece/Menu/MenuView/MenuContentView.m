@@ -128,6 +128,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralUUID"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralMac"];
     [self.myFmdbTool deleteUserInfoData:nil];
     
     LoginViewController *vc = [[LoginViewController alloc] init];
