@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoveAbleImageView.h"
+#import "GradientLabel.h"
 
 @interface ShareViewController : UIViewController
 
-@property (nonatomic ,weak) UIImageView *shareImageView;
+@property (nonatomic ,strong) GradientLabel *moneyLabel;
+@property (nonatomic ,weak) MoveAbleImageView *shareImageView;
 
 @end

@@ -10,7 +10,15 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
-@interface ShareViewController ()
+
+
+@interface ShareViewController () < UICollectionViewDelegate , UICollectionViewDataSource >
+
+
+@property (nonatomic ,strong) UIView *backView;
+@property (nonatomic ,strong) UICollectionView *collectionView;
+@property (nonatomic ,strong) UIImageView *backImageView;
+@property (nonatomic ,strong) NSArray *photoArr;
 
 @end
 
@@ -19,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftButton.frame = XXF_CGRectMake(0, 0, 44, 44);
     [leftButton setTitle:@"取消" forState:UIControlStateNormal];
@@ -35,6 +43,7 @@
     [rightButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -42,8 +51,16 @@
     [super viewWillAppear:YES];
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:1];
     self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
-    
     self.view.backgroundColor = kBackGroundColor;
+    self.collectionView.backgroundColor = kWhiteColor;
+    self.backImageView.backgroundColor = kClearColor;
+    [self.backView bringSubviewToFront:self.moneyLabel];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,15 +68,62 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoThumbCell" forIndexPath:indexPath];
+    UIImageView *thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.photoArr[indexPath.row]]];
+    thumbImageView.frame = cell.bounds;
+    [cell addSubview:thumbImageView];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.backImageView.image = [UIImage imageNamed:self.photoArr[indexPath.row]];
+}
+
+//设置每个item的UIEdgeInsets
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10.5, 32.5, 10.5, 32.5);
+}
+
+//设置每个item水平间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+//cell之间的间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 15;
+}
+
 #pragma mark - Action
 - (void)dismissVCAction:(UIButton *)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)shareAction:(UIButton *)sender
 {
-    UIImage *image = [self thumbnailWithImageWithoutScale:self.shareImageView.image size:CGSizeMake(kControllerWidth, kControllerWidth)];
+    
+    UIImage *image = [self saveImage:self.backView];
+    //UIImage *image = [self thumbnailWithImageWithoutScale:bigImage size:CGSizeMake(kControllerWidth, kControllerWidth)];
+    
     //1、创建分享参数
     NSArray* imageArray = @[image];
     if (imageArray) {
@@ -67,7 +131,7 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:@"分享内容"
                                          images:imageArray
-                                            url:[NSURL URLWithString:@"http://manridy.com"]
+                                            url:nil
                                           title:@"分享标题"
                                            type:SSDKContentTypeAuto];
         [shareParams SSDKEnableUseClientShare];
@@ -166,16 +230,128 @@
     
 }
 
+#pragma mark - addImage
+/**
+ 加半透明水印
+ @param useImage 需要加水印的图片
+ @param maskImage 水印
+ @returns 加好水印的图片
+ */
+- (UIImage *)addImage:(UIImage *)useImage addMsakImage:(UIImage *)maskImage msakRect:(CGRect)rect
+{
+    UIGraphicsBeginImageContext(maskImage.size);
+    [useImage drawInRect:CGRectMake(0, 0, useImage.size.width, useImage.size.height)];
+    
+    //四个参数为水印图片的位置
+    [maskImage drawInRect:rect];
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resultingImage;
+}
+
+//截屏的方式
+-(UIImage *)saveImage:(UIView *)view {
+    CGRect mainRect = [[UIScreen mainScreen] bounds];
+    
+    UIGraphicsBeginImageContext(CGSizeMake(self.backView.frame.size.width, self.backView.frame.size.height));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    //    [[UIColor blackColor] set];
+    
+    CGContextFillRect(context, mainRect);
+    [view.layer renderInContext:context];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 #pragma mark - 懒加载
-- (UIImageView *)shareImageView
+- (UIView *)backView
+{
+    if (!_backView) {
+        _backView = [[UIView alloc] initWithFrame:XXF_CGRectMake(0, 64, kControllerWidth, kControllerHeight - 130 * kControllerWidth / 375)];
+        [self.view addSubview:_backView];
+    }
+    
+    return _backView;
+}
+
+- (MoveAbleImageView *)shareImageView
 {
     if (!_shareImageView) {
-        UIImageView *view = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        [self.view addSubview:view];
+        MoveAbleImageView *view = [[MoveAbleImageView alloc] initWithFrame:XXF_CGRectMake(0, 88 * kControllerWidth / 375, kControllerWidth, kControllerWidth)];
+        view.userInteractionEnabled = YES;
+        [view setMultipleTouchEnabled:YES];
+        [self.backView addSubview:view];
         _shareImageView = view;
     }
     
     return _shareImageView;
+}
+
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        //设置collectionView滚动方向
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        //该方法也可以设置itemSize
+        layout.itemSize = CGSizeMake(31 * kControllerWidth / 375, 44 * kControllerWidth / 375);
+        
+        //2.初始化collectionView
+        UICollectionView *collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, kControllerHeight - 66 * kControllerWidth / 375, kControllerWidth, 66 * kControllerWidth / 375) collectionViewLayout:layout];
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        collectionView.bounces = NO;
+        collectionView.showsHorizontalScrollIndicator = NO;
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"photoThumbCell"];
+        
+        [self.view addSubview:collectionView];
+        _collectionView = collectionView;
+    }
+    
+    return _collectionView;
+}
+
+- (UIImageView *)backImageView
+{
+    if (!_backImageView) {
+        UIImageView *view = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(0, 0, kControllerWidth, kControllerHeight - 130 * kControllerWidth / 375)];
+        view.image = [UIImage imageNamed:self.photoArr[0]];
+        [self.backView addSubview:view];
+        _backImageView = view;
+    }
+    
+    return _backImageView;
+}
+
+- (NSArray *)photoArr
+{
+    if (!_photoArr) {
+        _photoArr = @[@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",];
+    }
+    
+    return _photoArr;
+}
+
+- (GradientLabel *)moneyLabel
+{
+    if (!_moneyLabel) {
+        GradientLabel *label = [[GradientLabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 900 / 1074, 245 * kControllerWidth / 375, 50 * kControllerWidth / 375)];
+        label.text = @"$0~";
+        label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30 * kControllerWidth / 375];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = kUIColorFromHEX(0x884227,1);
+        label.outlineColor = kUIColorFromHEX(0xc68107, 1);
+        label.outlineThickness = 3;
+        label.drawOutline = YES;
+        [self.backView addSubview:label];
+        _moneyLabel = label;
+    }
+    
+    return _moneyLabel;
 }
 
 @end

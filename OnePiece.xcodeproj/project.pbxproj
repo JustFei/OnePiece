@@ -46,6 +46,7 @@
 		9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C728B4B1DE43F5C002F5EAB /* DayDataView.xib */; };
 		9C728B501DE46094002F5EAB /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C728B4F1DE46094002F5EAB /* libstdc++.tbd */; };
 		9C728B521DE4609D002F5EAB /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C728B511DE4609D002F5EAB /* libz.1.1.3.tbd */; };
+		9C7566851E026BAA00DAE45F /* MoveAbleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7566841E026BAA00DAE45F /* MoveAbleImageView.m */; };
 		9C8CBD021DFF8CB10010EA21 /* PKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CBD011DFF8CB10010EA21 /* PKTool.m */; };
 		9C8CBD031DFFD2100010EA21 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C46646D1DE319F100DBCC6B /* SystemConfiguration.framework */; };
 		9C8CBD071DFFD2DC0010EA21 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CBD061DFFD2DC0010EA21 /* Reachability.m */; };
@@ -168,6 +169,8 @@
 		9C728B4D1DE4607E002F5EAB /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		9C728B4F1DE46094002F5EAB /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		9C728B511DE4609D002F5EAB /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
+		9C7566831E026BAA00DAE45F /* MoveAbleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveAbleImageView.h; path = Share/MoveAbleImageView.h; sourceTree = "<group>"; };
+		9C7566841E026BAA00DAE45F /* MoveAbleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveAbleImageView.m; path = Share/MoveAbleImageView.m; sourceTree = "<group>"; };
 		9C89351D1DE82D5400379AF7 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Log.h; path = SupportingFiles/Constants/Log.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		9C8CBD001DFF8CB10010EA21 /* PKTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTool.h; path = OPMain/PKTool.h; sourceTree = "<group>"; };
 		9C8CBD011DFF8CB10010EA21 /* PKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKTool.m; path = OPMain/PKTool.m; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 			children = (
 				9C4663E81DE3111F00DBCC6B /* ShareViewController.h */,
 				9C4663E91DE3111F00DBCC6B /* ShareViewController.m */,
+				9C7566831E026BAA00DAE45F /* MoveAbleImageView.h */,
+				9C7566841E026BAA00DAE45F /* MoveAbleImageView.m */,
 			);
 			name = Share;
 			sourceTree = "<group>";
@@ -907,6 +912,7 @@
 				9CED329A1DED248300C7E098 /* SetTimeModel.m in Sources */,
 				9CBD38371DFA4E0C0045123C /* MonthHistoryModel.m in Sources */,
 				9CED32981DED248300C7E098 /* manridyModel.m in Sources */,
+				9C7566851E026BAA00DAE45F /* MoveAbleImageView.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
 				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
 				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,

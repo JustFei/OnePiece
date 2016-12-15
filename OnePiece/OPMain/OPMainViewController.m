@@ -204,7 +204,12 @@
     //跳转到分享界面
     ShareViewController *vc = [[ShareViewController alloc] init];
     vc.shareImageView.image = newPhoto;
-    vc.shareImageView.contentMode = UIViewContentModeScaleAspectFit;
+    vc.shareImageView.contentMode = UIViewContentModeScaleToFill;
+    //money数据
+    self.userArr = nil;
+    UserInfoModel *userModel = self.userArr.firstObject;
+    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@",userModel.money];
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -403,13 +408,10 @@
     //按钮：拍照，类型：UIAlertActionStyleDefault
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        //获取方式1：通过相册（呈现全部相册），UIImagePickerControllerSourceTypePhotoLibrary
-        //获取方式2，通过相机，UIImagePickerControllerSourceTypeCamera
-        //获取方方式3，通过相册（呈现全部图片），UIImagePickerControllerSourceTypeSavedPhotosAlbum
-        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//方式1
+        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//通过相机
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = YES;
-        //自代理
+        //代理
         PickerImage.delegate = self;
         //页面跳转
         [self presentViewController:PickerImage animated:YES completion:nil];

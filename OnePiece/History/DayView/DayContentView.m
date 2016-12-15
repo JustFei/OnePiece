@@ -38,7 +38,7 @@
 
 - (void)layoutSubviews
 {
-    self.leftButton.frame = XXF_CGRectMake(20, 26, 44, 44);
+    self.leftButton.frame = XXF_CGRectMake(20, 7, 44, 44);
     DLog(@"day == %f",kViewCenter.x);
     self.centerDateButton.frame = XXF_CGRectMake(kViewCenter.x - 60, self.leftButton.center.y - 15, 120, 30);
     
@@ -46,7 +46,7 @@
     
     self.calendarImageView.image = [UIImage imageNamed:@"Calendar"];
     [self addSubview:self.calendarImageView];
-    self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 26, 44, 44);
+    self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 7, 44, 44);
     self.rightButton.enabled = NO;
     if (self.dataArr.count == 1) {
         self.leftButton.enabled = NO;
@@ -59,11 +59,12 @@
     layout.itemSize =CGSizeMake(kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50);
     
     //2.初始化collectionView
-    self.collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, 89, kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50) collectionViewLayout:layout];
+    self.collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, 50, kViewWidth, kViewHeight - self.centerDateButton.frame.origin.y - 50) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.pagingEnabled = YES;
     self.collectionView.bounces = NO;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     [self addSubview:self.collectionView];
     self.collectionView.backgroundColor = kClearColor;
     

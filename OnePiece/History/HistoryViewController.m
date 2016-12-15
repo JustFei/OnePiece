@@ -267,8 +267,8 @@
 - (DayContentView *)dayContentView
 {
     if (!_dayContentView) {
-        DayContentView *view = [[DayContentView alloc] initWithFrame:XXF_CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth,  335 * kControllerWidth / 375)];
-        //(kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height)) *
+        DayContentView *view = [[DayContentView alloc] initWithFrame:XXF_CGRectMake(0, self.dayButton.frame.origin.y + self.dayButton.frame.size.height, kControllerWidth,  kControllerHeight - self.dayButton.frame.origin.y - self.dayButton.frame.size.height)];
+        
         [self.view addSubview:view];
         _dayContentView = view;
     }
