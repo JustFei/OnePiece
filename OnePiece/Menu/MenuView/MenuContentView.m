@@ -48,7 +48,7 @@
     self.headImageView.layer.borderWidth = 1;
     
     
-    self.nameLabel.frame = XXF_CGRectMake(kViewCenter.x - 80, 142.5, 160, 16);
+    self.nameLabel.frame = XXF_CGRectMake(kViewCenter.x - 80, 142.5, 160, 23);
     UIView *cutView = [[UIView alloc] initWithFrame:XXF_CGRectMake(kViewCenter.x - 137.5, 178.5, 275, 1)];
     cutView.backgroundColor = kUIColorFromHEX(0xcccccc, 1);
     [self addSubview:cutView];
@@ -129,6 +129,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralMac"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"userHeadImage"];
     [self.myFmdbTool deleteUserInfoData:nil];
     
     LoginViewController *vc = [[LoginViewController alloc] init];
@@ -171,6 +172,7 @@
 {
     if (!_tableView) {
         UITableView *view = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        view.scrollEnabled = NO;
         view.delegate = self;
         view.dataSource = self;
         [view registerClass:[UITableViewCell self] forCellReuseIdentifier:@"menuCell"];

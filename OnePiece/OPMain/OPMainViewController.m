@@ -208,7 +208,9 @@
     //money数据
     self.userArr = nil;
     UserInfoModel *userModel = self.userArr.firstObject;
-    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@",userModel.money];
+    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@",[NSStringTool countNumAndChangeformat:userModel.money]];
+    //vc.moneyLabel.text = @"500,000,000";
+    vc.userNameLabel.text = userModel.userName;
     
     [self.navigationController pushViewController:vc animated:YES];
 }

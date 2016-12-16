@@ -120,9 +120,10 @@
         case 2:
             return 3;
             break;
-        case 3:
-            return 1;
-            break;
+        //TODO:先关闭语言设置
+        //case 3:
+            //return 1;
+            //break;
             
         default:
             break;

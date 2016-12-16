@@ -36,7 +36,7 @@
     self.versionLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.versionLabel];
     
-    self.tableView.frame = XXF_CGRectMake(0, 235 + 64, kViewWidth, 106);
+    self.tableView.frame = XXF_CGRectMake(0, 235 + 64, kViewWidth, 53);
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -73,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,9 +83,9 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = @"反馈";
     }
-    if (indexPath.row == 1) {
-        cell.textLabel.text = @"使用帮助";
-    }
+    //if (indexPath.row == 1) {
+    //    cell.textLabel.text = @"使用帮助";
+    //}
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -114,6 +114,7 @@
     if (!_tableView) {
         UITableView *view = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         [view registerClass:NSClassFromString(@"UITableViewCell") forCellReuseIdentifier:@"aboutCell"];
+        view.scrollEnabled = NO;
         view.backgroundColor = kUIColorFromHEX(0xffffff, 1);
         view.separatorColor = kUIColorFromHEX(0xcccccc, 1);
         view.delegate = self;

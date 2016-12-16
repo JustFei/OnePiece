@@ -8,12 +8,14 @@
 
 #import "HeadImageViewController.h"
 #import <BmobSDK/Bmob.h>
+#import "MBProgressHUD.h"
 
 @interface HeadImageViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate >
 
 @property (nonatomic ,weak) UIImageView *bigHeadImageView;
 @property (nonatomic ,strong) BmobQuery *bquery;
 @property (nonatomic ,strong) BmobObject *obj;
+@property (nonatomic ,strong) MBProgressHUD *hud;
 
 @end
 
@@ -23,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kBlackColor;
-    self.bigHeadImageView.backgroundColor = kRedColor;
+    self.bigHeadImageView.backgroundColor = kBlackColor;
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
         NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
@@ -37,7 +39,7 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    //查找GameScore表里面account的数据
+    //查找UserModel
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     [self.bquery whereKey:@"account" equalTo:account];
     [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -63,28 +65,104 @@
     //定义一个newPhoto，用来存放我们选择的图片。
     UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     //把newPhono设置成头像
-    [self.bigHeadImageView setImage:newPhoto];
+    [self.bigHeadImageView setImage:[self thumbnailWithImageWithoutScale:newPhoto size:CGSizeMake(kControllerWidth, kControllerWidth)]];
     NSData *imageData = UIImagePNGRepresentation(self.bigHeadImageView.image);
     
-    BmobFile *file = [[BmobFile alloc] initWithFileName:@"image.png" withFileData:imageData];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    [self.hud.label setText:@"正在同步头像。。。"];
+    
+    BmobFile *file = [[BmobFile alloc] initWithFileName:@"userHeadImage.png" withFileData:imageData];
     [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
         //如果文件保存成功，则把文件添加到filetype列
-        if (isSuccessful)
-        {[self.obj setObject:file forKey:@"filetype"];
-        [self.obj saveInBackground];
-        //打印file文件的url地址
-            NSLog(@"file url %@",file.url);
-    } else {
-        //进行处理
-        NSLog(@"%@",error);
-    }
+        if (isSuccessful){
+            [self.obj setObject:file forKey:@"userIcon"];
+//            [self.obj setObject:file.url forKey:@"userIcon"];
+            [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                if (isSuccessful) {
+                    [self.hud.label setText:[NSString stringWithFormat:@"头像已同步完成"]];
+                    [self.hud hideAnimated:YES afterDelay:1];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else {
+                    [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
+                    [self.hud hideAnimated:YES afterDelay:1];
+                }
+            }];
+            //打印file文件的url地址
+            DLog(@"file url %@",file.url);
+        } else {
+            //进行处理
+            DLog(@"%@",error);
+            [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
+            [self.hud hideAnimated:YES afterDelay:1];
+        }
     }];
     
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
+}
+
+- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
+
+{
+    
+    UIImage *newimage;
+    
+    if (nil == image)
+        
+    {
+        
+        newimage = nil;
+        
+    } else {
+        
+        CGSize oldsize = image.size;
+        
+        CGRect rect;
+        
+        if (asize.width/asize.height > oldsize.width/oldsize.height)
+            
+        {
+            
+            rect.size.width = asize.height*oldsize.width/oldsize.height;
+            
+            rect.size.height = asize.height;
+            
+            rect.origin.x = (asize.width - rect.size.width)/2;
+            
+            rect.origin.y = 0;
+            
+        } else {
+            
+            rect.size.width = asize.width;
+            
+            rect.size.height = asize.width*oldsize.height/oldsize.width;
+            
+            rect.origin.x = 0;
+            
+            rect.origin.y = (asize.height - rect.size.height)/2;
+            
+        }
+        
+        UIGraphicsBeginImageContext(asize);
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+        
+        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
+        
+        [image drawInRect:rect];
+        
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+    }
+    
+    return newimage;
+    
 }
 
 #pragma mark - Action

@@ -35,4 +35,6 @@
 
 + (float)getKcal:(NSInteger)step withHeight:(float)height andWeitght:(float)weight;
 
++(NSString *)countNumAndChangeformat:(NSString *)num;
+
 @end

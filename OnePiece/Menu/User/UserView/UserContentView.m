@@ -42,7 +42,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.frame = frame;
-        self.titleArr = @[@[@"更改账号",@"更改密码",@"二维码"],@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
+        //self.titleArr = @[@[@"更改账号",@"更改密码",@"二维码"],@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
+        self.titleArr = @[@[@"账号",@"更改密码"],@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
         UserInfoModel *model = self.userArr.lastObject;
         NSString *genderStr;
         switch (model.gender) {
@@ -388,11 +389,14 @@
     switch (indexPath.section) {
         case 0:
         {
+            //TODO:二维码
+            /*
             if (indexPath.row == 2) {
                 cell.QRCodeImageView.hidden = NO;
                 cell.QRCodeImageView.image = [UIImage imageNamed:@"QRCodeImage_default"];
                 //show QRCodeImage here
             }
+             */
         }
             break;
         case 1:
@@ -458,8 +462,9 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    ChangeUserViewController *vc = [[ChangeUserViewController alloc] init];
-                    [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+                    //TODO:更改账号
+                    //ChangeUserViewController *vc = [[ChangeUserViewController alloc] init];
+                    //[[self findViewController:self].navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 case 1:

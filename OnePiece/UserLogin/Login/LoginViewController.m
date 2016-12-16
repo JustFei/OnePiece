@@ -162,6 +162,9 @@
                         NSString *PeripheralMac = [obj objectForKey:@"peripheralMac"];
                         NSDate *registTimeDate = obj.createdAt;
                         NSNumber *moneyNum = [obj objectForKey:@"money"];
+                        BmobFile *userIconFile = [obj objectForKey:@"userIcon"];
+                        //这里需要同步请求头像图片的处理
+                        UIImage *userIcon = [self getImageFromURL:userIconFile.url];
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                         [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
                         NSString *registTime = [formatter stringFromDate:registTimeDate];
@@ -176,6 +179,8 @@
                         [[NSUserDefaults standardUserDefaults] setObject:bindPeripheralUUID forKey:@"bindPeripheralUUID"];
                         [[NSUserDefaults standardUserDefaults] setObject:PeripheralMac forKey:@"peripheralMac"];
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
+                        NSData *imageData = UIImagePNGRepresentation(userIcon);
+                        [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
                         if ([isBind isEqualToString:@"0"]) {
                             [[NSUserDefaults standardUserDefaults] setBool:0 forKey:@"isBind"];
                         }else if ([isBind isEqualToString:@"1"]) {
@@ -233,6 +238,21 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+#pragma mark - 下载图片
+-(UIImage *) getImageFromURL:(NSString *)fileURL {
+    //异步连接（block）
+    //    1.设置请求路径
+    NSURL *url = [NSURL URLWithString:fileURL];
+    
+    //    2.创建请求对象
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    //NSMutableData *recieveData = [NSMutableData data];
+    //    3.发送请求
+    //同步数据请求
+    NSData *recieveData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    return [UIImage imageWithData:recieveData];
 }
 
 #pragma mark - 懒加载

@@ -12,7 +12,8 @@
 
 @interface ShareViewController : UIViewController
 
-@property (nonatomic ,strong) GradientLabel *moneyLabel;
+@property (nonatomic ,strong) UILabel *userNameLabel;
+@property (nonatomic ,strong) UILabel *moneyLabel;
 @property (nonatomic ,weak) MoveAbleImageView *shareImageView;
 
 @end

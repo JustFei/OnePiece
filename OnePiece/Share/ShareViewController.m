@@ -55,6 +55,7 @@
     self.collectionView.backgroundColor = kWhiteColor;
     self.backImageView.backgroundColor = kClearColor;
     [self.backView bringSubviewToFront:self.moneyLabel];
+    [self.backView bringSubviewToFront:self.userNameLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -336,17 +337,33 @@
     return _photoArr;
 }
 
-- (GradientLabel *)moneyLabel
+- (UILabel *)userNameLabel
+{
+    if (!_userNameLabel) {
+        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 1685 / 2208, 245 * kControllerWidth / 375, 75 * kControllerWidth / 375)];
+        label.text = @"Name";
+        label.font = [UIFont fontWithName:@"Vani" size:40 * kControllerWidth / 375];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = kBlackColor;
+        [self.backView addSubview:label];
+        _userNameLabel = label;
+    }
+    
+    return _userNameLabel;
+}
+
+- (UILabel *)moneyLabel
 {
     if (!_moneyLabel) {
-        GradientLabel *label = [[GradientLabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 900 / 1074, 245 * kControllerWidth / 375, 50 * kControllerWidth / 375)];
-        label.text = @"$0~";
-        label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30 * kControllerWidth / 375];
+        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 918 / 1074, 245 * kControllerWidth / 375, 40 * kControllerWidth / 375)];
+        label.text = @"0";
+        label.font = [UIFont fontWithName:@"Vrinda" size: 27 * kControllerWidth / 375];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = kUIColorFromHEX(0x884227,1);
-        label.outlineColor = kUIColorFromHEX(0xc68107, 1);
-        label.outlineThickness = 3;
-        label.drawOutline = YES;
+        label.textColor = kBlackColor;
+        //label.textColor = kUIColorFromHEX(0x884227,1);
+        //label.outlineColor = kUIColorFromHEX(0xc68107, 1);
+        //label.outlineThickness = 3;
+        //label.drawOutline = YES;
         [self.backView addSubview:label];
         _moneyLabel = label;
     }

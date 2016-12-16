@@ -52,29 +52,37 @@
                     UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的密码输入有误，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                     [view show];
                 }else {
-                    if ([self.nPwdTextField.text isEqualToString:self.n2PwdTextField.text]) {
-                        [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
-                        [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                            
-                            if (error) {
-                                [self.myHud hideAnimated:YES];
-                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接异常，密码更改失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                [view show];
-                            }else {
-                                [self.myHud.label setText:@"密码更改成功"];
-                                [self.myHud hideAnimated:YES afterDelay:1.5];
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    if (self.popViewController) {
-                                        self.popViewController();
-                                    }
-                                });
-                            }
-                        }];
+                    int count = [self validatePassword];
+                    if (count == 3) {
+                        if ([self.nPwdTextField.text isEqualToString:self.n2PwdTextField.text]) {
+                            [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
+                            [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                                
+                                if (error) {
+                                    [self.myHud hideAnimated:YES];
+                                    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接异常，密码更改失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                    [view show];
+                                }else {
+                                    [self.myHud.label setText:@"密码更改成功"];
+                                    [self.myHud hideAnimated:YES afterDelay:1.5];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        if (self.popViewController) {
+                                            self.popViewController();
+                                        }
+                                    });
+                                }
+                            }];
+                        }else {
+                            [self.myHud hideAnimated:YES];
+                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"两次输入密码不一致，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [view show];
+                        }
                     }else {
                         [self.myHud hideAnimated:YES];
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"两次输入密码不一致，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                         [view show];
                     }
+                    
                 }
             }
         }
@@ -88,15 +96,58 @@
             [self.oldPwdTextField setSecureTextEntry:!self.oldPwdTextField.secureTextEntry];
             break;
         case 101:
-            [self.nPwdTextField setSecureTextEntry:!self.nPwdTextField];
+            [self.nPwdTextField setSecureTextEntry:!self.nPwdTextField.secureTextEntry];
             break;
         case 102:
-            [self.n2PwdTextField setSecureTextEntry:!self.n2PwdTextField];
+            [self.n2PwdTextField setSecureTextEntry:!self.n2PwdTextField.secureTextEntry];
             break;
             
         default:
             break;
     }
+}
+
+- (int)validatePassword
+
+{
+    int count = 0;
+    //    NSString * length = @"^\\w{6,18}$";//长度
+    
+    NSString * number = @"^\\w*\\d+\\w*$";//数字
+    
+    NSString * lower = @"^\\w*[a-z]+\\w*$";//小写字母
+    
+    NSString * upper = @"^\\w*[A-Z]+\\w*$";//大写字母
+    
+    //    NSString * punct = @"/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])+/";//标点符号
+    
+    
+    NSPredicate *regexnumber = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    NSPredicate *regexlower = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",lower];
+    NSPredicate *regexupper = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",upper];
+    //    NSPredicate *regexpunct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",punct];
+    
+    BOOL isHaveNumber = [regexnumber evaluateWithObject: self.nPwdTextField.text];
+    BOOL isHaveLower = [regexlower evaluateWithObject:self.nPwdTextField.text];
+    BOOL isHaveUpper = [regexupper evaluateWithObject:self.nPwdTextField.text];
+    //    BOOL isHavePunct = [regexpunct evaluateWithObject:self.pwdTextField.text];
+    
+    //    return [self validateWithRegExp: number] && [self validateWithRegExp: lower] && [self validateWithRegExp: upper];
+    
+    if (isHaveNumber) {
+        count ++;
+    }
+    if (isHaveLower) {
+        count ++;
+    }
+    if (isHaveUpper) {
+        count ++;
+    }
+    //    if (isHavePunct) {
+    //        count ++;
+    //    }
+    
+    return count;
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
