@@ -656,7 +656,7 @@ static FMDatabase *_fmdb;
         UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac andRegistTime:registTime];
         model.money = money;
         
-        DLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID);
+        DLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID,model.peripheralMac);
         
         [arrM addObject:model];
     }

@@ -46,14 +46,16 @@
 }
 - (IBAction)changeTimeSwitch:(UISwitch *)sender
 {
-    if (sender.tag == 1001) {
-        Remind *remind = [[Remind alloc] init];
-        remind.phone = sender.on;
-        remind.message = NO;
-        [self.myBleTool writePhoneAndMessageRemindToPeripheral:remind];
-    }else {
-        //判断下当前蓝牙状态是否连接
-        if (self.myBleTool.connectState == kBLEstateDidConnected) {
+    if (self.myBleTool.connectState == kBLEstateDidConnected) {
+        if (sender.tag == 1001) {
+            
+            Remind *remind = [[Remind alloc] init];
+            remind.phone = sender.on;
+            remind.message = NO;
+            [self.myBleTool writePhoneAndMessageRemindToPeripheral:remind];
+        }else {
+            //判断下当前蓝牙状态是否连接
+            
             if (sender.isOn) {
                 self.timeButton.enabled = sender.isOn;
             }else {
@@ -71,14 +73,14 @@
             for (ClockModel *model in self.timeArr) {
                 [self.myFmdbTool insertClockModel:model];
             }
-        }else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请连接上设备后再操作" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ac = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                sender.on = !sender.isOn;
-            }];
-            [alertController addAction:ac];
-            [[self findViewController:self] presentViewController:alertController animated:YES completion:nil];
         }
+    }else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请连接上设备后再操作" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ac = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            sender.on = !sender.isOn;
+        }];
+        [alertController addAction:ac];
+        [[self findViewController:self] presentViewController:alertController animated:YES completion:nil];
     }
 }
 

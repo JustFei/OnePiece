@@ -23,14 +23,14 @@
                         <constraint firstAttribute="height" constant="12" id="zbT-fu-iP2"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="LeV-pb-SrA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_power" translatesAutoresizingMaskIntoConstraints="NO" id="LeV-pb-SrA">
                     <rect key="frame" x="64" y="67" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="Fv1-EG-x24"/>
                         <constraint firstAttribute="height" constant="12" id="tSK-zp-g5m"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="qGH-j1-HMB">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_goal" translatesAutoresizingMaskIntoConstraints="NO" id="qGH-j1-HMB">
                     <rect key="frame" x="64" y="124" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="UgS-uH-NAk"/>
@@ -92,21 +92,21 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="5Zc-YN-abf">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_sleep" translatesAutoresizingMaskIntoConstraints="NO" id="5Zc-YN-abf">
                     <rect key="frame" x="217" y="10" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="Uy2-0e-Qdc"/>
                         <constraint firstAttribute="height" constant="12" id="ZI6-mg-eC0"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="0SJ-Tj-5MF">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_sleep_2" translatesAutoresizingMaskIntoConstraints="NO" id="0SJ-Tj-5MF">
                     <rect key="frame" x="217" y="67" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="LGF-fs-PZH"/>
                         <constraint firstAttribute="width" constant="12" id="WF8-eQ-CHo"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="SGd-Dz-rrm">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_sleep_3" translatesAutoresizingMaskIntoConstraints="NO" id="SGd-Dz-rrm">
                     <rect key="frame" x="217" y="124" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="YYS-7u-Hdf"/>
@@ -158,7 +158,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="pUO-TE-Jgn">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_victory" translatesAutoresizingMaskIntoConstraints="NO" id="pUO-TE-Jgn">
                     <rect key="frame" x="68" y="197" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="G4o-0g-Th8"/>
@@ -175,7 +175,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="Lgt-hg-BJM">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_dogfall" translatesAutoresizingMaskIntoConstraints="NO" id="Lgt-hg-BJM">
                     <rect key="frame" x="152" y="197" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="Wvf-GM-jUR"/>
@@ -192,7 +192,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="ln0-Ft-5pg">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_fail" translatesAutoresizingMaskIntoConstraints="NO" id="ln0-Ft-5pg">
                     <rect key="frame" x="236" y="197" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="OZt-UD-pOf"/>
@@ -229,7 +229,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="haa-jD-hKn">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="his_fight" translatesAutoresizingMaskIntoConstraints="NO" id="haa-jD-hKn">
                     <rect key="frame" x="100" y="301" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="haa-jD-hKn" secondAttribute="height" multiplier="1:1" id="UYT-eS-xo7"/>
@@ -378,6 +378,15 @@
         </view>
     </objects>
     <resources>
+        <image name="his_dogfall" width="12" height="12"/>
+        <image name="his_fail" width="9" height="11"/>
+        <image name="his_fight" width="11" height="11"/>
+        <image name="his_goal" width="13" height="12"/>
+        <image name="his_power" width="12" height="14"/>
+        <image name="his_sleep" width="12" height="12"/>
+        <image name="his_sleep_2" width="13" height="14"/>
+        <image name="his_sleep_3" width="13" height="14"/>
+        <image name="his_victory" width="8" height="11"/>
         <image name="icon" width="11" height="11"/>
     </resources>
 </document>

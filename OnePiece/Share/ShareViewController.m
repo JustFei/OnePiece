@@ -272,7 +272,7 @@
 - (UIView *)backView
 {
     if (!_backView) {
-        _backView = [[UIView alloc] initWithFrame:XXF_CGRectMake(0, 64, kControllerWidth, kControllerHeight - 130 * kControllerWidth / 375)];
+        _backView = [[UIView alloc] initWithFrame:XXF_CGRectMake(0,64, kControllerWidth, kControllerHeight - 130 * kControllerWidth / 375)];
         [self.view addSubview:_backView];
     }
     
@@ -302,7 +302,7 @@
         layout.itemSize = CGSizeMake(31 * kControllerWidth / 375, 44 * kControllerWidth / 375);
         
         //2.初始化collectionView
-        UICollectionView *collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, kControllerHeight - 66 * kControllerWidth / 375, kControllerWidth, 66 * kControllerWidth / 375) collectionViewLayout:layout];
+        UICollectionView *collectionView  = [[UICollectionView alloc] initWithFrame:XXF_CGRectMake(0, self.backView.frame.origin.y + self.backView.frame.size.height, kControllerWidth, kControllerHeight - (self.backView.frame.origin.y + self.backView.frame.size.height)) collectionViewLayout:layout];
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.bounces = NO;
@@ -342,9 +342,11 @@
     if (!_userNameLabel) {
         UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 1685 / 2208, 245 * kControllerWidth / 375, 75 * kControllerWidth / 375)];
         label.text = @"Name";
+        label.numberOfLines = 0;
         label.font = [UIFont fontWithName:@"Vani" size:40 * kControllerWidth / 375];
+//        label.font = [UIFont fontWithName:@"Vani" size:14 * kControllerWidth / 375];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = kBlackColor;
+        label.textColor = kUIColorFromHEX(0x423433, 1);
         [self.backView addSubview:label];
         _userNameLabel = label;
     }
@@ -357,13 +359,9 @@
     if (!_moneyLabel) {
         UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 918 / 1074, 245 * kControllerWidth / 375, 40 * kControllerWidth / 375)];
         label.text = @"0";
-        label.font = [UIFont fontWithName:@"Vrinda" size: 27 * kControllerWidth / 375];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = kBlackColor;
-        //label.textColor = kUIColorFromHEX(0x884227,1);
-        //label.outlineColor = kUIColorFromHEX(0xc68107, 1);
-        //label.outlineThickness = 3;
-        //label.drawOutline = YES;
+        label.font = [UIFont fontWithName:@"Vrinda" size: 35 * kControllerWidth / 375];
+        label.textAlignment = NSTextAlignmentRight;
+        label.textColor = kUIColorFromHEX(0x423433, 1);
         [self.backView addSubview:label];
         _moneyLabel = label;
     }

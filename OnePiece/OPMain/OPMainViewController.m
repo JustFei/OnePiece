@@ -208,8 +208,7 @@
     //money数据
     self.userArr = nil;
     UserInfoModel *userModel = self.userArr.firstObject;
-    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@",[NSStringTool countNumAndChangeformat:userModel.money]];
-    //vc.moneyLabel.text = @"500,000,000";
+    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
     vc.userNameLabel.text = userModel.userName;
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -470,6 +469,9 @@
             {
                 int money = userModel.money.integerValue;
                 money += 10000;
+                if (money > 2000000000) {
+                    money = 2000000000;
+                }
                 userModel.money = [NSString stringWithFormat:@"%d",money];
                 [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
                 if (self.pkDataArr.count != 0) {
@@ -527,6 +529,9 @@
             {
                 int money = userModel.money.integerValue;
                 money += 5000;
+                if (money > 2000000000) {
+                    money = 2000000000;
+                }
                 userModel.money = [NSString stringWithFormat:@"%d",money];
                 [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
                 

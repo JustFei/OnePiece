@@ -35,6 +35,7 @@
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightButton.frame = XXF_CGRectMake(0, 0, 100, 40);
     [rightButton setTitle:@"换头像" forState:UIControlStateNormal];
+    [rightButton setTitleColor:kBlackColor forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(changeHeadImage:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;

@@ -49,7 +49,8 @@
         [rightButton setTitleColor:kBlackColor forState:UIControlStateNormal];
         [rightButton addTarget:self action:@selector(showUserProtrol:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-        self.navigationItem.rightBarButtonItem = rightItem;
+//        暂时不加入条款
+//        self.navigationItem.rightBarButtonItem = rightItem;
         self.navigationItem.title = @"注册";
     }else {
         self.navigationItem.title = @"忘记密码";
