@@ -153,7 +153,7 @@
                     }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
                         model.gender = -1;
                     }
-                    [self.obj setObject:[NSNumber numberWithInt:model.gender] forKey:@"gender"];
+                    [self.obj setObject:[NSNumber numberWithInteger:model.gender] forKey:@"gender"];
                     [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                         if (error) {
                             DLog(@"%@",error);
@@ -181,7 +181,7 @@
                 case PickerTypeHeight:
                 {
                     model.height = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInt:model.height] forKey:@"height"];
+                    [self.obj setObject:[NSNumber numberWithInteger:model.height] forKey:@"height"];
                     [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                         if (error) {
                             DLog(@"%@",error);
@@ -194,7 +194,7 @@
                 case PickerTypeWeight:
                 {
                     model.weight = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInt:model.weight] forKey:@"weight"];
+                    [self.obj setObject:[NSNumber numberWithInteger:model.weight] forKey:@"weight"];
                     [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                         if (error) {
                             DLog(@"%@",error);
@@ -208,7 +208,7 @@
                 case PickerTypeMotionTarget:
                 {
                     model.stepTarget = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInt:model.stepTarget] forKey:@"stepTarget"];
+                    [self.obj setObject:[NSNumber numberWithInteger:model.stepTarget] forKey:@"stepTarget"];
                     [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                         if (error) {
                             DLog(@"%@",error);

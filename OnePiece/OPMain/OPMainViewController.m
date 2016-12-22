@@ -19,6 +19,7 @@
 #import <BmobSDK/Bmob.h>
 #import "NetworkTool.h"
 #import "MBProgressHUD.h"
+#import "DGPopUpViewController.h"
 
 @interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleDiscoverDelegate , BleReceiveDelegate , BleConnectDelegate >
 {
@@ -36,6 +37,7 @@
 @property (nonatomic ,strong) NSArray *sleepArr;
 @property (nonatomic ,strong) NSArray *pkDataArr;
 @property (nonatomic ,strong) BmobQuery *bquery;
+@property (strong, nonatomic) DGPopUpViewController *popUpViewController;
 
 @end
 
@@ -53,6 +55,8 @@
     [self createUI];
     
     [self bleConnect];
+    
+    self.contentView.musicButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -144,7 +148,7 @@
     
     //money数据
     UserInfoModel *userModel = self.userArr.firstObject;
-    self.contentView.moneyLabel.text = [NSString stringWithFormat:@"$%@~",userModel.money];
+    self.contentView.moneyLabel.text = [NSString stringWithFormat:@"$%@-",userModel.money];
 }
 
 - (void)bleConnect
@@ -460,133 +464,140 @@
         hud.minSize = CGSizeMake(132.f, 108.0f);
         [hud hideAnimated:YES afterDelay:2];
     }else {
+        self.popUpViewController = [[DGPopUpViewController alloc] init];
+        self.popUpViewController.view.backgroundColor = kClearColor;
+        [self.popUpViewController showInView: self.view animated: YES];
+        
         self.userArr = nil;
         UserInfoModel *userModel = self.userArr.firstObject;
-        int value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
-        switch (value) {
-            case 1:
-                //胜
-            {
-                int money = userModel.money.integerValue;
-                money += 10000;
-                if (money > 2000000000) {
-                    money = 2000000000;
-                }
-                userModel.money = [NSString stringWithFormat:@"%d",money];
-                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
-                if (self.pkDataArr.count != 0) {
-                    PKModel *pkModel = self.pkDataArr.firstObject;
-                    int win = pkModel.win.integerValue + 1;
-                    int pkCount = pkModel.PKCount.integerValue + 1;
-                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
-                    pkModel.win = [NSString stringWithFormat:@"%d", win];
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
-                }else {
-                    PKModel *pkModel = [[PKModel alloc] init];
-                    pkModel.win = @"1";
-                    pkModel.fail = @"0";
-                    pkModel.draw = @"0";
-                    pkModel.PKCount = @"1";
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool insertPKData:pkModel];
-                }
-            }
-                break;
-            case 2:
-                //负
-            {
-                int money = userModel.money.integerValue;
-                money -= 10000;
-                if (money <= 0) {
-                    money = 50;
-                }
-                userModel.money = [NSString stringWithFormat:@"%d",money];
-                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
-                
-                if (self.pkDataArr.count != 0) {
-                    PKModel *pkModel = self.pkDataArr.firstObject;
-                    int fail = pkModel.fail.integerValue + 1;
-                    pkModel.fail = [NSString stringWithFormat:@"%d", fail];
-                    int pkCount = pkModel.PKCount.integerValue + 1;
-                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
-                }else {
-                    PKModel *pkModel = [[PKModel alloc] init];
-                    pkModel.fail = @"1";
-                    pkModel.win = @"0";
-                    pkModel.draw = @"0";
-                    pkModel.PKCount = @"1";
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool insertPKData:pkModel];
-                }
-            }
-                
-                break;
-            case 0:
-                //平
-            {
-                int money = userModel.money.integerValue;
-                money += 5000;
-                if (money > 2000000000) {
-                    money = 2000000000;
-                }
-                userModel.money = [NSString stringWithFormat:@"%d",money];
-                [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
-                
-                if (self.pkDataArr.count != 0) {
-                    PKModel *pkModel = self.pkDataArr.firstObject;
-                    int draw = pkModel.draw.integerValue + 1;
-                    pkModel.draw = [NSString stringWithFormat:@"%d", draw];
-                    int pkCount = pkModel.PKCount.integerValue + 1;
-                    pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
-                }else {
-                    PKModel *pkModel = [[PKModel alloc] init];
-                    pkModel.draw = @"1";
-                    pkModel.win = @"0";
-                    pkModel.fail = @"0";
-                    pkModel.PKCount = @"1";
-                    pkModel.date = _currentDateString;
-                    [self.myFmdbTool insertPKData:pkModel];
-                }
-            }
-                
-                break;
-                
-            default:
-                break;
-        }
-        
-        //查找GameScore表里面account的数据
-        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-        [self.bquery whereKey:@"account" equalTo:account];
-        [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-            //没有返回错误
-            if (!error) {
-                //对象存在
-                if (array) {
-                    for (BmobObject *obj in array) {
-                        [obj setObject:[NSNumber numberWithInt:userModel.money.intValue] forKey:@"money"];
-                        [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                            if (error) {
-                                DLog(@"%@",error);
-                            }
-                        }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            int value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
+            self.popUpViewController.popUpView.pkResult = value;
+            switch (value) {
+                case 1:
+                    //胜
+                {
+                    int money = userModel.money.integerValue;
+                    money += 10000;
+                    if (money > 2000000000) {
+                        money = 2000000000;
+                    }
+                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                    if (self.pkDataArr.count != 0) {
+                        PKModel *pkModel = self.pkDataArr.firstObject;
+                        int win = pkModel.win.integerValue + 1;
+                        int pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                        pkModel.win = [NSString stringWithFormat:@"%d", win];
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                    }else {
+                        PKModel *pkModel = [[PKModel alloc] init];
+                        pkModel.win = @"1";
+                        pkModel.fail = @"0";
+                        pkModel.draw = @"0";
+                        pkModel.PKCount = @"1";
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool insertPKData:pkModel];
                     }
                 }
-            }else{
-                //进行错误处理
-                DLog(@"%@",error);
+                    break;
+                case 2:
+                    //负
+                {
+                    int money = userModel.money.integerValue;
+                    money -= 10000;
+                    if (money <= 0) {
+                        money = 50;
+                    }
+                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                    
+                    if (self.pkDataArr.count != 0) {
+                        PKModel *pkModel = self.pkDataArr.firstObject;
+                        int fail = pkModel.fail.integerValue + 1;
+                        pkModel.fail = [NSString stringWithFormat:@"%d", fail];
+                        int pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                    }else {
+                        PKModel *pkModel = [[PKModel alloc] init];
+                        pkModel.fail = @"1";
+                        pkModel.win = @"0";
+                        pkModel.draw = @"0";
+                        pkModel.PKCount = @"1";
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool insertPKData:pkModel];
+                    }
+                }
+                    
+                    break;
+                case 0:
+                    //平
+                {
+                    int money = userModel.money.integerValue;
+                    money += 5000;
+                    if (money > 2000000000) {
+                        money = 2000000000;
+                    }
+                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
+                    
+                    if (self.pkDataArr.count != 0) {
+                        PKModel *pkModel = self.pkDataArr.firstObject;
+                        int draw = pkModel.draw.integerValue + 1;
+                        pkModel.draw = [NSString stringWithFormat:@"%d", draw];
+                        int pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                    }else {
+                        PKModel *pkModel = [[PKModel alloc] init];
+                        pkModel.draw = @"1";
+                        pkModel.win = @"0";
+                        pkModel.fail = @"0";
+                        pkModel.PKCount = @"1";
+                        pkModel.date = _currentDateString;
+                        [self.myFmdbTool insertPKData:pkModel];
+                    }
+                }
+                    
+                    break;
+                    
+                default:
+                    break;
             }
-        }];
-        
-        [self getDataFromDB];
-        sender.enabled = NO;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            sender.enabled = YES;
+            
+            //查找GameScore表里面account的数据
+            NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+            [self.bquery whereKey:@"account" equalTo:account];
+            [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+                //没有返回错误
+                if (!error) {
+                    //对象存在
+                    if (array) {
+                        for (BmobObject *obj in array) {
+                            [obj setObject:[NSNumber numberWithInt:userModel.money.intValue] forKey:@"money"];
+                            [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                                if (error) {
+                                    DLog(@"%@",error);
+                                }
+                            }];
+                        }
+                    }
+                }else{
+                    //进行错误处理
+                    DLog(@"%@",error);
+                }
+            }];
+            
+            [self getDataFromDB];
+            sender.enabled = NO;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                sender.enabled = YES;
+            });
         });
     }
 }

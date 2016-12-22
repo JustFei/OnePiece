@@ -59,6 +59,8 @@
 		9CA5F5B61DE82A4B00E15340 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B51DE82A4B00E15340 /* libWeiboSDK.a */; };
 		9CA5F5B81DE82A6200E15340 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA5F5B71DE82A6200E15340 /* libWeChatSDK.a */; };
 		9CBD38371DFA4E0C0045123C /* MonthHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBD38361DFA4E0C0045123C /* MonthHistoryModel.m */; };
+		9CCFD68E1E05318C006F3EC4 /* DGPopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CCFD68B1E05318C006F3EC4 /* DGPopUpView.m */; };
+		9CCFD68F1E05318C006F3EC4 /* DGPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CCFD68D1E05318C006F3EC4 /* DGPopUpViewController.m */; };
 		9CED32951DED248300C7E098 /* BloodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32841DED248300C7E098 /* BloodModel.m */; };
 		9CED32961DED248300C7E098 /* BloodO2Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32861DED248300C7E098 /* BloodO2Model.m */; };
 		9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CED32881DED248300C7E098 /* HeartRateModel.m */; };
@@ -191,6 +193,10 @@
 		9CA749E01DEC1FF2007F8BBE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9CBD38351DFA4E0C0045123C /* MonthHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonthHistoryModel.h; path = History/HistoryModel/MonthHistoryModel.h; sourceTree = "<group>"; };
 		9CBD38361DFA4E0C0045123C /* MonthHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonthHistoryModel.m; path = History/HistoryModel/MonthHistoryModel.m; sourceTree = "<group>"; };
+		9CCFD68A1E05318C006F3EC4 /* DGPopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DGPopUpView.h; path = OPMain/PK/DGPopUpView.h; sourceTree = "<group>"; };
+		9CCFD68B1E05318C006F3EC4 /* DGPopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DGPopUpView.m; path = OPMain/PK/DGPopUpView.m; sourceTree = "<group>"; };
+		9CCFD68C1E05318C006F3EC4 /* DGPopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DGPopUpViewController.h; path = OPMain/PK/DGPopUpViewController.h; sourceTree = "<group>"; };
+		9CCFD68D1E05318C006F3EC4 /* DGPopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DGPopUpViewController.m; path = OPMain/PK/DGPopUpViewController.m; sourceTree = "<group>"; };
 		9CED32831DED248300C7E098 /* BloodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodModel.h; path = BLETool/Model/BloodModel.h; sourceTree = "<group>"; };
 		9CED32841DED248300C7E098 /* BloodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BloodModel.m; path = BLETool/Model/BloodModel.m; sourceTree = "<group>"; };
 		9CED32851DED248300C7E098 /* BloodO2Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodO2Model.h; path = BLETool/Model/BloodO2Model.h; sourceTree = "<group>"; };
@@ -399,6 +405,7 @@
 				9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */,
 				9C8CBD001DFF8CB10010EA21 /* PKTool.h */,
 				9C8CBD011DFF8CB10010EA21 /* PKTool.m */,
+				9CCFD6901E053191006F3EC4 /* PK */,
 			);
 			name = OPMain;
 			sourceTree = "<group>";
@@ -566,6 +573,17 @@
 				9C8CBD091DFFDBFA0010EA21 /* NetworkTool.m */,
 			);
 			name = NetworkTool;
+			sourceTree = "<group>";
+		};
+		9CCFD6901E053191006F3EC4 /* PK */ = {
+			isa = PBXGroup;
+			children = (
+				9CCFD68A1E05318C006F3EC4 /* DGPopUpView.h */,
+				9CCFD68B1E05318C006F3EC4 /* DGPopUpView.m */,
+				9CCFD68C1E05318C006F3EC4 /* DGPopUpViewController.h */,
+				9CCFD68D1E05318C006F3EC4 /* DGPopUpViewController.m */,
+			);
+			name = PK;
 			sourceTree = "<group>";
 		};
 		9CED32801DED243B00C7E098 /* BLETool */ = {
@@ -904,6 +922,7 @@
 				9CFE00CF1DDC4AA100D38904 /* ChangePwdContentView.m in Sources */,
 				9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */,
 				9CFE00C31DDC323F00D38904 /* ChangeUserContentView.m in Sources */,
+				9CCFD68E1E05318C006F3EC4 /* DGPopUpView.m in Sources */,
 				9CFE00BD1DDC316A00D38904 /* UserViewController.m in Sources */,
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
 				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
@@ -957,6 +976,7 @@
 				9CFE00C01DDC319500D38904 /* ChangeUserViewController.m in Sources */,
 				9CED32A81DED248D00C7E098 /* manridyBleDevice.m in Sources */,
 				9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */,
+				9CCFD68F1E05318C006F3EC4 /* DGPopUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,7 +1037,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1061,7 +1081,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1085,6 +1105,7 @@
 				);
 				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
 				INFOPLIST_FILE = "/Users/xiefeixing/Desktop/桌面 - 谢飞的MacBook Pro/Desktop/公司资料/ProjectList/海贼王/OnePiece/OnePiece/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1099,7 +1120,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.glori.ACGFit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -1119,6 +1140,7 @@
 				);
 				GCC_PREFIX_HEADER = OnePiece/SupportingFiles/OPHeader.pch;
 				INFOPLIST_FILE = "/Users/xiefeixing/Desktop/桌面 - 谢飞的MacBook Pro/Desktop/公司资料/ProjectList/海贼王/OnePiece/OnePiece/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1133,7 +1155,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.glori.ACGFit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

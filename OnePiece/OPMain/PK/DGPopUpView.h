@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    PKResultTypeDraw = 0,
+    PKResultTypeWin,
+    PKResultTypeFail
+} PKResultType;
+
 @interface DGPopUpView : UIView
+
+@property (nonatomic ,assign) PKResultType pkResult;
 
 @end

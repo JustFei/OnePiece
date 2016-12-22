@@ -7,14 +7,11 @@
 //
 
 #import "DGPopUpViewController.h"
-#import "DGPopUpView.h"
 
 @interface DGPopUpViewController () {
     BOOL isOpen;
 }
 
-@property (nonatomic, strong) DGPopUpView *popUpView;
-@property (nonatomic, strong) UIButton *popUpCloseButton;
 @property (nonatomic, strong) UIImageView *endView;
 
 @end
@@ -26,7 +23,6 @@
     isOpen = YES;
     self.view.backgroundColor = DGPopUpViewBackgroundColor;
     
-    [self.view addSubview: self.popUpCloseButton];
     [self.view addSubview: self.popUpView];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -67,29 +63,23 @@
 }
 
 - (void) endAnimation {
-    self.endView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"end_logo"]];
-    self.endView.center = self.view.center;
-    [self.view addSubview: self.endView];
-    
-    
-    self.endView.transform = CGAffineTransformMakeScale(0, 0);
-    
-    [UIView animateWithDuration: 1.4
-                          delay: 0
-                        options: UIViewAnimationOptionCurveEaseInOut
-                     animations: ^{
-                         self.endView.transform = CGAffineTransformMakeScale(0.6, 0.6);
-                     }
-                     completion: ^(BOOL finished) {
-                         
-                     }];
+    [self.view removeFromSuperview];
+//    [UIView animateWithDuration: 1.4
+//                          delay: 0
+//                        options: UIViewAnimationOptionCurveEaseInOut
+//                     animations: ^{
+//                         self.endView.transform = CGAffineTransformMakeScale(1, 1);
+//                     }
+//                     completion: ^(BOOL finished) {
+//                         
+//                     }];
 }
 
 #pragma mark - Animation
 - (void) showAnimation {
     self.view.alpha = 0.0;
     self.popUpView.transform = CGAffineTransformMakeScale(0, 0);
-    [UIView animateWithDuration: 0.25
+    [UIView animateWithDuration: 0.2
                      animations: ^{
                          self.view.alpha = 1.0;
                      }
@@ -100,7 +90,7 @@
 
 - (void) showPopUpView {
     self.popUpView.alpha = 0.5;
-    [UIView animateWithDuration: 0.8
+    [UIView animateWithDuration: 0.2
                           delay: 0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations: ^{
@@ -113,21 +103,21 @@
 }
 
 #pragma mark - Lazy Init
-- (UIButton *) popUpCloseButton {
-    if (!_popUpCloseButton) {
-        _popUpCloseButton = [[UIButton alloc] initWithFrame: self.view.bounds];
-        _popUpCloseButton.backgroundColor = [UIColor clearColor];
-        [_popUpCloseButton setTitle: @"" forState: UIControlStateNormal];
-        [_popUpCloseButton addTarget: self
-                              action: @selector(removeAnimation)
-                    forControlEvents: UIControlEventTouchUpInside];
-    }
-    return _popUpCloseButton;
-}
+//- (UIButton *) popUpCloseButton {
+//    if (!_popUpCloseButton) {
+//        _popUpCloseButton = [[UIButton alloc] initWithFrame: self.view.bounds];
+//        _popUpCloseButton.backgroundColor = [UIColor clearColor];
+//        [_popUpCloseButton setTitle: @"" forState: UIControlStateNormal];
+//        [_popUpCloseButton addTarget: self
+//                              action: @selector(removeAnimation)
+//                    forControlEvents: UIControlEventTouchUpInside];
+//    }
+//    return _popUpCloseButton;
+//}
 
 - (DGPopUpView *) popUpView {
     if (!_popUpView) {
-        _popUpView = [[DGPopUpView alloc] init];
+        _popUpView = [[DGPopUpView alloc] initWithFrame:self.view.bounds];
         _popUpView.center = self.view.center;
     }
     return _popUpView;

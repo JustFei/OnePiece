@@ -79,7 +79,6 @@
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentLeft;
     
-    
     return YES;
 }
 
