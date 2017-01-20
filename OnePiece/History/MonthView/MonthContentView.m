@@ -47,6 +47,9 @@
     self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.center.y - 6.5 , 15, 13)];
     
     self.calendarImageView.image = [UIImage imageNamed:@"Calendar"];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTheCalender:)];
+    self.calendarImageView.userInteractionEnabled = YES;
+    [self.calendarImageView addGestureRecognizer:tap];
     [self addSubview:self.calendarImageView];
     self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 7, 44, 44);
     self.rightButton.enabled = NO;

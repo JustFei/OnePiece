@@ -79,6 +79,8 @@
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentLeft;
     
+//    [NSThread sleepForTimeInterval:4.0];
+    
     return YES;
 }
 

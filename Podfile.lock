@@ -1,18 +1,25 @@
 PODS:
-  - BmobSDK (1.7.2)
+  - BmobSDK (2.0.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - MBProgressHUD (1.0.0)
-  - MOBFoundation (2.2.3)
-  - ShareSDK3 (3.5.2):
-    - ShareSDK3/ShareSDK (= 3.5.2)
-  - ShareSDK3/ShareSDK (3.5.2)
-  - ShareSDK3/ShareSDKExtension (3.5.2)
-  - ShareSDK3/ShareSDKPlatforms/QQ (3.5.2)
-  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.5.2)
-  - ShareSDK3/ShareSDKPlatforms/WeChat (3.5.2)
-  - ShareSDK3/ShareSDKUI (3.5.2)
+  - MOBFoundation (2.2.11)
+  - ShareSDK3 (3.5.4):
+    - MOBFoundation
+    - ShareSDK3/ShareSDK (= 3.5.4)
+  - ShareSDK3/ShareSDK (3.5.4):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKExtension (3.5.4):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.5.4):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.5.4):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.5.4):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKUI (3.5.4):
+    - MOBFoundation
 
 DEPENDENCIES:
   - BmobSDK
@@ -27,11 +34,11 @@ DEPENDENCIES:
   - ShareSDK3/ShareSDKUI
 
 SPEC CHECKSUMS:
-  BmobSDK: e188cb31d6a8417ab668aee821da227d7512b865
+  BmobSDK: 315013af15af31697a3b92cad2c74effed849b85
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MOBFoundation: 2bc5cd7011a2db75cf2b3ceacb7f4227eec88f3e
-  ShareSDK3: 08ed714e2bbdcd97ab60f58cb398227341dfc20a
+  MOBFoundation: 170a1b551023123590c349c491584d0d081ad5d5
+  ShareSDK3: 80e4208c44b259781a17c411f6feec99b604fc25
 
 PODFILE CHECKSUM: 52ba30ea1a6faa0a8af368be7009c22622afc1da
 

@@ -64,6 +64,7 @@
     [super viewWillAppear:YES];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
     NSDate *currentDate = [NSDate date];
     _currentDateString = [formatter stringFromDate:currentDate];
     
@@ -148,7 +149,7 @@
     
     //money数据
     UserInfoModel *userModel = self.userArr.firstObject;
-    self.contentView.moneyLabel.text = [NSString stringWithFormat:@"$%@-",userModel.money];
+    self.contentView.moneyLabel.text = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
 }
 
 - (void)bleConnect
@@ -202,13 +203,12 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     //定义一个newPhoto，用来存放我们选择的图片。
-    UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     //跳转到分享界面
     ShareViewController *vc = [[ShareViewController alloc] init];
     vc.shareImageView.image = newPhoto;
-    vc.shareImageView.contentMode = UIViewContentModeScaleToFill;
     //money数据
     self.userArr = nil;
     UserInfoModel *userModel = self.userArr.firstObject;
@@ -404,7 +404,7 @@
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
         PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//方式1
         //允许编辑，即放大裁剪
-        PickerImage.allowsEditing = YES;
+        PickerImage.allowsEditing = NO;
         //自代理
         PickerImage.delegate = self;
         //页面跳转
@@ -415,7 +415,7 @@
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
         PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//通过相机
         //允许编辑，即放大裁剪
-        PickerImage.allowsEditing = YES;
+        PickerImage.allowsEditing = NO;
         //代理
         PickerImage.delegate = self;
         //页面跳转
@@ -466,7 +466,8 @@
     }else {
         self.popUpViewController = [[DGPopUpViewController alloc] init];
         self.popUpViewController.view.backgroundColor = kClearColor;
-        [self.popUpViewController showInView: self.view animated: YES];
+        //[self.popUpViewController showInView:self.view animated:YES];
+        [self.popUpViewController showInView:[UIApplication sharedApplication].windows animated:YES];
         
         self.userArr = nil;
         UserInfoModel *userModel = self.userArr.firstObject;

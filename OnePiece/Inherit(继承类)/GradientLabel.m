@@ -27,9 +27,6 @@
     self.customDirection = YES;
 }
 
-
-
-
 -(void) setGradientStartColor: (UIColor*)startColor
                      endColor: (UIColor*)endColor{
     CGFloat red1 = 0.0;

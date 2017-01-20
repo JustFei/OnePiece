@@ -49,6 +49,9 @@
     
     
     self.nameLabel.frame = XXF_CGRectMake(kViewCenter.x - 80, 142.5, 160, 30);
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
+        self.nameLabel.text = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    }
     UIView *cutView = [[UIView alloc] initWithFrame:XXF_CGRectMake(kViewCenter.x - 137.5, 178.5, 275, 1)];
     cutView.backgroundColor = kUIColorFromHEX(0xcccccc, 1);
     [self addSubview:cutView];
@@ -122,19 +125,27 @@
 #pragma mark - Action
 - (void)logout:(UIButton *)sender
 {
-    //清空蓝牙连接信息等状态
-    self.myBleTool.isReconnect = NO;
-    [self.myBleTool unConnectDevice];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralUUID"];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralMac"];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"userHeadImage"];
-    [self.myFmdbTool deleteUserInfoData:nil];
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //清空蓝牙连接信息等状态
+        self.myBleTool.isReconnect = NO;
+        [self.myBleTool unConnectDevice];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralUUID"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralName"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"bindPeripheralMac"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"userHeadImage"];
+        [self.myFmdbTool deleteUserInfoData:nil];
+        
+        LoginViewController *vc = [[LoginViewController alloc] init];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Login"];
+        [[self findViewController:self] presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [vc addAction:okAc];
+    [vc addAction:cancelAc];
+    [[self findViewController:self] presentViewController:vc animated:YES completion:nil];
     
-    LoginViewController *vc = [[LoginViewController alloc] init];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Login"];
-    [[self findViewController:self] presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 //    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //    delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
 }

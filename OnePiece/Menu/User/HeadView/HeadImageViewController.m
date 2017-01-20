@@ -41,13 +41,12 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     //查找UserModel
-    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-    [self.bquery whereKey:@"account" equalTo:account];
+    [self.bquery whereKey:@"account" equalTo:self.accountString];
     [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         //没有返回错误
         if (!error) {
             //对象存在
-            if (array) {
+            if (array.count) {
                 self.obj = array.firstObject;
             }
         }else{
@@ -73,35 +72,44 @@
     self.hud.mode = MBProgressHUDModeIndeterminate;
     [self.hud.label setText:@"正在同步头像。。。"];
     
-    BmobFile *file = [[BmobFile alloc] initWithFileName:@"userHeadImage.png" withFileData:imageData];
-    [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
-        //如果文件保存成功，则把文件添加到filetype列
-        if (isSuccessful){
-            [self.obj setObject:file forKey:@"userIcon"];
-//            [self.obj setObject:file.url forKey:@"userIcon"];
-            [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                if (isSuccessful) {
-                    [self.hud.label setText:[NSString stringWithFormat:@"头像已同步完成"]];
-                    [self.hud hideAnimated:YES afterDelay:1];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }else {
-                    [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
-                    [self.hud hideAnimated:YES afterDelay:1];
-                }
-            }];
-            //打印file文件的url地址
-            DLog(@"file url %@",file.url);
-        } else {
-            //进行处理
-            DLog(@"%@",error);
-            [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
+    if (self.obj) {
+        BmobFile *file = [[BmobFile alloc] initWithFileName:@"userHeadImage.png" withFileData:imageData];
+        [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
+            //如果文件保存成功，则把文件添加到filetype列
+            if (isSuccessful){
+                [self.obj setObject:file forKey:@"userIcon"];
+                //            [self.obj setObject:file.url forKey:@"userIcon"];
+                [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    if (isSuccessful) {
+                        [self.hud.label setText:[NSString stringWithFormat:@"头像已同步完成"]];
+                        [self.hud hideAnimated:YES afterDelay:1];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else {
+                        [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
+                        [self.hud hideAnimated:YES afterDelay:1];
+                    }
+                }];
+                //打印file文件的url地址
+                DLog(@"file url %@",file.url);
+            } else {
+                //进行处理
+                DLog(@"%@",error);
+                [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
+                [self.hud hideAnimated:YES afterDelay:1];
+            }
+        }];
+    }else {
+        if (self.chooseHeadImage) {
+            self.chooseHeadImage(self.bigHeadImageView.image);
+            [self.hud.label setText:[NSString stringWithFormat:@"头像已同步完成"]];
             [self.hud hideAnimated:YES afterDelay:1];
+            //[self.navigationController popViewControllerAnimated:YES];
         }
-    }];
+    }
     
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
+    //[[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
 }
 
 - (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize

@@ -86,7 +86,9 @@
 {
     self.myBleTool.isReconnect = NO;
     [self.myBleTool unConnectDevice];
-    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    [self.hud hideAnimated:YES afterDelay:3];
     //查找GameScore表里面account的数据
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     [self.bquery whereKey:@"account" equalTo:account];
@@ -160,6 +162,29 @@
                     [obj setObject:device.macAddress forKey:@"peripheralMac"];
                     [obj setObject:@"1" forKey:@"isBind"];
                     [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                        if (isSuccessful) {
+                            [self.hud.label setText:[NSString stringWithFormat:@"已绑定设备：%@",device.deviceName]];
+                            [self.hud hideAnimated:YES afterDelay:1];
+                            UserInfoModel *model = [[UserInfoModel alloc] init];
+                            model.peripheralName = device.deviceName;
+                            model.peripheralMac = device.macAddress;
+                            [self.myFmdbTool modifyUserInfoModel:model  withModityType:UserInfoModifyTypePeripheralName];
+                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypePeripheralMac];
+                            
+                            [[NSUserDefaults standardUserDefaults] setObject:device.uuidString forKey:@"bindPeripheralUUID"];
+                            [[NSUserDefaults standardUserDefaults] setObject:device.deviceName forKey:@"bindPeripheralName"];
+                            [[NSUserDefaults standardUserDefaults] setObject:device.macAddress forKey:@"bindPeripheralMac"];
+                            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBind"];
+                            
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                if (self.returnMain) {
+                                    OPMainViewController *vc = [[OPMainViewController alloc] init];
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                }else {
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                            });
+                        }
                         if (error) {
                             DLog(@"%@",error);
                         }
@@ -171,28 +196,7 @@
         }
     }];
     
-    [self.hud.label setText:[NSString stringWithFormat:@"已绑定设备：%@",device.deviceName]];
-    [self.hud hideAnimated:YES afterDelay:1];
-    UserInfoModel *model = [[UserInfoModel alloc] init];
-    model.peripheralName = device.deviceName;
-    model.peripheralMac = device.macAddress;
-    [self.myFmdbTool modifyUserInfoModel:model  withModityType:UserInfoModifyTypePeripheralName];
-    [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypePeripheralMac];
     
-    [[NSUserDefaults standardUserDefaults] setObject:device.uuidString forKey:@"bindPeripheralUUID"];
-    [[NSUserDefaults standardUserDefaults] setObject:device.deviceName forKey:@"bindPeripheralName"];
-    [[NSUserDefaults standardUserDefaults] setObject:device.macAddress forKey:@"bindPeripheralMac"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBind"];
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.returnMain) {
-            OPMainViewController *vc = [[OPMainViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    });
 }
 
 - (void)manridyBLEDidFailConnectDevice:(manridyBleDevice *)device

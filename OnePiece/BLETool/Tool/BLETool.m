@@ -548,7 +548,7 @@ static BLETool *bleTool = nil;
             break;
     }
     
-    [_myCentralManager scanForPeripheralsWithServices:nil options:nil];
+    //[_myCentralManager scanForPeripheralsWithServices:nil options:nil];
 }
 
 //查找到正在广播的指定外设

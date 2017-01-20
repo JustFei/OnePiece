@@ -92,6 +92,10 @@
     UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"用户昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [vc addTextFieldWithConfigurationHandler:^(UITextField *textField){
         textField.placeholder = @"请输入昵称";
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
+            //默认显示当前名称
+            textField.text = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+        }
         textField.borderStyle = UITextBorderStyleNone;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
     }];
@@ -129,7 +133,8 @@
     if (alertController) {
         UITextField *login = alertController.textFields.firstObject;
         UIAlertAction *okAction = alertController.actions.lastObject;
-        okAction.enabled = login.text.length > 0;
+        //长度限制在0-8之间
+        okAction.enabled = login.text.length > 0 && login.text.length <= 8;
     }
 }
 
@@ -490,6 +495,8 @@
                 case 0:
                 {
                     HeadImageViewController *vc = [[HeadImageViewController alloc] init];
+                    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+                    vc.accountString = account;
                     [[self findViewController:self].navigationController pushViewController:vc animated:YES];
                 }
                     break;
@@ -574,7 +581,7 @@
 {
     if (!_heightArr) {
         NSMutableArray *heightMutArr = [NSMutableArray array];
-        for (int i = 100; i <= 220; i ++) {
+        for (int i = 90; i <= 200; i ++) {
             NSString *height = [NSString stringWithFormat:@"%dcm",i];
             [heightMutArr addObject:height];
         }
@@ -588,7 +595,7 @@
 {
     if (!_weightArr) {
         NSMutableArray *weightMutArr = [NSMutableArray array];
-        for (int i = 30; i <= 150; i ++) {
+        for (int i = 15; i <= 150; i ++) {
             NSString *weight = [NSString stringWithFormat:@"%dkg",i];
             [weightMutArr addObject:weight];
         }

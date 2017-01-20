@@ -39,7 +39,7 @@
 }
 
 #pragma mark - Add SubView
-- (void) showInView: (UIView *)aView animated: (BOOL)animated {
+- (void) showInView: (UIWindow *)aView animated: (BOOL)animated {
     self.view.center = aView.center;
     [aView addSubview: self.view];
     if (animated) {

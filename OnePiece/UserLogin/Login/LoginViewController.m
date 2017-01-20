@@ -122,7 +122,7 @@
         
         [bquery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (number == 0) {
-                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该用户不存在，请重新输入。" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账号和密码不匹配，请检查后重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                 [view show];
                 [self.myHud hideAnimated:YES];
             }
@@ -181,6 +181,7 @@
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
                         NSData *imageData = UIImagePNGRepresentation(userIcon);
                         [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
+                        [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
                         if ([isBind isEqualToString:@"0"]) {
                             [[NSUserDefaults standardUserDefaults] setBool:0 forKey:@"isBind"];
                         }else if ([isBind isEqualToString:@"1"]) {

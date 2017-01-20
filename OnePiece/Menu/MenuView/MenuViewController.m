@@ -22,6 +22,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kBackGroundColor;
     self.contentView.backgroundColor = kBackGroundColor;
+    self.navigationItem.title = @"菜单";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
 }

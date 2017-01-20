@@ -282,9 +282,10 @@
 - (MoveAbleImageView *)shareImageView
 {
     if (!_shareImageView) {
-        MoveAbleImageView *view = [[MoveAbleImageView alloc] initWithFrame:XXF_CGRectMake(0, 88 * kControllerWidth / 375, kControllerWidth, kControllerWidth)];
+        MoveAbleImageView *view = [[MoveAbleImageView alloc] initWithFrame:XXF_CGRectMake(0, 0, kControllerWidth, kControllerHeight - 152 * kControllerWidth / 375)];
         view.userInteractionEnabled = YES;
         [view setMultipleTouchEnabled:YES];
+        view.contentMode = UIViewContentModeScaleAspectFit;
         [self.backView addSubview:view];
         _shareImageView = view;
     }

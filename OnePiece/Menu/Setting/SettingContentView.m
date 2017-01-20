@@ -144,10 +144,12 @@
                     cell.nameLabel.text = peripheralName;
                     cell.nameLabel.hidden = NO;
                     [cell.disbindButton setTitle:@"解除绑定" forState:UIControlStateNormal];
+                    [cell.disbindButton setTitleColor:kRedColor forState:UIControlStateNormal];
                     cell.disbindButton.hidden = NO;
                 }else {
                     cell.nameLabel.hidden = YES;
                     [cell.disbindButton setTitle:@"绑定手环" forState:UIControlStateNormal];
+                    [cell.disbindButton setTitleColor:kBlueColor forState:UIControlStateNormal];
                     cell.disbindButton.hidden = NO;
                 }
             }else {

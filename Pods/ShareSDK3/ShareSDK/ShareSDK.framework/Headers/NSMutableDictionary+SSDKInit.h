@@ -85,7 +85,7 @@
  *  @param appKey        应用标识
  *  @param appSecret     应用密钥
  *  @param redirectUri   回调地址
- *  authType      授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ *  @param authType      授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupTencentWeiboByAppKey:(NSString *)appKey
                             appSecret:(NSString *)appSecret
@@ -231,7 +231,7 @@
  *
  *  @param appKey   应用标识, 当使用客户端授权分享和授权时需要传入该标识
  *  @param restApiKey  RestApi标识
- *  @param redirectUri 回调地址
+ *  @param reidrectUri 回调地址
  *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupKaKaoByAppKey:(NSString *)appKey
@@ -255,7 +255,7 @@
  *
  *  @param applicationId 应用标识
  *  @param secretKey     应用密钥
- *  authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupVKontakteByApplicationId:(NSString *)applicationId
                                 secretKey:(NSString *)secretKey;
@@ -292,7 +292,7 @@
  *  设置Instapaper
  *
  *  @param consumerKey    应用标识
- *  @param consumerSecret 应用密钥
+ *  @param comsumerSecret 应用密钥
  */
 - (void)SSDKSetupInstapaperByConsumerKey:(NSString *)consumerKey
                           consumerSecret:(NSString *)consumerSecret;

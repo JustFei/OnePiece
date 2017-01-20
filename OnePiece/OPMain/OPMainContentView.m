@@ -123,7 +123,7 @@
 {
     if (!_moneyLabel) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
-        label.text = @"$0~";
+        label.text = @"0-";
         label.font = [UIFont fontWithName:@"BernardMT-Condensed" size:30 * kViewWidth / 375];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = kUIColorFromHEX(0x884227,1);
@@ -144,11 +144,12 @@
         label.text = @"0";
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment = NSTextAlignmentLeft;
-        label.textColor = kUIColorFromHEX(0xe06800, 1);
+        //label.textColor = kUIColorFromHEX(0xe06800, 1);
+        label.textColor = kUIColorFromHEX(0xe06700, 1);
         label.outlineThickness = 1;
         label.outlineColor = kUIColorFromHEX(0x000000, 1);
         label.drawOutline = YES;
-        label.drawGradient = YES;
+        //label.drawGradient = YES;
         [self addSubview:label];
         _stepLabel = label;
     }
@@ -164,10 +165,10 @@
         label.text = @"0";
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment= NSTextAlignmentRight;
-        label.textColor = kUIColorFromHEX(0xe06800, 1);
+        label.textColor = kUIColorFromHEX(0xe06700, 1);
         label.outlineThickness = 1;
         label.outlineColor = kUIColorFromHEX(0x000000, 1);
-        label.drawGradient = YES;
+        //label.drawGradient = YES;
         label.drawOutline = YES;
         [self addSubview:label];
         _sleepLabel = label;

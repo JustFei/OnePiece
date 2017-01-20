@@ -31,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self creatUI];
+    self.navigationItem.title = @"历史";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
     self.currentDateString = [formatter stringFromDate:[NSDate date]];

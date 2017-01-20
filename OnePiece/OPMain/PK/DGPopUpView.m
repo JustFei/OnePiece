@@ -18,6 +18,7 @@
 @property (nonatomic ,strong) UILabel *moneyResultLabel;
 @property (nonatomic ,strong) NSArray *pkResultArr;
 @property (nonatomic ,strong) NSArray *moneyArr;
+@property (nonatomic ,assign) BOOL allowTouchClose;
 
 @end
 
@@ -27,6 +28,7 @@
 - (instancetype) initWithFrame: (CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self layoutIfNeeded];
+        self.allowTouchClose = NO;
         
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = 3;
@@ -61,8 +63,8 @@
                 self.moneyResultLabel.frame = XXF_CGRectMake(10, self.pkResultLabel.frame.origin.y + self.pkResultLabel.frame.size.height + 40, kViewWidth - 20, 80 * kViewWidth / 375);
                 self.moneyResultLabel.text = self.moneyArr[self.pkResult];
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self closeAnimation];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.allowTouchClose = YES;
                 });
                 
             });
@@ -75,6 +77,13 @@
         
     }
     return self;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (self.allowTouchClose) {
+        [self closeAnimation];
+    }
 }
 
 - (instancetype) init {

@@ -105,7 +105,7 @@
                         [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
                             if (error) {
                                 DLog(@"%@",error);
-                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败,请检查手机号和网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                 [view show];
                                 
                                 //隐藏等待菊花
@@ -139,7 +139,7 @@
                         [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"重置密码" resultBlock:^(int number, NSError *error) {
                             if (error) {
                                 DLog(@"%@",error);
-                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败，请检查当前网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败,请检查手机号和网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                 [view show];
                                 
                                 //隐藏等待菊花
@@ -199,7 +199,7 @@
             }
         } else {
             DLog(@"%@",error);
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码输入错误，请重新输入。" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码与手机号不匹配，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
             [view show];
             //隐藏等待菊花
             [MBProgressHUD hideHUDForView:self.view animated:YES];

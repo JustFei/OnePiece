@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ChooseHeadImage)(UIImage *);
+
 @interface HeadImageViewController : UIViewController
 {
     BOOL isLoatServer;
 }
+
+@property (nonatomic ,strong) ChooseHeadImage chooseHeadImage;
+@property (nonatomic ,strong) NSString *accountString;
 
 
 @end

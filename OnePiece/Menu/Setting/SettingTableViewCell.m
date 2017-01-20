@@ -39,9 +39,17 @@
         vc.returnMain = NO;
         [[self findViewController:self].navigationController pushViewController:vc animated:YES];
     }else {
-        [vc disBindPeripheral];
-        self.nameLabel.hidden = YES;
-        [sender setTitle:@"绑定手环" forState:UIControlStateNormal];
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认是否要解除绑定" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [vc disBindPeripheral];
+            self.nameLabel.hidden = YES;
+            [sender setTitle:@"绑定手环" forState:UIControlStateNormal];
+            [sender setTitleColor:kBlueColor forState:UIControlStateNormal];
+        }];
+        UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [alertVc addAction:okAc];
+        [alertVc addAction:cancelAc];
+        [[self findViewController:self] presentViewController:alertVc animated:YES completion:nil];
     }
 }
 - (IBAction)changeTimeSwitch:(UISwitch *)sender

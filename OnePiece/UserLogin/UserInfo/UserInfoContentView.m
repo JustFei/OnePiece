@@ -30,6 +30,8 @@
 @property (nonatomic ,strong) UILabel *infoLabel;
 @property (nonatomic ,weak) UIButton *nextStepButton;
 @property (nonatomic ,strong) FMDBTool *myFmdbTool;
+@property (nonatomic ,strong) UIImage *headImage;
+@property (nonatomic ,strong) MBProgressHUD *hud;
 
 @end
 
@@ -41,7 +43,7 @@
     if (self) {
         self.frame = frame;
         self.titleArr = @[@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
-        NSArray *arr = @[@[@"",@"+86 18812341234"],@[@"未选择",@"1980/01/01",@"150cm",@"80kg"],@[@"10000"]];
+        NSArray *arr = @[@[@"",@"用户名"],@[@"未选择",@"1980/01/01",@"150cm",@"80kg"],@[@"10000"]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
     }
     return self;
@@ -179,42 +181,72 @@
 - (void)nextStepAction:(UIButton *)sender
 {
     UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请完善用户信息" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
-    if (self.userModel.account && self.userModel.pwd && self.userModel.userName && self.userModel.gender != -1 && self.userModel.birthday && self.userModel.height != 0 && self.userModel.weight != 0 && self.userModel.stepTarget != 0) {
-        
+    if (self.headImage && self.userModel.account && self.userModel.pwd && self.userModel.userName && self.userModel.gender != -1 && self.userModel.birthday && self.userModel.height != 0 && self.userModel.weight != 0 && self.userModel.stepTarget != 0) {
         //显示等待菊花
-        [MBProgressHUD showHUDAddedTo:self animated:YES];
-        //这里上传所有的用户数据
-        //往UserModel表添
-        BmobObject *UserModel = [BmobObject objectWithClassName:@"UserModel"];
-        [UserModel setObject:self.userModel.account forKey:@"account"];
-        [UserModel setObject:self.userModel.pwd forKey:@"pwd"];
-        [UserModel setObject:self.userModel.userName forKey:@"userName"];
-        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.gender] forKey:@"gender"];
-        [UserModel setObject:self.userModel.birthday forKey:@"birthday"];
-        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.height] forKey:@"height"];
-        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.weight] forKey:@"weight"];
-        [UserModel setObject:[NSNumber numberWithInteger:70] forKey:@"stepLength"];
-        [UserModel setObject:[NSNumber numberWithInteger:self.userModel.stepTarget] forKey:@"stepTarget"];
-        [UserModel setObject:[NSNumber numberWithInteger:8] forKey:@"sleepTarget"];
-        [UserModel setObject:[NSNumber numberWithInt:50] forKey:@"money"];
-        [UserModel saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-            //进行操作
-            if (isSuccessful) {
-                DLog(@"数据上传成功");
-                [MBProgressHUD hideHUDForView:self animated:YES];
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
-                NSString *registTime = [formatter stringFromDate:[NSDate date]];
-                self.userModel.registTime = registTime; //保存注册的时间
+        self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        self.hud.label.text = @"正在存储信息";
+        self.hud.mode = MBProgressHUDModeIndeterminate;
+        NSData *imageData = UIImagePNGRepresentation(self.headImage);
+        BmobFile *file = [[BmobFile alloc] initWithFileName:@"userHeadImage.png" withFileData:imageData];
+        [file saveInBackground:^(BOOL isSuccessful, NSError *error) {
+            //如果文件保存成功，则把文件添加到filetype列
+            if (isSuccessful){
                 
-                [self.myFmdbTool insertUserInfoModel:self.userModel];
+                //这里上传所有的用户数据
+                //往UserModel表添
+                BmobObject *UserModel = [BmobObject objectWithClassName:@"UserModel"];
+                [UserModel setObject:self.userModel.account forKey:@"account"];
+                [UserModel setObject:self.userModel.pwd forKey:@"pwd"];
+                [UserModel setObject:self.userModel.userName forKey:@"userName"];
+                [UserModel setObject:[NSNumber numberWithInteger:self.userModel.gender] forKey:@"gender"];
+                [UserModel setObject:self.userModel.birthday forKey:@"birthday"];
+                [UserModel setObject:[NSNumber numberWithInteger:self.userModel.height] forKey:@"height"];
+                [UserModel setObject:[NSNumber numberWithInteger:self.userModel.weight] forKey:@"weight"];
+                [UserModel setObject:[NSNumber numberWithInteger:70] forKey:@"stepLength"];
+                self.userModel.stepLength = 70;
+                [UserModel setObject:[NSNumber numberWithInteger:self.userModel.stepTarget] forKey:@"stepTarget"];
+                [UserModel setObject:[NSNumber numberWithInteger:8] forKey:@"sleepTarget"];
+                self.userModel.sleepTarget = 8;
+                [UserModel setObject:file forKey:@"userIcon"];
+                self.userModel.money = [NSNumber numberWithInt:50].stringValue;
+                [UserModel setObject:[NSNumber numberWithInt:50] forKey:@"money"];
+                [UserModel saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    //进行操作
+                    if (isSuccessful) {
+                        DLog(@"数据上传成功");
+                        self.hud.label.text = @"保存成功";
+                        [self.hud hideAnimated:YES afterDelay:1];
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
+                        NSString *registTime = [formatter stringFromDate:[NSDate date]];
+                        self.userModel.registTime = registTime; //保存注册的时间
+                        
+                        [self.myFmdbTool insertUserInfoModel:self.userModel];
+                        [[NSUserDefaults standardUserDefaults] setObject:self.userModel.account forKey:@"account"];
+                        [[NSUserDefaults standardUserDefaults] setObject:UIImagePNGRepresentation(self.headImage) forKey:@"userHeadImage"];
+                        [[NSUserDefaults standardUserDefaults] setObject:self.userModel.userName forKey:@"userName"];
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
+                        BindPerViewController *vc = [[BindPerViewController alloc] init];
+                        vc.returnMain = YES;
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+                        });
+                        
+                    }else {
+                        self.hud.label.text = @"保存失败，请检查网络并重试";
+                        [self.hud hideAnimated:YES afterDelay:1];
+                    }
+                }];
+                
+                
+                //            [self.obj setObject:file.url forKey:@"userIcon"];
+                //打印file文件的url地址
+                DLog(@"file url %@",file.url);
             }
         }];
-        [[NSUserDefaults standardUserDefaults] setObject:self.userModel.account forKey:@"account"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Login"];
-        BindPerViewController *vc = [[BindPerViewController alloc] init];
-        vc.returnMain = YES;
-        [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+        
+        
     }else {
         [view show];
     }
@@ -358,9 +390,8 @@
         {
             if (indexPath.row == 0) {
                 cell.headImageView.hidden = NO;
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
-                    NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];
-                    [cell.headImageView setImage:[UIImage imageWithData:imageData]];
+                if (self.headImage) {
+                    [cell.headImageView setImage:self.headImage];
                 }else {
                     cell.headImageView.image = [UIImage imageNamed:@"HeadImage_default"];
                 }
@@ -418,6 +449,10 @@
                 case 0:
                 {
                     HeadImageViewController *vc = [[HeadImageViewController alloc] init];
+                    vc.accountString = self.userModel.account;
+                    vc.chooseHeadImage = ^(UIImage *headImage){
+                        self.headImage = headImage;
+                    };
                     [[self findViewController:self].navigationController pushViewController:vc animated:YES];
                 }
                     break;
