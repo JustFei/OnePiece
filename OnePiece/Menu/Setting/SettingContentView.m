@@ -52,14 +52,15 @@
 #pragma mark - Action
 - (void)showInfoDateView:(UIButton *)sender
 {
+    self.title = sender.titleLabel.text;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    //替换掉原来数组中的闹钟数据
+    ClockModel *model = self.timeArr[sender.tag - 100];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //获取到该cell的label对象，修改text
         [sender setTitle:self.title forState:UIControlStateNormal];
         
-        //替换掉原来数组中的闹钟数据
-        ClockModel *model = self.timeArr[sender.tag - 100];
         model.time = self.title;
         model.isOpen = sender.enabled;
         [self.timeArr replaceObjectAtIndex:sender.tag - 100 withObject:model];
@@ -79,17 +80,19 @@
     [self.datePickerView setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
     // 设置时区
     [self.datePickerView setTimeZone:[NSTimeZone localTimeZone]];
-    // 设置当前显示时间
-    [self.datePickerView setDate:[NSDate date] animated:YES];
+    // 设置当前显示时间为数据库中的时间
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    [self.datePickerView setDate:[formatter dateFromString:model.time]];
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"NL"];
     [self.datePickerView setLocale:locale];
     // 当值发生改变的时候调用的方法
     [self.datePickerView addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [alert.view addSubview:self.datePickerView];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"hh:mm"];
-    self.title = [formatter stringFromDate:[NSDate date]];
+//    NSDateFormatter *currentFormatter = [[NSDateFormatter alloc] init];
+//    [currentFormatter setDateFormat:@"hh:mm"];
+//    self.title = [currentFormatter stringFromDate:[NSDate date]];
     
     [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
 }
@@ -222,6 +225,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section) {
+        SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self showInfoDateView:cell.timeButton];
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:XXF_CGRectMake(0, 0, kViewWidth, 20)];
@@ -257,7 +269,7 @@
         UITableView *view = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         view.tableFooterView = [[UIView alloc] init];
         view.backgroundColor = kClearColor;
-        view.allowsSelection = NO;
+        view.allowsSelection = YES;
         view.delegate = self;
         view.dataSource = self;
         

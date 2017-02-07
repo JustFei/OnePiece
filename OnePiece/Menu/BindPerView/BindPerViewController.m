@@ -24,6 +24,7 @@
 @property (nonatomic ,strong) manridyBleDevice *currentDevice;
 @property (nonatomic ,strong) MBProgressHUD *hud;
 @property (nonatomic ,strong) BmobQuery *bquery;
+@property (nonatomic ,strong) NSTimer *refreshTimer;
 
 @end
 
@@ -50,8 +51,12 @@
     self.perMutArr = [NSMutableArray array];
     self.tableView.backgroundColor = kBackGroundColor;
     
-    [self.myBleTool scanDevice];
+    //[self.myBleTool scanDevice];
     self.bindButton.enabled = NO;
+    
+    //监听state变化的状态
+    [self.myBleTool addObserver:self forKeyPath:@"systemBLEstate" options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+    [self openTimer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,7 +66,7 @@
 
 - (void)createUI
 {
-    self.navigationItem.title = @"绑定手环";
+    self.navigationItem.title = @"手环列表";
     self.view.backgroundColor = kBackGroundColor;
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightButton.frame = XXF_CGRectMake(0, 0, 44, 44);
@@ -73,13 +78,55 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    DLog(@"监听到%@对象的%@属性发生了改变， %@", object, keyPath, change[@"new"]);
+    if ([keyPath isEqualToString:@"systemBLEstate"]) {
+        NSString *new = change[@"new"];
+        switch (new.integerValue) {
+            case 4:
+            {
+                //当蓝牙关闭，清空列表
+                [self.perMutArr removeAllObjects];
+                [self deletAllRowsAtTableView];
+                self.bindButton.enabled = NO;
+            }
+                break;
+            case 5:
+            {
+                //当蓝牙打开，刷新列表
+                [self refreshTableView:nil];
+                [self openTimer];
+            }
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)dealloc
+{
+    [self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
+}
+
+#pragma mark - NSTimer refresh the tableview
+- (void)openTimer
+{
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(refreshTableView:) userInfo:nil repeats:YES];
+    [self.refreshTimer fire];
+}
+
 #pragma mark - Action
 - (void)refreshTableView:(UIButton *)sender
 {
     self.bindButton.enabled = NO;
     self.currentDevice = nil;
     [self deletAllRowsAtTableView];
-    [self.myBleTool scanDevice];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.myBleTool scanDevice];
+    });
+    
 }
 
 - (void)disBindPeripheral
@@ -126,6 +173,14 @@
         [self.myBleTool stopScan];
         [self.bindButton setEnabled:NO];
         self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.myBleTool.connectState != kBLEstateDidConnected) {
+                [self.hud.label setText:@"连接失败"];
+                [self.hud setMode:MBProgressHUDModeText];
+                [self.hud hideAnimated:YES afterDelay:2];
+            }
+        });
     }
 }
 

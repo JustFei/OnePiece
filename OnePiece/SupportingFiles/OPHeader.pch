@@ -10,6 +10,7 @@
 #import "Log.h"
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "NetworkTool.h"
 
 CG_INLINE CGRect
 XXF_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)

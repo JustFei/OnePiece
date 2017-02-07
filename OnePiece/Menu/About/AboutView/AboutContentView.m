@@ -41,29 +41,29 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    //1.获取上下文
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    //2.设置当前上下问路径
-    //设置起始点
-    CGContextMoveToPoint(context, kViewCenter.x - 137.5, 215 + 64);
-    //增加点
-    CGContextAddLineToPoint(context, kViewCenter.x + 137.5, 215 + 64);
-    //关闭路径
-    CGContextClosePath(context);
-    //3.设置属性
-    /*
-     UIKit会默认导入 core Graphics框架，UIKit对常用的很多的唱歌方法做了封装
-     UIColor setStroke设置边线颜色
-     uicolor setFill 设置填充颜色
-     
-     */
-    [kBlackColor setStroke];
-    [[UIColor blueColor] setFill];
-    //    [[UIColor yellowColor]set];
-    //4.绘制路径
-    CGContextDrawPath(context, kCGPathFillStroke);
-}
+//- (void)drawRect:(CGRect)rect {
+//    //1.获取上下文
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    //2.设置当前上下问路径
+//    //设置起始点
+//    CGContextMoveToPoint(context, kViewCenter.x - 137.5, 215 + 64);
+//    //增加点
+//    CGContextAddLineToPoint(context, kViewCenter.x + 137.5, 215 + 64);
+//    //关闭路径
+//    CGContextClosePath(context);
+//    //3.设置属性
+//    /*
+//     UIKit会默认导入 core Graphics框架，UIKit对常用的很多的唱歌方法做了封装
+//     UIColor setStroke设置边线颜色
+//     uicolor setFill 设置填充颜色
+//     
+//     */
+//    [kBlackColor setStroke];
+//    [[UIColor blueColor] setFill];
+//    //    [[UIColor yellowColor]set];
+//    //4.绘制路径
+//    CGContextDrawPath(context, kCGPathFillStroke);
+//}
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

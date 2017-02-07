@@ -11,10 +11,13 @@
 #import "MBProgressHUD.h"
 
 @interface FeedBackViewController () < UITextViewDelegate >
-
+{
+    NSInteger textLength;
+}
 @property (nonatomic ,strong) UITextView *textView;
 @property (nonatomic ,weak) UILabel *wordCountLabel;
 @property (nonatomic ,strong) MBProgressHUD *hud;
+@property (nonatomic ,strong) UIButton *rightButton;
 
 @end
 
@@ -23,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    textLength = 0;
     self.textView = [[UITextView alloc] initWithFrame:XXF_CGRectMake(0, 94, kControllerWidth, 200)];
     self.textView.editable = YES;
     self.textView.layer.borderWidth = 1;
@@ -39,8 +42,14 @@
     self.wordCountLabel.backgroundColor = kClearColor;
     
     self.navigationItem.title = @"反馈";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(feedBackAction:)];
+    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];;
+    [self.rightButton setTitle:@"提交" forState:UIControlStateNormal];
+    [self.rightButton setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [self.rightButton setTitleColor:kGrayColor forState:UIControlStateDisabled];
+    [self.rightButton addTarget:self action:@selector(feedBackAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
+    self.rightButton.enabled = NO;
 }
 
 #pragma mark - Action
@@ -49,7 +58,7 @@
     [self.textView resignFirstResponder];
 }
 
-- (void)feedBackAction:(UIBarButtonItem *)item
+- (void)feedBackAction:(UIButton *)sender
 {
     [self.textView resignFirstResponder];
     //提交反馈
@@ -57,7 +66,7 @@
     //往UserModel表添
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
-    [self.hud.label setText:@"正在连接设备..."];
+    [self.hud.label setText:@"正在提交反馈..."];
     
     BmobObject *Feed_Back = [BmobObject objectWithClassName:@"Feed_Back"];
     [Feed_Back setObject:account forKey:@"account"];
@@ -74,9 +83,12 @@
             [self.hud hideAnimated:YES afterDelay:2];
             [self.hud.label setText:@"反馈成功！感谢您的建议"];
             self.textView.text = @"";
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }else{
             [self.hud hideAnimated:YES afterDelay:2];
-            [self.hud.label setText:@"反馈失败，请检查网络设置"];
+            [self.hud.label setText:@"当前网络不可用，请检查网络连接"];
         }
     }];
 }
@@ -89,6 +101,18 @@
     UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
     //获取高亮部分内容
     //NSString * selectedtext = [textView textInRange:selectedRange];
+    
+    if (text.length == 0) {
+        textLength = textView.text.length - range.length;
+    }else {
+        textLength = textView.text.length + text.length;
+    }
+    
+    if (textLength > 0) {
+        self.rightButton.enabled = YES;
+    }else {
+        self.rightButton.enabled = NO;
+    }
     
     //如果有高亮且当前字数开始位置小于最大限制时允许输入
     if (selectedRange && pos) {

@@ -34,59 +34,65 @@
 #pragma mark - Action
 - (void)changePwdAction:(UIButton *)sender
 {
-    self.myHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    self.myHud.mode = MBProgressHUDModeIndeterminate;
-    [self.myHud.label setText:@"Loading..."];
-    //都有数据的情况下，请求查询
-    BmobQuery *bquery = [BmobQuery queryWithClassName:@"UserModel"];
-    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-    [bquery whereKey:@"account" equalTo:account];
-    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        
-        if (!error) {
-            for (BmobObject *obj in array) {
-                NSString *pwd = [obj objectForKey:@"pwd"];
-                if (![pwd isEqualToString:self.oldPwdTextField.text]) {
-                    //隐藏等待菊花
-                    [self.myHud hideAnimated:YES];
-                    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的密码输入有误，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [view show];
-                }else {
-                    int count = [self validatePassword];
-                    if (count == 3) {
-                        if ([self.nPwdTextField.text isEqualToString:self.n2PwdTextField.text]) {
-                            [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
-                            [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                                
-                                if (error) {
-                                    [self.myHud hideAnimated:YES];
-                                    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接异常，密码更改失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                    [view show];
-                                }else {
-                                    [self.myHud.label setText:@"密码更改成功"];
-                                    [self.myHud hideAnimated:YES afterDelay:1.5];
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        if (self.popViewController) {
-                                            self.popViewController();
+    if ([NetworkTool isExistenceNetwork]) {
+        self.myHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        self.myHud.mode = MBProgressHUDModeIndeterminate;
+        [self.myHud.label setText:@"Loading..."];
+        //都有数据的情况下，请求查询
+        BmobQuery *bquery = [BmobQuery queryWithClassName:@"UserModel"];
+        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+        [bquery whereKey:@"account" equalTo:account];
+        [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+            
+            if (!error) {
+                for (BmobObject *obj in array) {
+                    NSString *pwd = [obj objectForKey:@"pwd"];
+                    if (![pwd isEqualToString:self.oldPwdTextField.text]) {
+                        //隐藏等待菊花
+                        [self.myHud hideAnimated:YES];
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"旧的密码输入有误，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [view show];
+                    }else {
+                        int count = [self validatePassword];
+                        if (count == 3 && self.nPwdTextField.text.length >= 6 && self.nPwdTextField.text.length <= 16) {
+                            if ([self.nPwdTextField.text isEqualToString:self.n2PwdTextField.text]) {
+                                    [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
+                                    [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                                        
+                                        if (error) {
+                                            [self.myHud hideAnimated:YES];
+                                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接异常，密码更改失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                            [view show];
+                                        }else {
+                                            [self.myHud.label setText:@"密码更改成功"];
+                                            [self.myHud hideAnimated:YES afterDelay:1.5];
+                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                if (self.popViewController) {
+                                                    self.popViewController();
+                                                }
+                                            });
                                         }
-                                    });
-                                }
-                            }];
+                                    }];
+                            }else {
+                                [self.myHud hideAnimated:YES];
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"两次输入密码不一致，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [view show];
+                            }
                         }else {
                             [self.myHud hideAnimated:YES];
-                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"两次输入密码不一致，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                             [view show];
                         }
-                    }else {
-                        [self.myHud hideAnimated:YES];
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                        [view show];
+                        
                     }
-                    
                 }
             }
-        }
-    }];
+        }];
+    }else {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络不可用，请检查网络连接" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+    }
+    
 }
 
 - (void)showThePwd:(UIGestureRecognizer *)sender

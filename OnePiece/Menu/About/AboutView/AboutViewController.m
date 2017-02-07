@@ -23,7 +23,7 @@
     self.view.backgroundColor = kWhiteColor;
     self.contentView.backgroundColor = kBackGroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"用户信息";
+    self.navigationItem.title = @"关于";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
 }

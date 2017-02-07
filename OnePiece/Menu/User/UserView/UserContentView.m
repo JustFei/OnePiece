@@ -102,24 +102,29 @@
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *nickTextField = vc.textFields.firstObject;
-        self.nickName.text = nickTextField.text;
-        [[NSUserDefaults standardUserDefaults] setObject:nickTextField.text forKey:@"userName"];
-        UserInfoModel *model = [[UserInfoModel alloc] init];
-        model.userName = nickTextField.text;
-        if (self.userArr.count) {
+        if (![NetworkTool isExistenceNetwork]) {
+            [self showNetworkFailView];
+        }else {
+            UITextField *nickTextField = vc.textFields.firstObject;
+            self.nickName.text = nickTextField.text;
+            [[NSUserDefaults standardUserDefaults] setObject:nickTextField.text forKey:@"userName"];
+            UserInfoModel *model = [[UserInfoModel alloc] init];
+            model.userName = nickTextField.text;
+            if (self.userArr.count) {
+                
+                [self.obj setObject:model.userName forKey:@"userName"];
+                [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    if (error) {
+                        DLog(@"%@",error);
+                    }else {
+                        [self.myFmdbTool modifyUserInfoModel: model withModityType:UserInfoModifyTypeUserName];
+                    }
+                }];
+            }
             
-            [self.obj setObject:model.userName forKey:@"userName"];
-            [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                if (error) {
-                    DLog(@"%@",error);
-                }else {
-                    [self.myFmdbTool modifyUserInfoModel: model withModityType:UserInfoModifyTypeUserName];
-                }
-            }];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
         }
         
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     }];
     okAction.enabled = NO;
     [vc addAction:cancleAction];
@@ -138,123 +143,172 @@
     }
 }
 
-- (void)showInfoPickerView
+- (void)showInfoPickerView:(NSString *)infoText
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //获取到该cell的label对象，修改text
-        if (self.title) {
-            self.infoLabel.text = self.title;
-            self.title = nil;
-            UserInfoModel *model = [[UserInfoModel alloc] init];
-            switch (self.pickerType) {
-                case PickerTypeGender:
-                {
-                    if ([self.infoLabel.text isEqualToString:@"男"]) {
-                        model.gender = 0;
-                    }else if ([self.infoLabel.text isEqualToString:@"女"]) {
-                        model.gender = 1;
-                    }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
-                        model.gender = -1;
+        
+        if (![NetworkTool isExistenceNetwork]) {
+            [self showNetworkFailView];
+        }else {
+            //获取到该cell的label对象，修改text
+            if (self.title) {
+                self.infoLabel.text = self.title;
+                self.title = nil;
+                UserInfoModel *model = [[UserInfoModel alloc] init];
+                switch (self.pickerType) {
+                    case PickerTypeGender:
+                    {
+                        if ([self.infoLabel.text isEqualToString:@"男"]) {
+                            model.gender = 0;
+                        }else if ([self.infoLabel.text isEqualToString:@"女"]) {
+                            model.gender = 1;
+                        }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
+                            model.gender = -1;
+                        }
+                        [self.obj setObject:[NSNumber numberWithInteger:model.gender] forKey:@"gender"];
+                        [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }else {
+                                [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
+                            }
+                        }];
+                        
                     }
-                    [self.obj setObject:[NSNumber numberWithInteger:model.gender] forKey:@"gender"];
-                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                        if (error) {
-                            DLog(@"%@",error);
-                        }else {
-                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeGender];
-                        }
-                    }];
-                    
+                        break;
+                    case PickerTypeBirthday:
+                    {
+                        model.birthday = self.infoLabel.text;
+                        [self.obj setObject:model.birthday forKey:@"birthday"];
+                        [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }else {
+                                [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeBirthday];
+                            }
+                        }];
+                        
+                    }
+                        break;
+                    case PickerTypeHeight:
+                    {
+                        model.height = self.infoLabel.text.integerValue;
+                        [self.obj setObject:[NSNumber numberWithInteger:model.height] forKey:@"height"];
+                        [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }else {
+                                [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeHeight];
+                            }
+                        }];
+                    }
+                        break;
+                    case PickerTypeWeight:
+                    {
+                        model.weight = self.infoLabel.text.integerValue;
+                        [self.obj setObject:[NSNumber numberWithInteger:model.weight] forKey:@"weight"];
+                        [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }else {
+                                [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeWeight];
+                            }
+                        }];
+                        
+                    }
+                        break;
+                    case PickerTypeMotionTarget:
+                    {
+                        model.stepTarget = self.infoLabel.text.integerValue;
+                        [self.obj setObject:[NSNumber numberWithInteger:model.stepTarget] forKey:@"stepTarget"];
+                        [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                            if (error) {
+                                DLog(@"%@",error);
+                            }else {
+                                [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeStepTarget];
+                            }
+                        }];
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                    break;
-                case PickerTypeBirthday:
-                {
-                    model.birthday = self.infoLabel.text;
-                    [self.obj setObject:model.birthday forKey:@"birthday"];
-                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                        if (error) {
-                            DLog(@"%@",error);
-                        }else {
-                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeBirthday];
-                        }
-                    }];
-                    
-                }
-                    break;
-                case PickerTypeHeight:
-                {
-                    model.height = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInteger:model.height] forKey:@"height"];
-                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                        if (error) {
-                            DLog(@"%@",error);
-                        }else {
-                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeHeight];
-                        }
-                    }];
-                }
-                    break;
-                case PickerTypeWeight:
-                {
-                    model.weight = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInteger:model.weight] forKey:@"weight"];
-                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                        if (error) {
-                            DLog(@"%@",error);
-                        }else {
-                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeWeight];
-                        }
-                    }];
-                    
-                }
-                    break;
-                case PickerTypeMotionTarget:
-                {
-                    model.stepTarget = self.infoLabel.text.integerValue;
-                    [self.obj setObject:[NSNumber numberWithInteger:model.stepTarget] forKey:@"stepTarget"];
-                    [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                        if (error) {
-                            DLog(@"%@",error);
-                        }else {
-                            [self.myFmdbTool modifyUserInfoModel:model withModityType:UserInfoModifyTypeStepTarget];
-                        }
-                    }];
-                    
-                }
-                    break;
-                    
-                default:
-                    break;
             }
         }
     }];
     [alert addAction:cancelAction];
     [alert addAction:okAction];
     
-    if (self.pickerType == PickerTypeBirthday) {
-        self.datePickerView = [[UIDatePicker alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
-        self.datePickerView.tag = 1000;
-        self.datePickerView.datePickerMode = UIDatePickerModeDate;
-        [self.datePickerView setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
-        // 设置时区
-        [self.datePickerView setTimeZone:[NSTimeZone localTimeZone]];
-        // 设置当前显示时间
-        [self.datePickerView setDate:[NSDate date] animated:YES];
-        // 设置显示最大时间（此处为当前时间）
-        [self.datePickerView setMaximumDate:[NSDate date]];
-        // 设置UIDatePicker的显示模式
-        [self.datePickerView setDatePickerMode:UIDatePickerModeDate];
-        // 当值发生改变的时候调用的方法
-        [self.datePickerView addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [alert.view addSubview:self.datePickerView];
-    }else {
-        self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
-        self.infoPickerView.dataSource = self;
-        self.infoPickerView.delegate = self;
-        self.infoPickerView.tag = 2000;
-        [alert.view addSubview:self.infoPickerView];
+    switch (self.pickerType) {
+        case PickerTypeBirthday:
+        {
+            self.datePickerView = [[UIDatePicker alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+            //self.datePickerView.tag = 1000 ;
+            [self.datePickerView setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
+            // 设置时区
+            [self.datePickerView setTimeZone:[NSTimeZone localTimeZone]];
+            // 设置当前显示时间
+            [self.datePickerView setDate:[NSDate date] animated:YES];
+            // 设置显示最大时间（此处为当前时间）
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+            NSDate *birDate = [formatter dateFromString:infoText];
+            [self.datePickerView setMaximumDate:birDate];
+            // 设置UIDatePicker的显示模式
+            [self.datePickerView setDatePickerMode:UIDatePickerModeDate];
+            // 当值发生改变的时候调用的方法
+            [self.datePickerView addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+            [alert.view addSubview:self.datePickerView];
+        }
+            break;
+        case PickerTypeGender:
+        {
+            self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+            self.infoPickerView.dataSource = self;
+            self.infoPickerView.delegate = self;
+            NSInteger index = [self.genderArr indexOfObject:infoText];
+            [self.infoPickerView selectRow:index inComponent:0 animated:NO];
+            [alert.view addSubview:self.infoPickerView];
+        }
+            break;
+        case PickerTypeHeight:
+        {
+            self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+            self.infoPickerView.dataSource = self;
+            self.infoPickerView.delegate = self;
+            NSInteger index = [self.heightArr indexOfObject:infoText];
+            [self.infoPickerView selectRow:index inComponent:0 animated:NO];
+            [alert.view addSubview:self.infoPickerView];
+        }
+            break;
+        case PickerTypeWeight:
+        {
+            self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+            self.infoPickerView.dataSource = self;
+            self.infoPickerView.delegate = self;
+            NSInteger index = [self.weightArr indexOfObject:infoText];
+            [self.infoPickerView selectRow:index inComponent:0 animated:NO];
+            [alert.view addSubview:self.infoPickerView];
+        }
+            break;
+        case PickerTypeMotionTarget:
+        {
+            self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+            self.infoPickerView.dataSource = self;
+            self.infoPickerView.delegate = self;
+            //self.infoPickerView.tag = 2000;
+            NSInteger index = [self.targetArr indexOfObject:@(infoText.integerValue)];
+            [self.infoPickerView selectRow:index inComponent:0 animated:NO];
+            [alert.view addSubview:self.infoPickerView];
+        }
+            break;
+            
+        default:
+            break;
     }
     
     [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
@@ -266,6 +320,13 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
     self.title = [formatter stringFromDate:datePicker.date];
+}
+
+//提示网络异常
+- (void)showNetworkFailView
+{
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络异常，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [view show];
 }
 
 #pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
@@ -533,14 +594,14 @@
                     break;
             }
             
-            [self showInfoPickerView];
+            [self showInfoPickerView:cell.infoLabel.text];
         }
             break;
             
         case 3:     //group 3
         {
             self.pickerType =PickerTypeMotionTarget;
-            [self showInfoPickerView];
+            [self showInfoPickerView:cell.infoLabel.text];
         }
             break;
             

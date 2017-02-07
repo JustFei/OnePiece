@@ -184,6 +184,11 @@
     }
 }
 
+- (void)dealloc
+{
+    [self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
+}
+
 - (void)connectBLE
 {
     BOOL systemConnect = [self.myBleTool retrievePeripherals];
