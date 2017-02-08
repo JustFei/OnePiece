@@ -228,7 +228,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section) {
+    if (indexPath.section == 2) {
         SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self showInfoDateView:cell.timeButton];
     }

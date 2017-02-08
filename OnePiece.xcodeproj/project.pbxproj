@@ -24,6 +24,7 @@
 		9C3781301DF80EA700700EAA /* DayHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C37812F1DF80EA700700EAA /* DayHistoryModel.m */; };
 		9C4228C41E4AC55700AC6C1B /* BaoliSCRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C4228C31E4AC55700AC6C1B /* BaoliSCRegular.ttf */; };
 		9C4228C61E4ACA4400AC6C1B /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9C4228C51E4ACA4400AC6C1B /* ChalkboardSE.ttc */; };
+		9C4228C91E4AF99100AC6C1B /* ConnectUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4228C81E4AF99100AC6C1B /* ConnectUsViewController.m */; };
 		9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */; };
 		9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */; };
 		9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */; };
@@ -128,6 +129,8 @@
 		9C37812F1DF80EA700700EAA /* DayHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayHistoryModel.m; path = History/HistoryModel/DayHistoryModel.m; sourceTree = "<group>"; };
 		9C4228C31E4AC55700AC6C1B /* BaoliSCRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BaoliSCRegular.ttf; sourceTree = "<group>"; };
 		9C4228C51E4ACA4400AC6C1B /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
+		9C4228C71E4AF99100AC6C1B /* ConnectUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectUsViewController.h; path = Menu/About/ConnectUs/ConnectUsViewController.h; sourceTree = "<group>"; };
+		9C4228C81E4AF99100AC6C1B /* ConnectUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectUsViewController.m; path = Menu/About/ConnectUs/ConnectUsViewController.m; sourceTree = "<group>"; };
 		9C4663CE1DE2CF6000DBCC6B /* AboutContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutContentView.h; path = Menu/About/AboutView/AboutContentView.h; sourceTree = "<group>"; };
 		9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutContentView.m; path = Menu/About/AboutView/AboutContentView.m; sourceTree = "<group>"; };
 		9C4663D01DE2CF6000DBCC6B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Menu/About/AboutView/AboutViewController.h; sourceTree = "<group>"; };
@@ -448,6 +451,15 @@
 			name = HistoryModel;
 			sourceTree = "<group>";
 		};
+		9C4228CA1E4AF99800AC6C1B /* ConnectUs */ = {
+			isa = PBXGroup;
+			children = (
+				9C4228C71E4AF99100AC6C1B /* ConnectUsViewController.h */,
+				9C4228C81E4AF99100AC6C1B /* ConnectUsViewController.m */,
+			);
+			name = ConnectUs;
+			sourceTree = "<group>";
+		};
 		9C4663D41DE2CF6600DBCC6B /* FeedBackView */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,6 +756,7 @@
 			children = (
 				9C0EC0691DE2CBCC001A11D9 /* AboutView */,
 				9C4663D41DE2CF6600DBCC6B /* FeedBackView */,
+				9C4228CA1E4AF99800AC6C1B /* ConnectUs */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -933,6 +946,7 @@
 				9CCFD68E1E05318C006F3EC4 /* DGPopUpView.m in Sources */,
 				9CFE00BD1DDC316A00D38904 /* UserViewController.m in Sources */,
 				9CFE00BA1DDC316A00D38904 /* UserContentView.m in Sources */,
+				9C4228C91E4AF99100AC6C1B /* ConnectUsViewController.m in Sources */,
 				9C54CDBE1DE534BD00183049 /* MonthDataView.m in Sources */,
 				9CFE00BB1DDC316A00D38904 /* UserTableViewCell.m in Sources */,
 				9C8CBD071DFFD2DC0010EA21 /* Reachability.m in Sources */,

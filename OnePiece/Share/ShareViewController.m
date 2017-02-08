@@ -61,7 +61,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,7 +71,7 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    return 10;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -92,6 +91,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row != 0) {
+        self.userNameLabel.hidden = YES;
+        self.moneyLabel.hidden = YES;
+    }else {
+        self.userNameLabel.hidden = NO;
+        self.moneyLabel.hidden = NO;
+    }
     self.backImageView.image = [UIImage imageNamed:self.photoArr[indexPath.row]];
 }
 
@@ -110,7 +116,7 @@
 //cell之间的间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 15;
+    return 30;
 }
 
 #pragma mark - Action
@@ -332,7 +338,7 @@
 - (NSArray *)photoArr
 {
     if (!_photoArr) {
-        _photoArr = @[@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",@"Photo1",@"Photo2",];
+        _photoArr = @[@"Photo1",@"Photo2",@"Photo3",@"Photo4",@"Photo5",@"Photo6",@"Photo7",@"Photo8",@"Photo9",@"Photo10",];
     }
     
     return _photoArr;

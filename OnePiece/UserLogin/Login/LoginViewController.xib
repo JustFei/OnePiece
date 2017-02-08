@@ -105,12 +105,13 @@
                     <state key="normal" image="Eye">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" image="Eye_select"/>
                     <connections>
                         <action selector="showPwdNumber:" destination="-1" eventType="touchUpInside" id="IZR-J9-2Hh"/>
                     </connections>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8oK-2E-sFc">
-                    <rect key="frame" x="191" y="298" width="116" height="19"/>
+                    <rect key="frame" x="191" y="297" width="116" height="19"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
@@ -190,7 +191,8 @@
     </objects>
     <resources>
         <image name="Arrows" width="19" height="14"/>
-        <image name="Eye" width="14" height="7"/>
+        <image name="Eye" width="14" height="10"/>
+        <image name="Eye_select" width="14" height="7"/>
         <image name="Lock" width="25" height="25"/>
         <image name="LoginBackground" width="375" height="667"/>
         <image name="LoginButton_enable" width="250" height="50"/>
