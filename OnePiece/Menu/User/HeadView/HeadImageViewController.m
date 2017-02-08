@@ -217,6 +217,7 @@
 {
     if (!_bigHeadImageView) {
         UIImageView *view = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(0, 146, kControllerWidth, kControllerWidth)];
+        [view setImage:[UIImage imageNamed:@"HeadImageDefault"]];
         [self.view addSubview:view];
         _bigHeadImageView = view;
     }

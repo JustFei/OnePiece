@@ -22,6 +22,8 @@
 		9C2295FE1DD2BCB200B3ACA4 /* OPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2295FD1DD2BCB200B3ACA4 /* OPMainViewController.m */; };
 		9C2296041DD2C46C00B3ACA4 /* OPMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2296031DD2C46C00B3ACA4 /* OPMainContentView.m */; };
 		9C3781301DF80EA700700EAA /* DayHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C37812F1DF80EA700700EAA /* DayHistoryModel.m */; };
+		9C4228C41E4AC55700AC6C1B /* BaoliSCRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C4228C31E4AC55700AC6C1B /* BaoliSCRegular.ttf */; };
+		9C4228C61E4ACA4400AC6C1B /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9C4228C51E4ACA4400AC6C1B /* ChalkboardSE.ttc */; };
 		9C4663D21DE2CF6000DBCC6B /* AboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */; };
 		9C4663D31DE2CF6000DBCC6B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D11DE2CF6000DBCC6B /* AboutViewController.m */; };
 		9C4663D71DE2CFB700DBCC6B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4663D61DE2CFB700DBCC6B /* FeedBackViewController.m */; };
@@ -124,6 +126,8 @@
 		9C22960F1DD3018C00B3ACA4 /* ColorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorConstants.h; path = SupportingFiles/Constants/ColorConstants.h; sourceTree = "<group>"; };
 		9C37812E1DF80EA700700EAA /* DayHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayHistoryModel.h; path = History/HistoryModel/DayHistoryModel.h; sourceTree = "<group>"; };
 		9C37812F1DF80EA700700EAA /* DayHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayHistoryModel.m; path = History/HistoryModel/DayHistoryModel.m; sourceTree = "<group>"; };
+		9C4228C31E4AC55700AC6C1B /* BaoliSCRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BaoliSCRegular.ttf; sourceTree = "<group>"; };
+		9C4228C51E4ACA4400AC6C1B /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
 		9C4663CE1DE2CF6000DBCC6B /* AboutContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutContentView.h; path = Menu/About/AboutView/AboutContentView.h; sourceTree = "<group>"; };
 		9C4663CF1DE2CF6000DBCC6B /* AboutContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutContentView.m; path = Menu/About/AboutView/AboutContentView.m; sourceTree = "<group>"; };
 		9C4663D01DE2CF6000DBCC6B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Menu/About/AboutView/AboutViewController.h; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 		9C22960A1DD2F9D200B3ACA4 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				9C4228C51E4ACA4400AC6C1B /* ChalkboardSE.ttc */,
+				9C4228C31E4AC55700AC6C1B /* BaoliSCRegular.ttf */,
 				9CFE00931DDADC9B00D38904 /* Hakuu.ttf */,
 				9CFE00D01DDC718500D38904 /* Shunpu.ttf */,
 				9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */,
@@ -850,8 +856,10 @@
 				9CFE00BC1DDC316A00D38904 /* UserTableViewCell.xib in Resources */,
 				9CA16E581DE8246E0072A906 /* Default-568h@2x.png in Resources */,
 				9C4663E21DE2E37900DBCC6B /* SettingTableViewCell.xib in Resources */,
+				9C4228C61E4ACA4400AC6C1B /* ChalkboardSE.ttc in Resources */,
 				9CF203F11E00D79A00A1AAEE /* Assets.xcassets in Resources */,
 				9CFE00C81DDC37C000D38904 /* ChangeUserTableViewCell.xib in Resources */,
+				9C4228C41E4AC55700AC6C1B /* BaoliSCRegular.ttf in Resources */,
 				9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */,
 				9C54CDC91DE54CAC00183049 /* LoginViewController.xib in Resources */,
 				9C16FDFC1E03EFA3004D4F0D /* vrinda.ttf in Resources */,

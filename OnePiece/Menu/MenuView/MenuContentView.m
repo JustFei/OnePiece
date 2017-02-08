@@ -154,7 +154,7 @@
 - (UIImageView *)headImageView
 {
     if (!_headImageView) {
-        UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadImage"]];
+        UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadImageDefault"]];
         
         [self addSubview:view];
         _headImageView = view;

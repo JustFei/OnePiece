@@ -69,11 +69,11 @@
     sleepEmptySlot.image = [UIImage imageNamed:@"EmptySlot"];
     [self addSubview:sleepEmptySlot];
     
-    self.aggressivenessLbael.frame = CGRectMake(kViewCenter.x - 200, kViewHeight - 168 * kViewWidth / 375, 400, 65);
+    self.aggressivenessLbael.frame = CGRectMake(kViewCenter.x - 200, kViewHeight - 170 * kViewWidth / 375, 400, 65);
     
-    UILabel *failLabel = [[UILabel alloc] initWithFrame:CGRectMake(kViewCenter.x - 8.5, kViewHeight - 54 * kViewHeight / 667 , 17, 7)];
+    UILabel *failLabel = [[UILabel alloc] initWithFrame:CGRectMake(kViewCenter.x - 8.5, kViewHeight - 58 * kViewHeight / 667 , 17, 7)];
     failLabel.text = @"败";
-    [failLabel setFont:[UIFont systemFontOfSize:8]];
+    [failLabel setFont:[UIFont fontWithName:@"Baoli SC" size:12]];
     failLabel.textAlignment = NSTextAlignmentCenter;
     [failLabel setTextColor:kWhiteColor];
     [self addSubview:failLabel];
@@ -83,20 +83,20 @@
     CGFloat failLabelH = failLabel.frame.size.height;
     
     UILabel *successLabel = [[UILabel alloc] initWithFrame:CGRectMake(failLabelX - 63 * kViewHeight / 667, failLabelY, failLabelW, failLabelH)];
-    [successLabel setFont:[UIFont systemFontOfSize:8]];
+    [successLabel setFont:[UIFont fontWithName:@"Baoli SC" size:12]];
     successLabel.textAlignment = NSTextAlignmentCenter;
     successLabel.text = @"胜";
     [successLabel setTextColor:kWhiteColor];
     [self addSubview:successLabel];
     
     UILabel *drawLabel = [[UILabel alloc] initWithFrame:CGRectMake(failLabelX + 63 * kViewHeight / 667, failLabelY, failLabelW, failLabelH)];
-    [drawLabel setFont:[UIFont systemFontOfSize:8]];
+    [drawLabel setFont:[UIFont fontWithName:@"Baoli SC" size:12]];
     drawLabel.textAlignment = NSTextAlignmentCenter;
     drawLabel.text = @"平";
     [drawLabel setTextColor:kWhiteColor];
     [self addSubview:drawLabel];
     
-    self.failCountLabel.frame = CGRectMake(failLabel.center.x - 22.5, failLabelY - 25, 45, 20);
+    self.failCountLabel.frame = CGRectMake(failLabel.center.x - 22.5, failLabelY - 30, 45, 25);
     CGFloat failCountLabelY = self.failCountLabel.frame.origin.y;
     CGFloat failCountLabelW = self.failCountLabel.frame.size.width;
     CGFloat failCountLbaelH = self.failCountLabel.frame.size.height;
@@ -104,6 +104,18 @@
     self.drawCountLabel.frame = CGRectMake(drawLabel.center.x - 22.5, failCountLabelY, failCountLabelW, failCountLbaelH);
     
     self.PKCountLabel.frame = CGRectMake(kViewCenter.x - 55 * kViewHeight / 667, failLabelY + failLabelH + 10, 110 * kViewHeight / 667, 20 * kViewHeight / 667);
+    
+    
+    //打印字体用
+    NSArray *familyNames = [UIFont familyNames];
+    for( NSString *familyName in familyNames )
+    {
+//        NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];
+//        for( NSString *fontName in fontNames )
+//        {
+            printf( "\tFont: %s \n", [familyName UTF8String] );
+//        }
+    }
 }
 
 #pragma mark - 懒加载
@@ -145,7 +157,7 @@
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment = NSTextAlignmentLeft;
         //label.textColor = kUIColorFromHEX(0xe06800, 1);
-        label.textColor = kUIColorFromHEX(0xe06700, 1);
+        label.textColor = kUIColorFromHEX(0xe06000, 1);
         label.outlineThickness = 1;
         label.outlineColor = kUIColorFromHEX(0x000000, 1);
         label.drawOutline = YES;
@@ -165,7 +177,7 @@
         label.text = @"0";
         label.font = [UIFont fontWithName:@"Shunpu" size:27];
         label.textAlignment= NSTextAlignmentRight;
-        label.textColor = kUIColorFromHEX(0xe06700, 1);
+        label.textColor = kUIColorFromHEX(0xe06000, 1);
         label.outlineThickness = 1;
         label.outlineColor = kUIColorFromHEX(0x000000, 1);
         //label.drawGradient = YES;
@@ -182,9 +194,9 @@
     if (!_aggressivenessLbael) {
         GradientLabel *label = [[GradientLabel alloc] initWithFrame:CGRectZero];
         label.text = @"0";
-        label.font = [UIFont fontWithName:@"Hakuu" size:80];
+        label.font = [UIFont fontWithName:@"Hakuu" size:70.5];
         label.textAlignment= NSTextAlignmentCenter;
-        label.textColor = kUIColorFromHEX(0xe06800, 1);
+        label.textColor = kUIColorFromHEX(0xe05d00, 1);
         [self addSubview:label];
         _aggressivenessLbael = label;
     }
@@ -257,7 +269,7 @@
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [label setTextColor:kWhiteColor];
-        [label setFont:[UIFont systemFontOfSize:25]];
+        [label setFont:[UIFont fontWithName:@"Chalkboard SE" size:24]];
         [self addSubview:label];
         _failCountLabel = label;
     }
@@ -272,7 +284,7 @@
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [label setTextColor:kWhiteColor];
-        [label setFont:[UIFont systemFontOfSize:25]];
+        [label setFont:[UIFont fontWithName:@"Chalkboard SE" size:24]];
         [self addSubview:label];
         _winCountLabel = label;
     }
@@ -287,7 +299,7 @@
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [label setTextColor:kWhiteColor];
-        [label setFont:[UIFont systemFontOfSize:25]];
+        [label setFont:[UIFont fontWithName:@"Chalkboard SE" size:24]];
         [self addSubview:label];
         _drawCountLabel = label;
     }
@@ -301,7 +313,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.text = @"比拼0次";
         label.textAlignment = NSTextAlignmentCenter;
-        [label setFont:[UIFont systemFontOfSize:18]];
+        [label setFont:[UIFont fontWithName:@"Baoli SC" size:15]];
         [label setTextColor:kWhiteColor];
         [self addSubview:label];
         _PKCountLabel = label;

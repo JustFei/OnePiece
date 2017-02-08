@@ -471,31 +471,31 @@
     }else {
         self.popUpViewController = [[DGPopUpViewController alloc] init];
         self.popUpViewController.view.backgroundColor = kClearColor;
-        //[self.popUpViewController showInView:self.view animated:YES];
-        [self.popUpViewController showInView:[UIApplication sharedApplication].windows animated:YES];
+        [self.popUpViewController showInView:self.view animated:YES];
+        //[self.popUpViewController showInView:[UIApplication sharedApplication].windows animated:YES];
         
         self.userArr = nil;
         UserInfoModel *userModel = self.userArr.firstObject;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            int value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
+            NSInteger value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
             self.popUpViewController.popUpView.pkResult = value;
             switch (value) {
                 case 1:
                     //胜
                 {
-                    int money = userModel.money.integerValue;
+                    NSInteger money = userModel.money.integerValue;
                     money += 10000;
                     if (money > 2000000000) {
                         money = 2000000000;
                     }
-                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    userModel.money = [NSString stringWithFormat:@"%ld",(long)money];
                     [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
                     if (self.pkDataArr.count != 0) {
                         PKModel *pkModel = self.pkDataArr.firstObject;
-                        int win = pkModel.win.integerValue + 1;
-                        int pkCount = pkModel.PKCount.integerValue + 1;
-                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
-                        pkModel.win = [NSString stringWithFormat:@"%d", win];
+                        NSInteger win = pkModel.win.integerValue + 1;
+                        NSInteger pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
+                        pkModel.win = [NSString stringWithFormat:@"%ld", (long)win];
                         pkModel.date = _currentDateString;
                         [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
                     }else {
@@ -512,20 +512,20 @@
                 case 2:
                     //负
                 {
-                    int money = userModel.money.integerValue;
+                    NSInteger money = userModel.money.integerValue;
                     money -= 10000;
                     if (money <= 0) {
                         money = 50;
                     }
-                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    userModel.money = [NSString stringWithFormat:@"%ld",(long)money];
                     [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
                     
                     if (self.pkDataArr.count != 0) {
                         PKModel *pkModel = self.pkDataArr.firstObject;
-                        int fail = pkModel.fail.integerValue + 1;
-                        pkModel.fail = [NSString stringWithFormat:@"%d", fail];
-                        int pkCount = pkModel.PKCount.integerValue + 1;
-                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                        NSInteger fail = pkModel.fail.integerValue + 1;
+                        pkModel.fail = [NSString stringWithFormat:@"%ld", (long)fail];
+                        NSInteger pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
                         pkModel.date = _currentDateString;
                         [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
                     }else {
@@ -543,20 +543,20 @@
                 case 0:
                     //平
                 {
-                    int money = userModel.money.integerValue;
+                    NSInteger money = userModel.money.integerValue;
                     money += 5000;
                     if (money > 2000000000) {
                         money = 2000000000;
                     }
-                    userModel.money = [NSString stringWithFormat:@"%d",money];
+                    userModel.money = [NSString stringWithFormat:@"%ld",(long)money];
                     [self.myFmdbTool modifyUserInfoModel:userModel withModityType:UserInfoModifyTypeMoney];
                     
                     if (self.pkDataArr.count != 0) {
                         PKModel *pkModel = self.pkDataArr.firstObject;
-                        int draw = pkModel.draw.integerValue + 1;
-                        pkModel.draw = [NSString stringWithFormat:@"%d", draw];
-                        int pkCount = pkModel.PKCount.integerValue + 1;
-                        pkModel.PKCount = [NSString stringWithFormat:@"%d",pkCount];
+                        NSInteger draw = pkModel.draw.integerValue + 1;
+                        pkModel.draw = [NSString stringWithFormat:@"%ld", (long)draw];
+                        NSInteger pkCount = pkModel.PKCount.integerValue + 1;
+                        pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
                         pkModel.date = _currentDateString;
                         [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
                     }else {
