@@ -31,7 +31,11 @@
     //背景图片
     self.backGroundImageView.frame = kViewFrame;
     //金币label
-    self.moneyLabel.frame = XXF_CGRectMake(kViewCenter.x - 100, 81.5 * kViewWidth / 375, 200, 35 * kViewWidth / 375);
+    self.moneyLabel.frame = XXF_CGRectMake(self.frame.size.width / 2 - 100, 81.5 * kViewWidth / 375, 200 * kViewWidth / 375, 35 * kViewWidth / 375);
+    //////label 宽度根据文本长度来定
+    self.moneyLabel.numberOfLines =1;
+    self.moneyLabel.adjustsFontSizeToFitWidth =YES;
+    
     self.moneyLabel.backgroundColor = kClearColor;
     //步数label
     self.stepLabel.frame = XXF_CGRectMake(10, 75, 100, 22);
@@ -107,15 +111,15 @@
     
     
     //打印字体用
-    NSArray *familyNames = [UIFont familyNames];
-    for( NSString *familyName in familyNames )
-    {
+    //NSArray *familyNames = [UIFont familyNames];
+    //for( NSString *familyName in familyNames )
+    //{
 //        NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];
 //        for( NSString *fontName in fontNames )
 //        {
-            printf( "\tFont: %s \n", [familyName UTF8String] );
+      //      printf( "\tFont: %s \n", [familyName UTF8String] );
 //        }
-    }
+    //}
 }
 
 #pragma mark - 懒加载

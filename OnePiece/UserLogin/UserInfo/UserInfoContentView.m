@@ -43,7 +43,7 @@
     if (self) {
         self.frame = frame;
         self.titleArr = @[@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
-        NSArray *arr = @[@[@"",@"用户名"],@[@"未选择",@"1980/01/01",@"150cm",@"80kg"],@[@"10000"]];
+        NSArray *arr = @[@[@"",@"用户名"],@[@"未选择",@"1990/01/01",@"170cm",@"65kg"],@[@"10000"]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
     }
     return self;

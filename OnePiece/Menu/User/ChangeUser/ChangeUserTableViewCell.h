@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *countryNumberLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (weak, nonatomic) IBOutlet UIButton *getSecurityCodeButton;
-@property (weak, nonatomic) IBOutlet UIImageView *eyeImageView;
+@property (weak, nonatomic) IBOutlet UIButton *eyeButton;
 
 @end

@@ -65,7 +65,7 @@
     cell.getSecurityCodeButton.hidden = YES;
     cell.phoneNumberTextField.hidden = YES;
     cell.countryNumberLabel.hidden = YES;
-    cell.eyeImageView.hidden = YES;
+    cell.eyeButton.hidden = YES;
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -73,7 +73,7 @@
         case 0:
         {
             cell.infoTextField.placeholder = arr[indexPath.row];
-            cell.eyeImageView.hidden = NO;
+            cell.eyeButton.hidden = NO;
         }
             break;
         case 1:

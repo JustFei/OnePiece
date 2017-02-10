@@ -56,13 +56,24 @@
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sT8-nd-hg0">
+                        <rect key="frame" x="335" y="15" width="25" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="TAW-5l-bo7"/>
+                            <constraint firstAttribute="width" constant="25" id="oao-EB-DxP"/>
+                        </constraints>
+                        <state key="normal" image="Eye"/>
+                        <state key="selected" image="Eye_select"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="3TM-bB-kDx" secondAttribute="trailing" constant="15" id="2rL-gW-xco"/>
                     <constraint firstItem="dAb-Fg-ho6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="8Sg-kS-Aw7"/>
+                    <constraint firstItem="sT8-nd-hg0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Ti-g8-03p"/>
                     <constraint firstAttribute="bottom" secondItem="3TM-bB-kDx" secondAttribute="bottom" constant="5" id="Gjy-iv-6Eb"/>
                     <constraint firstItem="hLJ-cV-6ej" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HDk-A4-eZT"/>
                     <constraint firstItem="dAb-Fg-ho6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Nk5-Tb-FbE"/>
+                    <constraint firstItem="sT8-nd-hg0" firstAttribute="trailing" secondItem="3TM-bB-kDx" secondAttribute="trailing" id="RS6-zq-SaL"/>
                     <constraint firstItem="bfM-GD-ys0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YL2-ui-Zvv"/>
                     <constraint firstItem="hLJ-cV-6ej" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="47" id="afq-za-lEp"/>
                     <constraint firstItem="3TM-bB-kDx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="cOY-VI-7tR"/>
@@ -72,10 +83,15 @@
             <connections>
                 <outlet property="PwdNumberTF" destination="dAb-Fg-ho6" id="TA2-bl-2M2"/>
                 <outlet property="countryNumberLabel" destination="bfM-GD-ys0" id="kdD-Hw-D94"/>
+                <outlet property="eyeButton" destination="sT8-nd-hg0" id="wsE-qA-fo7"/>
                 <outlet property="getVerificationCodeButton" destination="3TM-bB-kDx" id="XlW-ji-r3l"/>
                 <outlet property="phoneNumberTF" destination="hLJ-cV-6ej" id="H1E-y9-o2O"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="51.5"/>
+            <point key="canvasLocation" x="-242.5" y="-41.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Eye" width="14" height="10"/>
+        <image name="Eye_select" width="14" height="7"/>
+    </resources>
 </document>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r0c-L2-aCN" userLabel="infoTextField">
-                        <rect key="frame" x="15" y="17.5" width="140" height="17"/>
+                        <rect key="frame" x="15" y="18" width="140" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="140" id="RVo-J6-efJ"/>
                         </constraints>
@@ -27,13 +27,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Eye" translatesAutoresizingMaskIntoConstraints="NO" id="6G0-Wc-Lre">
-                        <rect key="frame" x="277" y="18" width="28" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="16" id="Tzz-q0-MqW"/>
-                            <constraint firstAttribute="width" constant="28" id="a2f-XB-iIL"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+86" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDj-Wd-zDK">
                         <rect key="frame" x="15" y="16" width="50" height="20"/>
                         <constraints>
@@ -45,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hc4-xi-kDe" userLabel="phoneNumberTextField">
-                        <rect key="frame" x="66" y="17.5" width="120" height="17"/>
+                        <rect key="frame" x="66" y="18" width="120" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="sX8-hP-yq2"/>
                         </constraints>
@@ -64,31 +57,41 @@
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odg-lv-bZY">
+                        <rect key="frame" x="283" y="19" width="22" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="N6u-fY-1JG"/>
+                            <constraint firstAttribute="width" constant="22" id="ija-RO-8ix"/>
+                        </constraints>
+                        <state key="normal" image="Eye"/>
+                        <state key="selected" image="Eye_select"/>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="6G0-Wc-Lre" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3YR-3K-dg2"/>
-                    <constraint firstAttribute="trailing" secondItem="6G0-Wc-Lre" secondAttribute="trailing" constant="15" id="5e4-KF-Q6K"/>
                     <constraint firstItem="r0c-L2-aCN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7Wk-C8-ttq"/>
                     <constraint firstAttribute="trailing" secondItem="xw7-F1-sws" secondAttribute="trailing" constant="15" id="Bay-YE-ceL"/>
                     <constraint firstItem="Hc4-xi-kDe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ho6-ZL-jHP"/>
                     <constraint firstItem="r0c-L2-aCN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="NTw-Rh-f5v"/>
                     <constraint firstItem="xw7-F1-sws" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="T2T-7t-CAj"/>
+                    <constraint firstItem="Odg-lv-bZY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZR2-Rp-1Lv"/>
                     <constraint firstItem="JDj-Wd-zDK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="fJX-yR-aOg"/>
                     <constraint firstItem="JDj-Wd-zDK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lO9-0K-8do"/>
                     <constraint firstItem="Hc4-xi-kDe" firstAttribute="leading" secondItem="JDj-Wd-zDK" secondAttribute="trailing" constant="1" id="sU6-Yf-2FZ"/>
+                    <constraint firstItem="Odg-lv-bZY" firstAttribute="trailing" secondItem="xw7-F1-sws" secondAttribute="trailing" id="uCg-Ok-UBE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countryNumberLabel" destination="JDj-Wd-zDK" id="oQ3-Zq-Ud9"/>
-                <outlet property="eyeImageView" destination="6G0-Wc-Lre" id="gge-wP-wGs"/>
+                <outlet property="eyeButton" destination="Odg-lv-bZY" id="hbo-gj-cbA"/>
                 <outlet property="getSecurityCodeButton" destination="xw7-F1-sws" id="vWh-Ts-IQS"/>
                 <outlet property="infoTextField" destination="r0c-L2-aCN" id="4jR-Rj-gw6"/>
                 <outlet property="phoneNumberTextField" destination="Hc4-xi-kDe" id="LH5-IC-tWx"/>
             </connections>
-            <point key="canvasLocation" x="52" y="59.5"/>
+            <point key="canvasLocation" x="-117" y="-10"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Eye" width="28" height="15"/>
+        <image name="Eye" width="14" height="10"/>
+        <image name="Eye_select" width="14" height="7"/>
     </resources>
 </document>

@@ -280,6 +280,16 @@
     }
 }
 
+//显示密码明文
+- (void)showPwd:(UIButton *)sender
+{
+    if (self.pwdTextField.text.length != 0) {
+        sender.selected = !sender.selected;
+        self.pwdTextField.secureTextEntry = !self.pwdTextField.secureTextEntry;
+    }
+    
+}
+
 - (int)validatePassword
 
 {
@@ -359,7 +369,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RegisterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"registerCell"];
-    
+    cell.eyeButton.hidden = YES;
     switch (indexPath.row) {
         case 0:
         {
@@ -398,6 +408,8 @@
             cell.PwdNumberTF.tag = 102;
             cell.PwdNumberTF.keyboardType = UIKeyboardTypeASCIICapable;
             cell.PwdNumberTF.secureTextEntry = YES;
+            cell.eyeButton.hidden = NO;
+            [cell.eyeButton addTarget:self action:@selector(showPwd:) forControlEvents:UIControlEventTouchUpInside];
         }
             
         default:

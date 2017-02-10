@@ -142,8 +142,8 @@
     if (alertController) {
         UITextField *login = alertController.textFields.firstObject;
         UIAlertAction *okAction = alertController.actions.lastObject;
-        //长度限制在0-8之间
-        okAction.enabled = login.text.length > 0 && login.text.length <= 8;
+        //长度限制在0-10之间
+        okAction.enabled = login.text.length > 0 && login.text.length <= 10;
     }
 }
 
@@ -661,7 +661,7 @@
 - (NSArray *)genderArr
 {
     if (!_genderArr) {
-        _genderArr = @[@"未选择",@"男",@"女"];
+        _genderArr = @[@"男",@"女"];
     }
     return _genderArr;
 }

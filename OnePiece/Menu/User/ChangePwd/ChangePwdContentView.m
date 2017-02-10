@@ -27,7 +27,7 @@
 #pragma mark - lifeCycle
 - (void)layoutSubviews
 {
-    self.tableView.frame = XXF_CGRectMake(0, 10, kViewWidth, 159);
+    self.tableView.frame = XXF_CGRectMake(0, 10, kViewWidth, 107);
     self.changePwdButton.frame = XXF_CGRectMake(kViewCenter.x - 50, 269 , 100, 40);
 }
 
@@ -55,7 +55,6 @@
                     }else {
                         int count = [self validatePassword];
                         if (count == 3 && self.nPwdTextField.text.length >= 6 && self.nPwdTextField.text.length <= 16) {
-                            if ([self.nPwdTextField.text isEqualToString:self.n2PwdTextField.text]) {
                                     [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
                                     [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                                         
@@ -73,11 +72,6 @@
                                             });
                                         }
                                     }];
-                            }else {
-                                [self.myHud hideAnimated:YES];
-                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"两次输入密码不一致，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                [view show];
-                            }
                         }else {
                             [self.myHud hideAnimated:YES];
                             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -95,17 +89,15 @@
     
 }
 
-- (void)showThePwd:(UIGestureRecognizer *)sender
+- (void)showThePwd:(UIButton *)sender
 {
-    switch ([sender view].tag) {
+    sender.selected = !sender.selected;
+    switch (sender.tag) {
         case 100:
             [self.oldPwdTextField setSecureTextEntry:!self.oldPwdTextField.secureTextEntry];
             break;
         case 101:
             [self.nPwdTextField setSecureTextEntry:!self.nPwdTextField.secureTextEntry];
-            break;
-        case 102:
-            [self.n2PwdTextField setSecureTextEntry:!self.n2PwdTextField.secureTextEntry];
             break;
             
         default:
@@ -164,7 +156,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -173,10 +165,8 @@
     cell.countryNumberLabel.hidden = YES;
     cell.phoneNumberTextField.hidden = YES;
     cell.getSecurityCodeButton.hidden = YES;
-    cell.eyeImageView.tag = 100 + indexPath.row;
-    cell.eyeImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showThePwd:)];
-    [cell.eyeImageView addGestureRecognizer:tap];
+    cell.eyeButton.tag = 100 + indexPath.row;
+    [cell.eyeButton addTarget:self action:@selector(showThePwd:) forControlEvents:UIControlEventTouchUpInside];
     cell.infoTextField.secureTextEntry = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -193,12 +183,12 @@
             self.nPwdTextField = cell.infoTextField;
         }
             break;
-        case 2:
-        {
-            cell.infoTextField.placeholder = @"确认新的密码";
-            self.n2PwdTextField = cell.infoTextField;
-        }
-            break;
+        //case 2:
+        //{
+        //    cell.infoTextField.placeholder = @"确认新的密码";
+        //    self.n2PwdTextField = cell.infoTextField;
+        //}
+        //    break;
             
         default:
             break;

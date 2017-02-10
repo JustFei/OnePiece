@@ -82,6 +82,9 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     if (self.allowTouchClose) {
+        if (self.showNavigationItemBlock) {
+            self.showNavigationItemBlock ();
+        }
         [self closeAnimation];
     }
 }

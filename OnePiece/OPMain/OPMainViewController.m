@@ -217,7 +217,7 @@
     //money数据
     self.userArr = nil;
     UserInfoModel *userModel = self.userArr.firstObject;
-    vc.moneyLabel.text  = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
+    vc.moneyLabel.text = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
     vc.userNameLabel.text = userModel.userName;
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -469,16 +469,30 @@
         hud.minSize = CGSizeMake(132.f, 108.0f);
         [hud hideAnimated:YES afterDelay:2];
     }else {
+        //隐藏掉UInavigationItem
+        self.navigationItem.leftBarButtonItem.customView.hidden = YES;
+        self.navigationItem.rightBarButtonItem.customView.hidden = YES;
+        
         self.popUpViewController = [[DGPopUpViewController alloc] init];
         self.popUpViewController.view.backgroundColor = kClearColor;
         [self.popUpViewController showInView:self.view animated:YES];
-        //[self.popUpViewController showInView:[UIApplication sharedApplication].windows animated:YES];
         
         self.userArr = nil;
         UserInfoModel *userModel = self.userArr.firstObject;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSInteger value = [PKTool getPKResultWithAggressiveness:self.contentView.aggressivenessLbael.text.floatValue];
             self.popUpViewController.popUpView.pkResult = value;
+            
+            __weak OPMainViewController *weakSelf = self;
+            //显示UInavigationItem
+            self.popUpViewController.popUpView.showNavigationItemBlock = ^(void) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    weakSelf.navigationItem.leftBarButtonItem.customView.hidden = NO;
+                    weakSelf.navigationItem.rightBarButtonItem.customView.hidden = NO;
+
+                });
+                
+            };
             switch (value) {
                 case 1:
                     //胜

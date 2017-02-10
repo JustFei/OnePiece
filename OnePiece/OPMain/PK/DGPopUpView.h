@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ShowNavigationItemBlock)(void);
+
 typedef enum : NSUInteger {
     PKResultTypeDraw = 0,
     PKResultTypeWin,
@@ -17,5 +19,6 @@ typedef enum : NSUInteger {
 @interface DGPopUpView : UIView
 
 @property (nonatomic ,assign) PKResultType pkResult;
+@property (nonatomic ,copy) ShowNavigationItemBlock showNavigationItemBlock;
 
 @end
