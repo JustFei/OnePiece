@@ -107,7 +107,7 @@
 
 - (void)dealloc
 {
-    [self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
+    //[self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
 }
 
 #pragma mark - NSTimer refresh the tableview
@@ -297,6 +297,7 @@
     self.currentDevice = self.perMutArr[indexPath.row];
     cell.textLabel.textColor = kBlackColor;
     self.bindButton.enabled = YES;
+    [self.refreshTimer invalidate];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

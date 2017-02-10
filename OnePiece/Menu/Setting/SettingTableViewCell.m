@@ -45,6 +45,7 @@
             self.nameLabel.hidden = YES;
             [sender setTitle:@"绑定手环" forState:UIControlStateNormal];
             [sender setTitleColor:kBlueColor forState:UIControlStateNormal];
+            
         }];
         UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         [alertVc addAction:okAc];

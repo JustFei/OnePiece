@@ -47,7 +47,6 @@
     self.headImageView.layer.borderColor = kBlackColor.CGColor;
     self.headImageView.layer.borderWidth = 1;
     
-    
     self.nameLabel.frame = XXF_CGRectMake(kViewCenter.x - 80, 142.5, 160, 30);
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
         self.nameLabel.text = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];

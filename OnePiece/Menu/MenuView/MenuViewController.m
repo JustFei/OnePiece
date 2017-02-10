@@ -31,6 +31,8 @@
 {
     [super viewWillAppear:YES];
     [self createUI];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)didReceiveMemoryWarning {
