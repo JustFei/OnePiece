@@ -24,7 +24,8 @@
 @interface OPMainViewController () < UINavigationControllerDelegate, UIImagePickerControllerDelegate , BleDiscoverDelegate , BleReceiveDelegate , BleConnectDelegate >
 {
     BOOL _isBind;
-    NSString *_currentDateString;
+    NSString *_todayString;
+    NSString *_yestodayString;
     float _stepAngry;
     float _sleepAngry;
 }
@@ -62,16 +63,33 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    NSDate *currentDate = [NSDate date];
-    _currentDateString = [formatter stringFromDate:currentDate];
+    
+    NSDate *date = [NSDate date];
+    
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    [formatter1 setDateFormat:@"HH"];
+    NSString *hour = [formatter1 stringFromDate:date];
+    NSInteger hourInt = [hour integerValue];
+    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter1 setDateFormat:@"yyyy/MM/dd"];
+    [formatter1 setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    
+    if (hourInt < 9) {
+        _todayString = [formatter1 stringFromDate:[[NSDate date] dateByAddingTimeInterval:-24 * 60 * 60]];
+        _yestodayString = [formatter1 stringFromDate:[[NSDate date] dateByAddingTimeInterval:-48 * 60 * 60]];
+    }else {
+        _todayString = [formatter1 stringFromDate:[NSDate date]];
+        _yestodayString = [formatter1 stringFromDate:[[NSDate date] dateByAddingTimeInterval:-24 * 60 * 60 ]];
+    }
     
     [self getDataFromDB];
     
     self.navigationController.navigationBar.barTintColor = kClearColor;
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
+    
+    if (self.myBleTool.connectState == kBLEstateDidConnected) {
+        [self syncAction:nil];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -111,17 +129,23 @@
 - (void)getDataFromDB
 {
     //先展示数据库里的数据
-    //步数
-    self.stepArr = [self.myFmdbTool queryStepWithDate:_currentDateString];
+    //步数 : 展示的是今天的数据
+    self.stepArr = [self.myFmdbTool queryStepWithDate:_todayString];
     if (self.stepArr.count) {
         SportModel *sportModel = self.stepArr.lastObject;
         self.contentView.stepLabel.text = sportModel.stepNumber;
         [self drawProgressWithString:sportModel.stepNumber.floatValue withType:ReturnModelTypeSportModel];
+    }
+    
+    //昨日步数 : 用于计算霸气值用
+    self.stepArr = [self.myFmdbTool queryStepWithDate:_yestodayString];
+    if (self.stepArr.count) {
+        SportModel *sportModel = self.stepArr.lastObject;
         _stepAngry = sportModel.stepNumber.integerValue / 10 * 0.5;
     }
     
-    //睡眠
-    self.sleepArr = [self.myFmdbTool querySleepWithDate:_currentDateString];
+    //睡眠 : 展示的是昨天的数据
+    self.sleepArr = [self.myFmdbTool querySleepWithDate:_yestodayString];
     if (self.sleepArr.count) {
         double sum = 0;
         for (SleepModel *sleepModel in self.sleepArr) {
@@ -133,7 +157,7 @@
     }
     [self.contentView.aggressivenessLbael setText:[NSString stringWithFormat:@"%.f",_sleepAngry + _stepAngry]];
     //pk数据
-    self.pkDataArr = [self.myFmdbTool queryPKDataWithData:_currentDateString];
+    self.pkDataArr = [self.myFmdbTool queryPKDataWithData:_todayString];
     if (self.pkDataArr.count != 0) {
         PKModel *pkModel = self.pkDataArr.firstObject;
         self.contentView.winCountLabel.text = pkModel.win;
@@ -334,10 +358,10 @@
                 
                 //如果历史数据，插入数据库
                 if (manridyModel.sleepModel.sleepState == SleepDataHistoryData) {
-                    NSDate *currentDate = [NSDate date];
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyy/MM/dd";
-                    NSString *currentDateString = [formatter stringFromDate:currentDate];
+//                    NSDate *currentDate = [NSDate date];
+//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                    formatter.dateFormat = @"yyyy/MM/dd";
+//                    NSString *currentDateString = [formatter stringFromDate:currentDate];
                     
                     //如果历史数据总数不为空
                     if (manridyModel.sleepModel.sumDataCount) {
@@ -347,11 +371,11 @@
                         
                         //如果历史数据全部载入完成
                         if (manridyModel.sleepModel.currentDataCount + 1 == manridyModel.sleepModel.sumDataCount) {
-                            [self querySleepDataBaseWithDateString:currentDateString];
+                            [self querySleepDataBaseWithDateString:_yestodayString];
                         }
                     }else {
                         //这里不查询历史，直接查询数据库展示即可
-                        [self querySleepDataBaseWithDateString:currentDateString];
+                        [self querySleepDataBaseWithDateString:_yestodayString];
                     }
                 }else {
                     [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
@@ -373,8 +397,8 @@
                 sum += model.sumSleep.doubleValue / 60;
             }
 //            self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
-            [self getDataFromDB];
-            [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
+            //[self getDataFromDB];
+            //[self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
         }
     }
 }
@@ -510,15 +534,15 @@
                         NSInteger pkCount = pkModel.PKCount.integerValue + 1;
                         pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
                         pkModel.win = [NSString stringWithFormat:@"%ld", (long)win];
-                        pkModel.date = _currentDateString;
-                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                        pkModel.date = _todayString;
+                        [self.myFmdbTool modifyPKDataWithDate:_todayString model:pkModel];
                     }else {
                         PKModel *pkModel = [[PKModel alloc] init];
                         pkModel.win = @"1";
                         pkModel.fail = @"0";
                         pkModel.draw = @"0";
                         pkModel.PKCount = @"1";
-                        pkModel.date = _currentDateString;
+                        pkModel.date = _todayString;
                         [self.myFmdbTool insertPKData:pkModel];
                     }
                 }
@@ -540,15 +564,15 @@
                         pkModel.fail = [NSString stringWithFormat:@"%ld", (long)fail];
                         NSInteger pkCount = pkModel.PKCount.integerValue + 1;
                         pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
-                        pkModel.date = _currentDateString;
-                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                        pkModel.date = _todayString;
+                        [self.myFmdbTool modifyPKDataWithDate:_todayString model:pkModel];
                     }else {
                         PKModel *pkModel = [[PKModel alloc] init];
                         pkModel.fail = @"1";
                         pkModel.win = @"0";
                         pkModel.draw = @"0";
                         pkModel.PKCount = @"1";
-                        pkModel.date = _currentDateString;
+                        pkModel.date = _todayString;
                         [self.myFmdbTool insertPKData:pkModel];
                     }
                 }
@@ -571,15 +595,15 @@
                         pkModel.draw = [NSString stringWithFormat:@"%ld", (long)draw];
                         NSInteger pkCount = pkModel.PKCount.integerValue + 1;
                         pkModel.PKCount = [NSString stringWithFormat:@"%ld",(long)pkCount];
-                        pkModel.date = _currentDateString;
-                        [self.myFmdbTool modifyPKDataWithDate:_currentDateString model:pkModel];
+                        pkModel.date = _todayString;
+                        [self.myFmdbTool modifyPKDataWithDate:_todayString model:pkModel];
                     }else {
                         PKModel *pkModel = [[PKModel alloc] init];
                         pkModel.draw = @"1";
                         pkModel.win = @"0";
                         pkModel.fail = @"0";
                         pkModel.PKCount = @"1";
-                        pkModel.date = _currentDateString;
+                        pkModel.date = _todayString;
                         [self.myFmdbTool insertPKData:pkModel];
                     }
                 }

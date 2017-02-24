@@ -161,7 +161,7 @@ static BLETool *bleTool = nil;
 - (void)writeTimeToPeripheral:(NSDate *)currentDate
 {
     NSDateFormatter *currentFormatter = [[NSDateFormatter alloc] init];
-    [currentFormatter setDateFormat:@"yyMMddhhmmssEEE"];
+    [currentFormatter setDateFormat:@"yyMMddHHmmssEEE"];
     NSString *currentStr = [currentFormatter stringFromDate:currentDate];
     
     //传入时间和头，返回协议字符串

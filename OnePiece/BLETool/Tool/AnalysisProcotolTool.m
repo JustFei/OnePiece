@@ -502,6 +502,13 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         NSString *hh = [startTimeStr substringWithRange:NSMakeRange(7, 2)];
         NSString *mm = [startTimeStr substringWithRange:NSMakeRange(9, 2)];
         startTimeStr = [NSString stringWithFormat:@"20%@/%@/%@ %02ld:%02ld",yy ,MM ,dd ,(long)hh.integerValue ,(long)mm.integerValue];
+        NSString *startDateStr = [NSString stringWithFormat:@"20%@/%@/%@",yy ,MM ,dd];
+        //逻辑：如果开始睡眠的时间在12点之后，就讲开始日期往前推一天
+        if (hh.integerValue < 9) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+            startDateStr = [formatter stringFromDate:[[formatter dateFromString:startDateStr]dateByAddingTimeInterval:-24 * 60 * 60]];
+        }
         
         NSData *endTime = [data subdataWithRange:NSMakeRange(9, 5)];
         NSString *endTimeStr = [NSString stringWithFormat:@"%@",endTime];
@@ -511,7 +518,6 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         NSString *endhh = [endTimeStr substringWithRange:NSMakeRange(7, 2)];
         NSString *endmm = [endTimeStr substringWithRange:NSMakeRange(9, 2)];
         endTimeStr = [NSString stringWithFormat:@"20%@/%@/%@ %02ld:%02ld",endyy ,endMM ,enddd ,(long)endhh.integerValue ,(long)endmm.integerValue];
-        NSString *endDateStr = [NSString stringWithFormat:@"20%@/%@/%@",endyy ,endMM ,enddd];
         
         NSData *deepSleep = [data subdataWithRange:NSMakeRange(14, 2)];
         int deepSleepVale = [NSStringTool parseIntFromData:deepSleep];
@@ -529,7 +535,7 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         model.sleepModel.deepSleep = deepSleepStr;
         model.sleepModel.lowSleep = lowSleepStr;
         model.sleepModel.sumSleep = sumSleepStr;
-        model.sleepModel.date = endDateStr;
+        model.sleepModel.date = startDateStr;
         model.isReciveDataRight = ResponsEcorrectnessDataRgith;
         
     }else if ([head isEqualToString:@"8c"] || [head isEqualToString:@"8C"]) {

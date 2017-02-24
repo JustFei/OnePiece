@@ -59,6 +59,11 @@
     [self openTimer];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.myBleTool.discoverDelegate = nil;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -248,6 +253,7 @@
             }
         }else{
             //进行错误处理
+            DLog(@"%@",error);
         }
     }];
     
