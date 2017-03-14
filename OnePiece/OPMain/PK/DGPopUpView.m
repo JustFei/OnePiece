@@ -14,7 +14,7 @@
 
 @property (nonatomic ,strong) UIImageView *backImageView;
 @property (nonatomic ,strong) UIImageView *loadingImageView;
-@property (nonatomic ,strong) UILabel *pkResultLabel;
+@property (nonatomic ,strong) UIImageView *baileyImage;
 @property (nonatomic ,strong) UILabel *moneyResultLabel;
 @property (nonatomic ,strong) NSArray *pkResultArr;
 @property (nonatomic ,strong) NSArray *moneyArr;
@@ -54,13 +54,31 @@
                 [self.loadingImageView.layer removeAllAnimations];
                 [self.loadingImageView setHidden: YES];
                 
-                CGRect rect = self.loadingImageView.frame;
-                rect.origin.y = rect.origin.y - 100;
+                //将背景图更换
+                switch (self.pkResult) {
+                    case PKResultTypeDraw:
+                        self.backImageView.image = [UIImage imageNamed:@"draw"];
+                        break;
+                    case PKResultTypeWin:
+                        self.backImageView.image = [UIImage imageNamed:@"win"];
+                        break;
+                    case PKResultTypeFail:
+                        self.backImageView.image = [UIImage imageNamed:@"fail"];
+                        break;
+                        
+                    default:
+                        break;
+                }
                 
-                self.pkResultLabel.frame = rect;
-                self.pkResultLabel.text = self.pkResultArr[self.pkResult];
+                //胜负平文本
+//                CGRect rect = self.loadingImageView.frame;
+//                rect.origin.y = rect.origin.y - 100;
+                self.baileyImage.frame = CGRectMake(self.center.x - 13, 24, 26, 41);
+                self.baileyImage.image = [UIImage imageNamed:@"bailey_pk"];
+                //self.baileyImage.text = self.pkResultArr[self.pkResult];
                 
-                self.moneyResultLabel.frame = XXF_CGRectMake(10, self.pkResultLabel.frame.origin.y + self.pkResultLabel.frame.size.height + 40, kViewWidth - 20, 80 * kViewWidth / 375);
+                //金额文本
+                self.moneyResultLabel.frame = CGRectMake(self.center.x - 150, 72.5, 300, 30);
                 self.moneyResultLabel.text = self.moneyArr[self.pkResult];
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -149,27 +167,24 @@
 }
 
 #pragma mark - 懒加载
-- (UILabel *)pkResultLabel
+- (UIImageView *)baileyImage
 {
-    if (!_pkResultLabel) {
-        _pkResultLabel = [[UILabel alloc] init];
-        _pkResultLabel.font = [UIFont systemFontOfSize:120 * kViewWidth / 375];
-        
-        _pkResultLabel.textAlignment = NSTextAlignmentCenter;
-        _pkResultLabel.textColor = kRGBA(211, 168, 9, 1);
-        [self addSubview:_pkResultLabel];
+    if (!_baileyImage) {
+        _baileyImage = [[UIImageView alloc] init];
+        _baileyImage.contentMode = UIViewContentModeScaleToFill;
+        [self addSubview:_baileyImage];
     }
     
-    return _pkResultLabel;
+    return _baileyImage;
 }
 
 - (UILabel *)moneyResultLabel
 {
     if (!_moneyResultLabel) {
         _moneyResultLabel = [[UILabel alloc] init];
-        _moneyResultLabel.font = [UIFont fontWithName:@"BernardMT-Condensed" size:80 * kViewWidth / 375];
+        _moneyResultLabel.font = [UIFont fontWithName:@"Baoli SC" size:35];
         _moneyResultLabel.textAlignment = NSTextAlignmentCenter;
-        _moneyResultLabel.textColor = kRGBA(211, 168, 9, 1);
+        _moneyResultLabel.textColor = kUIColorFromHEX(0xedf50c, 1);
         [self addSubview:_moneyResultLabel];
     }
     

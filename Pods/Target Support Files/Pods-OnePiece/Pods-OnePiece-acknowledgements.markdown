@@ -679,6 +679,11 @@ Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 
 
+## Bugly
+
+Copyright 2016 tencent.com. All rights reserved.
+
+
 ## FMDB
 
 If you are using FMDB in your project, I'd love to hear about it.  Let Gus know

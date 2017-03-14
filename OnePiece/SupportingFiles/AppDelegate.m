@@ -17,6 +17,7 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import <BmobSDK/Bmob.h>
+#import <Bugly/Bugly.h>
 
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -30,6 +31,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [Bugly startWithAppId:@"7965093895"];
     
     if (ScreenHeight > 480) { // 这里以(iPhone4S)为准
         self.autoSizeScaleX = ScreenWidth/320;

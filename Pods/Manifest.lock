@@ -1,5 +1,6 @@
 PODS:
   - BmobSDK (2.0.1)
+  - Bugly (2.4.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - BmobSDK
+  - Bugly (~> 2.4.2)
   - FMDB (~> 2.6.2)
   - MBProgressHUD (~> 1.0.0)
   - MOBFoundation
@@ -35,11 +37,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   BmobSDK: 315013af15af31697a3b92cad2c74effed849b85
+  Bugly: b09cd3c7e54048a0e079be88a7a99610f14eab8f
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MOBFoundation: 170a1b551023123590c349c491584d0d081ad5d5
   ShareSDK3: 80e4208c44b259781a17c411f6feec99b604fc25
 
-PODFILE CHECKSUM: 52ba30ea1a6faa0a8af368be7009c22622afc1da
+PODFILE CHECKSUM: 166a426d78614c354a0d207b2b0839e0bdd99fcc
 
 COCOAPODS: 1.0.1

@@ -234,7 +234,6 @@
     }
     
     return newimage;
-    
 }
 
 #pragma mark - addImage

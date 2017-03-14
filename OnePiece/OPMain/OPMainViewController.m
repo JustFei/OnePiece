@@ -468,9 +468,14 @@
         //1.同步时间
         [self.myBleTool writeTimeToPeripheral:[NSDate date]];
         //2.同步运动历史
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
         [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
+
+        });
         //3.同步睡眠历史
-        [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+        });
     }
 }
 
