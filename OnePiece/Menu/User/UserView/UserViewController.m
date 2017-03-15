@@ -26,13 +26,14 @@
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = XXF_CGRectMake(5, 11.6667, 13, 18);
-    [leftButton setTitle:@"haha" forState:UIControlStateNormal];
+    leftButton.frame = XXF_CGRectMake(5, 11.6667, 50, 18);
+    [leftButton setTitle:@"菜单" forState:UIControlStateNormal];
+    [leftButton setTitleColor:kBlackColor forState:UIControlStateNormal];
     [leftButton setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
+    leftButton.imageView.frame = XXF_CGRectMake(0, 0, 10, 13);
     [leftButton addTarget:self action:@selector(makeSureBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = leftItem;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

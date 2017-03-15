@@ -31,7 +31,7 @@
     //背景图片
     self.backGroundImageView.frame = kViewFrame;
     //金币label
-    self.moneyLabel.frame = XXF_CGRectMake(self.frame.size.width / 2 - 100, 50 * kViewWidth / 375, 200 * kViewWidth / 375, 35 * kViewWidth / 375);
+    self.moneyLabel.frame = XXF_CGRectMake(self.frame.size.width / 2 - 100, 75 * kViewWidth / 375, 200 * kViewWidth / 375, 35 * kViewWidth / 375);
     //////label 宽度根据文本长度来定
     self.moneyLabel.numberOfLines = 1;
     self.moneyLabel.adjustsFontSizeToFitWidth =YES;
@@ -127,7 +127,7 @@
 {
     if (!_backGroundImageView) {
         UIImageView *view = [[UIImageView alloc] init];
-        view.image = [UIImage imageNamed:@"Main"];
+        view.image = [UIImage imageNamed:@"Main_wanted"];
         [self addSubview:view];
         _backGroundImageView = view;
     }

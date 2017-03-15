@@ -24,8 +24,14 @@
     self.contentView.backgroundColor = kBackGroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"关于";
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = backItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)didReceiveMemoryWarning {

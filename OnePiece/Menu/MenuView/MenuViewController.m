@@ -23,8 +23,8 @@
     self.view.backgroundColor = kBackGroundColor;
     self.contentView.backgroundColor = kBackGroundColor;
     self.navigationItem.title = @"菜单";
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,8 +44,8 @@
 {
     [[self.navigationController.navigationBar subviews].firstObject setAlpha:1];
     self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = backItem;
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"]) {
         NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userHeadImage"];

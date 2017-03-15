@@ -32,7 +32,7 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"" forState:UIControlStateNormal];
-    [button setBackgroundColor:kRGBA(0, 0, 0, 0.1)];
+    [button setBackgroundColor:kRGBA(255, 255, 255, 0)];
     [button addTarget:self action:@selector(sendEmailToJiMan) forControlEvents:UIControlEventTouchUpInside];
     button.frame = XXF_CGRectMake(kControllerCenter.x - 125, 315 * kControllerWidth / 375, 250, 50);
     

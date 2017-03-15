@@ -179,7 +179,7 @@
             break;
         case 1:
         {
-            cell.infoTextField.placeholder = @"输入新的密码";
+            cell.infoTextField.placeholder = @"新密码（6-16位，数字、大小写字母）";
             self.nPwdTextField = cell.infoTextField;
         }
             break;

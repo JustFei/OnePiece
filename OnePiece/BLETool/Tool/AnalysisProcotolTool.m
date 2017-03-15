@@ -503,7 +503,8 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         NSString *mm = [startTimeStr substringWithRange:NSMakeRange(9, 2)];
         startTimeStr = [NSString stringWithFormat:@"20%@/%@/%@ %02ld:%02ld",yy ,MM ,dd ,(long)hh.integerValue ,(long)mm.integerValue];
         NSString *startDateStr = [NSString stringWithFormat:@"20%@/%@/%@",yy ,MM ,dd];
-        //逻辑：如果开始睡眠的时间在12点之后，就讲开始日期往前推一天
+        //逻辑：如果开始睡眠的时间在9点之后，开始日期就是今天的日期
+        //     如果开始睡眠的时间在9点之前，开始日期就是昨天的日期
         if (hh.integerValue < 9) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy/MM/dd"];

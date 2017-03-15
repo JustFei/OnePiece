@@ -185,7 +185,7 @@
     //按钮：从相册选择，类型：UIAlertActionStyleDefault
     [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//方式1
+        PickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;//方式1
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = YES;
         //自代理
@@ -196,10 +196,9 @@
     //按钮：拍照，类型：UIAlertActionStyleDefault
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        //获取方式1：通过相册（呈现全部相册），UIImagePickerControllerSourceTypePhotoLibrary
         //获取方式2，通过相机，UIImagePickerControllerSourceTypeCamera
-        //获取方方式3，通过相册（呈现全部图片），UIImagePickerControllerSourceTypeSavedPhotosAlbum
         PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//方式1
+        PickerImage.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = YES;
         //自代理

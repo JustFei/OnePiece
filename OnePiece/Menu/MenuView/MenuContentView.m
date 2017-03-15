@@ -124,8 +124,8 @@
 #pragma mark - Action
 - (void)logout:(UIButton *)sender
 {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"登出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //清空蓝牙连接信息等状态
         self.myBleTool.isReconnect = NO;
         [self.myBleTool unConnectDevice];

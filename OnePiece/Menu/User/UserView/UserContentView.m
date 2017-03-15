@@ -116,19 +116,12 @@
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if (![NetworkTool isExistenceNetwork]) {
-            [self showNetworkFailView];
-        }else {
-            UITextField *nickTextField = vc.textFields.firstObject;
-            self.nickName.text = nickTextField.text;
-            [[NSUserDefaults standardUserDefaults] setObject:nickTextField.text forKey:@"userName"];
-            
-            self.changeModel.userName = nickTextField.text;
-            
-            
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
-        }
+        self.isChange = YES;
+        UITextField *nickTextField = vc.textFields.firstObject;
+        self.nickName.text = nickTextField.text;
+        self.changeModel.userName = nickTextField.text;
         
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     }];
     okAction.enabled = NO;
     [vc addAction:cancleAction];
@@ -143,7 +136,11 @@
         UITextField *login = alertController.textFields.firstObject;
         UIAlertAction *okAction = alertController.actions.lastObject;
         //长度限制在0-10之间
-        okAction.enabled = login.text.length > 0 && login.text.length <= 10;
+        okAction.enabled = login.text.length > 0;
+        //限制名称长度
+        if (login.text.length >= 20) {
+            login.text = [login.text substringToIndex:20];
+        }
     }
 }
 
@@ -152,50 +149,46 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        if (![NetworkTool isExistenceNetwork]) {
-            [self showNetworkFailView];
-        }else {
-            //获取到该cell的label对象，修改text
-            if (self.title) {
-                self.infoLabel.text = self.title;
-                self.title = nil;
-                switch (self.pickerType) {
-                    case PickerTypeGender:
-                    {
-                        if ([self.infoLabel.text isEqualToString:@"男"]) {
-                            self.changeModel.gender = 0;
-                        }else if ([self.infoLabel.text isEqualToString:@"女"]) {
-                            self.changeModel.gender = 1;
-                        }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
-                            self.changeModel.gender = -1;
-                        }
+        self.isChange = YES;
+        //获取到该cell的label对象，修改text
+        if (self.title) {
+            self.infoLabel.text = self.title;
+            self.title = nil;
+            switch (self.pickerType) {
+                case PickerTypeGender:
+                {
+                    if ([self.infoLabel.text isEqualToString:@"男"]) {
+                        self.changeModel.gender = 0;
+                    }else if ([self.infoLabel.text isEqualToString:@"女"]) {
+                        self.changeModel.gender = 1;
+                    }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
+                        self.changeModel.gender = -1;
                     }
-                        break;
-                    case PickerTypeBirthday:
-                    {
-                        self.changeModel.birthday = self.infoLabel.text;
-                    }
-                        break;
-                    case PickerTypeHeight:
-                    {
-                        self.changeModel.height = self.infoLabel.text.integerValue;
-                    }
-                        break;
-                    case PickerTypeWeight:
-                    {
-                        self.changeModel.weight = self.infoLabel.text.integerValue;
-                    }
-                        break;
-                    case PickerTypeMotionTarget:
-                    {
-                        self.changeModel.stepTarget = self.infoLabel.text.integerValue;
-                    }
-                        break;
-                        
-                    default:
-                        break;
                 }
+                    break;
+                case PickerTypeBirthday:
+                {
+                    self.changeModel.birthday = self.infoLabel.text;
+                }
+                    break;
+                case PickerTypeHeight:
+                {
+                    self.changeModel.height = self.infoLabel.text.integerValue;
+                }
+                    break;
+                case PickerTypeWeight:
+                {
+                    self.changeModel.weight = self.infoLabel.text.integerValue;
+                }
+                    break;
+                case PickerTypeMotionTarget:
+                {
+                    self.changeModel.stepTarget = self.infoLabel.text.integerValue;
+                }
+                    break;
+                    
+                default:
+                    break;
             }
         }
     }];
@@ -285,7 +278,7 @@
 //提示网络异常
 - (void)showNetworkFailView
 {
-    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络异常，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络不可用，请检查网络连接" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [view show];
 }
 
@@ -325,12 +318,14 @@
                     hud.label.text = @"保存失败，网络异常";
                     [hud hideAnimated:YES afterDelay:2];
                 }else {
+                    hud.mode = MBProgressHUDModeText;
                     hud.label.text = @"保存成功！";
                     [hud hideAnimated:YES afterDelay:2];
                     self.isChange = NO;
                     if (self.changeModel.userName) {
                         //保存用户名
                         [self.myFmdbTool modifyUserInfoModel:self.changeModel withModityType:UserInfoModifyTypeUserName];
+                        [[NSUserDefaults standardUserDefaults] setObject:self.changeModel.userName forKey:@"userName"];
                     }
                     if (self.changeModel.gender != -1) {
                         //保存性别
@@ -352,6 +347,7 @@
                         //保存运动目标
                         [self.myFmdbTool modifyUserInfoModel:self.changeModel withModityType:UserInfoModifyTypeStepTarget];
                     }
+                    [[self findViewController:self] popoverPresentationController];
                 }
             }];
         }
@@ -589,7 +585,6 @@
                     break;
                 case 1:
                 {
-                    self.isChange = YES;
                     [self showNameAlert];
                 }
                     break;
@@ -602,7 +597,6 @@
             
         case 2:     //group 2
         {
-            self.isChange = YES;
             switch (indexPath.row) {
                 case 0:     //gender
                     self.pickerType = PickerTypeGender;
@@ -627,7 +621,6 @@
             
         case 3:     //group 3
         {
-            self.isChange = YES;
             self.pickerType =PickerTypeMotionTarget;
             [self showInfoPickerView:cell.infoLabel.text];
         }

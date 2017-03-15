@@ -431,7 +431,7 @@
     //按钮：从相册选择，类型：UIAlertActionStyleDefault
     [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//方式1
+        PickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;//方式1
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = NO;
         //自代理
@@ -443,6 +443,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
         PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//通过相机
+        PickerImage.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;//关闭闪光灯
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = NO;
         //代理

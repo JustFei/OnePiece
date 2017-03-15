@@ -42,6 +42,17 @@
     self.wordCountLabel.backgroundColor = kClearColor;
     
     self.navigationItem.title = @"反馈";
+    //返回按钮
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = XXF_CGRectMake(5, 11.6667, 50, 18);
+    [leftButton setTitle:@"关于" forState:UIControlStateNormal];
+    [leftButton setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
+    leftButton.imageView.frame = XXF_CGRectMake(0, 0, 10, 13);
+    [leftButton addTarget:self action:@selector(makeSureBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    //提交按钮
     self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];;
     [self.rightButton setTitle:@"提交" forState:UIControlStateNormal];
     [self.rightButton setTitleColor:kBlackColor forState:UIControlStateNormal];
@@ -50,6 +61,7 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     self.rightButton.enabled = NO;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
 #pragma mark - Action
@@ -91,6 +103,22 @@
             [self.hud.label setText:@"当前网络不可用，请检查网络连接"];
         }
     }];
+}
+
+- (void)makeSureBack
+{
+    if (self.textView.text.length != 0) {
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定放弃反馈" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [vc addAction:okAc];[vc addAction:cancleAc];
+        
+        [self presentViewController:vc animated:YES completion:nil];
+    }else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UITextViewDelegate

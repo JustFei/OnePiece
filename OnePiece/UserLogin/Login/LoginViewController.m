@@ -82,6 +82,21 @@
     
     DLog(@"%ld === %ld",(long)userLength , (long)pwdLength);
     
+    //当重新编辑密文密码时，可以做到拼接的功能
+    NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == self.pwdTF && textField.isSecureTextEntry) {
+        textField.text = toBeString;
+        return NO;
+    }
+    
+    return YES;
+}
+
+//点击clear按钮后，置登陆按钮为NO
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    self.loginButton.enabled = NO;
+    
     return YES;
 }
 
@@ -92,8 +107,8 @@
 }
 - (IBAction)showPwdNumber:(UIButton *)sender
 {
+    sender.selected = !sender.selected;
     if (self.pwdTF.text.length != 0) {
-        sender.selected = !sender.selected;
         if (sender.selected) {
             self.pwdTF.secureTextEntry = NO;
         }else {
@@ -141,7 +156,7 @@
                     //打印objectId,createdAt,updatedAt
                     
                     if (![self.pwdTF.text isEqualToString:[obj objectForKey:@"pwd"]]) {
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码不正确，请重新输入。" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码不正确，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                         [view show];
                     }else {
                         //当前用户名
