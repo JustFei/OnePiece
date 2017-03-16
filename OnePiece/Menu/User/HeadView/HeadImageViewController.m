@@ -68,7 +68,7 @@
     [self.bigHeadImageView setImage:[self thumbnailWithImageWithoutScale:newPhoto size:CGSizeMake(kControllerWidth, kControllerWidth)]];
     NSData *imageData = UIImagePNGRepresentation(self.bigHeadImageView.image);
     
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
     [self.hud.label setText:@"正在同步头像。。。"];
     
@@ -81,9 +81,12 @@
                 //            [self.obj setObject:file.url forKey:@"userIcon"];
                 [self.obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                     if (isSuccessful) {
+                        [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
                         [self.hud.label setText:[NSString stringWithFormat:@"头像已同步完成"]];
                         [self.hud hideAnimated:YES afterDelay:1];
-                        [self.navigationController popViewControllerAnimated:YES];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
                     }else {
                         [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
                         [self.hud hideAnimated:YES afterDelay:1];
@@ -97,6 +100,8 @@
                 [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
                 [self.hud hideAnimated:YES afterDelay:1];
             }
+        } withProgressBlock:^(CGFloat progress) {
+            DLog(@"upload progress == %f", progress);
         }];
     }else {
         if (self.chooseHeadImage) {
@@ -109,7 +114,6 @@
     
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userHeadImage"];
 }
 
 - (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize

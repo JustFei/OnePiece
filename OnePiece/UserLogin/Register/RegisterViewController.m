@@ -104,7 +104,7 @@
                             //改变获取验证码按钮为60秒倒计时
                             [self changeGetSafeCodeButtonState];
                             //显示等待菊花
-                            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                            [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
                             //请求验证码
                             [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
                                 if (error) {
@@ -138,9 +138,9 @@
                             //改变获取验证码按钮为60秒倒计时
                             [self changeGetSafeCodeButtonState];
                             //显示等待菊花
-                            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                            [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
                             //请求验证码
-                            [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"重置密码" resultBlock:^(int number, NSError *error) {
+                            [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andTemplate:@"注册" resultBlock:^(int number, NSError *error) {
                                 if (error) {
                                     DLog(@"%@",error);
                                     UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码发送失败,请检查手机号和网络状态" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -176,7 +176,7 @@
 {
     if ([self validatePassword] == 3) {
     //显示等待菊花
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     //验证
     DLog(@"phone == %@,safeCode == %@",self.phoneNumberTextField.text ,self.safeCodeTextField.text);
     [BmobSMS verifySMSCodeInBackgroundWithPhoneNumber:self.phoneNumberTextField.text andSMSCode:self.safeCodeTextField.text resultBlock:^(BOOL isSuccessful, NSError *error) {

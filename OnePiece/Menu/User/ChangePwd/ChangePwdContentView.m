@@ -35,7 +35,7 @@
 - (void)changePwdAction:(UIButton *)sender
 {
     if ([NetworkTool isExistenceNetwork]) {
-        self.myHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        self.myHud = [MBProgressHUD showHUDAddedTo:[self findViewController:self].navigationController.view animated:YES];
         self.myHud.mode = MBProgressHUDModeIndeterminate;
         [self.myHud.label setText:@"Loading..."];
         //都有数据的情况下，请求查询
@@ -236,6 +236,19 @@
     }
     
     return _changePwdButton;
+}
+
+#pragma mark - 获取当前View的控制器的方法
+- (UIViewController *)findViewController:(UIView *)sourceView
+{
+    id target=sourceView;
+    while (target) {
+        target = ((UIResponder *)target).nextResponder;
+        if ([target isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+    return target;
 }
 
 @end

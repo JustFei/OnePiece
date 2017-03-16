@@ -15,8 +15,10 @@
 #import <BmobSDK/Bmob.h>
 #import "MBProgressHUD.h"
 
-@interface UserContentView () < UITableViewDelegate , UITableViewDataSource , UIPickerViewDelegate , UIPickerViewDataSource , UIActionSheetDelegate >
-
+@interface UserContentView () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
+{
+    NSInteger textLength;
+}
 @property (nonatomic ,strong) NSArray *titleArr;
 @property (nonatomic ,strong) NSMutableArray *infoArr;
 @property (nonatomic ,strong) UILabel *nickName;
@@ -111,6 +113,7 @@
             textField.text = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
         }
         textField.borderStyle = UITextBorderStyleNone;
+//        textField.delegate = self;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
     }];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
@@ -118,12 +121,19 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.isChange = YES;
         UITextField *nickTextField = vc.textFields.firstObject;
-        self.nickName.text = nickTextField.text;
-        self.changeModel.userName = nickTextField.text;
+        //如果清空昵称输入框，默认将手机号作为用户的昵称
+        if ([nickTextField.text isEqualToString:@""]) {
+            UserInfoModel *model = self.userArr.lastObject;
+            self.nickName.text = model.account;
+            self.changeModel.userName = model.account;
+        }else {
+            self.nickName.text = nickTextField.text;
+            self.changeModel.userName = nickTextField.text;
+        }
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     }];
-    okAction.enabled = NO;
+    //okAction.enabled = NO;
     [vc addAction:cancleAction];
     [vc addAction:okAction];
     
@@ -134,11 +144,11 @@
     UIAlertController *alertController = (UIAlertController *)[self findViewController:self].presentedViewController;
     if (alertController) {
         UITextField *login = alertController.textFields.firstObject;
-        UIAlertAction *okAction = alertController.actions.lastObject;
-        //长度限制在0-10之间
-        okAction.enabled = login.text.length > 0;
+        //UIAlertAction *okAction = alertController.actions.lastObject;
+        //长度限制在0-20之间
+        //okAction.enabled = login.text.length > 0;
         //限制名称长度
-        if (login.text.length >= 20) {
+        if (login.text.length > 20) {
             login.text = [login.text substringToIndex:20];
         }
     }
@@ -288,7 +298,7 @@
     if (![NetworkTool isExistenceNetwork]) {
         [self showNetworkFailView];
     }else {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self findViewController:self].navigationController.view animated:YES];
         hud.mode = MBProgressHUDModeIndeterminate;
         hud.label.text = @"保存中。。。";
         [hud showAnimated:YES];
@@ -351,6 +361,64 @@
                 }
             }];
         }
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //textField.layoutManager.allowsNonContiguousLayout = NO;
+    UITextRange *selectedRange = [textField markedTextRange];
+    //获取高亮部分
+    UITextPosition *pos = [textField positionFromPosition:selectedRange.start offset:0];
+    //获取高亮部分内容
+    //NSString * selectedtext = [textView textInRange:selectedRange];
+    
+    if (string.length == 0) {
+        textLength = textField.text.length - range.length;
+    }else {
+        textLength = textField.text.length + string.length;
+    }
+    
+    //    if (textLength > 0) {
+    //        self.rightButton.enabled = YES;
+    //    }else {
+    //        self.rightButton.enabled = NO;
+    //    }
+    
+    //如果有高亮且当前字数开始位置小于最大限制时允许输入
+    if (selectedRange && pos) {
+        NSInteger startOffset = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selectedRange.start];
+        NSInteger endOffset = [textField offsetFromPosition:textField.beginningOfDocument toPosition:selectedRange.end];
+        NSRange offsetRange = NSMakeRange(startOffset, endOffset - startOffset);
+        
+        if (offsetRange.location < 20) {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+    }
+    
+    
+    NSString *comcatstr = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    NSInteger caninputlen = 20 - comcatstr.length;
+    
+    if (caninputlen >= 0) {
+        return YES;
+    } else {
+        NSInteger len = string.length + caninputlen;
+        //防止当text.length + caninputlen < 0时，使得rg.length为一个非法最大正数出错
+        NSRange rg = {0,MAX(len,0)};
+        
+        if (rg.length > 0) {
+            NSString *s = [string substringWithRange:rg];
+            
+            [textField setText:[textField.text stringByReplacingCharactersInRange:range withString:s]];
+        }
+        return NO;
     }
 }
 
