@@ -28,11 +28,40 @@
     self.contentView.popViewController = ^() {
         [self.navigationController popViewControllerAnimated:YES];
     };
+    
+    //backButton
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = XXF_CGRectMake(5, 11.6667, 50, 18);
+    [leftButton setTitle:@"用户信息" forState:UIControlStateNormal];
+    [leftButton setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
+    leftButton.imageView.frame = XXF_CGRectMake(0, 0, 10, 13);
+    [leftButton addTarget:self action:@selector(makeSureBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Action
+//未保存的情况下返回提示
+- (void)makeSureBack
+{
+    if (self.contentView.oldPwdTextField.text.length > 0 || self.contentView.nPwdTextField.text.length > 0) {
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否放弃修改" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [vc addAction:okAc];[vc addAction:cancleAc];
+        
+        [self presentViewController:vc animated:YES completion:nil];
+    }else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - 懒加载

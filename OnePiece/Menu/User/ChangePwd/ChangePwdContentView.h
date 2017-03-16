@@ -13,5 +13,7 @@ typedef void(^PopViewController)(void);
 @interface ChangePwdContentView : UIView
 
 @property (nonatomic ,copy) PopViewController popViewController;
+@property (nonatomic ,strong) UITextField *oldPwdTextField;
+@property (nonatomic ,strong) UITextField *nPwdTextField;   //newPwdTextField，不能如此命名，所以命名为nPwdTextField
 
 @end

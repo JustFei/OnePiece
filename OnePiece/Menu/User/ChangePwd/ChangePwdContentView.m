@@ -16,8 +16,6 @@
 @property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,weak) UIButton *changePwdButton;
 @property (nonatomic ,strong) MBProgressHUD *myHud;
-@property (nonatomic ,strong) UITextField *oldPwdTextField;
-@property (nonatomic ,strong) UITextField *nPwdTextField;   //newPwdTextField，不能如此命名，所以命名为nPwdTextField
 @property (nonatomic ,strong) UITextField *n2PwdTextField;
 
 @end
@@ -43,14 +41,13 @@
         NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
         [bquery whereKey:@"account" equalTo:account];
         [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-            
             if (!error) {
                 for (BmobObject *obj in array) {
                     NSString *pwd = [obj objectForKey:@"pwd"];
                     if (![pwd isEqualToString:self.oldPwdTextField.text]) {
                         //隐藏等待菊花
                         [self.myHud hideAnimated:YES];
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"旧的密码输入有误，请重新输入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"旧密码错误，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                         [view show];
                     }else {
                         int count = [self validatePassword];
@@ -74,7 +71,7 @@
                                     }];
                         }else {
                             [self.myHud hideAnimated:YES];
-                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入长度在6-16位的，包含数字、大小字母的密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请检查新密码长度6-16位，仅包含数字、大小写字母" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                             [view show];
                         }
                         

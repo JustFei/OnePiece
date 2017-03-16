@@ -346,7 +346,7 @@
 - (UILabel *)userNameLabel
 {
     if (!_userNameLabel) {
-        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 1685 / 2208, 245 * kControllerWidth / 375, 75 * kControllerWidth / 375)];
+        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 1620 / 2208, 245 * kControllerWidth / 375, 75 * kControllerWidth / 375)];
         label.text = @"Name";
         label.numberOfLines = 0;
         label.font = [UIFont fontWithName:@"Vani" size:40 * kControllerWidth / 375];
@@ -363,7 +363,7 @@
 - (UILabel *)moneyLabel
 {
     if (!_moneyLabel) {
-        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 918 / 1074, 245 * kControllerWidth / 375, 40 * kControllerWidth / 375)];
+        UILabel *label = [[UILabel alloc] initWithFrame:XXF_CGRectMake(kControllerCenter.x - 122 * kControllerWidth / 375, self.backView.frame.size.height * 895 / 1074, 245 * kControllerWidth / 375, 40 * kControllerWidth / 375)];
         label.text = @"0";
         label.font = [UIFont fontWithName:@"Vrinda" size: 35 * kControllerWidth / 375];
         label.textAlignment = NSTextAlignmentRight;

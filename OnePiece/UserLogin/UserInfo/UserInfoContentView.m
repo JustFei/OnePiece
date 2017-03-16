@@ -205,7 +205,7 @@
                 [UserModel setObject:[NSNumber numberWithInteger:70] forKey:@"stepLength"];
                 self.userModel.stepLength = 70;
                 [UserModel setObject:[NSNumber numberWithInteger:self.userModel.stepTarget] forKey:@"stepTarget"];
-                [UserModel setObject:[NSNumber numberWithInteger:8] forKey:@"sleepTarget"];
+                [UserModel setObject:[NSNumber numberWithInteger:8]     forKey:@"sleepTarget"];
                 self.userModel.sleepTarget = 8;
                 [UserModel setObject:file forKey:@"userIcon"];
                 self.userModel.money = [NSNumber numberWithInt:50].stringValue;
