@@ -555,16 +555,18 @@ static BLETool *bleTool = nil;
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     //当你发现你感兴趣的连接外围设备，停止扫描其他设备，以节省电能。
-    if (peripheral.name != nil ) {
-        if (![self.deviceArr containsObject:peripheral]) {
-            [self.deviceArr addObject:peripheral];
-            
-            manridyBleDevice *device = [[manridyBleDevice alloc] initWith:peripheral andAdvertisementData:advertisementData andRSSI:RSSI];
-            
-            //返回扫描到的设备实例
-            if ([self.discoverDelegate respondsToSelector:@selector(manridyBLEDidDiscoverDeviceWithMAC:)]) {
+    if (![peripheral.name isEqualToString:@""] && peripheral.name != NULL) {
+        if ([peripheral.name rangeOfString:@"HB011"].location != NSNotFound) {
+            if (![self.deviceArr containsObject:peripheral]) {
+                [self.deviceArr addObject:peripheral];
+                DLog(@"%ld  个设备",(long)self.deviceArr.count);
+                manridyBleDevice *device = [[manridyBleDevice alloc] initWith:peripheral andAdvertisementData:advertisementData andRSSI:RSSI];
                 
-                [self.discoverDelegate manridyBLEDidDiscoverDeviceWithMAC:device];
+                //返回扫描到的设备实例
+                if ([self.discoverDelegate respondsToSelector:@selector(manridyBLEDidDiscoverDeviceWithMAC:)]) {
+                    
+                    [self.discoverDelegate manridyBLEDidDiscoverDeviceWithMAC:device];
+                }
             }
         }
     }
@@ -605,10 +607,13 @@ static BLETool *bleTool = nil;
     if (self.isReconnect) {
         DLog(@"需要断线重连");
         [self.myCentralManager connectPeripheral:self.currentDev.peripheral options:nil];
-        
-        self.disConnectView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备意外断开，等待重连" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        self.disConnectView.tag = 103;
-        [self.disConnectView show];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.systemBLEstate == 5) {
+                self.disConnectView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设备意外断开，等待重连" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                self.disConnectView.tag = 103;
+                [self.disConnectView show];
+            }
+        });
         
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isFindMyPeripheral"]) {
             BOOL isFindMyPeripheral = [[NSUserDefaults standardUserDefaults] boolForKey:@"isFindMyPeripheral"];

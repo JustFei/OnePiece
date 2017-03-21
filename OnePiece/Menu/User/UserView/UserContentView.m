@@ -70,7 +70,7 @@
         NSArray *arr = @[@[model.account,@"********",@""],@[@"",model.userName],@[genderStr,model.birthday,[NSString stringWithFormat:@"%ldcm",(long)model.height],[NSString stringWithFormat:@"%ldkg",(long)model.weight]],@[[NSString stringWithFormat:@"%ld",(long)model.stepTarget]]];
         self.infoArr = [NSMutableArray arrayWithArray:arr];
         
-        //查找GameScore表里面account的数据
+        //查找UserMode表里面account的数据
         NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
         [self.bquery whereKey:@"account" equalTo:account];
         [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -105,7 +105,7 @@
 #pragma mark - Action
 - (void)showNameAlert
 {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"用户昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"用户昵称" message:@"*注：昵称最大长度20个英文字符" preferredStyle:UIAlertControllerStyleAlert];
     [vc addTextFieldWithConfigurationHandler:^(UITextField *textField){
         textField.placeholder = @"请输入昵称";
         if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
@@ -285,18 +285,16 @@
     self.title = [formatter stringFromDate:datePicker.date];
 }
 
-//提示网络异常
-- (void)showNetworkFailView
-{
-    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络不可用，请检查网络连接" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [view show];
-}
-
 //保存所有的用户信息
 - (void)saveInfo
 {
     if (![NetworkTool isExistenceNetwork]) {
-        [self showNetworkFailView];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        hud.removeFromSuperViewOnHide =YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"当前网络不可用，请检查网络连接";
+        hud.minSize = CGSizeMake(132.f, 108.0f);
+        [hud hideAnimated:YES afterDelay:2];
     }else {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self findViewController:self].navigationController.view animated:YES];
         hud.mode = MBProgressHUDModeIndeterminate;
@@ -329,7 +327,7 @@
                     [hud hideAnimated:YES afterDelay:2];
                 }else {
                     hud.mode = MBProgressHUDModeText;
-                    hud.label.text = @"保存成功！";
+                    hud.label.text = @"保存成功";
                     [hud hideAnimated:YES afterDelay:2];
                     self.isChange = NO;
                     if (self.changeModel.userName) {

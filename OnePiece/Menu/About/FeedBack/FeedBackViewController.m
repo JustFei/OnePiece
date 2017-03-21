@@ -78,7 +78,7 @@
     //往UserModel表添
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
-    [self.hud.label setText:@"正在提交反馈..."];
+    [self.hud.label setText:@"正在提交..."];
     
     BmobObject *Feed_Back = [BmobObject objectWithClassName:@"Feed_Back"];
     [Feed_Back setObject:account forKey:@"account"];
@@ -91,16 +91,15 @@
     [Feed_Back saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         //进行操作
         if (isSuccessful) {
-            DLog(@"数据上传成功");
-            [self.hud hideAnimated:YES afterDelay:2];
-            [self.hud.label setText:@"反馈成功！感谢您的建议"];
+            [self.hud.label setText:@"提交成功"];
+            [self.hud hideAnimated:YES afterDelay:1.5];
             self.textView.text = @"";
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else{
-            [self.hud hideAnimated:YES afterDelay:2];
-            [self.hud.label setText:@"当前网络不可用，请检查网络连接"];
+            self.hud.label.text = @"网络服务器不可用，请稍后再尝试";
+            [self.hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }

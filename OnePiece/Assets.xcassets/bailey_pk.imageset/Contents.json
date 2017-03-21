@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bailey_pk.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "bailey_pk.png",
       "scale" : "2x"
     },
     {

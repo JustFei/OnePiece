@@ -23,7 +23,7 @@
     
     self.view.backgroundColor = kWhiteColor;
     self.contentView.backgroundColor = kBackGroundColor;
-    self.navigationItem.title = @"更改密码";
+    self.navigationItem.title = @"重置密码";
     
     self.contentView.popViewController = ^() {
         [self.navigationController popViewControllerAnimated:YES];
@@ -31,7 +31,7 @@
     
     //backButton
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = XXF_CGRectMake(5, 11.6667, 50, 18);
+    leftButton.frame = XXF_CGRectMake(5, 11.6667, 100, 18);
     [leftButton setTitle:@"用户信息" forState:UIControlStateNormal];
     [leftButton setTitleColor:kBlackColor forState:UIControlStateNormal];
     [leftButton setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
@@ -39,6 +39,12 @@
     [leftButton addTarget:self action:@selector(makeSureBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = leftItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //防止tableView自动下移
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +68,12 @@
     }else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.contentView.oldPwdTextField endEditing:YES];
+    [self.contentView.nPwdTextField endEditing:YES];
 }
 
 #pragma mark - 懒加载

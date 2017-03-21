@@ -54,7 +54,7 @@
 {
     if (self.contentView.isChange) {
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改信息尚未保存，确认返回" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
         UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];

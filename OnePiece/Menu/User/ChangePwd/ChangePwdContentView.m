@@ -11,12 +11,12 @@
 #import <BmobSDK/Bmob.h>
 #import "MBProgressHUD.h"
 
-@interface ChangePwdContentView () < UITableViewDelegate , UITableViewDataSource >
+@interface ChangePwdContentView () < UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic ,weak) UITableView *tableView;
 @property (nonatomic ,weak) UIButton *changePwdButton;
 @property (nonatomic ,strong) MBProgressHUD *myHud;
-@property (nonatomic ,strong) UITextField *n2PwdTextField;
+//@property (nonatomic ,strong) UITextField *n2PwdTextField;
 
 @end
 
@@ -33,57 +33,67 @@
 - (void)changePwdAction:(UIButton *)sender
 {
     if ([NetworkTool isExistenceNetwork]) {
-        self.myHud = [MBProgressHUD showHUDAddedTo:[self findViewController:self].navigationController.view animated:YES];
-        self.myHud.mode = MBProgressHUDModeIndeterminate;
-        [self.myHud.label setText:@"Loading..."];
-        //都有数据的情况下，请求查询
-        BmobQuery *bquery = [BmobQuery queryWithClassName:@"UserModel"];
-        NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
-        [bquery whereKey:@"account" equalTo:account];
-        [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-            if (!error) {
-                for (BmobObject *obj in array) {
-                    NSString *pwd = [obj objectForKey:@"pwd"];
-                    if (![pwd isEqualToString:self.oldPwdTextField.text]) {
-                        //隐藏等待菊花
-                        [self.myHud hideAnimated:YES];
-                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"旧密码错误，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
-                        [view show];
-                    }else {
-                        int count = [self validatePassword];
-                        if (count == 3 && self.nPwdTextField.text.length >= 6 && self.nPwdTextField.text.length <= 16) {
-                                    [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
-                                    [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                                        
-                                        if (error) {
-                                            [self.myHud hideAnimated:YES];
-                                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接异常，密码更改失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                            [view show];
-                                        }else {
-                                            [self.myHud.label setText:@"密码更改成功"];
-                                            [self.myHud hideAnimated:YES afterDelay:1.5];
-                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                                if (self.popViewController) {
-                                                    self.popViewController();
-                                                }
-                                            });
-                                        }
-                                    }];
-                        }else {
+        if (self.oldPwdTextField.text.length > 0 && self.nPwdTextField.text.length > 0) {
+            self.myHud = [MBProgressHUD showHUDAddedTo:[self findViewController:self].navigationController.view animated:YES];
+            self.myHud.mode = MBProgressHUDModeIndeterminate;
+            [self.myHud.label setText:@"Loading..."];
+            //都有数据的情况下，请求查询
+            BmobQuery *bquery = [BmobQuery queryWithClassName:@"UserModel"];
+            NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+            [bquery whereKey:@"account" equalTo:account];
+            [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+                if (!error) {
+                    for (BmobObject *obj in array) {
+                        NSString *pwd = [obj objectForKey:@"pwd"];
+                        if (![pwd isEqualToString:self.oldPwdTextField.text]) {
+                            //隐藏等待菊花
                             [self.myHud hideAnimated:YES];
-                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请检查新密码长度6-16位，仅包含数字、大小写字母" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"旧密码错误，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                             [view show];
+                        }else {
+                            int count = [self validatePassword];
+                            if (count == 3 && self.nPwdTextField.text.length >= 6 && self.nPwdTextField.text.length <= 16) {
+                                [obj setObject:self.nPwdTextField.text forKey:@"pwd"];
+                                [obj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                                    
+                                    if (error) {
+                                        self.myHud.mode = MBProgressHUDModeText;
+                                        self.myHud.label.text = @"网络服务器不可用，请稍后再尝试";
+                                        self.myHud.minSize = CGSizeMake(132.f, 108.0f);
+                                        [self.myHud hideAnimated:YES afterDelay:1.5];
+                                    }else {
+                                        [self.myHud.label setText:@"密码修改成功"];
+                                        [self.myHud hideAnimated:YES afterDelay:1.5];
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            if (self.popViewController) {
+                                                self.popViewController();
+                                            }
+                                        });
+                                    }
+                                }];
+                            }else {
+                                [self.myHud hideAnimated:YES];
+                                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请检查新密码长度6-16位，同时包含数字、大小写字母" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                                [view show];
+                            }
                         }
-                        
                     }
                 }
-            }
-        }];
+            }];
+        }else {
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [view show];
+        }
     }else {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络不可用，请检查网络连接" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [view show];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        hud.removeFromSuperViewOnHide =YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"当前网络不可用，请检查网络连接";
+        hud.minSize = CGSizeMake(132.f, 108.0f);
+        [hud hideAnimated:YES afterDelay:2];
+//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"当前网络不可用，请检查网络连接" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [view show];
     }
-    
 }
 
 - (void)showThePwd:(UIButton *)sender
@@ -165,6 +175,7 @@
     cell.eyeButton.tag = 100 + indexPath.row;
     [cell.eyeButton addTarget:self action:@selector(showThePwd:) forControlEvents:UIControlEventTouchUpInside];
     cell.infoTextField.secureTextEntry = YES;
+    cell.infoTextField.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     switch (indexPath.row) {
@@ -177,6 +188,9 @@
         case 1:
         {
             cell.infoTextField.placeholder = @"新密码（6-16位，数字、大小写字母）";
+            CGRect oldRect = cell.infoTextField.frame;
+            oldRect.size.width = 400;
+            cell.infoTextField.frame = oldRect;
             self.nPwdTextField = cell.infoTextField;
         }
             break;
@@ -197,6 +211,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 53;
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //当重新编辑密文密码时，可以做到拼接的功能
+    NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == self.oldPwdTextField && textField.isSecureTextEntry) {
+        textField.text = toBeString;
+        return NO;
+    }
+    if (textField == self.nPwdTextField && textField.isSecureTextEntry) {
+        textField.text = toBeString;
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - 懒加载
@@ -223,7 +253,7 @@
 {
     if (!_changePwdButton) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:@"更改" forState:UIControlStateNormal];
+        [button setTitle:@"重置" forState:UIControlStateNormal];
         [button setTitleColor:kUIColorFromHEX(0x0076ff, 1) forState:UIControlStateNormal];
         [button setTitleColor:kUIColorFromHEX(0x00a0e9, 1) forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(changePwdAction:) forControlEvents:UIControlEventTouchUpInside];

@@ -80,6 +80,7 @@
                     <constraint firstItem="Odg-lv-bZY" firstAttribute="trailing" secondItem="xw7-F1-sws" secondAttribute="trailing" id="uCg-Ok-UBE"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="countryNumberLabel" destination="JDj-Wd-zDK" id="oQ3-Zq-Ud9"/>
                 <outlet property="eyeButton" destination="Odg-lv-bZY" id="hbo-gj-cbA"/>

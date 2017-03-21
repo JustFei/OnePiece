@@ -63,7 +63,11 @@
         if (string.length == 0) {
             userLength = textField.text.length - range.length;
         }else {
-        userLength = textField.text.length + string.length;
+            userLength = textField.text.length + string.length;
+            if (userLength > 11) {
+                userLength = 11;
+                return NO;
+            }
         }
     }
     if (textField.tag == 102) {
@@ -71,6 +75,10 @@
             pwdLength = textField.text.length - range.length;
         }else {
             pwdLength = textField.text.length + string.length;
+            if (pwdLength > 16) {
+                pwdLength = 16;
+                return NO;
+            }
         }
     }
     
@@ -96,7 +104,11 @@
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
     self.loginButton.enabled = NO;
-    
+    if (textField.tag == 101) {
+        userLength = 0;
+    }else if (textField.tag == 102) {
+        pwdLength = 0;
+    }
     return YES;
 }
 
@@ -108,13 +120,13 @@
 - (IBAction)showPwdNumber:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    if (self.pwdTF.text.length != 0) {
+//    if (self.pwdTF.text.length != 0) {
         if (sender.selected) {
             self.pwdTF.secureTextEntry = NO;
         }else {
             self.pwdTF.secureTextEntry = YES;
         }
-    }
+//    }
 }
 
 //登陆按钮
@@ -137,7 +149,7 @@
         
         [bquery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (number == 0) {
-                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账号和密码不匹配，请检查后重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码不正确，请重新输入" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
                 [view show];
                 [self.myHud hideAnimated:YES];
             }
@@ -220,18 +232,9 @@
 //注册按钮
 - (IBAction)signupAction:(UIButton *)sender
 {
-    if (![NetworkTool isExistenceNetwork]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.removeFromSuperViewOnHide =YES;
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"当前网络不可用，请检查网络连接";
-        hud.minSize = CGSizeMake(132.f, 108.0f);
-        [hud hideAnimated:YES afterDelay:2];
-    }else {
-        RegisterViewController *vc = [[RegisterViewController alloc] init];
-        vc.loginType = LoginTypeRegister;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    RegisterViewController *vc = [[RegisterViewController alloc] init];
+    vc.loginType = LoginTypeRegister;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //重设密码按钮

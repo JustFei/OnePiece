@@ -26,6 +26,7 @@
     NSString *mac = [NSStringTool convertToNSStringWithNSData:data];
     mac = [mac stringByReplacingOccurrencesOfString:@" " withString:@""];
     per.macAddress = mac;
+    per.deviceName = [NSString stringWithFormat:@"航海王智能手环 %@",mac];
     per.RSSI = RSSI;
     
     return per;

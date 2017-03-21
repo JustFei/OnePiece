@@ -22,11 +22,14 @@
 @property (nonatomic ,weak) UILabel *winCountLabel;
 @property (nonatomic ,weak) UILabel *drawCountLabel;
 @property (nonatomic ,weak) UILabel *PKCountLabel;
+@property (nonatomic ,weak) UILabel *syncLabel;
 
 @property (nonatomic ,weak) UIButton *musicButton;
 @property (nonatomic ,weak) UIButton *photoButton;
 @property (nonatomic ,weak) UIButton *syncButton;
 @property (nonatomic ,weak) UIButton *PKButton;
+
+@property (nonatomic ,weak) UIImageView *baileyView;
 
 //渐变进度条
 @property (nonatomic ,strong) MAThermometer *stepProgress;

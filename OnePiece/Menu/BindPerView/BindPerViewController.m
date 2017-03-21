@@ -56,12 +56,20 @@
     
     //监听state变化的状态
     [self.myBleTool addObserver:self forKeyPath:@"systemBLEstate" options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
     [self openTimer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     self.myBleTool.discoverDelegate = nil;
+    [self.refreshTimer invalidate];
+    self.refreshTimer = nil;
+    [self.myBleTool stopScan];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,14 +100,16 @@
             case 4:
             {
                 //当蓝牙关闭，清空列表
-                [self.perMutArr removeAllObjects];
+                [self.refreshTimer setFireDate:[NSDate distantFuture]];
                 [self deletAllRowsAtTableView];
+//                [self.perMutArr removeAllObjects];
                 self.bindButton.enabled = NO;
             }
                 break;
             case 5:
             {
                 //当蓝牙打开，刷新列表
+                //TODO:这里导致断开蓝牙后会触发这份方法
                 [self refreshTableView:nil];
                 [self openTimer];
             }
@@ -112,7 +122,7 @@
 
 - (void)dealloc
 {
-    //[self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
+    [self.myBleTool removeObserver:self forKeyPath:@"systemBLEstate"];
 }
 
 #pragma mark - NSTimer refresh the tableview
@@ -141,7 +151,7 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
     [self.hud hideAnimated:YES afterDelay:3];
-    //查找GameScore表里面account的数据
+    //查找UserMode表里面account的数据
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     [self.bquery whereKey:@"account" equalTo:account];
     [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -208,7 +218,7 @@
     self.myBleTool.isReconnect = YES;
     [self.myBleTool writeTimeToPeripheral:[NSDate date]];
     
-    //查找GameScore表里面account的数据
+    //查找UserMode表里面account的数据
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     [self.bquery whereKey:@"account" equalTo:account];
     [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -246,7 +256,8 @@
                             });
                         }
                         if (error) {
-                            DLog(@"%@",error);
+                            self.hud.label.text = @"网络服务器不可用，请稍后再尝试";
+                            [self.hud hideAnimated:YES afterDelay:2];
                         }
                     }];
                 }
@@ -303,7 +314,8 @@
     self.currentDevice = self.perMutArr[indexPath.row];
     cell.textLabel.textColor = kBlackColor;
     self.bindButton.enabled = YES;
-    [self.refreshTimer invalidate];
+    [self.refreshTimer setFireDate:[NSDate distantFuture]];
+    //self.refreshTimer = nil;
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

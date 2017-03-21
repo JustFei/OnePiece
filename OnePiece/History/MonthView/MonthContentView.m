@@ -19,11 +19,11 @@
 }
 @property (nonatomic ,weak) UIButton *leftButton;
 @property (nonatomic ,weak) UIButton *centerDateButton;
-@property (nonatomic ,strong) UIImageView *calendarImageView;
+@property (nonatomic ,strong) UIButton *calendarButton;
 @property (nonatomic ,weak) UIButton *rightButton;
 @property (nonatomic ,strong) UICollectionView *collectionView;
 @property (nonatomic ,assign) BOOL didEndDecelerating;
-@property (nonatomic ,strong) UIPickerView *infoPickerView;
+@property (nonatomic ,strong) UIDatePicker *datePickerView;
 
 @end
 
@@ -43,14 +43,13 @@
     self.leftButton.frame = XXF_CGRectMake(20, 7, 44, 44);
     DLog(@"month == %f",kViewCenter.x);
     self.centerDateButton.frame = XXF_CGRectMake(kViewCenter.x - kViewWidth - 60, self.leftButton.center.y - 15, 120, 30);
-    
-    self.calendarImageView = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(self.centerDateButton.frame.origin.x + 130, self.centerDateButton.center.y - 6.5 , 15, 13)];
-    
-    self.calendarImageView.image = [UIImage imageNamed:@"Calendar"];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTheCalender:)];
-    self.calendarImageView.userInteractionEnabled = YES;
-    [self.calendarImageView addGestureRecognizer:tap];
-    [self addSubview:self.calendarImageView];
+    self.calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.calendarButton.frame = XXF_CGRectMake(self.centerDateButton.frame.origin.x + 125, self.centerDateButton.center.y - 11.5 , 25, 23);
+    self.calendarButton.contentMode = UIViewContentModeCenter;
+    [self.calendarButton setImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTheCalender:)];
+    [self.calendarButton addTarget:self action:@selector(showTheCalender:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.calendarButton];
     self.rightButton.frame = XXF_CGRectMake(kViewWidth - 64, 7, 44, 44);
     self.rightButton.enabled = NO;
     if (self.dataArr.count == 1) {
@@ -156,33 +155,33 @@
     }
 }
 
-#pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
-// UIPickerViewDataSource中定义的方法，该方法的返回值决定改控件包含多少列
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-
-{
-    return 1;
-}
-
-// UIPickerViewDataSource中定义的方法，该方法的返回值决定该控件指定列包含多少哥列表项
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return self.monthArr.count;
-}
-
-// UIPickerViewDelegate中定义的方法，该方法返回NSString将作为UIPickerView中指定列和列表项上显示的标题
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-
-{
-    return self.monthArr[row];
-}
-
-// 当用户选中UIPickerViewDataSource中指定列和列表项时激发该方法
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    _rowCount = row;
-}
+//#pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
+//// UIPickerViewDataSource中定义的方法，该方法的返回值决定改控件包含多少列
+//
+//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+//
+//{
+//    return 1;
+//}
+//
+//// UIPickerViewDataSource中定义的方法，该方法的返回值决定该控件指定列包含多少哥列表项
+//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+//{
+//    return self.monthArr.count;
+//}
+//
+//// UIPickerViewDelegate中定义的方法，该方法返回NSString将作为UIPickerView中指定列和列表项上显示的标题
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//
+//{
+//    return self.monthArr[row];
+//}
+//
+//// 当用户选中UIPickerViewDataSource中指定列和列表项时激发该方法
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+//{
+//    _rowCount = row;
+//}
 
 #pragma mark - Action
 - (void)beforeDay:(UIButton *)sender
@@ -227,13 +226,42 @@
     [alert addAction:cancelAction];
     [alert addAction:okAction];
     
-    self.infoPickerView = [[UIPickerView alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
-    self.infoPickerView.dataSource = self;
-    self.infoPickerView.delegate = self;
-    self.infoPickerView.tag = 2000;
-    [alert.view addSubview:self.infoPickerView];
+    self.datePickerView = [[UIDatePicker alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
+    //self.datePickerView.tag = 1000 ;
+    [self.datePickerView setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
+    // 设置时区
+    [self.datePickerView setTimeZone:[NSTimeZone localTimeZone]];
+    // 设置当前显示时间
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM"];
+    NSDate *birDate = [formatter dateFromString:self.centerDateButton.titleLabel.text];
+    [self.datePickerView setDate:birDate animated:YES];
+    // 设置显示的最小时间，此处为注册时间
+    [self.datePickerView setMinimumDate:[formatter dateFromString:self.monthArr.firstObject]];
+    // 设置显示最大时间，此处为当前时间
+    [self.datePickerView setMaximumDate:[NSDate date]];
+    // 设置UIDatePicker的显示模式
+    [self.datePickerView setDatePickerMode:UIDatePickerModeDate];
+    // 当值发生改变的时候调用的方法
+    [self.datePickerView addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [alert.view addSubview:self.datePickerView];
     
     [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)datePickerValueChanged:(UIDatePicker *)datePicker
+{
+    DLog(@"%@",datePicker.date);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM"];
+    NSString *currentDateString = [formatter stringFromDate:datePicker.date];
+    
+    [self.monthArr enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isEqualToString:currentDateString]) {
+            _rowCount = (int)idx;
+        }
+    }];
+//    _rowCount = [self.monthArr indexOfObject:currentDateString];
 }
 
 #pragma mark - 懒加载

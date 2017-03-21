@@ -61,8 +61,13 @@
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = @"Ji.Man@outlook.com";
         
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已经为您复制邮箱地址至剪切板，请前往发送邮件" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [view show];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"已经为您复制邮箱地址至剪切板，请前往发送邮件";
+        [hud hideAnimated:YES afterDelay:1.5];
+        
+//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已经为您复制邮箱地址至剪切板，请前往发送邮件" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [view show];
     }
     
     //[[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"Ji.Man@outlook.com"]];

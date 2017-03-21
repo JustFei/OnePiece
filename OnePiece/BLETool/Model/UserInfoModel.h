@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 @property (nonatomic ,copy) NSString *account;
 @property (nonatomic ,copy) NSString *pwd;
 @property (nonatomic ,copy) NSString *userName;
-@property (nonatomic ,assign) NSInteger gender;
+@property (nonatomic ,assign) NSInteger gender;         //男：0，女：1
 @property (nonatomic ,copy) NSString *birthday;
 @property (nonatomic ,assign) NSInteger height;
 @property (nonatomic ,assign) NSInteger weight;

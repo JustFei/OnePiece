@@ -39,8 +39,8 @@
         vc.returnMain = NO;
         [[self findViewController:self].navigationController pushViewController:vc animated:YES];
     }else {
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认是否要解除绑定" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认解绑手环" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAc = [UIAlertAction actionWithTitle:@"解绑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [vc disBindPeripheral];
             self.nameLabel.hidden = YES;
             [sender setTitle:@"绑定手环" forState:UIControlStateNormal];
@@ -84,7 +84,7 @@
             }
         }
     }else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请连接上设备后再操作" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"未能连接上手环，请检查蓝牙开启并将绑定的手环置于连接范围内后再尝试" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ac = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             sender.on = !sender.isOn;
         }];

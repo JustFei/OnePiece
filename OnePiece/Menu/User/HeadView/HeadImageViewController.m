@@ -88,17 +88,16 @@
                             [self.navigationController popViewControllerAnimated:YES];
                         });
                     }else {
-                        [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
-                        [self.hud hideAnimated:YES afterDelay:1];
+                        self.hud.label.text = @"网络服务器不可用，请稍后再尝试";
+                        [self.hud hideAnimated:YES afterDelay:2];
                     }
                 }];
                 //打印file文件的url地址
                 DLog(@"file url %@",file.url);
             } else {
                 //进行处理
-                DLog(@"%@",error);
-                [self.hud.label setText:[NSString stringWithFormat:@"头像同步失败，请重试"]];
-                [self.hud hideAnimated:YES afterDelay:1];
+                self.hud.label.text = @"网络服务器不可用，请稍后再尝试";
+                [self.hud hideAnimated:YES afterDelay:2];
             }
         } withProgressBlock:^(CGFloat progress) {
             DLog(@"upload progress == %f", progress);

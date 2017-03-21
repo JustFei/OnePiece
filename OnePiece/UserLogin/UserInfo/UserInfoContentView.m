@@ -42,15 +42,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.frame = frame;
-        self.titleArr = @[@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
-        NSArray *arr = @[@[@"",@"用户名"],@[@"未选择",@"1990/01/01",@"170cm",@"65kg"],@[@"10000"]];
-        self.infoArr = [NSMutableArray arrayWithArray:arr];
+        
     }
     return self;
 }
 
 - (void)layoutSubviews
 {
+    self.titleArr = @[@[@"头像",@"昵称"],@[@"性别",@"生日",@"身高",@"体重"],@[@"目标步数"]];
+    NSArray *arr = @[@[@"",self.userModel.account],@[@"男",@"1990/01/01",@"170cm",@"65kg"],@[@"10000"]];
+    self.infoArr = [NSMutableArray arrayWithArray:arr];
+    
+    self.userModel.gender = 0;
+    self.userModel.birthday = @"1990/01/01";
+    self.userModel.userName = self.userModel.account;
+    self.userModel.height = 170;
+    self.userModel.weight = 65;
+    self.userModel.stepTarget = 10000;
+    
     self.tableView.frame = XXF_CGRectMake(0, 0, kViewWidth, kViewHeight);
     self.nextStepButton.frame = XXF_CGRectMake(kViewCenter.x - 30, 465, 60, 30);
     DLog(@"%@",self.title);
@@ -107,9 +116,10 @@
                         self.userModel.gender = 0;
                     }else if ([self.infoLabel.text isEqualToString:@"女"]) {
                         self.userModel.gender = 1;
-                    }else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
-                        self.userModel.gender = -1;
                     }
+//                    else if ([self.infoLabel.text isEqualToString:@"未选择"]) {
+//                        self.userModel.gender = -1;
+//                    }
                 }
                     break;
                 case PickerTypeBirthday:
@@ -180,8 +190,8 @@
 //下一步按钮
 - (void)nextStepAction:(UIButton *)sender
 {
-    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请完善用户信息" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
-    if (self.headImage && self.userModel.account && self.userModel.pwd && self.userModel.userName && self.userModel.gender != -1 && self.userModel.birthday && self.userModel.height != 0 && self.userModel.weight != 0 && self.userModel.stepTarget != 0) {
+//    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请完善用户信息" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:nil, nil];
+//    if (self.headImage && self.userModel.account && self.userModel.pwd && self.userModel.userName && self.userModel.gender != -1 && self.userModel.birthday && self.userModel.height != 0 && self.userModel.weight != 0 && self.userModel.stepTarget != 0) {
         //显示等待菊花
         self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
         self.hud.label.text = @"正在存储信息";
@@ -232,24 +242,19 @@
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [[self findViewController:self].navigationController pushViewController:vc animated:YES];
                         });
-                        
                     }else {
                         self.hud.label.text = @"保存失败，请检查网络并重试";
                         [self.hud hideAnimated:YES afterDelay:1];
                     }
                 }];
-                
-                
-                //            [self.obj setObject:file.url forKey:@"userIcon"];
-                //打印file文件的url地址
-                DLog(@"file url %@",file.url);
+            }else {
+                self.hud.label.text = @"网络服务器不可用，请稍后再尝试";
+                [self.hud hideAnimated:YES afterDelay:2];
             }
         }];
-        
-        
-    }else {
-        [view show];
-    }
+//    }else {
+//        [view show];
+//    }
 }
 
 #pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
@@ -393,7 +398,8 @@
                 if (self.headImage) {
                     [cell.headImageView setImage:self.headImage];
                 }else {
-                    cell.headImageView.image = [UIImage imageNamed:@"HeadImage_default"];
+                    cell.headImageView.image = [UIImage imageNamed:@"HeadImageDefault"];
+                    self.headImage = [UIImage imageNamed:@"HeadImageDefault"];
                 }
                 cell.headImageView.layer.cornerRadius = cell.headImageView.frame.size.width / 2;
                 cell.headImageView.layer.borderColor = kWhiteColor.CGColor;
@@ -542,7 +548,7 @@
 - (NSArray *)genderArr
 {
     if (!_genderArr) {
-        _genderArr = @[@"未选择",@"男",@"女"];
+        _genderArr = @[@"男",@"女"];
     }
     return _genderArr;
 }

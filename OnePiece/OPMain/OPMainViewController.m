@@ -96,6 +96,7 @@
 {
     [super viewWillDisappear:YES];
     self.userArr = nil;
+    self.myBleTool = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,6 +107,10 @@
 - (void)createUI
 {
     self.contentView.backgroundColor = [UIColor whiteColor];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastSyncTime"]) {
+        NSString *lastSyncTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastSyncTime"];
+        self.contentView.syncLabel.text = [NSString stringWithFormat:@"上次%@",lastSyncTime];
+    }
     
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftButton.frame = CGRectMake(0, 0, 21, 21);
@@ -138,14 +143,15 @@
     }
     
     //昨日步数 : 用于计算霸气值用
-    self.stepArr = [self.myFmdbTool queryStepWithDate:_yestodayString];
-    if (self.stepArr.count) {
-        SportModel *sportModel = self.stepArr.lastObject;
-        _stepAngry = sportModel.stepNumber.integerValue / 10 * 0.5;
+    NSArray *yestodayStepArr = [self.myFmdbTool queryStepWithDate:_yestodayString];
+    if (yestodayStepArr.count) {
+        SportModel *sportModel = yestodayStepArr.lastObject;
+        _stepAngry = sportModel.stepNumber.integerValue;
     }
     
-    //睡眠 : 展示的是昨天的数据
-    self.sleepArr = [self.myFmdbTool querySleepWithDate:_yestodayString];
+    //睡眠 : 09:00前展示的是昨天的数据
+    //      09:00后展示的是今天的数据
+    self.sleepArr = [self.myFmdbTool querySleepWithDate:_todayString];
     if (self.sleepArr.count) {
         double sum = 0;
         for (SleepModel *sleepModel in self.sleepArr) {
@@ -153,8 +159,18 @@
         }
         self.contentView.sleepLabel.text = [NSString stringWithFormat:@"%.1f",sum];
         [self drawProgressWithString:sum withType:ReturnModelTypeSleepModel];
-        _sleepAngry = _stepAngry * (sum / 8.f) * 0.5;
     }
+    
+    //昨日睡眠 : 用于计算霸气值用
+    NSArray *yestodaySleepArr = [self.myFmdbTool querySleepWithDate:_yestodayString];
+    if (yestodaySleepArr.count) {
+        double sum = 0;
+        for (SleepModel *sleepModel in yestodaySleepArr) {
+            sum += sleepModel.sumSleep.doubleValue / 60;
+        }
+        _sleepAngry = _stepAngry * (sum / 8.f);
+    }
+    
     [self.contentView.aggressivenessLbael setText:[NSString stringWithFormat:@"%.f",_sleepAngry + _stepAngry]];
     //pk数据
     self.pkDataArr = [self.myFmdbTool queryPKDataWithData:_todayString];
@@ -466,6 +482,14 @@
         hud.minSize = CGSizeMake(132.f, 108.0f);
         [hud hideAnimated:YES afterDelay:2];
     }else {
+        if (sender) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.removeFromSuperViewOnHide =YES;
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"数据正在同步中";
+            hud.minSize = CGSizeMake(132.f, 108.0f);
+            [hud hideAnimated:YES afterDelay:2];
+        }
         //1.同步时间
         [self.myBleTool writeTimeToPeripheral:[NSDate date]];
         //2.同步运动历史
@@ -476,6 +500,14 @@
         //3.同步睡眠历史
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
+        });
+        //修改同步时间Label的文字
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
+        NSString *nowTime = [formatter stringFromDate:[NSDate date]];
+        [[NSUserDefaults standardUserDefaults] setObject:nowTime forKey:@"lastSyncTime"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.contentView.syncLabel.text = [NSString stringWithFormat:@"上次%@",nowTime];
         });
     }
 }
@@ -620,7 +652,7 @@
                     break;
             }
             
-            //查找GameScore表里面account的数据
+            //查找UserModel表里面account的数据
             NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
             [self.bquery whereKey:@"account" equalTo:account];
             [self.bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -655,7 +687,7 @@
 - (void)drawProgressWithString:(float)sum withType:(ReturnModelType)type
 {
     if (type == ReturnModelTypeSportModel) {
-        //TODO:绘制步数进度条
+        //绘制步数进度条
         UserInfoModel *model = self.userArr.firstObject;
         float progress = sum / model.stepTarget;
         
@@ -664,7 +696,7 @@
         });
         
     }else if (type == ReturnModelTypeSleepModel) {
-        //TODO:绘制睡眠进度条
+        //绘制睡眠进度条
         float progress = sum / 8.f;
         DLog(@"睡眠进度 == %f",progress);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
