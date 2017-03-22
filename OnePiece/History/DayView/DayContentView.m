@@ -8,9 +8,10 @@
 
 #import "DayContentView.h"
 #import "DayDataView.h"
+#import "HooDatePicker.h"
 
 
-@interface DayContentView () < UICollectionViewDataSource ,UICollectionViewDelegate , UIPickerViewDataSource , UIPickerViewDelegate >
+@interface DayContentView () < UICollectionViewDataSource ,UICollectionViewDelegate, HooDatePickerDelegate >
 {
     NSInteger _rowCount;
 }
@@ -22,7 +23,7 @@
 @property (nonatomic ,copy) NSString *currentDateString;
 @property (nonatomic ,assign) BOOL didEndDecelerating;
 //@property (nonatomic ,strong) UIPickerView *infoPickerView;
-@property (nonatomic ,strong) UIDatePicker *datePickerView;
+@property (nonatomic ,strong) HooDatePicker *datePicker;
 
 @end
 
@@ -154,34 +155,27 @@
     }
 }
 
-//#pragma mark - UIPickerViewDelegate && UIPickerViewDataSource
-//// UIPickerViewDataSource中定义的方法，该方法的返回值决定改控件包含多少列
-//
-//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//
-//{
-//    return 1;
-//}
-//
-//// UIPickerViewDataSource中定义的方法，该方法的返回值决定该控件指定列包含多少哥列表项
-//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//{
-//    return self.dateArr.count;
-//}
-//
-//// UIPickerViewDelegate中定义的方法，该方法返回NSString将作为UIPickerView中指定列和列表项上显示的标题
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//
-//{
-//    return self.dateArr[row];
-//}
-//
-//// 当用户选中UIPickerViewDataSource中指定列和列表项时激发该方法
-//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-//{
-//    _rowCount = row;
-//}
-
+//当 setContentOffset 结束的时候
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    @autoreleasepool {
+        self.didEndDecelerating = YES;
+        CGFloat index = scrollView.contentOffset.x/kViewWidth;
+        int i = roundf(index);
+        [self.centerDateButton setTitle:self.dateArr[i] forState:UIControlStateNormal];
+        if (i == self.dateArr.count - 1) {
+            self.rightButton.enabled = NO;
+        }else {
+            self.rightButton.enabled = YES;
+        }
+        
+        if (i == 0) {
+            self.leftButton.enabled = NO;
+        }else {
+            self.leftButton.enabled = YES;
+        }
+    }
+}
 
 #pragma mark - Action
 - (void)beforeDay:(UIButton *)sender
@@ -215,53 +209,48 @@
 - (void)showTheDateListHaveData:(UIButton *)sender
 {
     _rowCount = -1;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (_rowCount != -1) {
-            [self.collectionView setContentOffset:CGPointMake(_rowCount * kViewWidth, 0) animated:YES];
-            [self.centerDateButton setTitle:self.dateArr[_rowCount] forState:UIControlStateNormal];
-        }
-    }];
+
+    self.datePicker = [[HooDatePicker alloc] initWithSuperView:[self findViewController:self].view];
+    self.datePicker.delegate = self;
+    self.datePicker.datePickerMode = HooDatePickerModeDate;
+    [self.datePicker setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *maxDate = [NSDate date];
+    NSDate *minDate = [dateFormatter dateFromString:self.dateArr.firstObject];
+    self.datePicker.minimumDate = minDate;//设置显示的最小日期
+    self.datePicker.maximumDate = maxDate;//设置显示的最大日期
+    [self.datePicker setTintColor:DEFAULT_COLOR];//设置主色
+    [self.datePicker setHighlightColor:[UIColor blackColor]];//设置高亮颜色
+    //默认日期一定要最后设置，否在会被覆盖成当天的日期
+    [self.datePicker setDate:[dateFormatter dateFromString:self.centerDateButton.titleLabel.text] animated:YES];//设置默认日期
     
-    self.datePickerView = [[UIDatePicker alloc] initWithFrame:XXF_CGRectMake(0, 0, alert.view.frame.size.width - 30, 216)];
-    //self.datePickerView.tag = 1000 ;
-    [self.datePickerView setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
-    // 设置时区
-    [self.datePickerView setTimeZone:[NSTimeZone localTimeZone]];
-    // 设置当前显示时间
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSDate *birDate = [formatter dateFromString:self.centerDateButton.titleLabel.text];
-    [self.datePickerView setDate:birDate animated:YES];
-    // 设置显示的最小时间，此处为注册时间
-    [self.datePickerView setMinimumDate:[formatter dateFromString:self.dateArr.firstObject]];
-    // 设置显示最大时间，此处为当前时间
-    [self.datePickerView setMaximumDate:[NSDate date]];
-    // 设置UIDatePicker的显示模式
-    [self.datePickerView setDatePickerMode:UIDatePickerModeDate];
-    // 当值发生改变的时候调用的方法
-    [self.datePickerView addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [alert.view addSubview:self.datePickerView];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:okAction];
-    
-    [[self findViewController:self] presentViewController:alert animated:YES completion:nil];
+    [self.datePicker show];
 }
 
-- (void)datePickerValueChanged:(UIDatePicker *)datePicker
+#pragma mark - HooDatePickerDelegate
+- (void)datePicker:(HooDatePicker *)datePicker didCancel:(UIButton *)sender
 {
-    DLog(@"%@",datePicker.date);
+    [datePicker dismiss];
+}
+
+- (void)datePicker:(HooDatePicker *)dataPicker didSelectedDate:(NSDate *)date
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSString *currentDateString = [formatter stringFromDate:datePicker.date];
-    
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8 * 3600]];
+    NSString *currentDateString = [formatter stringFromDate:date];
     [self.dateArr enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        DLog(@"%ld == %@", (long)idx, obj);
         if ([obj isEqualToString:currentDateString]) {
             _rowCount = (int)idx;
         }
     }];
+    if (_rowCount != -1) {
+        [self.collectionView setContentOffset:CGPointMake(_rowCount * kViewWidth, 0) animated:YES];
+        [self.centerDateButton setTitle:self.dateArr[_rowCount] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - 懒加载

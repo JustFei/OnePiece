@@ -40,6 +40,10 @@ XXF_CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 
 #define kControllerCenter self.view.center
 
+#pragma mark - COLOR
+
+#define DEFAULT_COLOR [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
+
 #endif /* OPHeader_pch */
 
 

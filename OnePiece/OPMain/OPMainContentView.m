@@ -36,7 +36,7 @@
     CGSize textSize = [self.moneyLabel.text boundingRectWithSize:CGSizeMake(100, 100) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;;
     [self.moneyLabel setFrame:CGRectMake(self.frame.size.width / 2 - textSize.width / 2, 75 * kViewWidth / 375, textSize.width, textSize.height)];
     //设置赏金图标的位置
-    self.baileyView.frame = CGRectMake(self.moneyLabel.frame.origin.x - 15, self.moneyLabel.frame.origin.y, 25, 41.6);
+    self.baileyView.frame = CGRectMake(self.moneyLabel.frame.origin.x - 15, self.moneyLabel.frame.origin.y, 25 * kViewWidth / 375, 41.6 * kViewWidth / 375);
     
     self.moneyLabel.backgroundColor = kClearColor;
     //步数label
@@ -58,7 +58,7 @@
     //同步按钮
     self.syncButton.frame = CGRectMake(15, self.musicButton.frame.origin.y + 59 * kViewHeight / 667, 102 * kViewHeight / 667, 18.5 * kViewHeight / 667);
     //同步时间label
-    self.syncLabel.frame = CGRectMake(15, self.syncButton.frame.origin.y + 28 * kViewHeight / 667, 120 * kViewHeight / 667, 15 * kViewHeight / 667);
+    self.syncLabel.frame = CGRectMake(15, self.syncButton.frame.origin.y + 28 * kViewHeight / 667, 120 * kViewHeight / 667, 30 * kViewHeight / 667);
     //PK按钮
     self.PKButton.frame = CGRectMake(kViewWidth - 117 * kViewHeight / 667, self.syncButton.frame.origin.y, self.syncButton.frame.size.width, self.syncButton.frame.size.height);
     //步数进度条
@@ -335,8 +335,9 @@
     if (!_syncLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.textAlignment = NSTextAlignmentCenter;
-        [label setFont:[UIFont fontWithName:@"Baoli SC" size:11]];
+        [label setFont:[UIFont fontWithName:@"Baoli SC" size:11 * kViewWidth / 320]];
         [label setTextColor:kWhiteColor];
+        [label setNumberOfLines:0];
         [self addSubview:label];
         _syncLabel = label;
     }

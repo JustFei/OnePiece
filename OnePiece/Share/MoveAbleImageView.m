@@ -73,6 +73,7 @@
 // 处理旋转手势
 - (void) rotateView:(UIRotationGestureRecognizer *)rotationGestureRecognizer
 {
+#if 0
     //    sender.view.transform = CGAffineTransformMake(cos(M_PI_4), sin(M_PI_4), -sin(M_PI_4), cos(M_PI_4), 0, 0);
     //捏合手势两种改变方式
     //以原来的位置为标准
@@ -82,20 +83,20 @@
     rotationGestureRecognizer.view.transform = CGAffineTransformRotate(rotationGestureRecognizer.view.transform, rotationGestureRecognizer.rotation);
     //消除增量
     rotationGestureRecognizer.rotation = 0.0;
-    
-#if 0
+#endif
+
     UIView *view = rotationGestureRecognizer.view;
     if (rotationGestureRecognizer.state == UIGestureRecognizerStateBegan || rotationGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         view.transform = CGAffineTransformRotate(view.transform, rotationGestureRecognizer.rotation);
         [rotationGestureRecognizer setRotation:0];
     }
-#endif
+
 }
 
 // 处理缩放手势
 - (void) pinchView:(UIPinchGestureRecognizer *)pinchGestureRecognizer
 {
-    
+#if 0
     //scale 缩放比例
     //    sender.view.transform = CGAffineTransformMake(sender.scale, 0, 0, sender.scale, 0, 0);
     //每次缩放以原来位置为标准
@@ -114,44 +115,43 @@
         self.frame = largeFrame;
     }
     
-//#if 0
-//    UIImageView *imageView = (UIImageView *)pinchGestureRecognizer.view;
-//    if (!imageView) {
-//        return ;
-//    }
-//    //通过 transform(改变) 进行视图的视图的捏合
-//    imageView.transform = CGAffineTransformScale(imageView.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
-//    if (self.frame.size.width < oldFrame.size.width) {
-//        oldFrame.origin = self.frame.origin;
-//        self.frame = oldFrame;
-//        //让图片无法缩得比原图小
-//    }
-//    if (self.frame.size.width > 2 * oldFrame.size.width) {
-//        self.frame = largeFrame;
-//    }
-//    //设置比例 为 1
-//    pinchGestureRecognizer.scale = 1;
-//#endif
-//    
-//#if 0
-//    UIView *view = pinchGestureRecognizer.view;
-//    if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-//        view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
-//        if (self.frame.size.width < oldFrame.size.width) {
-//            self.frame = oldFrame;
-//            //让图片无法缩得比原图小
-//        }
-//        if (self.frame.size.width > 3 * oldFrame.size.width) {
-//            self.frame = largeFrame;
-//        }
-//        pinchGestureRecognizer.scale = 1;
-//    }
-//#endif
+
+    UIImageView *imageView = (UIImageView *)pinchGestureRecognizer.view;
+    if (!imageView) {
+        return ;
+    }
+    //通过 transform(改变) 进行视图的视图的捏合
+    imageView.transform = CGAffineTransformScale(imageView.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
+    if (self.frame.size.width < oldFrame.size.width) {
+        oldFrame.origin = self.frame.origin;
+        self.frame = oldFrame;
+        //让图片无法缩得比原图小
+    }
+    if (self.frame.size.width > 2 * oldFrame.size.width) {
+        self.frame = largeFrame;
+    }
+    //设置比例 为 1
+    pinchGestureRecognizer.scale = 1;
+#endif
+    
+    UIView *view = pinchGestureRecognizer.view;
+    if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
+        if (self.frame.size.width < oldFrame.size.width) {
+            self.frame = oldFrame;
+            //让图片无法缩得比原图小
+        }
+        if (self.frame.size.width > 3 * oldFrame.size.width) {
+            self.frame = largeFrame;
+        }
+        pinchGestureRecognizer.scale = 1;
+    }
 }
 
 // 处理拖拉手势
 - (void) panView:(UIPanGestureRecognizer *)panGestureRecognizer
 {
+#if 0
     UIImageView *imageView = (UIImageView *)panGestureRecognizer.view;
     if (!imageView) {
         return ;
@@ -163,13 +163,13 @@
     imageView.transform = CGAffineTransformTranslate(imageView.transform, position.x, position.y);
     //将增量置为零
     [panGestureRecognizer setTranslation:CGPointZero inView:imageView];
-    
-//    UIView *view = panGestureRecognizer.view;
-//    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-//        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
-//        [view setCenter:(CGPoint){view.center.x + translation.x, view.center.y + translation.y}];
-//        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
-//    }
+#endif
+    UIView *view = panGestureRecognizer.view;
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
+        [view setCenter:(CGPoint){view.center.x + translation.x, view.center.y + translation.y}];
+        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
+    }
 }
 
 

@@ -180,23 +180,33 @@
 
 - (void)bindPeripheral:(UIButton *)sender
 {
-    if (self.currentDevice) {
-        [self.myBleTool connectDevice:self.currentDevice];
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        self.hud.mode = MBProgressHUDModeIndeterminate;
-        [self.hud.label setText:@"正在连接设备..."];
-        [self.myBleTool stopScan];
-        [self.bindButton setEnabled:NO];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (self.myBleTool.connectState != kBLEstateDidConnected) {
-                [self.hud.label setText:@"连接失败"];
-                [self.hud setMode:MBProgressHUDModeText];
-                [self.hud hideAnimated:YES afterDelay:2];
-            }
-        });
+    if ([NetworkTool isExistenceNetwork]) {
+        if (self.currentDevice) {
+            [self.myBleTool connectDevice:self.currentDevice];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self.hud.mode = MBProgressHUDModeIndeterminate;
+            [self.hud.label setText:@"正在连接设备..."];
+            [self.myBleTool stopScan];
+            [self.bindButton setEnabled:NO];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (self.myBleTool.connectState != kBLEstateDidConnected) {
+                    [self.hud.label setText:@"连接失败"];
+                    [self.hud setMode:MBProgressHUDModeText];
+                    [self.hud hideAnimated:YES afterDelay:2];
+                }
+            });
+        }
+    }else {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.removeFromSuperViewOnHide =YES;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"当前网络不可用，请检查网络连接";
+        hud.minSize = CGSizeMake(132.f, 108.0f);
+        [hud hideAnimated:YES afterDelay:2];
     }
+    
 }
 
 #pragma mark - BleDiscoverDelegate

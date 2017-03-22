@@ -9,8 +9,7 @@
 #import "ShareViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
-
-
+#import "ShareCollectionViewCell.h"
 
 @interface ShareViewController () < UICollectionViewDelegate , UICollectionViewDataSource >
 
@@ -18,7 +17,7 @@
 @property (nonatomic ,strong) UIView *backView;
 @property (nonatomic ,strong) UICollectionView *collectionView;
 @property (nonatomic ,strong) UIImageView *backImageView;
-@property (nonatomic ,strong) NSArray *photoArr;
+@property (nonatomic ,strong) NSMutableArray *photoArr;
 
 @end
 
@@ -81,10 +80,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoThumbCell" forIndexPath:indexPath];
-    UIImageView *thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.photoArr[indexPath.row]]];
-    thumbImageView.frame = cell.bounds;
-    [cell addSubview:thumbImageView];
+    ShareCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoThumbCell" forIndexPath:indexPath];
+    ShareModel *model  = self.photoArr[indexPath.row];
+    cell.model = model;
     
     return cell;
 }
@@ -98,7 +96,17 @@
         self.userNameLabel.hidden = NO;
         self.moneyLabel.hidden = NO;
     }
-    self.backImageView.image = [UIImage imageNamed:self.photoArr[indexPath.row]];
+    //修改数据源中的选择的属性
+    for (int index = 0; index < self.photoArr.count; index ++) {
+        ShareModel *model = self.photoArr[index];
+        if (index == indexPath.row) {
+            model.beChoose = YES;
+        }else {
+            model.beChoose = NO;
+        }
+    }
+    self.backImageView.image = ((ShareModel *)self.photoArr[indexPath.row]).backImage;
+    [collectionView reloadData];
 }
 
 //设置每个item的UIEdgeInsets
@@ -313,7 +321,7 @@
         collectionView.dataSource = self;
         collectionView.bounces = NO;
         collectionView.showsHorizontalScrollIndicator = NO;
-        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"photoThumbCell"];
+        [collectionView registerNib:[UINib nibWithNibName:@"ShareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"photoThumbCell"];
         
         [self.view addSubview:collectionView];
         _collectionView = collectionView;
@@ -326,7 +334,7 @@
 {
     if (!_backImageView) {
         UIImageView *view = [[UIImageView alloc] initWithFrame:XXF_CGRectMake(0, 0, kControllerWidth, kControllerHeight - 130 * kControllerWidth / 375)];
-        view.image = [UIImage imageNamed:self.photoArr[0]];
+        view.image = ((ShareModel *)self.photoArr[0]).backImage;
         [self.backView addSubview:view];
         _backImageView = view;
     }
@@ -334,10 +342,17 @@
     return _backImageView;
 }
 
-- (NSArray *)photoArr
+- (NSMutableArray *)photoArr
 {
     if (!_photoArr) {
-        _photoArr = @[@"Photo1",@"Photo2",@"Photo3",@"Photo4",@"Photo5",@"Photo6",@"Photo7",@"Photo8",@"Photo9",@"Photo10",];
+        _photoArr = [NSMutableArray array];
+        NSArray *photoNameArr = @[@"Photo1",@"Photo2",@"Photo3",@"Photo4",@"Photo5",@"Photo6",@"Photo7",@"Photo8",@"Photo9",@"Photo10",];
+        for (NSString *photoName in photoNameArr) {
+            ShareModel *model = [[ShareModel alloc] init];
+            model.backImage = [UIImage imageNamed:photoName];
+            model.beChoose = [photoName isEqualToString:@"Photo1"] ? YES : NO;
+            [_photoArr addObject:model];
+        }
     }
     
     return _photoArr;

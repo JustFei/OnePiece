@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ShareCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="66" height="87"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="66" height="87"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Huw-Lz-dco">
+                        <rect key="frame" x="0.0" y="0.0" width="66" height="87"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Ls-ga-LoU">
+                        <rect key="frame" x="51" y="0.0" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="uee-XA-etb"/>
+                            <constraint firstAttribute="width" constant="15" id="ySg-hP-izS"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Huw-Lz-dco" secondAttribute="bottom" id="KiI-jv-DZz"/>
+                <constraint firstItem="6Ls-ga-LoU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="a93-cb-Bpa"/>
+                <constraint firstItem="Huw-Lz-dco" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bV3-z4-eaI"/>
+                <constraint firstAttribute="trailing" secondItem="6Ls-ga-LoU" secondAttribute="trailing" id="gVT-aj-5oA"/>
+                <constraint firstAttribute="trailing" secondItem="Huw-Lz-dco" secondAttribute="trailing" id="uQ2-JG-Erh"/>
+                <constraint firstItem="Huw-Lz-dco" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vA1-xg-yqC"/>
+            </constraints>
+            <size key="customSize" width="66" height="87"/>
+            <connections>
+                <outlet property="backImageView" destination="Huw-Lz-dco" id="pp9-Hz-zlf"/>
+                <outlet property="tickImageView" destination="6Ls-ga-LoU" id="NeH-Dt-FCn"/>
+            </connections>
+            <point key="canvasLocation" x="-73" y="29.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

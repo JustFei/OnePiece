@@ -44,6 +44,11 @@
 		9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5AF6141DE56A3E00B1075C /* RegisterTableViewCell.xib */; };
 		9C5AF61A1DE596E800B1075C /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF6191DE596E800B1075C /* UserInfoViewController.m */; };
 		9C5AF61D1DE5986000B1075C /* UserInfoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */; };
+		9C5B2B971E82132B00A2DD7F /* HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B2B941E82132B00A2DD7F /* HooDatePicker.m */; };
+		9C5B2B981E82132B00A2DD7F /* NSDate+HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B2B961E82132B00A2DD7F /* NSDate+HooDatePicker.m */; };
+		9C5B2B9C1E82536800A2DD7F /* ShareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B2B9A1E82536800A2DD7F /* ShareCollectionViewCell.m */; };
+		9C5B2B9D1E82536800A2DD7F /* ShareCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5B2B9B1E82536800A2DD7F /* ShareCollectionViewCell.xib */; };
+		9C5B2BA01E8254CA00A2DD7F /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B2B9F1E8254CA00A2DD7F /* ShareModel.m */; };
 		9C60D8C81DF8FA2C00A9C711 /* PKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C60D8C71DF8FA2C00A9C711 /* PKModel.m */; };
 		9C70290A1DD313CB00E37939 /* GradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7029091DD313CB00E37939 /* GradientLabel.m */; };
 		9C7029151DD31A6100E37939 /* BernardMTCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C70290D1DD31A2300E37939 /* BernardMTCondensed.ttf */; };
@@ -171,6 +176,15 @@
 		9C5AF6191DE596E800B1075C /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = UserLogin/UserInfo/UserInfoViewController.m; sourceTree = "<group>"; };
 		9C5AF61B1DE5986000B1075C /* UserInfoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoContentView.h; path = UserLogin/UserInfo/UserInfoContentView.h; sourceTree = "<group>"; };
 		9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UserInfoContentView.m; path = UserLogin/UserInfo/UserInfoContentView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		9C5B2B931E82132B00A2DD7F /* HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HooDatePicker.h; sourceTree = "<group>"; };
+		9C5B2B941E82132B00A2DD7F /* HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HooDatePicker.m; sourceTree = "<group>"; };
+		9C5B2B951E82132B00A2DD7F /* NSDate+HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HooDatePicker.h"; sourceTree = "<group>"; };
+		9C5B2B961E82132B00A2DD7F /* NSDate+HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HooDatePicker.m"; sourceTree = "<group>"; };
+		9C5B2B991E82536800A2DD7F /* ShareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareCollectionViewCell.h; path = Share/ShareCollectionViewCell.h; sourceTree = "<group>"; };
+		9C5B2B9A1E82536800A2DD7F /* ShareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareCollectionViewCell.m; path = Share/ShareCollectionViewCell.m; sourceTree = "<group>"; };
+		9C5B2B9B1E82536800A2DD7F /* ShareCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareCollectionViewCell.xib; path = Share/ShareCollectionViewCell.xib; sourceTree = "<group>"; };
+		9C5B2B9E1E8254CA00A2DD7F /* ShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareModel.h; path = Share/ShareModel.h; sourceTree = "<group>"; };
+		9C5B2B9F1E8254CA00A2DD7F /* ShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareModel.m; path = Share/ShareModel.m; sourceTree = "<group>"; };
 		9C60D8C61DF8FA2C00A9C711 /* PKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKModel.h; path = FMDBTool/Model/PKModel.h; sourceTree = "<group>"; };
 		9C60D8C71DF8FA2C00A9C711 /* PKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKModel.m; path = FMDBTool/Model/PKModel.m; sourceTree = "<group>"; };
 		9C7029081DD313CB00E37939 /* GradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientLabel.h; path = "Inherit(继承类)/GradientLabel.h"; sourceTree = "<group>"; };
@@ -382,6 +396,7 @@
 				9CFE00951DDB0C2800D38904 /* Menu */,
 				9C2295FB1DD2BC7300B3ACA4 /* OPMain */,
 				9C4663E71DE310FA00DBCC6B /* Share */,
+				9C5B2B921E82132B00A2DD7F /* HooDatePicker */,
 				9C2295D21DD2B3BC00B3ACA4 /* Supporting Files */,
 				9C22960A1DD2F9D200B3ACA4 /* Font */,
 			);
@@ -485,6 +500,11 @@
 				9C4663E91DE3111F00DBCC6B /* ShareViewController.m */,
 				9C7566831E026BAA00DAE45F /* MoveAbleImageView.h */,
 				9C7566841E026BAA00DAE45F /* MoveAbleImageView.m */,
+				9C5B2B991E82536800A2DD7F /* ShareCollectionViewCell.h */,
+				9C5B2B9A1E82536800A2DD7F /* ShareCollectionViewCell.m */,
+				9C5B2B9B1E82536800A2DD7F /* ShareCollectionViewCell.xib */,
+				9C5B2B9E1E8254CA00A2DD7F /* ShareModel.h */,
+				9C5B2B9F1E8254CA00A2DD7F /* ShareModel.m */,
 			);
 			name = Share;
 			sourceTree = "<group>";
@@ -554,6 +574,17 @@
 				9C5AF61C1DE5986000B1075C /* UserInfoContentView.m */,
 			);
 			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		9C5B2B921E82132B00A2DD7F /* HooDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				9C5B2B931E82132B00A2DD7F /* HooDatePicker.h */,
+				9C5B2B941E82132B00A2DD7F /* HooDatePicker.m */,
+				9C5B2B951E82132B00A2DD7F /* NSDate+HooDatePicker.h */,
+				9C5B2B961E82132B00A2DD7F /* NSDate+HooDatePicker.m */,
+			);
+			path = HooDatePicker;
 			sourceTree = "<group>";
 		};
 		9C60D8C51DF8FA0C00A9C711 /* Model */ = {
@@ -874,6 +905,7 @@
 				9CFE00C81DDC37C000D38904 /* ChangeUserTableViewCell.xib in Resources */,
 				9C4228C41E4AC55700AC6C1B /* BaoliSCRegular.ttf in Resources */,
 				9C728B4C1DE43F5C002F5EAB /* DayDataView.xib in Resources */,
+				9C5B2B9D1E82536800A2DD7F /* ShareCollectionViewCell.xib in Resources */,
 				9C54CDC91DE54CAC00183049 /* LoginViewController.xib in Resources */,
 				9C16FDFC1E03EFA3004D4F0D /* vrinda.ttf in Resources */,
 				9C5AF6161DE56A3E00B1075C /* RegisterTableViewCell.xib in Resources */,
@@ -959,9 +991,11 @@
 				9CED32971DED248300C7E098 /* HeartRateModel.m in Sources */,
 				9CED32951DED248300C7E098 /* BloodModel.m in Sources */,
 				9CED329A1DED248300C7E098 /* SetTimeModel.m in Sources */,
+				9C5B2B9C1E82536800A2DD7F /* ShareCollectionViewCell.m in Sources */,
 				9CBD38371DFA4E0C0045123C /* MonthHistoryModel.m in Sources */,
 				9CED32981DED248300C7E098 /* manridyModel.m in Sources */,
 				9C7566851E026BAA00DAE45F /* MoveAbleImageView.m in Sources */,
+				9C5B2B971E82132B00A2DD7F /* HooDatePicker.m in Sources */,
 				9CFE00CC1DDC4A8100D38904 /* ChangePwdViewController.m in Sources */,
 				9C4663E61DE2FBBE00DBCC6B /* HeadImageViewController.m in Sources */,
 				9C4663EA1DE3111F00DBCC6B /* ShareViewController.m in Sources */,
@@ -997,8 +1031,10 @@
 				9CED32961DED248300C7E098 /* BloodO2Model.m in Sources */,
 				9CFE00C01DDC319500D38904 /* ChangeUserViewController.m in Sources */,
 				9CED32A81DED248D00C7E098 /* manridyBleDevice.m in Sources */,
+				9C5B2B981E82132B00A2DD7F /* NSDate+HooDatePicker.m in Sources */,
 				9C4663E11DE2E37900DBCC6B /* SettingTableViewCell.m in Sources */,
 				9CCFD68F1E05318C006F3EC4 /* DGPopUpViewController.m in Sources */,
+				9C5B2BA01E8254CA00A2DD7F /* ShareModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
