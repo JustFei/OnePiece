@@ -120,13 +120,15 @@
 - (IBAction)showPwdNumber:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-//    if (self.pwdTF.text.length != 0) {
-        if (sender.selected) {
-            self.pwdTF.secureTextEntry = NO;
-        }else {
-            self.pwdTF.secureTextEntry = YES;
-        }
-//    }
+    //    if (self.pwdTF.text.length != 0) {
+    if (sender.selected) {
+        self.pwdTF.secureTextEntry = NO;
+        self.pwdTF.keyboardType = UIKeyboardTypeASCIICapable;
+    }else {
+        self.pwdTF.secureTextEntry = YES;
+        self.pwdTF.keyboardType = UIKeyboardTypeASCIICapable;
+    }
+    //    }
 }
 
 //登陆按钮
