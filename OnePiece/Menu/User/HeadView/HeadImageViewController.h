@@ -17,6 +17,6 @@ typedef void(^ChooseHeadImage)(UIImage *);
 
 @property (nonatomic ,strong) ChooseHeadImage chooseHeadImage;
 @property (nonatomic ,strong) NSString *accountString;
-
+@property (nonatomic ,assign) BOOL allowChangeHeadViewImage;
 
 @end

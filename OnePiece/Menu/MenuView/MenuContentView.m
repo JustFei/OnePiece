@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "BLETool.h"
 #import "FMDBTool.h"
+#import "HeadImageViewController.h"
 
 @interface MenuContentView () < UITableViewDelegate , UITableViewDataSource >
 
@@ -149,11 +150,23 @@
 //    delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
 }
 
+- (void)showBigHeadImageView
+{
+    HeadImageViewController *vc = [[HeadImageViewController alloc] init];
+    vc.allowChangeHeadViewImage = NO;
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    vc.accountString = account;
+    [[self findViewController:self].navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - 懒加载
 - (UIImageView *)headImageView
 {
     if (!_headImageView) {
         UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadImageDefault"]];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBigHeadImageView)];
+        view.userInteractionEnabled = YES;
+        [view addGestureRecognizer:tap];
         
         [self addSubview:view];
         _headImageView = view;

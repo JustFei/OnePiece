@@ -644,6 +644,7 @@
                 case 0:
                 {
                     HeadImageViewController *vc = [[HeadImageViewController alloc] init];
+                    vc.allowChangeHeadViewImage = YES;
                     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
                     vc.accountString = account;
                     [[self findViewController:self].navigationController pushViewController:vc animated:YES];
