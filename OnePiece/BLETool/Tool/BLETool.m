@@ -556,7 +556,7 @@ static BLETool *bleTool = nil;
 {
     //当你发现你感兴趣的连接外围设备，停止扫描其他设备，以节省电能。
     if (![peripheral.name isEqualToString:@""] && peripheral.name != NULL) {
-        if ([peripheral.name rangeOfString:@"HB011"].location != NSNotFound) {
+        if ([peripheral.name rangeOfString:@"HB011"].location != NSNotFound || [peripheral.name rangeOfString:@"ACG"].location != NSNotFound) {
             if (![self.deviceArr containsObject:peripheral]) {
                 [self.deviceArr addObject:peripheral];
                 DLog(@"%ld  个设备",(long)self.deviceArr.count);
