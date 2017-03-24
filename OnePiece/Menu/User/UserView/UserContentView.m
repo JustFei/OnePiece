@@ -355,7 +355,7 @@
                         //保存运动目标
                         [self.myFmdbTool modifyUserInfoModel:self.changeModel withModityType:UserInfoModifyTypeStepTarget];
                     }
-                    [[self findViewController:self] popoverPresentationController];
+                    [[self findViewController:self].navigationController popViewControllerAnimated:YES];
                 }
             }];
         }

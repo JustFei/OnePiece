@@ -190,7 +190,7 @@
             [self.bindButton setEnabled:NO];
             self.navigationItem.rightBarButtonItem.enabled = NO;
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 if (self.myBleTool.connectState != kBLEstateDidConnected) {
                     [self.hud.label setText:@"连接失败"];
                     [self.hud setMode:MBProgressHUDModeText];

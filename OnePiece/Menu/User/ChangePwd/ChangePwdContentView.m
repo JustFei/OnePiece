@@ -216,6 +216,10 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    if (textField.text.length + string.length > 16) {
+        
+        return NO;
+    }
     //当重新编辑密文密码时，可以做到拼接的功能
     NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (textField == self.oldPwdTextField && textField.isSecureTextEntry) {

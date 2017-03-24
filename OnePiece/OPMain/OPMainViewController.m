@@ -146,7 +146,7 @@
     NSArray *yestodayStepArr = [self.myFmdbTool queryStepWithDate:_yestodayString];
     if (yestodayStepArr.count) {
         SportModel *sportModel = yestodayStepArr.lastObject;
-        _stepAngry = sportModel.stepNumber.integerValue;
+        _stepAngry = sportModel.stepNumber.integerValue * 0.8;
     }
     
     //睡眠 : 09:00前展示的是昨天的数据
@@ -168,7 +168,7 @@
         for (SleepModel *sleepModel in yestodaySleepArr) {
             sum += sleepModel.sumSleep.doubleValue / 60;
         }
-        _sleepAngry = _stepAngry * (sum / 8.f);
+        _sleepAngry = _stepAngry * (sum / 8.f) * 0.2;
     }
     
     [self.contentView.aggressivenessLbael setText:[NSString stringWithFormat:@"%.f",_sleepAngry + _stepAngry]];
@@ -190,6 +190,12 @@
     //money数据
     UserInfoModel *userModel = self.userArr.firstObject;
     self.contentView.moneyLabel.text = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont fontWithName:@"BernardMT-Condensed" size:30 * kControllerWidth / 375],};
+    CGSize textSize = [self.contentView.moneyLabel.text boundingRectWithSize:CGSizeMake(10000, 100) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;
+    CGRect rect = CGRectMake(self.contentView.frame.size.width / 2 - textSize.width / 2, 75 * kControllerWidth / 375, textSize.width, textSize.height);
+    [self.contentView.moneyLabel setFrame:rect];
+    //设置赏金图标的位置
+    self.contentView.baileyView.frame = CGRectMake(rect.origin.x - 27, rect.origin.y, 25 * kControllerWidth / 375, 40 * kControllerWidth / 375);
 }
 
 - (void)bleConnect
@@ -258,7 +264,6 @@
     self.userArr = nil;
     UserInfoModel *userModel = self.userArr.firstObject;
     vc.moneyLabel.text = [NSString stringWithFormat:@"%@ - ",[NSStringTool countNumAndChangeformat:userModel.money]];
-    vc.userNameLabel.text = userModel.userName;
     
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -447,7 +452,7 @@
     //按钮：从相册选择，类型：UIAlertActionStyleDefault
     [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        PickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;//方式1
+        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//方式1
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = NO;
         //自代理
@@ -459,7 +464,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
         PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;//通过相机
-        PickerImage.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;//关闭闪光灯
+        PickerImage.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;//关闭闪光灯
         //允许编辑，即放大裁剪
         PickerImage.allowsEditing = NO;
         //代理

@@ -32,11 +32,11 @@
     self.backGroundImageView.frame = kViewFrame;
     //金币label
     self.moneyLabel.numberOfLines = 0;
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:30 * kViewWidth / 375],};
-    CGSize textSize = [self.moneyLabel.text boundingRectWithSize:CGSizeMake(100, 100) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;;
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont fontWithName:@"BernardMT-Condensed" size:30 * kViewWidth / 375],};
+    CGSize textSize = [self.moneyLabel.text boundingRectWithSize:CGSizeMake(10000, 100) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;;
     [self.moneyLabel setFrame:CGRectMake(self.frame.size.width / 2 - textSize.width / 2, 75 * kViewWidth / 375, textSize.width, textSize.height)];
     //设置赏金图标的位置
-    self.baileyView.frame = CGRectMake(self.moneyLabel.frame.origin.x - 15, self.moneyLabel.frame.origin.y, 25 * kViewWidth / 375, 41.6 * kViewWidth / 375);
+    self.baileyView.frame = CGRectMake(self.moneyLabel.frame.origin.x - 27, self.moneyLabel.frame.origin.y, 25 * kViewWidth / 375, 40 * kViewWidth / 375);
     
     self.moneyLabel.backgroundColor = kClearColor;
     //步数label
@@ -150,6 +150,8 @@
         label.outlineColor = kUIColorFromHEX(0xc68107, 1);
         label.outlineThickness = 3;
         label.drawOutline = YES;
+        //计算label宽度不准确是因为没有设置这一行
+        label.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:label];
         _moneyLabel = label;
     }

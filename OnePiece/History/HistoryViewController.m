@@ -86,8 +86,8 @@
         }
         
         //霸气值
-        float stepAngry = dayModel.step.floatValue / 10 * 0.5;
-        float sleepAngry = (dayModel.sumSleep.floatValue / 8.f) * stepAngry * 0.5;
+        float stepAngry = dayModel.step.floatValue * 0.8;
+        float sleepAngry = (dayModel.sumSleep.floatValue / 8.f) * stepAngry * 0.2;
         dayModel.aggressiveness = [NSString stringWithFormat:@"%d",(int)(stepAngry + sleepAngry)];
         
         //胜利，平局，失败，总比拼次数

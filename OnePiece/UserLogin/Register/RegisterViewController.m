@@ -435,28 +435,30 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.tag == 100) {                             //手机号输入框
-        if (textField.text.length + string.length >= 11) {
+        if (textField.text.length + string.length > 11) {
             return NO;
         }
     }else if (textField.tag == 101) {                       //验证码输入框
-        if (textField.text.length + string.length >= 6) {
+        if (textField.text.length + string.length > 6) {
             return NO;
         }
     }else if (textField.tag == 102) {                       //密码输入框
-        //当重新编辑密文密码时，可以做到拼接的功能
-        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if (textField.isSecureTextEntry) {
-            textField.text = toBeString;
-            return NO;
-        }
+        
         
         if (string.length == 0) {
             pwdLength = textField.text.length - range.length;
         }else {
             pwdLength = textField.text.length + string.length;
-            if (pwdLength >= 16) {
+            if (pwdLength > 16) {
                 return NO;
             }
+        }
+        
+        //当重新编辑密文密码时，可以做到拼接的功能
+        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (textField.isSecureTextEntry) {
+            textField.text = toBeString;
+            return NO;
         }
     }
     
@@ -478,7 +480,6 @@
 {
     RegisterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"registerCell"];
     cell.eyeButton.hidden = YES;
-    cell.PwdNumberTF.delegate = self;
     switch (indexPath.row) {
         case 0:
         {
@@ -494,6 +495,7 @@
             cell.countryNumberLabel.hidden = NO;
             cell.phoneNumberTF.hidden = NO;
             cell.phoneNumberTF.tag = 100;
+            cell.phoneNumberTF.delegate = self;
             cell.countryNumberLabel.text = @"+86";
             self.phoneNumberTextField = cell.phoneNumberTF;
         }
@@ -504,6 +506,7 @@
             cell.getVerificationCodeButton.hidden = NO;
             cell.PwdNumberTF.placeholder = @"验证码";
             cell.PwdNumberTF.tag = 101;
+            cell.PwdNumberTF.delegate = self;
             cell.PwdNumberTF.keyboardType = UIKeyboardTypeNumberPad;
             [cell.getVerificationCodeButton addTarget:self action:@selector(geiVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
             self.getSafeCodeButton = cell.getVerificationCodeButton;
@@ -513,9 +516,10 @@
         case 3:
         {
             cell.PwdNumberTF.hidden = NO;
-            cell.PwdNumberTF.placeholder = @"密码（6-16位，数字、大小写字母）";
+            cell.PwdNumberTF.placeholder = @"密码（6-16位，同时包含数字、大小写字母）";
             self.pwdTextField = cell.PwdNumberTF;
             cell.PwdNumberTF.tag = 102;
+            cell.PwdNumberTF.delegate = self;
             cell.PwdNumberTF.keyboardType = UIKeyboardTypeASCIICapable;
             cell.PwdNumberTF.secureTextEntry = YES;
             cell.eyeButton.hidden = NO;
