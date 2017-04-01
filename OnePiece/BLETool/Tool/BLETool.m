@@ -499,6 +499,15 @@ static BLETool *bleTool = nil;
     }
 }
 
+//使设备震动一下（主要在连接成功后震动一下提示）
+- (void)writeShockToPeripheral
+{
+    //写入操作
+    if (self.currentDev.peripheral) {
+        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:@"fc02020001"] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+    }
+}
+
 #pragma mark - CBCentralManagerDelegate
 //检查设备蓝牙开关的状态
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central

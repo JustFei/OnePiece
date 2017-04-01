@@ -229,4 +229,8 @@ typedef enum{
 
 //临时写入保持连接
 - (void)writeToKeepConnect;
+
+//使设备震动一下（主要在连接成功后震动一下提示）
+- (void)writeShockToPeripheral;
+
 @end

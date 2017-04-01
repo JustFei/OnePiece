@@ -228,6 +228,11 @@
     self.myBleTool.isReconnect = YES;
     [self.myBleTool writeTimeToPeripheral:[NSDate date]];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //连接成功后震动一下设备提示用户连接成功
+        [self.myBleTool writeShockToPeripheral];
+    });
+    
     //查找UserMode表里面account的数据
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     [self.bquery whereKey:@"account" equalTo:account];
@@ -277,8 +282,6 @@
             DLog(@"%@",error);
         }
     }];
-    
-    
 }
 
 - (void)manridyBLEDidFailConnectDevice:(manridyBleDevice *)device
