@@ -181,7 +181,7 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         if ([ENStr isEqualToString:@"01"]) {
             //这里不做单纯获取step的数据的操作
             model.sportModel.motionType = MotionTypeStep;
-        }else if ([ENStr isEqualToString:@"07"]) {
+        }else if ([ENStr isEqualToString:@"07"] || [ENStr isEqualToString:@"38"]) {
             NSData *stepData = [data subdataWithRange:NSMakeRange(2, 3)];
             int stepValue = [NSStringTool parseIntFromData:stepData];
             //        DLog(@"今日步数 = %d",stepValue);
@@ -477,7 +477,7 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         
         NSString *TyStr = [NSString stringWithFormat:@"%02x", hexBytes[1]];
         
-        if ([TyStr isEqualToString:@"00"]) {
+        if ([TyStr isEqualToString:@"00"] || [TyStr isEqualToString:@"03"]) {
             model.sleepModel.sleepState = SleepDataLastData;
             
         }else if ([TyStr isEqualToString:@"01"]) {
@@ -538,7 +538,6 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         model.sleepModel.sumSleep = sumSleepStr;
         model.sleepModel.date = startDateStr;
         model.isReciveDataRight = ResponsEcorrectnessDataRgith;
-        
     }else if ([head isEqualToString:@"8c"] || [head isEqualToString:@"8C"]) {
         model.isReciveDataRight = ResponsEcorrectnessDataFail;
     }
