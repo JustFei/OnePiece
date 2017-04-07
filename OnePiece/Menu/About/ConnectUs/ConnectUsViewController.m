@@ -34,6 +34,7 @@
     [button setTitle:@"" forState:UIControlStateNormal];
     [button setBackgroundColor:kRGBA(255, 255, 255, 0)];
     [button addTarget:self action:@selector(sendEmailToJiMan) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(sendLogToEmail:) forControlEvents:UIControlEventTouchDown];
     button.frame = XXF_CGRectMake(kControllerCenter.x - 125, 315 * kControllerWidth / 375, 250, 50);
     
     [self.view addSubview:button];
@@ -73,9 +74,56 @@
     //[[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"Ji.Man@outlook.com"]];
 }
 
+- (void)sendLogToEmail:(UIButton *)sender
+{
+    // 创建邮件发送界面
+    MFMailComposeViewController *mailCompose = [[MFMailComposeViewController alloc] init];
+    // 设置邮件代理
+    [mailCompose setMailComposeDelegate:self];
+    // 设置收件人
+    [mailCompose setToRecipients:@[@"1107965402@qq.com"]];
+    // 设置邮件主题
+    [mailCompose setSubject:@"ACGFit_Log"];
+    // 如使用HTML格式，则为以下代码
+    // [mailCompose setMessageBody:@"<html><body><p>Hello</p><p>World！</p></body></html>" isHTML:YES];
+    //添加 log 附件
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Log"];
+    NSArray *logArr = [self getFilenamelistOfType:@"log" fromDirPath:logDirectory];
+    for (NSString *logName in logArr) {
+        NSData *log = [NSData dataWithContentsOfFile:[logDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@", logName]]];
+        [mailCompose addAttachmentData:log mimeType:@"log" fileName:logName];
+    }
+    
+    //添加数据库附件
+    NSArray *dbArr = [self getFilenamelistOfType:@"sqlite" fromDirPath:[paths objectAtIndex:0]];
+    for (NSString *dbName in dbArr) {
+        NSData *db = [NSData dataWithContentsOfFile:[[paths objectAtIndex:0] stringByAppendingString:[NSString stringWithFormat:@"/%@", dbName]]];
+        [mailCompose addAttachmentData:db mimeType:@"sqlite" fileName:dbName];
+    }
+
+    // 弹出邮件发送视图
+    [self presentViewController:mailCompose animated:YES completion:nil];
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate的代理方法：
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-    
+    switch (result) {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail send canceled: 用户取消编辑");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: 用户保存邮件");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent: 用户点击发送");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail send errored: %@ : 用户尝试保存或发送邮件失败", [error localizedDescription]);
+            break;
+    }
+    // 关闭邮件发送视图
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -84,14 +132,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//遍历 Documents 目录下的所有 type 文件
+- (NSArray *)getFilenamelistOfType:(NSString *)type fromDirPath:(NSString *)dirPath
+{
+    NSMutableArray *filenamelist = [NSMutableArray arrayWithCapacity:10];
+    NSArray *tmplist = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:nil];
+    
+    for (NSString *filename in tmplist) {
+        NSString *fullpath = [dirPath stringByAppendingPathComponent:filename];
+        if ([self isFileExistAtPath:fullpath]) {
+            if ([[filename pathExtension] isEqualToString:type]) {
+                [filenamelist  addObject:filename];
+            }
+        }
+    }
+    
+    return filenamelist;
 }
-*/
+
+- (BOOL)isFileExistAtPath:(NSString*)fileFullPath {
+    BOOL isExist = NO;
+    isExist = [[NSFileManager defaultManager] fileExistsAtPath:fileFullPath];
+    return isExist;
+}
 
 @end

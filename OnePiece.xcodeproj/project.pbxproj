@@ -392,7 +392,6 @@
 				9C54CDC11DE5488C00183049 /* UserLogin */,
 				9C0F492C1DE3E378002AB4B0 /* History */,
 				9C7029071DD3136900E37939 /* Inherit(继承类) */,
-				9C7029061DD312A400E37939 /* Category */,
 				9CFE00951DDB0C2800D38904 /* Menu */,
 				9C2295FB1DD2BC7300B3ACA4 /* OPMain */,
 				9C4663E71DE310FA00DBCC6B /* Share */,
@@ -607,6 +606,7 @@
 		9C7029071DD3136900E37939 /* Inherit(继承类) */ = {
 			isa = PBXGroup;
 			children = (
+				9C7029061DD312A400E37939 /* Category */,
 				9C7029081DD313CB00E37939 /* GradientLabel.h */,
 				9C7029091DD313CB00E37939 /* GradientLabel.m */,
 			);
