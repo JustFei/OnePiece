@@ -364,6 +364,22 @@
     return protocolStr;
 }
 
+//逐条获取历史数据
++ (NSString *)protocolForFeedBackWithProStr:(NSString *)pro andCurrent:(NSInteger)current
+{
+    NSString *protocolStr = pro;
+    protocolStr = [protocolStr stringByAppendingString:[NSString stringWithFormat:@"%04ld", [self ToHex:current].integerValue]];
+    while (1) {
+        if (protocolStr.length < 40) {
+            protocolStr = [protocolStr stringByAppendingString:@"00"];
+        }else {
+            break;
+        }
+    }
+    
+    return protocolStr;
+}
+
 //将data转换为不带<>的字符串
 + (NSString *)convertToNSStringWithNSData:(NSData *)data
 {

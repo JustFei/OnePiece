@@ -328,37 +328,34 @@
                     break;
                 case MotionTypeDataInPeripheral:
                 {
-                    if (manridyModel.sportModel.sumDataCount != 0 && manridyModel.sportModel.sumDataCount) {
-                        //对具体的历史数据进行保存操作
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                            NSArray *stepArr = [self.myFmdbTool queryStepWithDate:manridyModel.sportModel.date];
-                            float height;float weight;
-                            _userArr = [self.myFmdbTool queryAllUserInfo];
-                            if (_userArr.count == 0) {
-                                weight = 75.0;
-                                height = 180.0;
-                            }else {
-                                //这里由于是单用户，所以取第一个值
-                                UserInfoModel *model = _userArr.firstObject;
-                                weight = model.weight;
-                                height = model.height;
-                            }
-                            manridyModel.sportModel.kCalNumber = [NSString stringWithFormat:@"%f",[NSStringTool getKcal:manridyModel.sportModel.stepNumber.integerValue withHeight:height andWeitght:weight]];
-                            manridyModel.sportModel.mileageNumber = [NSString stringWithFormat:@"%f",[NSStringTool getMileage:manridyModel.sportModel.stepNumber.integerValue withHeight:height]];
-                            
-                            if (stepArr.count == 0) {
-                                [self.myFmdbTool insertStepModel:manridyModel.sportModel];
-                            }else {
-                                [self.myFmdbTool modifyStepWithDate:currentDateString model:manridyModel.sportModel];
-                            }
-                            
-                            if (manridyModel.sportModel.sumDataCount == manridyModel.sportModel.currentDataCount + 1) {
-                                [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeStepAndkCal];
-                            }
-                            
-                        });
-                    }else {
+                    if (manridyModel.sportModel.sumDataCount == manridyModel.sportModel.currentDataCount) {
                         [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeStepAndkCal];
+                        DLog(@"feedback success current == %ld, sum == %ld", (long)manridyModel.sportModel.currentDataCount, (long)manridyModel.sportModel.sumDataCount);
+                    }else {
+                        DLog(@"motion current == %ld", (long)manridyModel.sportModel.currentDataCount);
+                        [self.myBleTool writeMotionFeedBackToPeripheral:manridyModel.sportModel.currentDataCount + 1];
+                        
+                        //对具体的历史数据进行保存操作
+                        NSArray *stepArr = [self.myFmdbTool queryStepWithDate:manridyModel.sportModel.date];
+                        float height;float weight;
+                        _userArr = [self.myFmdbTool queryAllUserInfo];
+                        if (_userArr.count == 0) {
+                            weight = 75.0;
+                            height = 180.0;
+                        }else {
+                            //这里由于是单用户，所以取第一个值
+                            UserInfoModel *model = _userArr.firstObject;
+                            weight = model.weight;
+                            height = model.height;
+                        }
+                        manridyModel.sportModel.kCalNumber = [NSString stringWithFormat:@"%f",[NSStringTool getKcal:manridyModel.sportModel.stepNumber.integerValue withHeight:height andWeitght:weight]];
+                        manridyModel.sportModel.mileageNumber = [NSString stringWithFormat:@"%f",[NSStringTool getMileage:manridyModel.sportModel.stepNumber.integerValue withHeight:height]];
+                        
+                        if (stepArr.count == 0) {
+                            [self.myFmdbTool insertStepModel:manridyModel.sportModel];
+                        }else {
+                            [self.myFmdbTool modifyStepWithDate:currentDateString model:manridyModel.sportModel];
+                        }
                     }
                 }
                     break;
@@ -379,21 +376,18 @@
                 
                 //如果历史数据，插入数据库
                 if (manridyModel.sleepModel.sleepState == SleepDataHistoryData) {
-//                    NSDate *currentDate = [NSDate date];
-//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//                    formatter.dateFormat = @"yyyy/MM/dd";
-//                    NSString *currentDateString = [formatter stringFromDate:currentDate];
                     
                     //如果历史数据总数不为空
-                    if (manridyModel.sleepModel.sumDataCount) {
-                        
+                    if (manridyModel.sleepModel.sumDataCount != 0) {
+                        if (manridyModel.sleepModel.sumDataCount == manridyModel.sleepModel.currentDataCount) {
+                            [self querySleepDataBaseWithDateString:_yestodayString];
+                            return;
+                        }else {
+                            DLog(@"sleep current == %ld", (long)manridyModel.sleepModel.currentDataCount + 1);
+                            [self.myBleTool writeSleepFeedBackToPeripheral:manridyModel.sleepModel.currentDataCount + 1];
+                        }
                         //插入历史睡眠数据，如果sumCount为0的话，就不做保存
                         [self.myFmdbTool insertSleepModel:manridyModel.sleepModel];
-                        
-                        //如果历史数据全部载入完成
-                        if (manridyModel.sleepModel.currentDataCount + 1 == manridyModel.sleepModel.sumDataCount) {
-                            [self querySleepDataBaseWithDateString:_yestodayString];
-                        }
                     }else {
                         //这里不查询历史，直接查询数据库展示即可
                         [self querySleepDataBaseWithDateString:_yestodayString];
@@ -498,14 +492,9 @@
         //1.同步时间
         [self.myBleTool writeTimeToPeripheral:[NSDate date]];
         //2.同步运动历史
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
         [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
-
-        });
         //3.同步睡眠历史
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
-        });
+        [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
         //修改同步时间Label的文字
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
@@ -703,7 +692,6 @@
     }else if (type == ReturnModelTypeSleepModel) {
         //绘制睡眠进度条
         float progress = sum / 8.f;
-        DLog(@"睡眠进度 == %f",progress);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.contentView.sleepProgress.curValue = progress * 100;
         });

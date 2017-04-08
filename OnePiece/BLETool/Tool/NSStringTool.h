@@ -28,6 +28,9 @@
 //专为提醒制作协议
 + (NSString *)protocolForRemind:(Remind *)model;
 
+//逐条获取历史数据
++ (NSString *)protocolForFeedBackWithProStr:(NSString *)pro andCurrent:(NSInteger)current;
+
 //将data转换为不带<>的字符串
 + (NSString *)convertToNSStringWithNSData:(NSData *)data;
 

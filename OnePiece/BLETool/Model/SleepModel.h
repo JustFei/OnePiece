@@ -13,11 +13,17 @@ typedef enum : NSUInteger {
     SleepDataHistoryData,
 } SleepData;
 
+typedef enum : NSUInteger {
+    GetSleepDataTypeReport = 0,
+    GetSleepDataTypeTake,
+} GetSleepDataType;
+
 @interface SleepModel : NSObject
 //关于睡眠数据的情况同心率数据的情况
 
 //判断睡眠数据的状态未历史还是最后一次
 @property (nonatomic ,assign) SleepData sleepState;
+@property (nonatomic ,assign) GetSleepDataType getType;
 //总的数据条数
 @property (nonatomic ,assign) NSInteger sumDataCount;
 //当前的数据条数

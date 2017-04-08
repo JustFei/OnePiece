@@ -188,6 +188,9 @@ typedef enum{
 //get motionInfo
 - (void)writeMotionRequestToPeripheralWithMotionType:(MotionType)type;
 
+//逐条获取计步的历史
+- (void)writeMotionFeedBackToPeripheral:(NSInteger)current;
+
 //set motionInfo zero
 - (void)writeMotionZeroToPeripheral;
 
@@ -208,6 +211,9 @@ typedef enum{
 
 //get sleepInfo
 - (void)writeSleepRequestToperipheral:(SleepData)sleepData;
+
+//根据编号来逐条获取睡眠数据
+- (void)writeSleepFeedBackToPeripheral:(NSInteger)currentCount;
 
 //photo and message remind
 - (void)writePhoneAndMessageRemindToPeripheral:(Remind *)remindModel;

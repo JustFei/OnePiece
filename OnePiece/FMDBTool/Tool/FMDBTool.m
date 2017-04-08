@@ -193,7 +193,7 @@ static FMDatabase *_fmdb;
         model.isOpen = [set boolForColumn:@"isopen"];
         model.ID = [set intForColumn:@"id"];
         
-        DLog(@"闹钟时间 == %@，是否打开 == %d, id == %ld",model.time , model.isOpen , (long)model.ID);
+        //DLog(@"闹钟时间 == %@，是否打开 == %d, id == %ld",model.time , model.isOpen , (long)model.ID);
         
         [arrM addObject:model];
     }
@@ -301,7 +301,7 @@ static FMDatabase *_fmdb;
         model.currentDataCount = currentDataCount;
         model.sumDataCount = sumDataCount;
         
-        DLog(@"%@的数据：步数=%@，卡路里=%@，里程=%@",date ,step ,kCal ,mileage);
+//        DLog(@"%@的数据：步数=%@，卡路里=%@，里程=%@",date ,step ,kCal ,mileage);
         
         [arrM addObject:model];
     }
@@ -458,7 +458,7 @@ static FMDatabase *_fmdb;
         model.sumDataCount = sumDataCount;
         model.date = date;
         
-        DLog(@"currentDataCount == %ld, sumDataCount == %ld, lowSleep == %@, deepSleep == %@, sumSleep == %@",(long)currentDataCount ,(long)sumDataCount ,lowSleep , deepSleep ,sumSleep);
+//        DLog(@"currentDataCount == %ld, sumDataCount == %ld, lowSleep == %@, deepSleep == %@, sumSleep == %@",(long)currentDataCount ,(long)sumDataCount ,lowSleep , deepSleep ,sumSleep);
         
         [arrM addObject:model];
     }
@@ -656,7 +656,7 @@ static FMDatabase *_fmdb;
         UserInfoModel *model = [UserInfoModel userInfoModelWithAccount:account andUserName:userName andGender:gender andBirthday:birthday andHeight:height andWeight:weight andStepLength:steplength andStepTarget:stepTarget andSleepTarget:sleepTarget andPeripheralName:peripheralName andbindPeripheralUUID:bindPeripheralUUID andPeripheralMac:peripheralMac andRegistTime:registTime];
         model.money = money;
         
-        DLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID,model.peripheralMac);
+//        DLog(@"%@,%@,%ld,%@,%ld,%ld,%ld,%ld,%ld,%@,%@,%@", model.account ,model.userName ,(long)model.gender ,model.birthday ,(long)model.height ,(long)model.weight ,(long)model.stepLength ,(long)model.stepTarget, (long)sleepTarget, model.peripheralName, model.bindPeripheralUUID,model.peripheralMac);
         
         [arrM addObject:model];
     }

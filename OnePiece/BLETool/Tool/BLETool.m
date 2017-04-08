@@ -29,16 +29,14 @@
 
 @property (nonatomic ,strong) CBCharacteristic *notifyCharacteristic;
 @property (nonatomic ,strong) CBCharacteristic *writeCharacteristic;
-
 @property (nonatomic ,strong) NSMutableArray *deviceArr;
-
 @property (nonatomic ,strong) CBCentralManager *myCentralManager;
-
-//@property (nonatomic ,strong) AllBleFmdb *fmTool;
-
 @property (nonatomic ,strong) UIAlertView *disConnectView;
-
 @property (nonatomic, strong) UNMutableNotificationContent *notiContent;
+@property (nonatomic, strong) dispatch_semaphore_t semaphore;
+@property (nonatomic, strong) dispatch_queue_t sendMessageQueue;
+@property (nonatomic, strong) NSTimer *resendTimer;
+@property (nonatomic, assign) BOOL haveResendMessage;
 
 @end
 
@@ -55,6 +53,9 @@ static BLETool *bleTool = nil;
         _myCentralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:nil];
 //        _fmTool = [[AllBleFmdb alloc] init];
         self.notiContent = [[UNMutableNotificationContent alloc] init];
+        // 信号量初始化为1
+        self.semaphore = dispatch_semaphore_create(1);
+        self.sendMessageQueue = dispatch_get_global_queue(0, 0);
     }
     return self;
 }
@@ -169,8 +170,8 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-        DLog(@"time success");
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+        DLog(@"set time success");
     }
 }
 
@@ -213,7 +214,8 @@ static BLETool *bleTool = nil;
         
         //写入操作
         if (self.currentDev.peripheral) {
-            [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+            [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+            DLog(@"set clock success");
         }
         
         
@@ -223,8 +225,8 @@ static BLETool *bleTool = nil;
         
         //写入操作
         if (self.currentDev.peripheral) {
-            [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            DLog(@"clock success");
+            [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+            DLog(@"get clock success");
         }
     }
 }
@@ -236,9 +238,16 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type: CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
         DLog(@"motion success");
     }
+}
+
+//逐条获取计步的历史
+- (void)writeMotionFeedBackToPeripheral:(NSInteger)current
+{
+    NSString *protocolStr = [NSStringTool protocolForFeedBackWithProStr:@"FC03C0" andCurrent:current];
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
 }
 
 //set motionInfo zero
@@ -248,7 +257,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
     }
 }
 //get GPS data
@@ -258,7 +267,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
         DLog(@"gps success");
     }
 }
@@ -272,7 +281,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:userInfoStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:userInfoStr]];
     }
 }
 
@@ -283,68 +292,29 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:targetStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:targetStr]];
     }
 }
 
 //set heart rate test state
 - (void)writeHeartRateTestStateToPeripheral:(HeartRateTestState)state
 {
-    switch (state) {
-        case HeartRateTestStateStop:
-            //stop heart rate test
-        {
-            NSString *stopStr = [NSStringTool protocolAddInfo:@"00" head:@"09"];
-            
-            if (self.currentDev.peripheral) {
-                [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:stopStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            }
-        }
-            break;
-        case HeartRateTestStateStart:
-            //start heart rate test
-        {
-            NSString *startStr = [NSStringTool protocolAddInfo:@"01" head:@"09"];
-            
-            if (self.currentDev.peripheral) {
-                [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:startStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            }
-        }
-            break;
-            
-        default:
-            break;
+    NSString *protocolStr;
+    protocolStr = state == HeartRateTestStateStop ? [NSStringTool protocolAddInfo:@"00" head:@"09"] : [NSStringTool protocolAddInfo:@"01" head:@"09"];
+    
+    if (self.currentDev.peripheral) {
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
     }
 }
 
 //get heart rate data
 - (void)writeHeartRateRequestToPeripheral:(HeartRateData)heartRateData
 {
-    switch (heartRateData) {
-        case HeartRateDataLastData:
-            //last data of heart rate
-        {
-            NSString *lastStr = [NSStringTool protocolAddInfo:@"00" head:@"0A"];
-            
-            if (self.currentDev.peripheral) {
-                [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:lastStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-                DLog(@"heartRate success");
-            }
-        }
-            break;
-        case HeartRateDataHistoryData:
-            //history data of heart rate
-        {
-            NSString *historyStr = [NSStringTool protocolAddInfo:@"01" head:@"0A"];
-            
-            if (self.currentDev.peripheral) {
-                [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:historyStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            }
-        }
-            break;
-            
-        default:
-            break;
+    NSString *protocolStr;
+    protocolStr = heartRateData == HeartRateDataLastData ? [NSStringTool protocolAddInfo:@"00" head:@"0A"] : [NSStringTool protocolAddInfo:@"01" head:@"0A"];
+    
+    if (self.currentDev.peripheral) {
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
     }
 }
 
@@ -365,12 +335,20 @@ static BLETool *bleTool = nil;
         default:
             break;
     }
-    DLog(@"sleep success");
+    DLog(@"sleep success protocol == %@",sleepStr);
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:sleepStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:sleepStr]];
     }
+}
+
+//根据编号来逐条获取睡眠数据
+- (void)writeSleepFeedBackToPeripheral:(NSInteger)currentCount
+{
+    NSString *procolStr = [NSStringTool protocolForFeedBackWithProStr:@"FC0C01" andCurrent:currentCount];
+    //NSLog(@"protocolStr == %@", procolStr);
+    [self addMessageToQueue:[NSStringTool hexToBytes:procolStr]];
 }
 
 //photo and message remind
@@ -379,7 +357,7 @@ static BLETool *bleTool = nil;
     NSString *remindStr;
     remindStr = [NSStringTool protocolForRemind:remindModel];
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:remindStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:remindStr]];
     }
 }
 
@@ -404,7 +382,7 @@ static BLETool *bleTool = nil;
     DLog(@"search == %@",searchStr);
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:searchStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:searchStr]];
     }
 }
 
@@ -421,7 +399,7 @@ static BLETool *bleTool = nil;
         }
     }
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:stopStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:stopStr]];
     }
 }
 
@@ -448,7 +426,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:bloodStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
     }
 }
 
@@ -475,7 +453,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:bloodStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
     }
 }
 
@@ -486,7 +464,7 @@ static BLETool *bleTool = nil;
     
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:protocolStr] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
     }
 }
 
@@ -495,7 +473,7 @@ static BLETool *bleTool = nil;
 {
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:@"fc0f00"] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:@"fc0f00"]];
     }
 }
 
@@ -504,8 +482,41 @@ static BLETool *bleTool = nil;
 {
     //写入操作
     if (self.currentDev.peripheral) {
-        [self.currentDev.peripheral writeValue:[NSStringTool hexToBytes:@"fc02020001"] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        [self addMessageToQueue:[NSStringTool hexToBytes:@"fc02020001"]];
     }
+}
+
+#pragma mark - 统一做消息队列处理，发送
+- (void)addMessageToQueue:(NSData *)message
+{
+    //1.写入数据
+    dispatch_async(self.sendMessageQueue, ^{
+        if (self.currentDev.peripheral) {
+            // wait操作-1，当别的消息进来就会阻塞，知道这条消息收到回调，signal+1后，才会继续执行。保证了消息的队列发送，保证稳定性。
+            __block long x = 0;
+            x = dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+            //NSLog(@"x == %ld", x);
+            [NSThread sleepForTimeInterval:0.01];
+            [self.currentDev.peripheral writeValue:message forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+#warning Resend Message Function
+            //self.haveResendMessage = YES;
+            //[self setResendTimerWithMessage:message];
+        }
+    });
+}
+
+//重发机制暂时等待
+- (void)setResendTimerWithMessage:(NSData *)message
+{
+    self.resendTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (self.haveResendMessage) {
+            [self.currentDev.peripheral writeValue:message forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+        }else {
+            [timer invalidate];
+            timer = nil;
+        }
+    }];
+    [self.resendTimer fire];
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -732,7 +743,6 @@ static BLETool *bleTool = nil;
     DLog(@"updateValue == %@",characteristic.value);
     
     [self analysisDataWithCharacteristic:characteristic.value];
-    
 }
 
 //写入某特征值后的回调
@@ -754,6 +764,8 @@ static BLETool *bleTool = nil;
         if ([headStr isEqualToString:@"00"] || [headStr isEqualToString:@"80"]) {
             //解析设置时间数据
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisSetTimeData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveSetTimeDataWithModel:)]) {
                 [self.receiveDelegate receiveSetTimeDataWithModel:model];
             }
@@ -761,6 +773,8 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"01"] || [headStr isEqualToString:@"81"]) {
             //解析闹钟数据
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisClockData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveSetClockDataWithModel:)]) {
                 [self.receiveDelegate receiveSetClockDataWithModel:model];
             }
@@ -768,6 +782,11 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"03"] || [headStr isEqualToString:@"83"]) {
             //解析获取的步数数据
             manridyModel *model =  [[AnalysisProcotolTool shareInstance] analysisGetSportData:value WithHeadStr:headStr];
+            if (model.sportModel.getType == GetDataTypeTake) {
+                // signal操作+1
+                long add = dispatch_semaphore_signal(self.semaphore);
+//                NSLog(@"add == %ld", add);
+            }
             if ([self.receiveDelegate respondsToSelector:@selector(receiveMotionDataWithModel:)]) {
                 [self.receiveDelegate receiveMotionDataWithModel:model];
             }else {
@@ -777,13 +796,15 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"04"] || [headStr isEqualToString:@"84"]) {
             //运动清零
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisSportZeroData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveDataWithModel:)]) {
                 [self.receiveDelegate receiveDataWithModel:model];
             }
             
         }else if ([headStr isEqualToString:@"05"] || [headStr isEqualToString:@"85"]) {
-            //获取到历史的GPS数据信息
-//            manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisHistoryGPSData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveGPSWithModel:)]) {
 //                [self.receiveDelegate receiveGPSWithModel:model];
 //                [_fmTool saveGPSToDataBase:model];
@@ -794,6 +815,8 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"06"] || [headStr isEqualToString:@"86"]) {
             //用户信息推送
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisUserInfoData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveUserInfoWithModel:)]) {
                 [self.receiveDelegate receiveUserInfoWithModel:model];
             }
@@ -801,6 +824,8 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"07"] || [headStr isEqualToString:@"87"]) {
             //运动目标推送
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisSportTargetData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveMotionTargetWithModel:)]) {
                 [self.receiveDelegate receiveMotionTargetWithModel:model];
             }
@@ -808,6 +833,8 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"09"] || [headStr isEqualToString:@"89"]) {
             //心率开关
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisHeartStateData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveHeartRateTestWithModel:)]) {
                 [self.receiveDelegate receiveHeartRateTestWithModel:model];
             }
@@ -815,6 +842,8 @@ static BLETool *bleTool = nil;
         }else if([headStr isEqualToString:@"0a"] || [headStr isEqualToString:@"0A"] || [headStr isEqualToString:@"8a"] || [headStr isEqualToString:@"8A"]) {
             //获取心率数据
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisHeartData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveHeartRateDataWithModel:)]) {
                 [self.receiveDelegate receiveHeartRateDataWithModel:model];
             }
@@ -822,6 +851,11 @@ static BLETool *bleTool = nil;
         }else if ([headStr isEqualToString:@"0c"] || [headStr isEqualToString:@"0C"] || [headStr isEqualToString:@"8c"] || [headStr isEqualToString:@"8C"]) {
             //获取睡眠
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisSleepData:value WithHeadStr: headStr];
+            if (model.sleepModel.getType == GetSleepDataTypeTake) {
+                // signal操作+1
+                long add = dispatch_semaphore_signal(self.semaphore);
+//                NSLog(@"add == %ld", add);
+            }
             if ([self.receiveDelegate respondsToSelector:@selector(receiveSleepInfoWithModel:)]) {
                 [self.receiveDelegate receiveSleepInfoWithModel:model];
             }else {
@@ -829,7 +863,8 @@ static BLETool *bleTool = nil;
             }
         }else if ([headStr isEqualToString:@"0d"] || [headStr isEqualToString:@"0D"] || [headStr isEqualToString:@"8d"] || [headStr isEqualToString:@"8D"]) {
             //上报GPS数据
-//            manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisGPSData:value WithHeadStr: headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveGPSWithModel:)]) {
 //                [self.receiveDelegate receiveGPSWithModel:model];
 //                [_fmTool saveGPSToDataBase:model];
@@ -837,6 +872,9 @@ static BLETool *bleTool = nil;
 //                [_fmTool saveGPSToDataBase:model];
             }
         }else if ([headStr isEqualToString:@"0f"] || [headStr isEqualToString:@"0F"]) {
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
+            
             NSString *MAStr = [NSString stringWithFormat:@"%x", hexBytes[7]];
             NSString *MIStr = [NSString stringWithFormat:@"%x", hexBytes[8]];
             NSString *REStr = [NSString stringWithFormat:@"%x", hexBytes[9]];
@@ -846,6 +884,8 @@ static BLETool *bleTool = nil;
                 [self.receiveDelegate receiveVersionWithVersionStr:versionStr];
             }
         }else if ([headStr isEqualToString:@"fc"] || [headStr isEqualToString:@"FC"]) {
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             NSString *secondStr = [NSString stringWithFormat:@"%02x", hexBytes[1]];
             NSString *TTStr = [NSString stringWithFormat:@"%02x", hexBytes[3]];
             if ([secondStr isEqualToString:@"10"]) {
@@ -859,18 +899,24 @@ static BLETool *bleTool = nil;
                 }
             }
         }else if ([headStr isEqualToString:@"10"]) {
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveSearchFeedback)]) {
                 [self.receiveDelegate receiveSearchFeedback];
             }
         }else if ([headStr isEqualToString:@"11"]) {
             //获取血压
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisBloodData:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveBloodDataWithModel:)]) {
                 [self.receiveDelegate receiveBloodDataWithModel:model];
             }
         }else if ([headStr isEqualToString:@"12"]) {
             //获取血氧
             manridyModel *model = [[AnalysisProcotolTool shareInstance] analysisBloodO2Data:value WithHeadStr:headStr];
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
             if ([self.receiveDelegate respondsToSelector:@selector(receiveBloodO2DataWithModel:)]) {
                 [self.receiveDelegate receiveBloodO2DataWithModel:model];
             }

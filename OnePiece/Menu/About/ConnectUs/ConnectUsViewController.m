@@ -34,6 +34,7 @@
     [button setTitle:@"" forState:UIControlStateNormal];
     [button setBackgroundColor:kRGBA(255, 255, 255, 0)];
     [button addTarget:self action:@selector(sendEmailToJiMan) forControlEvents:UIControlEventTouchUpInside];
+    //测试功能
     [button addTarget:self action:@selector(sendLogToEmail:) forControlEvents:UIControlEventTouchDown];
     button.frame = XXF_CGRectMake(kControllerCenter.x - 125, 315 * kControllerWidth / 375, 250, 50);
     
@@ -74,6 +75,7 @@
     //[[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"Ji.Man@outlook.com"]];
 }
 
+//测试功能，发送log和数据库到邮箱
 - (void)sendLogToEmail:(UIButton *)sender
 {
     // 创建邮件发送界面
@@ -84,8 +86,6 @@
     [mailCompose setToRecipients:@[@"1107965402@qq.com"]];
     // 设置邮件主题
     [mailCompose setSubject:@"ACGFit_Log"];
-    // 如使用HTML格式，则为以下代码
-    // [mailCompose setMessageBody:@"<html><body><p>Hello</p><p>World！</p></body></html>" isHTML:YES];
     //添加 log 附件
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Log"];

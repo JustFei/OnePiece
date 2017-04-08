@@ -171,8 +171,10 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
     
     const unsigned char *hexBytes = [data bytes];
     NSString *ENStr = [NSString stringWithFormat:@"%02x", hexBytes[1]];
-    NSString *historyDataCount = [NSString stringWithFormat:@"%02x", hexBytes[2]];
-    NSString *currentDataCount = [NSString stringWithFormat:@"%02x", hexBytes[3]];
+    NSData *sum = [data subdataWithRange:NSMakeRange(2, 1)];
+    NSString *historyDataCount = [NSString stringWithFormat:@"%d", [NSStringTool parseIntFromData:sum]];
+    NSData *current = [data subdataWithRange:NSMakeRange(3, 1)];
+    NSString *currentDataCount = [NSString stringWithFormat:@"%d", [NSStringTool parseIntFromData:current]];
     
     if ([head isEqualToString:@"03"]) {
         
@@ -202,6 +204,7 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
             NSDate *currentDate = [NSDate date];
             NSString *currentDateString = [dateformatter stringFromDate:currentDate];
             
+            model.sportModel.getType = [ENStr isEqualToString:@"07"] ? GetDataTypeTake : GetDataTypeReport;   //主动上报
             model.sportModel.date = currentDateString;
             model.sportModel.stepNumber = stepStr;
             model.sportModel.mileageNumber = mileageStr;
@@ -221,18 +224,31 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
             NSString *monthStr = [timeStr substringWithRange:NSMakeRange(3, 2)];
             NSString *dayStr = [timeStr substringWithRange:NSMakeRange(5, 2)];
             
-            NSData *stepData = [data subdataWithRange:NSMakeRange(9, 3)];
-            int stepValue = [NSStringTool parseIntFromData:stepData];
-            NSString *stepStr = [NSString stringWithFormat:@"%d",stepValue];
             NSString *dateStr = [NSString stringWithFormat:@"20%@/%@/%@",yearStr ,monthStr ,dayStr];
             
-            DLog(@"yy == %@ , mm == %@ , dd == %@ , date == %@",yearStr ,monthStr ,dayStr ,dateStr );
-            DLog(@"step = %@",stepStr);
-    
+            //DLog(@"yy == %@ , mm == %@ , dd == %@ , date == %@",yearStr ,monthStr ,dayStr ,dateStr );
+            //DLog(@"step = %@",stepStr);
+            NSData *stepData = [data subdataWithRange:NSMakeRange(2, 3)];
+            int stepValue = [NSStringTool parseIntFromData:stepData];
+            //        //DLog(@"今日步数 = %d",stepValue);
+            NSString *stepStr = [NSString stringWithFormat:@"%d",stepValue];
+            
+            NSData *mileageData = [data subdataWithRange:NSMakeRange(5, 3)];
+            int mileageValue = [NSStringTool parseIntFromData:mileageData];
+            //        //DLog(@"今日里程数 = %d",mileageValue);
+            NSString *mileageStr = [NSString stringWithFormat:@"%d",mileageValue];
+            
+            NSData *kcalData = [data subdataWithRange:NSMakeRange(8, 3)];
+            int kcalValue = [NSStringTool parseIntFromData:kcalData];
+            //        //DLog(@"卡路里 = %d",kcalValue);
+            NSString *kCalStr = [NSString stringWithFormat:@"%d",kcalValue];
+            
+            model.sportModel.getType = GetDataTypeTake;     //主动获取的历史
             model.sportModel.stepNumber = stepStr;
+            model.sportModel.mileageNumber = mileageStr;
+            model.sportModel.kCalNumber = kCalStr;
             model.sportModel.date = dateStr;
-            model.sportModel.motionType = MotionTypeDataInPeripheral;
-        }
+            model.sportModel.motionType = MotionTypeDataInPeripheral;        }
     }else if ([head isEqualToString:@"83"]) {
         model.isReciveDataRight = ResponsEcorrectnessDataFail;
     }
@@ -494,13 +510,14 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
             DLog(@"analysis : sumCount == %d,currentCount == %d",sumVale ,currentVale);
         }
         
+        model.sleepModel.getType = [TyStr isEqualToString:@"03"] ? GetSleepDataTypeReport : GetSleepDataTypeTake;
         NSData *startTime = [data subdataWithRange:NSMakeRange(4, 5)];
         NSString *startTimeStr = [NSString stringWithFormat:@"%@",startTime];
         NSString *yy = [startTimeStr substringWithRange:NSMakeRange(1, 2)];
         NSString *MM = [startTimeStr substringWithRange:NSMakeRange(3, 2)];
         NSString *dd = [startTimeStr substringWithRange:NSMakeRange(5, 2)];
         NSString *hh = [startTimeStr substringWithRange:NSMakeRange(7, 2)];
-        NSString *mm = [startTimeStr substringWithRange:NSMakeRange(9, 2)];
+        NSString *mm = [startTimeStr substringWithRange:NSMakeRange(10, 2)];
         startTimeStr = [NSString stringWithFormat:@"20%@/%@/%@ %02ld:%02ld",yy ,MM ,dd ,(long)hh.integerValue ,(long)mm.integerValue];
         NSString *startDateStr = [NSString stringWithFormat:@"20%@/%@/%@",yy ,MM ,dd];
         //逻辑：如果开始睡眠的时间在9点之后，开始日期就是今天的日期
@@ -517,7 +534,7 @@ static AnalysisProcotolTool *analysisProcotolTool = nil;
         NSString *endMM = [endTimeStr substringWithRange:NSMakeRange(3, 2)];
         NSString *enddd = [endTimeStr substringWithRange:NSMakeRange(5, 2)];
         NSString *endhh = [endTimeStr substringWithRange:NSMakeRange(7, 2)];
-        NSString *endmm = [endTimeStr substringWithRange:NSMakeRange(9, 2)];
+        NSString *endmm = [endTimeStr substringWithRange:NSMakeRange(10, 2)];
         endTimeStr = [NSString stringWithFormat:@"20%@/%@/%@ %02ld:%02ld",endyy ,endMM ,enddd ,(long)endhh.integerValue ,(long)endmm.integerValue];
         
         NSData *deepSleep = [data subdataWithRange:NSMakeRange(14, 2)];

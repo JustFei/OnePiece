@@ -15,6 +15,12 @@ typedef enum : NSUInteger {
     MotionTypeDataInPeripheral,
 } MotionType;
 
+typedef enum : NSUInteger {
+    //上报类型
+    GetDataTypeReport = 0,
+    GetDataTypeTake,
+} GetDataType;
+
 @interface SportModel : NSObject
 
 @property (nonatomic ,copy) NSString *stepNumber;
@@ -24,5 +30,6 @@ typedef enum : NSUInteger {
 @property (nonatomic ,assign) NSInteger currentDataCount;
 @property (nonatomic ,copy) NSString *date;
 @property (nonatomic ,assign) MotionType motionType;
+@property (nonatomic ,assign) GetDataType getType;
 
 @end
