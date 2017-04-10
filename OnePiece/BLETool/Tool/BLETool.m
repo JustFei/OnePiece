@@ -779,6 +779,9 @@ static BLETool *bleTool = nil;
                 [self.receiveDelegate receiveSetClockDataWithModel:model];
             }
 
+        }else if ([headStr isEqualToString:@"02"] || [headStr isEqualToString:@"82"]) {
+            // signal操作+1
+            dispatch_semaphore_signal(self.semaphore);
         }else if ([headStr isEqualToString:@"03"] || [headStr isEqualToString:@"83"]) {
             //解析获取的步数数据
             manridyModel *model =  [[AnalysisProcotolTool shareInstance] analysisGetSportData:value WithHeadStr:headStr];
