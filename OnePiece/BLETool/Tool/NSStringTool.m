@@ -368,7 +368,16 @@
 + (NSString *)protocolForFeedBackWithProStr:(NSString *)pro andCurrent:(NSInteger)current
 {
     NSString *protocolStr = pro;
-    protocolStr = [protocolStr stringByAppendingString:[NSString stringWithFormat:@"%04ld", [self ToHex:current].integerValue]];
+    NSString *currentStr = [self ToHex:current];
+    while (1) {
+        if (currentStr.length < 4) {
+            currentStr = [@"0" stringByAppendingString:currentStr];
+        }else {
+            break;
+        }
+    }
+    
+    protocolStr = [protocolStr stringByAppendingString:currentStr];
     while (1) {
         if (protocolStr.length < 40) {
             protocolStr = [protocolStr stringByAppendingString:@"00"];
