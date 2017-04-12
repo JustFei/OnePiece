@@ -169,10 +169,8 @@ static BLETool *bleTool = nil;
     NSString *protocolStr = [NSStringTool protocolAddInfo:currentStr head:@"00"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-        DLog(@"set time success");
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+    DLog(@"set time success");
 }
 
 //set clock
@@ -213,21 +211,15 @@ static BLETool *bleTool = nil;
         NSString *protocolStr = [NSString stringWithFormat:@"FC0100%@0000",clockStateStr];
         
         //写入操作
-        if (self.currentDev.peripheral) {
-            [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-            DLog(@"set clock success");
-        }
-        
-        
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+        DLog(@"set clock success");
     }else {
         //传入时间和头，返回协议字符串
         NSString *protocolStr = [NSStringTool protocolAddInfo:@"01" head:@"01"];
         
         //写入操作
-        if (self.currentDev.peripheral) {
-            [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-            DLog(@"get clock success");
-        }
+        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+        DLog(@"get clock success");
     }
 }
 
@@ -237,10 +229,8 @@ static BLETool *bleTool = nil;
     NSString *protocolStr = [NSStringTool protocolAddInfo:[NSString stringWithFormat:@"%ld",(unsigned long)type] head:@"03"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-        DLog(@"motion success");
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+    DLog(@"motion success");
 }
 
 //逐条获取计步的历史
@@ -256,9 +246,7 @@ static BLETool *bleTool = nil;
     NSString *protocolStr = [NSStringTool protocolAddInfo:nil head:@"04"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
 }
 //get GPS data
 - (void)writeGPSToPeripheral
@@ -266,10 +254,8 @@ static BLETool *bleTool = nil;
     NSString *protocolStr = [NSStringTool protocolAddInfo:nil head:@"05"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-        DLog(@"gps success");
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
+    DLog(@"gps success");
 }
 
 //set userInfo
@@ -280,9 +266,7 @@ static BLETool *bleTool = nil;
     userInfoStr = [NSStringTool protocolAddInfo:userInfoStr head:@"06"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:userInfoStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:userInfoStr]];
 }
 
 //set motion target
@@ -291,9 +275,7 @@ static BLETool *bleTool = nil;
     NSString *targetStr = [NSStringTool protocolAddInfo:target head:@"07"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:targetStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:targetStr]];
 }
 
 //set heart rate test state
@@ -302,9 +284,7 @@ static BLETool *bleTool = nil;
     NSString *protocolStr;
     protocolStr = state == HeartRateTestStateStop ? [NSStringTool protocolAddInfo:@"00" head:@"09"] : [NSStringTool protocolAddInfo:@"01" head:@"09"];
     
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
 }
 
 //get heart rate data
@@ -313,9 +293,7 @@ static BLETool *bleTool = nil;
     NSString *protocolStr;
     protocolStr = heartRateData == HeartRateDataLastData ? [NSStringTool protocolAddInfo:@"00" head:@"0A"] : [NSStringTool protocolAddInfo:@"01" head:@"0A"];
     
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
 }
 
 //get sleepInfo
@@ -338,9 +316,7 @@ static BLETool *bleTool = nil;
     DLog(@"sleep success protocol == %@",sleepStr);
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:sleepStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:sleepStr]];
 }
 
 //根据编号来逐条获取睡眠数据
@@ -356,9 +332,7 @@ static BLETool *bleTool = nil;
 {
     NSString *remindStr;
     remindStr = [NSStringTool protocolForRemind:remindModel];
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:remindStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:remindStr]];
 }
 
 //search my peripheral
@@ -381,9 +355,7 @@ static BLETool *bleTool = nil;
     }
     DLog(@"search == %@",searchStr);
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:searchStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:searchStr]];
 }
 
 //stop peripheral
@@ -398,9 +370,7 @@ static BLETool *bleTool = nil;
             break;
         }
     }
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:stopStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:stopStr]];
 }
 
 //get blood data
@@ -425,9 +395,7 @@ static BLETool *bleTool = nil;
     }
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
 }
 
 //get blood O2 data
@@ -452,9 +420,7 @@ static BLETool *bleTool = nil;
     }
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:bloodStr]];
 }
 
 //get version from peripheral
@@ -463,27 +429,21 @@ static BLETool *bleTool = nil;
     NSString *protocolStr = [NSStringTool protocolAddInfo:@"" head:@"0f"];
     
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:protocolStr]];
 }
 
 //临时写入保持连接
 - (void)writeToKeepConnect
 {
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:@"fc0f00"]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:@"fc0f00"]];
 }
 
 //使设备震动一下（主要在连接成功后震动一下提示）
 - (void)writeShockToPeripheral
 {
     //写入操作
-    if (self.currentDev.peripheral) {
-        [self addMessageToQueue:[NSStringTool hexToBytes:@"fc02020001"]];
-    }
+    [self addMessageToQueue:[NSStringTool hexToBytes:@"fc02020001"]];
 }
 
 #pragma mark - 统一做消息队列处理，发送
@@ -491,7 +451,7 @@ static BLETool *bleTool = nil;
 {
     //1.写入数据
     dispatch_async(self.sendMessageQueue, ^{
-        if (self.currentDev.peripheral) {
+        if (self.currentDev.peripheral && self.writeCharacteristic) {
             // wait操作-1，当别的消息进来就会阻塞，知道这条消息收到回调，signal+1后，才会继续执行。保证了消息的队列发送，保证稳定性。
             __block long x = 0;
             x = dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
