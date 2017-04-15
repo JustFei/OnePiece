@@ -457,6 +457,7 @@ static BLETool *bleTool = nil;
             x = dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
             //NSLog(@"x == %ld", x);
             [NSThread sleepForTimeInterval:0.01];
+            DLog(@"---%@", message);
             [self.currentDev.peripheral writeValue:message forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
 #warning Resend Message Function
             //self.haveResendMessage = YES;

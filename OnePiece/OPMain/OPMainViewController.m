@@ -481,28 +481,37 @@
         hud.minSize = CGSizeMake(132.f, 108.0f);
         [hud hideAnimated:YES afterDelay:2];
     }else {
-        if (sender) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.removeFromSuperViewOnHide =YES;
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"数据正在同步中";
-            hud.minSize = CGSizeMake(132.f, 108.0f);
-            [hud hideAnimated:YES afterDelay:2];
-        }
+//        if (sender) {
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud.removeFromSuperViewOnHide =YES;
+//            hud.mode = MBProgressHUDModeText;
+//            hud.label.text = @"数据正在同步中";
+//            hud.minSize = CGSizeMake(132.f, 108.0f);
+//            [hud hideAnimated:YES afterDelay:2];
+//        }
         //1.同步时间
         [self.myBleTool writeTimeToPeripheral:[NSDate date]];
         //2.同步运动历史
         [self.myBleTool writeMotionRequestToPeripheralWithMotionType:MotionTypeDataInPeripheral];
         //3.同步睡眠历史
         [self.myBleTool writeSleepRequestToperipheral:SleepDataHistoryData];
-        //修改同步时间Label的文字
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
-        NSString *nowTime = [formatter stringFromDate:[NSDate date]];
-        [[NSUserDefaults standardUserDefaults] setObject:nowTime forKey:@"lastSyncTime"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.contentView.syncLabel.text = [NSString stringWithFormat:@"上次%@",nowTime];
+        
+        //同步过程不允许点击
+        self.contentView.syncButton.enabled = !self.contentView.syncButton.enabled;
+        self.contentView.syncLabel.text = [NSString stringWithFormat:@"数据同步中..."];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.contentView.syncButton.enabled = !self.contentView.syncButton.enabled;
+            //修改同步时间Label的文字
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
+            NSString *nowTime = [formatter stringFromDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults] setObject:nowTime forKey:@"lastSyncTime"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.contentView.syncLabel.text = [NSString stringWithFormat:@"上次%@",nowTime];
+            });
         });
+        
     }
 }
 
